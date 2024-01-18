@@ -486,11 +486,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\source\\repos\\Medical System\\Medical System\\MS.csproj",
+      "projectUniqueName": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\Medical System\\MS.csproj",
       "projectName": "MS",
-      "projectPath": "C:\\Users\\HP\\source\\repos\\Medical System\\Medical System\\MS.csproj",
+      "projectPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\Medical System\\MS.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\source\\repos\\Medical System\\Medical System\\obj\\",
+      "outputPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\Medical System\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -507,8 +507,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\HP\\source\\repos\\Medical System\\MS.Application\\MS.Application.csproj": {
-              "projectPath": "C:\\Users\\HP\\source\\repos\\Medical System\\MS.Application\\MS.Application.csproj"
+            "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Application\\MS.Application.csproj": {
+              "projectPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Application\\MS.Application.csproj"
             }
           }
         }

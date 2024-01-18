@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\source\\repos\\Medical System\\MS.Data\\MS.Data.csproj",
+      "projectUniqueName": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj",
       "projectName": "MS.Data",
-      "projectPath": "C:\\Users\\HP\\source\\repos\\Medical System\\MS.Data\\MS.Data.csproj",
+      "projectPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\source\\repos\\Medical System\\MS.Data\\obj\\",
+      "outputPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",

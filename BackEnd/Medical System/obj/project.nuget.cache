@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gbWJMgz3OplKsYBvR9ql2a2lhOmi3rpAKf3cDQU5hqXRnOBZpPeVG0bUu0/m9/oyvr8yntM678dM7jHosSl/jA==",
+  "dgSpecHash": "mQmSsQfHpkZK/O6Kmr7awsMDdCyESe74Kdt7t17fMTdyxhrn5rPFpTkaXKvMHo3JkeNVkghuwJVaJKSXtw9t8Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\source\\repos\\Medical System\\Medical System\\MS.csproj",
+  "projectFilePath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\Medical System\\MS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
