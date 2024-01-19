@@ -11,6 +11,7 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public int TestID { get; set; }
         public int LabID { get; set; }
+
         public double Price { get; set; }
         public string Description { get; set; }
     }
