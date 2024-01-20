@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj": {}
+    "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj": {}
   },
   "projects": {
-    "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj": {
+    "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj",
+        "projectUniqueName": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj",
         "projectName": "MS.Data",
-        "projectPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj",
+        "projectPath": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\مشروع التخرج\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\obj\\",
+        "outputPath": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
