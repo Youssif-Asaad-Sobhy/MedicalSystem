@@ -21,4 +21,9 @@ namespace MS.Data.Enums
         Lab,
         XRay
     }
+    public enum HospitalType
+    {
+        Public,
+        Private
+    }
 }

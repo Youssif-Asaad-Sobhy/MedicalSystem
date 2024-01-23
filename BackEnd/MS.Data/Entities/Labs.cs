@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MS.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace MS.Data.Entities
         public string Name { get; set; }
 
         // create property for type 
+        public LabType Type { get; set; }
         public int ShiftID { get; set; }
         public int HospitalID { get; set; }
 
