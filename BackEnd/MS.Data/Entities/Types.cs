@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class Type
+    public class Types
     {
         public int ID { get; set; }
         public string Name { get; set; }

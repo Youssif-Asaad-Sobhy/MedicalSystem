@@ -15,8 +15,4 @@
     <ProjectReference Include="..\MS.Data\MS.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validation\" />
-  </ItemGroup>
-
 </Project>

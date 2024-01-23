@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using MS.Data.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MS.Data.Configuration
+namespace MS.Infrastructure.Configuration
 {
     public class HospitalEntityTypeConfiguration : IEntityTypeConfiguration<Hospital>
     {
