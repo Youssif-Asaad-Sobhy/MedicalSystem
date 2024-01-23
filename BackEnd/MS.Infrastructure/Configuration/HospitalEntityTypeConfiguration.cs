@@ -13,6 +13,7 @@ namespace MS.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Hospital> builder)
         {
+            
 
         }
     }
