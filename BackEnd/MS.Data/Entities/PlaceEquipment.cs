@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MS.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public int EquipmentID { get; set; }
         public int EntityID { get; set; }
-        public EntityType EType { get; set; }
+        public EntityType EntityType { get; set; }
 
     }
 }
