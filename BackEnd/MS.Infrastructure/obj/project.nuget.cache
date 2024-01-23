@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "P+KrBrcaRt43aLpyULWa/lDKFtSPiTirEPKGZA5iNEYx7xa2Wt4xR/lgE+LoD/ZFZy2gPpWHwSa2y5Y8V9vilw==",
+  "dgSpecHash": "JwFhtIzGKHA/yACVBtw26857fmWAm2mehLtQz4YPaPy0W//zGIsD9fuq1VX69ysVH6elnlYEQrDRoURVszEOeA==",
   "success": true,
   "projectFilePath": "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Infrastructure\\MS.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Ziad\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
     "C:\\Users\\Ziad\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.1\\microsoft.entityframeworkcore.8.0.1.nupkg.sha512",
     "C:\\Users\\Ziad\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.1\\microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\Ziad\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.1\\microsoft.entityframeworkcore.analyzers.8.0.1.nupkg.sha512",
