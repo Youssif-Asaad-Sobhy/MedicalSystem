@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using MS.Data.Entities;
 
 namespace MS.Infrastructure.Validation
@@ -12,13 +7,35 @@ namespace MS.Infrastructure.Validation
     {
         public HospitalValidator()
         {
-            RuleFor(x => x.ID).NotEmpty();
-            RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.Phone).NotEmpty().Length(11); 
-            RuleFor(x => x.Government).NotEmpty();
-            RuleFor(x => x.City).NotEmpty();
-            RuleFor(x => x.Country).NotEmpty();
-            RuleFor(x => x.Type).NotEmpty();
+            RuleFor(x => x.ID)
+                .NotNull()
+                .WithMessage("ID is required");
+
+            RuleFor(x => x.Name)
+                .NotNull()
+                .WithMessage("Name is required");
+
+            RuleFor(x => x.Phone)
+                .NotNull()
+                .WithMessage("Phone is required")
+                .Length(11)
+                .WithMessage("Phone must be 11 characters long");
+
+            RuleFor(x => x.Government)
+                .NotNull()
+                .WithMessage("Government is required");
+
+            RuleFor(x => x.City)
+                .NotNull()
+                .WithMessage("City is required");
+
+            RuleFor(x => x.Country)
+                .NotEmpty()
+                .WithMessage("Country is required");
+
+            RuleFor(x => x.Type)
+                .NotNull()
+                .WithMessage("Type is required");
         }
     }
 }

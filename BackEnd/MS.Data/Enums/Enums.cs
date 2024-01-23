@@ -16,9 +16,14 @@ namespace MS.Data.Enums
         Clinic,
         Lab
     }
-    enum LabType
+    public enum LabType
     {
         Lab,
         XRay
+    }
+    public enum HospitalType
+    {
+        Public,
+        Private
     }
 }
