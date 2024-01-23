@@ -597,19 +597,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {}
+    "C:\\Users\\Ziad\\.nuget\\packages\\": {},
+    "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Application\\MS.Application.csproj",
+      "projectUniqueName": "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Application\\MS.Application.csproj",
       "projectName": "MS.Application",
-      "projectPath": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Application\\MS.Application.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Application\\obj\\",
+      "projectPath": "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Application\\MS.Application.csproj",
+      "packagesPath": "C:\\Users\\Ziad\\.nuget\\packages\\",
+      "outputPath": "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Application\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ziad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -617,17 +622,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj": {
-              "projectPath": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj"
+            "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj": {
+              "projectPath": "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Data\\MS.Data.csproj"
             },
-            "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Infrastructure\\MS.Infrastructure.csproj": {
-              "projectPath": "D:\\Final Project\\Solution\\MedicalSystem\\BackEnd\\MS.Infrastructure\\MS.Infrastructure.csproj"
+            "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Infrastructure\\MS.Infrastructure.csproj": {
+              "projectPath": "D:\\Final Project\\MedicalSystem\\BackEnd\\MS.Infrastructure\\MS.Infrastructure.csproj"
             }
           }
         }
@@ -663,7 +669,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
