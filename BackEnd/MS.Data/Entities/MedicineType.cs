@@ -8,7 +8,6 @@ namespace MS.Data.Entities
 {
     public class MedicineType
     {
-        ///ID	MedID	TypeID	Price	Description	SideEffects	Warning	ExpireDuration
         public int ID { get; set; }
         public int MedicineID { get; set; }
         public int TypeID { get; set; }
@@ -16,6 +15,6 @@ namespace MS.Data.Entities
         public string Description { get; set; }
         public string SideEffects { get; set; }
         public string Warning { get; set; }
-        public DateTime ExpirationDuration { get; set; }
+        public DateTime ExpirationDate { get; set; }
     }
 }

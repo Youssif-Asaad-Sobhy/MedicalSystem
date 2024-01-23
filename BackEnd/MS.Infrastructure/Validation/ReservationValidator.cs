@@ -1,20 +1,43 @@
 ﻿using FluentValidation;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MS.Data.Enums;
 
 namespace MS.Infrastructure.Validation
 {
-    internal class ReservationValidator : AbstractValidator<Reservation>
+    public class ReservationValidator : AbstractValidator<Reservation>
     {
-        public ReservationValidator() 
+        public ReservationValidator()
         {
-            RuleFor(x=>x.ID)
-                .NotNull()
-                .NotEmpty
+            RuleFor(reservation => reservation.ID)
+                .NotEmpty().WithMessage("ID is required")
+                .GreaterThan(0).WithMessage("ID must be greater than 0");
+
+            RuleFor(reservation => reservation.Time)
+                .NotEmpty().WithMessage("Time is required")
+                .Must(BeInTheFuture).WithMessage("Time must be in the future");
+
+            RuleFor(reservation => reservation.UserID)
+                .NotEmpty().WithMessage("UserID is required")
+                .GreaterThan(0).WithMessage("UserID must be greater than 0");
+
+            RuleFor(reservation => reservation.State)
+                .IsInEnum().WithMessage("Invalid ReservationState");
+
+            RuleFor(reservation => reservation.EntityType)
+                .IsInEnum().WithMessage("Invalid EntityType");
+
+            RuleFor(reservation => reservation.EntityID)
+                .NotEmpty().WithMessage("EntityID is required")
+                .GreaterThan(0).WithMessage("EntityID must be greater than 0");
+
+            RuleFor(reservation => reservation.Price)
+                .GreaterThanOrEqualTo(0).WithMessage("Price must be non-negative");
+        }
+
+        // Custom validation method to check if the reservation time is in the future
+        private bool BeInTheFuture(DateTime time)
+        {
+            return time > DateTime.Now;
         }
     }
 }

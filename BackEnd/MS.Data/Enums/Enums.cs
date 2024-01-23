@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Enums
 {
-    enum ReservationState
+    public enum ReservationState
     {
         Done,
         Runing
     }
-    enum EntityType
+    public enum EntityType
     {
         Clinic,
         Lab
     }
-    enum LabType
+    public enum LabType
     {
         Lab,
         XRay
