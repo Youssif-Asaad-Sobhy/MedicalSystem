@@ -5,10 +5,11 @@ using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure
 {
-    public class Infrastructure
+    public static class Infrastructure
     {
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(this IServiceCollection services)
         {
+            #region Validation Resolving
             services.AddTransient<IValidator<Medicine>, MedicineValidator>();
             services.AddTransient<IValidator<Types>, TypesValidator>();
             services.AddTransient<IValidator<Pharmacy>, PharmacyValidator>();
@@ -30,7 +31,8 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<AttachmentDocuments>, AttachmentDocumentsValidator>();
             services.AddTransient<IValidator<PlaceEquipment>, PlaceEquipmentValidator>();
             services.AddTransient<IValidator<EntityAuth>, EntityAuthValidator>();
-            services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>();
+            services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>(); 
+            #endregion
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MS.Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Hospital> builder)
         {
-            
+          
         }
     }
 }
