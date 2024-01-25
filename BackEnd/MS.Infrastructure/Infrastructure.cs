@@ -21,7 +21,7 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<Shift>, ShiftValidator>();
             services.AddTransient<IValidator<Clinic>, ClinicValidator>();
             services.AddTransient<IValidator<Labs>, LabsValidator>();
-            services.AddTransient<IValidator<Tests>, TestsValidator>();
+            services.AddTransient<IValidator<Test>, TestsValidator>();
             services.AddTransient<IValidator<Hospital>, HospitalValidator>();
             services.AddTransient<IValidator<User>, UserValidator>();
             services.AddTransient<IValidator<Report>, ReportValidator>();

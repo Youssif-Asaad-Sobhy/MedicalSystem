@@ -14,6 +14,8 @@ namespace MS.Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Shift> builder)
         {
             builder.HasKey(s => s.ID);
+
+            builder.
         }
     }
 }

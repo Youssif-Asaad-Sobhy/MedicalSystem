@@ -22,7 +22,7 @@ namespace MS.Infrastructure.Configuration
 
             builder.HasMany(mt => mt.ReportMedicines)
                 .WithOne(rm => rm.MedicineType)
-                .HasForeignKey(rm => rm.MedTypeID)
+                .HasForeignKey(rm => rm.MedicineTypeID)
                 .OnDelete(DeleteBehavior.Cascade);
 
         }

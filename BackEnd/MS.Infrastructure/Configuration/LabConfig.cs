@@ -15,9 +15,9 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(l => l.ID);
 
-            builder.HasOne(lab=>lab.hospital)
-                .WithMany(hospital=>hospital.Labs)
-                .HasForeignKey(lab=>lab.HospitalID)
+            builder.HasMany(l => l.TestLabs)
+                .WithOne(tl=>tl.Lab)
+                .HasForeignKey(tl => tl.LabID)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(l => l.PlaceShifts)
@@ -25,7 +25,7 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(ps => ps.EntityID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(p => p.PlaceEquipment)
+            builder.HasMany(p => p.PlaceEquipments)
                .WithOne()
                .HasForeignKey(ps => ps.EntityID)
                .OnDelete(DeleteBehavior.Cascade);

@@ -15,14 +15,14 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(testlab => testlab.ID);
 
-            builder.HasOne(testlab => testlab.lab)
-                .WithMany(lab => lab.testLabs)
+            builder.HasOne(testlab => testlab.Lab)
+                .WithMany(lab => lab.TestLabs)
                 .HasForeignKey(testlab => testlab.LabID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(testlab => testlab.tests)
-                .WithMany(test => test.testLabs)
-                .HasForeignKey(testlab => testlab.TestID)
+            builder.HasOne(testlab => testlab.Test)
+                .WithMany(test => test.TestLabs)
+                .HasForeignKey(testlab => testlab.TestLabID)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

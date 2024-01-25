@@ -15,7 +15,7 @@ namespace MS.Data.Entities
         public Hospital Hospital { get; set; }
         public ICollection<PlaceShift> PlaceShifts { get; set; }
         public ICollection<PharmacyMedicine> PharmacyMedicines { get; set; }
-        public ICollection<PlaceEquipment> PlaceEquipment { get; set; }
+        public ICollection<PlaceEquipment> PlaceEquipments { get; set; }
 
 
     }

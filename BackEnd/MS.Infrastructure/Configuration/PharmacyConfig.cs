@@ -26,7 +26,7 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(ps => ps.EntityID)
                 .OnDelete(DeleteBehavior.Cascade);
             
-            builder.HasMany(p => p.PlaceEquipment)
+            builder.HasMany(p => p.PlaceEquipments)
                .WithOne()
                .HasForeignKey(ps => ps.EntityID)
                .OnDelete(DeleteBehavior.Cascade);

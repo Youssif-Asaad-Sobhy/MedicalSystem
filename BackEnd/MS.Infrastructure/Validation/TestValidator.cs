@@ -3,7 +3,7 @@ using MS.Data.Entities;
 
 namespace MS.Infrastructure.Validation
 {
-    public class TestsValidator : AbstractValidator<Tests>
+    public class TestsValidator : AbstractValidator<Test>
     {
         public TestsValidator()
         {

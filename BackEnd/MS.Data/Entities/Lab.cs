@@ -14,10 +14,10 @@ namespace MS.Data.Entities
         public string Name { get; set; }
         public LabType Type { get; set; }
         public int HospitalID { get; set; }
-        public Hospital hospital { get; set; }
-        public ICollection<TestLab> testLabs { get; set; }
+        public Hospital Hospital { get; set; }
+        public ICollection<TestLab> TestLabs { get; set; }
         public ICollection<PlaceShift> PlaceShifts { get; set; }
-        public ICollection<PlaceEquipment> PlaceEquipment { get; set; }
+        public ICollection<PlaceEquipment> PlaceEquipments { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
 
 

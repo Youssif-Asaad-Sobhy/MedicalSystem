@@ -11,7 +11,7 @@ namespace MS.Infrastructure.Validation
                 .NotEmpty().WithMessage("ID is required")
                 .GreaterThan(0).WithMessage("ID must be greater than 0");
 
-            RuleFor(testLab => testLab.TestID)
+            RuleFor(testLab => testLab.TestLabID)
                 .NotEmpty().WithMessage("TestID is required")
                 .GreaterThan(0).WithMessage("TestID must be greater than 0");
 

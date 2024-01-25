@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class Tests
+    public class Test
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public ICollection<TestLab> testLabs { get; set; }
+        public ICollection<TestLab> TestLabs { get; set; }
     }
 }
