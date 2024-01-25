@@ -18,5 +18,6 @@ namespace MS.Data.Entities
         public HospitalType Type { get; set; } 
         public ICollection<Department> Departments { get; set; }
         public ICollection<Lab> Labs { get; set; }
+        public ICollection<Pharmacy> Pharmacies { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure.Validation
 {
-    public class DocumentsValidator: AbstractValidator<Documents>
+    public class DocumentsValidator: AbstractValidator<Document>
     {
         public DocumentsValidator()
         {

@@ -10,11 +10,17 @@ using FluentValidation;
 using MS.Infrastructure.Validation;
 namespace MS.Infrastructure.Configuration
 {
-    public class DepartmentEntityTypeConfiguration : IEntityTypeConfiguration<Department>
+    public class DepartmentConfig : IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
             builder.HasKey(d => d.ID);
+
+            builder.HasMany(d => d.Clinics)
+                .WithOne(c => c.Department)
+                .HasForeignKey(c => c.DepartmentID)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasOne(d => d.Hospital)
                 .WithMany(hospital => hospital.Departments)
                 .HasForeignKey(d => d.HospitalID)

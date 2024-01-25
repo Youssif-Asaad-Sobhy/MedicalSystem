@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    public class LabEntityTypeConfiguration: IEntityTypeConfiguration<Lab>
+    public class LabConfig: IEntityTypeConfiguration<Lab>
     {
         public void Configure(EntityTypeBuilder<Lab> builder)
         {
@@ -19,6 +19,21 @@ namespace MS.Infrastructure.Configuration
                 .WithMany(hospital=>hospital.Labs)
                 .HasForeignKey(lab=>lab.HospitalID)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(l => l.PlaceShifts)
+                .WithOne()
+                .HasForeignKey(ps => ps.EntityID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(p => p.PlaceEquipment)
+               .WithOne()
+               .HasForeignKey(ps => ps.EntityID)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(l => l.Reservations)
+               .WithOne()
+               .HasForeignKey(r => r.EntityID)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

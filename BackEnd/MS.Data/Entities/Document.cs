@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class AttachmentDocuments
+    public class Document
     {
         public int ID { get; set; }
         public byte[] Content { get; set; }
-        
+        public int ReportID { get; set; }
+        public Report Report { get; set; }
     }
 }

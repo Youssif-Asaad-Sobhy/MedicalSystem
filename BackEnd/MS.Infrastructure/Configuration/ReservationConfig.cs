@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    public class UserReservationConfiguration: IEntityTypeConfiguration<Reservation>
+    internal class ReservationConfig :IEntityTypeConfiguration<Reservation>
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.HasKey(reservation=>reservation.ID);
+            builder.HasKey(r => r.ID);
         }
     }
 }

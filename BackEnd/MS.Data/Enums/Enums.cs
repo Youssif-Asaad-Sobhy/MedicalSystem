@@ -14,7 +14,8 @@ namespace MS.Data.Enums
     public enum EntityType
     {
         Clinic,
-        Lab
+        Lab,
+        Pharmacy
     }
     public enum LabType
     {

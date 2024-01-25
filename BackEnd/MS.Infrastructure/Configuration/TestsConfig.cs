@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    public class ShiftEntityTypeConfiguration: IEntityTypeConfiguration<Shift>
+    public class TestsConfig: IEntityTypeConfiguration<Tests>
     {
-        public void Configure(EntityTypeBuilder<Shift> builder)
+        public void Configure(EntityTypeBuilder<Tests> builder)
         {
-            builder.HasKey(s => s.ID);
+            builder.HasKey(t => t.ID);
         }
     }
 }

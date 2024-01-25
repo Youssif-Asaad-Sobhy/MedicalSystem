@@ -16,8 +16,10 @@ namespace MS.Infrastructure.Validation
 
             RuleFor(cp => cp.ClinicID).NotEmpty().WithMessage("ClinicID is required");
 
+            RuleFor(cp => cp.Name).NotNull().WithMessage("Name is Required");
+
             RuleFor(cp => cp.Price).NotEmpty().WithMessage("Price is required")
-                                   .GreaterThanOrEqualTo(0).WithMessage("Price must be greater than or equal to 0");
+                                   .GreaterThanOrEqualTo(1).WithMessage("Price must be greater than or equal to 1");
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    public class TestLabEntityTypeConfiguration : IEntityTypeConfiguration<TestLab>
+    public class TestLabConfig : IEntityTypeConfiguration<TestLab>
     {
         public void Configure(EntityTypeBuilder<TestLab> builder)
         {

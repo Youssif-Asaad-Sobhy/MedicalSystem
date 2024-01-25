@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class Shift
+    public class PlaceShift
     {
         public int ID { get; set; }
-        public string Name { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
         public int EntityID { get; set; }
         public EntityType EntityType { get; set; }
         public IEntity Entity { get; set; }
+        public int ShiftID { get; set; }
+        public Shift Shift { get; set; }
     }
 }

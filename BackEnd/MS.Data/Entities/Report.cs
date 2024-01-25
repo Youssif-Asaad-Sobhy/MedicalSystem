@@ -13,5 +13,8 @@ namespace MS.Data.Entities
         public string Description { get; set; }
         public int UserID { get; set; }
         public int DoctorID { get; set; }
+        public User User { get; set; }
+        public ICollection<Document> Documents { get; set; }
+        public ICollection<ReportMedicine> ReportMedicines { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace MS.Data.Entities
         public string Name { get; set; }
         public int HospitalID { get; set; }
         public Hospital Hospital { get; set; }
+        public ICollection<Clinic> Clinics { get; set; }
     }
 }
