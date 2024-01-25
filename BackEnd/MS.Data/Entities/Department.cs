@@ -11,5 +11,6 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public string Name { get; set; }
         public int HospitalID { get; set; }
+        public Hospital Hospital { get; set; }
     }
 }

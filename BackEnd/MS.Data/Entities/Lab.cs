@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class Labs
+    public class Lab
     {
         public int ID { get; set; }
         public string Name { get; set; }
-
-        // create property for type 
         public LabType Type { get; set; }
         public int ShiftID { get; set; }
         public int HospitalID { get; set; }
+        public Hospital hospital { get; set; }
+        public ICollection<TestLab> testLabs { get; set; }
 
     }
 }

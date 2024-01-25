@@ -16,5 +16,7 @@ namespace MS.Data.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public HospitalType Type { get; set; } 
+        public ICollection<Department> Departments { get; set; }
+        public ICollection<Lab> Labs { get; set; }
     }
 }

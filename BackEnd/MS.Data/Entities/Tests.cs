@@ -10,5 +10,6 @@ namespace MS.Data.Entities
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public ICollection<TestLab> testLabs { get; set; }
     }
 }
