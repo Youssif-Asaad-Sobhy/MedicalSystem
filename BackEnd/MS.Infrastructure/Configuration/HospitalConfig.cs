@@ -16,6 +16,14 @@ namespace MS.Infrastructure.Configuration
                 .WithOne(p=>p.Hospital)
                 .HasForeignKey(p=>p.HospitalID)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(h => h.Labs)
+                .WithOne(l => l.Hospital)
+                .HasForeignKey(l => l.HospitalID)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(h => h.Departments)
+                .WithOne(d => d.Hospital)
+                .HasForeignKey(d => d.HospitalID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

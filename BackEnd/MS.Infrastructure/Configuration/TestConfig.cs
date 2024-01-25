@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    public class TestsConfig: IEntityTypeConfiguration<Tests>
+    public class TestConfig: IEntityTypeConfiguration<Test>
     {
-        public void Configure(EntityTypeBuilder<Tests> builder)
+        public void Configure(EntityTypeBuilder<Test> builder)
         {
             builder.HasKey(t => t.ID);
         }

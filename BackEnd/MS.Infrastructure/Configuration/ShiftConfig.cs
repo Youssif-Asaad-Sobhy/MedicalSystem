@@ -15,7 +15,10 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(s => s.ID);
 
-            builder.
+            builder.HasMany(s => s.PlaceShifts)
+                .WithOne(ps => ps.Shift)
+                .HasForeignKey(ps => ps.ShiftID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

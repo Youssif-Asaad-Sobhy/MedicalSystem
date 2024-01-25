@@ -20,11 +20,6 @@ namespace MS.Infrastructure.Configuration
                 .WithOne(c => c.Department)
                 .HasForeignKey(c => c.DepartmentID)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasOne(d => d.Hospital)
-                .WithMany(hospital => hospital.Departments)
-                .HasForeignKey(d => d.HospitalID)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

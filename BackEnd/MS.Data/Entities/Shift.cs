@@ -17,5 +17,6 @@ namespace MS.Data.Entities
         public int EntityID { get; set; }
         public EntityType EntityType { get; set; }
         public IEntity Entity { get; set; }
+        public ICollection<PlaceShift > PlaceShifts { get; set; }
     }
 }

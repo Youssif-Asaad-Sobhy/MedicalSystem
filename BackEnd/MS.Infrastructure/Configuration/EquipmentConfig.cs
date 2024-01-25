@@ -20,7 +20,6 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(p => p.EquipmentID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
         }
     }
 }

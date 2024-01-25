@@ -15,10 +15,6 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(c => c.ID);
 
-            builder.HasMany(c => c.PlaceShifts)
-                .WithOne()
-                .HasForeignKey(ps => ps.EntityID)
-                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(c => c.ClinicPrices)
                 .WithOne(c => c.Clinic)
@@ -29,6 +25,11 @@ namespace MS.Infrastructure.Configuration
                .WithOne()
                .HasForeignKey(ps => ps.EntityID)
                .OnDelete(DeleteBehavior.Cascade);
+            
+            builder.HasMany(c => c.PlaceShifts)
+                .WithOne()
+                .HasForeignKey(ps => ps.EntityID)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(c => c.Reservations)
                .WithOne()

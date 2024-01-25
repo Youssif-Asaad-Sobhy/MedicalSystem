@@ -20,6 +20,11 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(d => d.ReportID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(r=>r.ReportMedicines)
+                .WithOne(rm=>rm.Report)
+                .HasForeignKey(rm=>rm.ReportID)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

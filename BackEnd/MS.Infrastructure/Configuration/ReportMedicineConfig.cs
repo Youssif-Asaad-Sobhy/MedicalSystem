@@ -13,7 +13,7 @@ namespace MS.Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<ReportMedicine> builder)
         {
-            builder.HasKey(r=>r.ID);
+            builder.HasKey(rm=>rm.ID);
         }
     }
 }

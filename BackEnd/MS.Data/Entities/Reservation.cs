@@ -11,12 +11,12 @@ namespace MS.Data.Entities
     {
         public int ID { get; set; }
         public DateTime Time{ get; set; }
-        public int UserID {  get; set; }
         public ReservationState State { get; set; }
         public EntityType EntityType { get; set; }
         public int EntityID { get; set; }
-        public double Price { get; set; }
         public IEntity Entity { get; set; }
+        public double Price { get; set; }
+        public int UserID {  get; set; }
         public User User { get; set; }
 
     }
