@@ -42,7 +42,9 @@ namespace MS.Infrastructure.Validation
                 .Must(ContainDigit)
                 .WithMessage("Password must contain at least one digit")
                 .Must(ContainSpecialCharacter)
-                .WithMessage("Password must contain at least one special character");
+                .WithMessage("Password must contain at least one special character")
+                .Must(password => !password.Contains(" "))
+                .WithMessage("Password cannot contain spaces");
 
             RuleFor(user => user.NID)
               .NotEmpty()
@@ -59,7 +61,10 @@ namespace MS.Infrastructure.Validation
 
             RuleFor(user => user.BirthDate)
                 .NotEmpty()
-                .WithMessage("BirthDate is required");
+                .WithMessage("BirthDate is required")
+                .LessThanOrEqualTo(DateTime.Now)
+                .WithMessage("BirthDate cannot be in the future");
+
         }
 
         private bool ContainUppercaseLetter(string password)

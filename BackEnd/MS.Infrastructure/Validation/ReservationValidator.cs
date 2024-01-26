@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MS.Data.Entities;
 using MS.Data.Enums;
+using System;
 
 namespace MS.Infrastructure.Validation
 {

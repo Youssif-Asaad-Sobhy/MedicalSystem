@@ -7,21 +7,11 @@ namespace MS.Infrastructure.Validation
     {
         public ClinicValidator()
         {
-            RuleFor(clinic => clinic.ID)
-                .GreaterThan(0)
-                .WithMessage("ID must be greater than 0");
+            RuleFor(c => c.ID).NotEmpty().WithMessage("ID is required");
 
-            RuleFor(clinic => clinic.Name)
-                .NotEmpty()
-                .WithMessage("Name is required");
+            RuleFor(c => c.Name).NotEmpty().WithMessage("Name is required");
 
-            RuleFor(clinic => clinic.ShiftID)
-                .GreaterThan(0)
-                .WithMessage("ShiftID must be greater than 0");
-
-            RuleFor(clinic => clinic.DepartmentID)
-                .GreaterThan(0)
-                .WithMessage("DepartmentID must be greater than 0");
+            RuleFor(c => c.DepartmentID).NotEmpty().WithMessage("DepartmentID is required");
         }
     }
 }
