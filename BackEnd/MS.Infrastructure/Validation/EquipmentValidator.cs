@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using MS.Data.Entities;
 
 namespace MS.Infrastructure.Validation
@@ -12,16 +7,23 @@ namespace MS.Infrastructure.Validation
     {
         public EquipmentValidator()
         {
-            RuleFor(e => e.ID).NotEmpty().WithMessage("ID is required");
+            RuleFor(equipment => equipment.ID)
+                .GreaterThan(0)
+                .WithMessage("ID must be greater than 0");
 
-            RuleFor(e => e.Name)
-                .NotEmpty().WithMessage("Name is required")
-                .MaximumLength(255).WithMessage("Name must not exceed 255 characters");
+            RuleFor(equipment => equipment.Name)
+                .NotEmpty()
+                .WithMessage("Name is required")
+                .Length(3, 50)
+                .WithMessage("Name must be between 3 and 50 characters")
+                .Matches("^[a-zA-Z0-9_]+$")
+                .WithMessage("Name must contain only alphanumeric characters and underscores");
 
-            RuleFor(e => e.Description)
-                .NotEmpty().WithMessage("Description is required")
-                .MaximumLength(1000).WithMessage("Description must not exceed 1000 characters");
-
+            RuleFor(equipment => equipment.Description)
+                .NotEmpty()
+                .WithMessage("Description is required")
+                .Length(10, 200)
+                .WithMessage("Description must be between 10 and 200 characters");
         }
     }
 }

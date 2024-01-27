@@ -12,11 +12,17 @@ namespace MS.Infrastructure.Validation
     {
         public ReportMedicineValidator()
         {
-            RuleFor(rm => rm.ID).NotEmpty();
-            
-            RuleFor(rm => rm.ReportID).NotEmpty().WithMessage("ReportID is required.");
+            RuleFor(reportMedicine => reportMedicine.ID)
+                .NotEmpty().WithMessage("ID is required")
+                .GreaterThan(0).WithMessage("ID must be greater than 0");
 
-            RuleFor(rm => rm.MedID).NotEmpty().WithMessage("MedID is required.");
+            RuleFor(reportMedicine => reportMedicine.ReportID)
+                .NotEmpty().WithMessage("ReportID is required")
+                .GreaterThan(0).WithMessage("ReportID must be greater than 0");
+
+            RuleFor(reportMedicine => reportMedicine.MedicineTypeID)
+                .NotEmpty().WithMessage("MedicineTypeID is required")
+                .GreaterThan(0).WithMessage("MedicineTypeID must be greater than 0");
         }
     }
 }

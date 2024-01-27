@@ -1,34 +1,31 @@
 ﻿using FluentValidation;
 using MS.Data.Entities;
-using MS.Data.Enums;
 
 namespace MS.Infrastructure.Validation
 {
-    public class LabsValidator : AbstractValidator<Labs>
+    public class LabValidator : AbstractValidator<Lab>
     {
-        public LabsValidator()
+        public LabValidator()
         {
-            RuleFor(labs => labs.ID)
+            RuleFor(lab => lab.ID)
                 .GreaterThan(0)
                 .WithMessage("ID must be greater than 0");
 
-            RuleFor(labs => labs.Name)
+            RuleFor(lab => lab.Name)
                 .NotEmpty()
-                .WithMessage("Name is required");
+                .WithMessage("Name is required")
+                .Length(3, 50)
+                .WithMessage("Name must be between 3 and 50 characters");
 
-            RuleFor(labs => labs.Type)
+            RuleFor(lab => lab.Type)
                 .IsInEnum()
                 .WithMessage("Invalid LabType");
 
-            RuleFor(labs => labs.ShiftID)
-                .GreaterThan(0)
-                .WithMessage("ShiftID must be greater than 0");
-
-            RuleFor(labs => labs.HospitalID)
+            RuleFor(lab => lab.HospitalID)
                 .GreaterThan(0)
                 .WithMessage("HospitalID must be greater than 0");
+        
 
-            // Add any additional validation rules based on your requirements
         }
     }
 }

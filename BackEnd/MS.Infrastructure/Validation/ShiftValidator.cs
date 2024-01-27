@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MS.Data.Entities;
+using System;
 
 namespace MS.Infrastructure.Validation
 {
@@ -24,6 +25,12 @@ namespace MS.Infrastructure.Validation
                 .WithMessage("EndTime is required")
                 .GreaterThanOrEqualTo(shift => shift.StartTime)
                 .WithMessage("EndTime must be greater than or equal to StartTime");
+
+            RuleFor(shift => shift.EntityID)
+                .NotEmpty()
+                .WithMessage("EntityID is required")
+                .GreaterThan(0)
+                .WithMessage("EntityID must be greater than 0");
         }
     }
 }

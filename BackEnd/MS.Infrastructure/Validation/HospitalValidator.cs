@@ -7,35 +7,39 @@ namespace MS.Infrastructure.Validation
     {
         public HospitalValidator()
         {
-            RuleFor(x => x.ID)
-                .NotNull()
-                .WithMessage("ID is required");
+            RuleFor(hospital => hospital.ID)
+                .GreaterThan(0)
+                .WithMessage("ID must be greater than 0");
 
-            RuleFor(x => x.Name)
-                .NotNull()
-                .WithMessage("Name is required");
+            RuleFor(hospital => hospital.Name)
+                .NotEmpty()
+                .WithMessage("Name is required")
+                .Length(3, 50)
+                .WithMessage("Name must be between 3 and 50 characters");
 
-            RuleFor(x => x.Phone)
-                .NotNull()
+            RuleFor(hospital => hospital.Phone)
+                .NotEmpty()
                 .WithMessage("Phone is required")
+                .Matches("^\\d{10,15}$")
+                .WithMessage("Phone must be a valid numeric value with 10 to 15 digits")
                 .Length(11)
-                .WithMessage("Phone must be 11 characters long");
+                .WithMessage("phone number must be 11 digits");
 
-            RuleFor(x => x.Government)
-                .NotNull()
+            RuleFor(hospital => hospital.Government)
+                .NotEmpty()
                 .WithMessage("Government is required");
 
-            RuleFor(x => x.City)
-                .NotNull()
+            RuleFor(hospital => hospital.City)
+                .NotEmpty()
                 .WithMessage("City is required");
 
-            RuleFor(x => x.Country)
+            RuleFor(hospital => hospital.Country)
                 .NotEmpty()
                 .WithMessage("Country is required");
 
-            RuleFor(x => x.Type)
-                .NotNull()
-                .WithMessage("Type is required");
+            RuleFor(hospital => hospital.Type)
+                .IsInEnum()
+                .WithMessage("Invalid HospitalType");
         }
     }
 }

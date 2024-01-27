@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MS.Data.Entities;
+using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure
@@ -20,19 +22,24 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<Department>, DepartmentValidator>();
             services.AddTransient<IValidator<Shift>, ShiftValidator>();
             services.AddTransient<IValidator<Clinic>, ClinicValidator>();
-            services.AddTransient<IValidator<Labs>, LabsValidator>();
+            services.AddTransient<IValidator<Lab>, LabValidator>();
             services.AddTransient<IValidator<Test>, TestsValidator>();
             services.AddTransient<IValidator<Hospital>, HospitalValidator>();
             services.AddTransient<IValidator<User>, UserValidator>();
             services.AddTransient<IValidator<Report>, ReportValidator>();
-            services.AddTransient<IValidator<Documents>, DocumentsValidator>();
+            services.AddTransient<IValidator<Document>, DocumentValidator>();
             services.AddTransient<IValidator<ReportMedicine>, ReportMedicineValidator>();
             services.AddTransient<IValidator<Equipment>, EquipmentValidator>();
-            services.AddTransient<IValidator<AttachmentDocuments>, AttachmentDocumentsValidator>();
             services.AddTransient<IValidator<PlaceEquipment>, PlaceEquipmentValidator>();
             services.AddTransient<IValidator<EntityAuth>, EntityAuthValidator>();
             services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>(); 
             #endregion
+
+            services.AddDbContext<Context>(
+               options =>
+               {
+                   options.UseSqlServer("Data Source=.;Initial Catalog=Demo;Integrated Security=True;");
+               });
         }
     }
 }

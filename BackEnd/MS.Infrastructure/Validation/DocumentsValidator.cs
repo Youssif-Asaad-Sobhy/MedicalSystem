@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using MS.Data.Entities;
-using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure.Validation
 {
-    public class DocumentsValidator: AbstractValidator<Document>
+    public class DocumentValidator : AbstractValidator<Document>
     {
-        public DocumentsValidator()
+        public DocumentValidator()
         {
-            RuleFor(d => d.ID).NotEmpty();
-            
-            RuleFor(d => d.ReportID).NotEmpty().WithMessage("ReportID is required.");
+            RuleFor(document => document.ID)
+                .GreaterThan(0)
+                .WithMessage("ID must be greater than 0");
 
-            RuleFor(d => d.AttachmentID).NotEmpty().WithMessage("AttachmentID is required.");
-        
+            RuleFor(document => document.Content)
+                .NotEmpty()
+                .WithMessage("Content is required");
+
+            RuleFor(document => document.ReportID)
+                .GreaterThan(0)
+                .WithMessage("ReportID must be greater than 0");
         }
     }
 }

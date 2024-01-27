@@ -12,7 +12,7 @@ namespace MS.Data.Entities
     {
         public int ID { get; set; }
         public int EntityID { get; set; }
-        public EntityType EntityType { get; set; }
+        public Enums.EntityType EntityType { get; set; }
         public IEntity Entity { get; set; }
         public int ShiftID { get; set; }
         public Shift Shift { get; set; }

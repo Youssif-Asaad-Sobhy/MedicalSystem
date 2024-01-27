@@ -7,6 +7,7 @@ namespace MS.Infrastructure.Validation
     {
         public DepartmentValidator()
         {
+            // Validation rules from the first DepartmentValidator
             RuleFor(department => department.ID)
                 .GreaterThan(0)
                 .WithMessage("ID must be greater than 0");
