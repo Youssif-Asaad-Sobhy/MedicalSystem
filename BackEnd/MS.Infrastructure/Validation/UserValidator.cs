@@ -23,29 +23,8 @@ namespace MS.Infrastructure.Validation
                 .WithMessage("Email is required")
                 .EmailAddress()
                 .WithMessage("Invalid email format");
-
-            RuleFor(user => user.Phone)
-                .NotEmpty()
-                .WithMessage("Phone is required")
-                .Matches(@"^\d{10}$")
-                .WithMessage("Phone must be a 10-digit number");
-
-            RuleFor(user => user.password)
-                .NotEmpty()
-                .WithMessage("Password is required")
-                .MinimumLength(8)
-                .WithMessage("Password must be at least 8 characters long")
-                .Must(ContainUppercaseLetter)
-                .WithMessage("Password must contain at least one uppercase letter")
-                .Must(ContainLowercaseLetter)
-                .WithMessage("Password must contain at least one lowercase letter")
-                .Must(ContainDigit)
-                .WithMessage("Password must contain at least one digit")
-                .Must(ContainSpecialCharacter)
-                .WithMessage("Password must contain at least one special character")
-                .Must(password => !password.Contains(" "))
-                .WithMessage("Password cannot contain spaces");
-
+            
+            
             RuleFor(user => user.NID)
               .NotEmpty()
               .WithMessage("NID is required")

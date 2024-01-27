@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MS.Data.Entities;
+using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure
@@ -33,6 +35,12 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<EntityAuth>, EntityAuthValidator>();
             services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>(); 
             #endregion
+
+            services.AddDbContext<Context>(
+               options =>
+               {
+                   options.UseSqlServer("Data Source=.;Initial Catalog=Demo;Integrated Security=True;");
+               });
         }
     }
 }
