@@ -17,7 +17,7 @@ namespace MS.Infrastructure.Validation
             RuleFor(ea => ea.UserID).NotEmpty().WithMessage("UserID is required")
                                  .WithMessage("UserID must be greater than 0");
 
-            RuleFor(ea => ea.EntityType).NotNull().IsInEnum().WithMessage("Invalid EntityType");
+            RuleFor(ea => ea.PlaceType).NotNull().IsInEnum().WithMessage("Invalid EntityType");
 
             RuleFor(ea => ea.EntityID).NotEmpty().WithMessage("EntityID is required")
                                       .WithMessage("EntityID must be greater than 0");

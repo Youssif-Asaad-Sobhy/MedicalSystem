@@ -11,7 +11,7 @@ namespace MS.Data.Enums
         Done,
         Runing
     }
-    public enum EntityType
+    public enum PlaceType
     {
         Clinic,
         Lab,

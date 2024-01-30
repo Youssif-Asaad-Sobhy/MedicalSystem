@@ -13,7 +13,7 @@ namespace MS.Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(u=>u.ID);
+            builder.HasKey(u=>u.Id);
 
             builder.HasMany(u => u.Reports)
                 .WithOne(r => r.User)

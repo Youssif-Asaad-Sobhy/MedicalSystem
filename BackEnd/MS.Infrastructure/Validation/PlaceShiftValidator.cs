@@ -20,19 +20,11 @@ namespace MS.Infrastructure.Validation
                 .GreaterThan(0)
                 .WithMessage("EntityID must be greater than 0");
 
-            RuleFor(placeShift => placeShift.EntityType)
-                .IsInEnum().WithMessage("Invalid EntityType");
-
-            RuleFor(placeShift => placeShift.EntityType)
-                .Must(BeValidEntityType).WithMessage("Invalid EntityType");
+            RuleFor(placeShift => placeShift.PlaceType)
+                .IsInEnum().WithMessage("Invalid PlaceType");
 
             RuleFor(placeShift => placeShift.ShiftID)
                 .NotEmpty().WithMessage("ShiftID is required");
-        }
-
-        private bool BeValidEntityType(EntityType entityType)
-        {
-            return Enum.IsDefined(typeof(EntityType), entityType);
         }
     }
 }

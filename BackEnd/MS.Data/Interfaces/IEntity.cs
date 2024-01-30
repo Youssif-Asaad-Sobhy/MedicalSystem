@@ -8,6 +8,5 @@ namespace MS.Data.Interfaces
 {
     public interface IEntity 
     {
-
     }
 }

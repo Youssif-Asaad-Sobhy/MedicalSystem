@@ -11,7 +11,7 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public DateTime Time { get; set; }
         public string Description { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int DoctorID { get; set; }
         public User User { get; set; }
         public ICollection<Document> Documents { get; set; }

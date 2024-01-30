@@ -8,9 +8,9 @@ namespace MS.Infrastructure.Validation
     {
         public UserValidator()
         {
-            RuleFor(user => user.ID)
-                .GreaterThan(0)
-                .WithMessage("ID must be greater than 0");
+            RuleFor(user => user.Id)
+                .NotNull()
+                .WithMessage("ID is a must ");
 
             RuleFor(user => user.Name)
                 .NotEmpty()

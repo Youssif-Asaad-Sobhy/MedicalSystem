@@ -21,18 +21,18 @@ namespace MS.Infrastructure.Validation
             RuleFor(pe => pe.EntityID)
                 .NotEmpty().WithMessage("EntityID is required");
             
-            RuleFor(pe => pe.EntityType)
+            RuleFor(pe => pe.PlaceType)
                 .IsInEnum().WithMessage("Invalid EntityType");
 
-            RuleFor(pe => pe.EntityType)
+            RuleFor(pe => pe.PlaceType)
                 .Must(BeValidEntityType).WithMessage("Invalid EntityType");
 
         }
 
-        private bool BeValidEntityType(EntityType entityType)
+        private bool BeValidEntityType(PlaceType entityType)
         {
             // Add custom logic to validate EntityType
-            return Enum.IsDefined(typeof(EntityType), entityType);
+            return Enum.IsDefined(typeof(PlaceType), entityType);
         }
     }
 }

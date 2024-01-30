@@ -13,8 +13,7 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public int EquipmentID { get; set; }
         public int EntityID { get; set; }
-        public EntityType EntityType { get; set; }
-        public IEntity Entity { get; set; }
+        public PlaceType PlaceType { get; set; }
         public Equipment Equipment { get; set;}
     }
 }

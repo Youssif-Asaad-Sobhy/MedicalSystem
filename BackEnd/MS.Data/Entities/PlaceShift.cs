@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MS.Data.Enums;
 using MS.Data.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,7 @@ namespace MS.Data.Entities
     {
         public int ID { get; set; }
         public int EntityID { get; set; }
-        public Enums.EntityType EntityType { get; set; }
-        public IEntity Entity { get; set; }
+        public PlaceType PlaceType { get; set; }
         public int ShiftID { get; set; }
         public Shift Shift { get; set; }
     }

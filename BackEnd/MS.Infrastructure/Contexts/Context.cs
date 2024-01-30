@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using MS.Data.Enums;
 
 namespace MS.Infrastructure.Contexts
 {
@@ -25,7 +26,6 @@ namespace MS.Infrastructure.Contexts
             new ClinicPriceConfig().Configure(modelBuilder.Entity<ClinicPrice>());
             new DepartmentConfig().Configure(modelBuilder.Entity<Department>());
             new DocumentConfig().Configure(modelBuilder.Entity<Document>());
-            new EntityAuthConfig().Configure(modelBuilder.Entity<EntityAuth>());
             new EquipmentConfig().Configure(modelBuilder.Entity<Equipment>());
             new HospitalConfig().Configure(modelBuilder.Entity<Hospital>());
             new LabConfig().Configure(modelBuilder.Entity<Lab>());
@@ -52,7 +52,6 @@ namespace MS.Infrastructure.Contexts
         public DbSet<ClinicPrice> clinicsPrice { get; set; }
         public DbSet<Department> departments { get; set; }
         public DbSet<Document> documents { get; set; }
-        public DbSet<EntityAuth> entitiesAuth { get; set; }
         public DbSet<Equipment> equipments { get; set; }
         public DbSet<Hospital> hospitals { get; set; }
         public DbSet<Lab> labs { get; set; }

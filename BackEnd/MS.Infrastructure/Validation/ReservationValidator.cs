@@ -18,13 +18,12 @@ namespace MS.Infrastructure.Validation
                 .Must(BeInTheFuture).WithMessage("Time must be in the future");
 
             RuleFor(reservation => reservation.UserID)
-                .NotEmpty().WithMessage("UserID is required")
-                .GreaterThan(0).WithMessage("UserID must be greater than 0");
+                .NotEmpty().WithMessage("UserID is required");
 
             RuleFor(reservation => reservation.State)
                 .IsInEnum().WithMessage("Invalid ReservationState");
 
-            RuleFor(reservation => reservation.EntityType)
+            RuleFor(reservation => reservation.PlaceType)
                 .IsInEnum().WithMessage("Invalid EntityType");
 
             RuleFor(reservation => reservation.EntityID)

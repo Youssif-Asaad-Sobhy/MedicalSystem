@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MS.Data.Entities;
@@ -32,14 +33,11 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<Equipment>, EquipmentValidator>();
             services.AddTransient<IValidator<PlaceEquipment>, PlaceEquipmentValidator>();
             services.AddTransient<IValidator<EntityAuth>, EntityAuthValidator>();
-            services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>(); 
+            services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>();
             #endregion
 
-            services.AddDbContext<Context>(
-               options =>
-               {
-                   options.UseSqlServer("Data Source=.;Initial Catalog=Demo;Integrated Security=True;");
-               });
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<Context>();
         }
     }
 }
