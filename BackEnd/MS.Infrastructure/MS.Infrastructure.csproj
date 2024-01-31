@@ -26,4 +26,10 @@
     <ProjectReference Include="..\MS.Data\MS.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Repositories\UnitOfWork\" />
+    <Folder Include="Repositories\Repository\" />
+  </ItemGroup>
+
 </Project>

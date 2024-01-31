@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MS.Data.Entities;
 using MS.Infrastructure.Contexts;
+using MS.Infrastructure.Repositories.Generics;
 using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure
@@ -38,6 +39,7 @@ namespace MS.Infrastructure
 
             services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<Context>();
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
         }
     }
 }
