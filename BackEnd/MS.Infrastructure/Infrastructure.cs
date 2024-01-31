@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MS.Data.Entities;
 using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Repositories.Generics;
+using MS.Infrastructure.Repositories.UnitOfWork;
 using MS.Infrastructure.Validation;
 
 namespace MS.Infrastructure
@@ -39,7 +40,7 @@ namespace MS.Infrastructure
 
             services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<Context>();
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddTransient<IUnitOfWork,UnitOfWork>();
         }
     }
 }

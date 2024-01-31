@@ -13,7 +13,7 @@ namespace MS.Infrastructure.Repositories.Generics
         Task DeleteRangeAsync(ICollection<T> entities);
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
-        Task<IEnumerable<T>>GetByNameAsync(Expression<Func<string,bool>>expression,string name);
+        Task<IEnumerable<T>>GetByNameAsync(Expression<Func<T,bool>>expression,string name);
         Task SaveChangesAsync();
         IDbContextTransaction BeginTransaction();
         void Commit();

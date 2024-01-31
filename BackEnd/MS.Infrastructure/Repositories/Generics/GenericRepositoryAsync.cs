@@ -68,7 +68,7 @@ namespace MS.Infrastructure.Repositories.Generics
         }
         public virtual async Task DeleteRangeAsync(ICollection<T> entities)
         {
-            foreach (var entity in entities)
+            foreach (T entity in entities)
             {
                 _dbContext.Entry(entity).State = EntityState.Deleted;
             }
@@ -98,14 +98,15 @@ namespace MS.Infrastructure.Repositories.Generics
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().ToListAsync();
+            
         }
 
-        public Task<IEnumerable<T>> GetByNameAsync(Expression<Func<string, bool>> expression, string name)
+        public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().Where(expression).ToListAsync();
         }
 
 
