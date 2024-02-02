@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace MS.Infrastructure.Repositories.Generics
 {
-    public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         #region Vars / Props
 
@@ -19,7 +19,7 @@ namespace MS.Infrastructure.Repositories.Generics
         #endregion
 
         #region Constructor(s)
-        public GenericRepositoryAsync(Context dbContext)
+        public BaseRepository(Context dbContext)
         {
             _dbContext = dbContext;
         }
@@ -99,15 +99,10 @@ namespace MS.Infrastructure.Repositories.Generics
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
-        {
-            return await _dbContext.Set<T>().ToListAsync();
-            
-        }
+        => await _dbContext.Set<T>().ToListAsync();
 
         public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
-        {
-            return await _dbContext.Set<T>().Where(expression).ToListAsync();
-        }
+         => await _dbContext.Set<T>().Where(expression).ToListAsync();
 
 
         #endregion
