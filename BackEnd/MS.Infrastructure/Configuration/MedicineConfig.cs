@@ -18,7 +18,7 @@ namespace MS.Infrastructure.Configuration
             builder.HasMany(m => m.MedicineTypes)
                 .WithOne(mt => mt.Medicine)
                 .HasForeignKey(mt => mt.MedicineID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
             
         }
     }

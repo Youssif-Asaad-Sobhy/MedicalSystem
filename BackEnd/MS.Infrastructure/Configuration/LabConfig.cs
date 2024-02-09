@@ -23,17 +23,17 @@ namespace MS.Infrastructure.Configuration
             builder.HasMany(l => l.PlaceShifts)
                 .WithOne()
                 .HasForeignKey(ps => ps.EntityID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(p => p.PlaceEquipments)
                .WithOne()
                .HasForeignKey(ps => ps.EntityID)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(l => l.Reservations)
                .WithOne()
                .HasForeignKey(r => r.EntityID)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

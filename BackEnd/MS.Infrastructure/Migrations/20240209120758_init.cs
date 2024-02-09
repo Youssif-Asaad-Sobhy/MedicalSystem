@@ -352,7 +352,7 @@ namespace MS.Infrastructure.Migrations
                         column: x => x.MedicineID,
                         principalTable: "medicines",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_medicinesType_types_TypeID",
                         column: x => x.TypeID,
@@ -480,7 +480,7 @@ namespace MS.Infrastructure.Migrations
                         column: x => x.ReportID,
                         principalTable: "reports",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -522,7 +522,7 @@ namespace MS.Infrastructure.Migrations
                         column: x => x.EntityID,
                         principalTable: "clinics",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_placeEquipments_equipments_EquipmentID",
                         column: x => x.EquipmentID,
@@ -534,13 +534,13 @@ namespace MS.Infrastructure.Migrations
                         column: x => x.EntityID,
                         principalTable: "labs",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_placeEquipments_pharmacies_EntityID",
                         column: x => x.EntityID,
                         principalTable: "pharmacies",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -561,19 +561,19 @@ namespace MS.Infrastructure.Migrations
                         column: x => x.EntityID,
                         principalTable: "clinics",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_placeShifts_labs_EntityID",
                         column: x => x.EntityID,
                         principalTable: "labs",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_placeShifts_pharmacies_EntityID",
                         column: x => x.EntityID,
                         principalTable: "pharmacies",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_placeShifts_shifts_ShiftID",
                         column: x => x.ShiftID,
@@ -609,13 +609,13 @@ namespace MS.Infrastructure.Migrations
                         column: x => x.EntityID,
                         principalTable: "clinics",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_reservations_labs_EntityID",
                         column: x => x.EntityID,
                         principalTable: "labs",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

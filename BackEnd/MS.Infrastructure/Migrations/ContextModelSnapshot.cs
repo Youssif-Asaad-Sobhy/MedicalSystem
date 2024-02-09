@@ -807,7 +807,7 @@ namespace MS.Infrastructure.Migrations
                     b.HasOne("MS.Data.Entities.Medicine", "Medicine")
                         .WithMany("MedicineTypes")
                         .HasForeignKey("MedicineID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Types", "Types")
@@ -856,19 +856,19 @@ namespace MS.Infrastructure.Migrations
                     b.HasOne("MS.Data.Entities.Clinic", null)
                         .WithMany("PlaceEquipment")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Lab", null)
                         .WithMany("PlaceEquipments")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Pharmacy", null)
                         .WithMany("PlaceEquipments")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Equipment", "Equipment")
@@ -885,19 +885,19 @@ namespace MS.Infrastructure.Migrations
                     b.HasOne("MS.Data.Entities.Clinic", null)
                         .WithMany("PlaceShifts")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Lab", null)
                         .WithMany("PlaceShifts")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Pharmacy", null)
                         .WithMany("PlaceShifts")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Shift", "Shift")
@@ -931,7 +931,7 @@ namespace MS.Infrastructure.Migrations
                     b.HasOne("MS.Data.Entities.Report", "Report")
                         .WithMany("ReportMedicines")
                         .HasForeignKey("ReportID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("MedicineType");
@@ -944,13 +944,13 @@ namespace MS.Infrastructure.Migrations
                     b.HasOne("MS.Data.Entities.Clinic", null)
                         .WithMany("Reservations")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.Lab", null)
                         .WithMany("Reservations")
                         .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MS.Data.Entities.User", "User")
