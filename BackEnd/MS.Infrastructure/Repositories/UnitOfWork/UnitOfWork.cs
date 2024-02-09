@@ -54,7 +54,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
 
         public IBaseRepository<Types> Types { get; private set; }
 
-        public IBaseRepository<User> Users { get; private set; }
+        public IBaseRepository<ApplicationUser> Users { get; private set; }
         #endregion
         public UnitOfWork(Context context)
         {
@@ -79,7 +79,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
             Tests = new BaseRepository<Test>(context);
             TestLabs = new BaseRepository<TestLab>(context);
             Types = new BaseRepository<Types>(context);
-            Users = new BaseRepository<User>(context);
+            Users = new BaseRepository<ApplicationUser>(context);
         }
 
 

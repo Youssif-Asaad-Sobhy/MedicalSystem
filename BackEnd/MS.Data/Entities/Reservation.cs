@@ -17,7 +17,7 @@ namespace MS.Data.Entities
         public int EntityID { get; set; }
         public double Price { get; set; }
         public string UserID {  get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
     }
 }

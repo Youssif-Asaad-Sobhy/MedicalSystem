@@ -28,7 +28,7 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<Lab>, LabValidator>();
             services.AddTransient<IValidator<Test>, TestsValidator>();
             services.AddTransient<IValidator<Hospital>, HospitalValidator>();
-            services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddTransient<IValidator<ApplicationUser>, UserValidator>();
             services.AddTransient<IValidator<Report>, ReportValidator>();
             services.AddTransient<IValidator<Document>, DocumentValidator>();
             services.AddTransient<IValidator<ReportMedicine>, ReportMedicineValidator>();
@@ -38,7 +38,7 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>();
             #endregion
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<Context>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
         }

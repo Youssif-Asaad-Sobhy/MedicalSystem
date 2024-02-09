@@ -30,7 +30,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<Test> Tests { get; }
         IBaseRepository<TestLab> TestLabs { get; }
         IBaseRepository<Types> Types { get; }
-        IBaseRepository<User> Users { get; }
+        IBaseRepository<ApplicationUser> Users { get; }
 
 
         // TO DO : Add Generic of all Entities

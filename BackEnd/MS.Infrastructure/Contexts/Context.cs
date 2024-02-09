@@ -12,7 +12,7 @@ using MS.Data.Enums;
 
 namespace MS.Infrastructure.Contexts
 {
-    public class Context: IdentityDbContext<User>
+    public class Context: IdentityDbContext<ApplicationUser>
     {
         public Context() { }
         public Context(DbContextOptions<Context> options) : base(options)
@@ -42,7 +42,7 @@ namespace MS.Infrastructure.Contexts
             new TestConfig().Configure(modelBuilder.Entity<Test>());
             new TestLabConfig().Configure(modelBuilder.Entity<TestLab>());
             new TypesConfig().Configure(modelBuilder.Entity<Types>());
-            new UserConfig().Configure(modelBuilder.Entity<User>()); 
+            new UserConfig().Configure(modelBuilder.Entity<ApplicationUser>()); 
             #endregion
 
             base.OnModelCreating(modelBuilder);
@@ -68,7 +68,7 @@ namespace MS.Infrastructure.Contexts
         public DbSet<Test> tests { get; set; }
         public DbSet<TestLab> testLabs { get; set; }
         public DbSet<Types> types { get; set; }
-        public DbSet<User> users { get; set; } 
+        public DbSet<ApplicationUser> users { get; set; } 
         #endregion
     }
 }
