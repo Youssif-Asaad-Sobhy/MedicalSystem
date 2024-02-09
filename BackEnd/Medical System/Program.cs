@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using MS.Application;
 using MS.Application.Interfaces;
 using MS.Application.Services;
+using MS.Infrastructure;
 using MS.Infrastructure.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.Appplicatiion_CS(builder.Configuration);
+builder.Services.Infrastructure_CS();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -27,6 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
