@@ -12,7 +12,7 @@ namespace MS.Infrastructure
 {
     public static class Infrastructure
     {
-        public static void ConfigureServices(this IServiceCollection services)
+        public static void Infrastructure_CS(this IServiceCollection services)
         {
             #region Validation Resolving
             services.AddTransient<IValidator<Medicine>, MedicineValidator>();
@@ -38,8 +38,8 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>();
             #endregion
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<Context>();
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //.AddEntityFrameworkStores<Context>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
         }
     }
