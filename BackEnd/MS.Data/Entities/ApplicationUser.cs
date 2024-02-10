@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class User: IdentityUser
+    public class ApplicationUser: IdentityUser
     {
         //public int ID { get; set; }
         public string Name { get; set; }
