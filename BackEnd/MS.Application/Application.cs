@@ -15,8 +15,6 @@ namespace MS.Application
 {
     public static class Application
     {
- 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public static  void Appplicatiion_CS(this IServiceCollection services, IConfiguration Configuration)
         {
