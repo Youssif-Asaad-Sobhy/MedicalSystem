@@ -8,11 +8,11 @@ using MS.Infrastructure.Contexts;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
+builder.Services.Appplicatiion_CS(builder.Configuration);
+builder.Services.Infrastructure_CS(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-Application.Application_CS(builder.Services,builder.Configuration);
-Infrastructure.Infrastucture_CS(builder.Services,builder.Configuration);
 builder.Services.AddDbContext<Context>(
                 options =>
                 {
@@ -30,6 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

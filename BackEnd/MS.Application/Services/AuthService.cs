@@ -26,14 +26,36 @@ namespace MS.Application.Services
             _jwt = jwt.Value;
             _roleManager = roleManager;
         }
-        public Task<string> AddRoleAsync(AddRoleModel model)
+        public async Task<string> AddRoleAsync(AddRoleModel model)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(model.Userid);
+            if (user == null || !await _roleManager.RoleExistsAsync(model.RoleName))
+                return "Invalid user ID or Role";
+            if (await _userManager.IsInRoleAsync(user, model.RoleName))
+                return "Role is already assigned to this user";
+            var result = await _userManager.AddToRoleAsync(user, model.RoleName);
+            return result.Succeeded ? string.Empty : "Something Went Wrong";
         }
 
-        public Task<AuthModel> GetTokenAsync(TokenRequestModel model)
+        public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
         {
-            throw new NotImplementedException();
+            var authmodel = new AuthModel();
+            var user = await _userManager.FindByEmailAsync(model.Emaail);
+            if (user is null || (!await _userManager.CheckPasswordAsync(user, model.Password)))
+            {
+                authmodel.Description = "Email or pass is incorrect";
+                return authmodel;
+            }
+            var JwtSecurityToken = await CreateJwtToken(user);
+            authmodel.IsAuthenticted = true;
+            authmodel.Email = user.Email;
+            authmodel.Username = user.UserName;
+            authmodel.ExpiresOn = JwtSecurityToken.ValidTo;
+            authmodel.Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken);
+
+            var roleslist = await _userManager.GetRolesAsync(user);
+            authmodel.Roles = roleslist.ToList();
+            return authmodel;
         }
 
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
