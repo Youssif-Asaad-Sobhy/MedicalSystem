@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MS.Data.Entities;
 using MS.Infrastructure.Contexts;
@@ -12,7 +13,7 @@ namespace MS.Infrastructure
 {
     public static class Infrastructure
     {
-        public static void ConfigureServices(this IServiceCollection services)
+        public static void Infrastucture_CS(IServiceCollection services ,IConfiguration configuration)
         {
             #region Validation Resolving
             services.AddTransient<IValidator<Medicine>, MedicineValidator>();
@@ -38,8 +39,6 @@ namespace MS.Infrastructure
             services.AddTransient<IValidator<ClinicPrice>, ClinicPriceValidator>();
             #endregion
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<Context>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
         }
     }

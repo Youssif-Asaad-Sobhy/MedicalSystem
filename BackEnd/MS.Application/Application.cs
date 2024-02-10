@@ -14,7 +14,7 @@ namespace MS.Application
 {
     public static class Application
     {
-        public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+        public static void Application_CS(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JWTHelper>(configuration.GetSection("JWT"));
 
