@@ -1,30 +1,40 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    public class ReportConfig : IEntityTypeConfiguration<Report>
+    public class ReportConfiguration : IEntityTypeConfiguration<Report>
     {
-        public void Configure(EntityTypeBuilder<Report>builder)
+        public void Configure(EntityTypeBuilder<Report> builder)
         {
+            // Table name
+            builder.ToTable("Reports");
+
+            // Primary key
             builder.HasKey(r => r.ID);
 
-            builder.HasMany(r => r.Documents)
-                .WithOne(d => d.Report)
-                .HasForeignKey(d => d.ReportID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Time property
+            builder.Property(r => r.Time)
+                .IsRequired();
 
-            builder.HasMany(r=>r.ReportMedicines)
-                .WithOne(rm=>rm.Report)
-                .HasForeignKey(rm=>rm.ReportID)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Description property
+            builder.Property(r => r.Description)
+                .IsRequired()
+                .HasMaxLength(255);
 
+            // UserID property
+            builder.Property(r => r.UserID)
+                .IsRequired();
+
+            // DoctorID property
+            builder.Property(r => r.DoctorID)
+                .IsRequired();
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(r => r.SomeProperty);
         }
     }
 }

@@ -1,25 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    internal class MedicineConfig : IEntityTypeConfiguration<Medicine>
+    public class MedicineConfiguration : IEntityTypeConfiguration<Medicine>
     {
         public void Configure(EntityTypeBuilder<Medicine> builder)
         {
-            builder.HasKey(m => m.ID);
+            // Table name
+            builder.ToTable("Medicines");
 
-            builder.HasMany(m => m.MedicineTypes)
-                .WithOne(mt => mt.Medicine)
-                .HasForeignKey(mt => mt.MedicineID)
-                .OnDelete(DeleteBehavior.Restrict);
-            
+            // Primary key
+            builder.HasKey(medicine => medicine.ID);
+
+            // Name property
+            builder.Property(medicine => medicine.Name)
+                .IsRequired()
+                .HasMaxLength(50); // Adjust the maximum length as per your requirements
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(medicine => medicine.SomeProperty);
         }
     }
 }

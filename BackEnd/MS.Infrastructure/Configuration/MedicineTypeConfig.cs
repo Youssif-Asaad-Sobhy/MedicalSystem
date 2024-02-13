@@ -2,29 +2,59 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    public class MedicineTypeConfig : IEntityTypeConfiguration<MedicineType>
+    public class MedicineTypeConfiguration : IEntityTypeConfiguration<MedicineType>
     {
         public void Configure(EntityTypeBuilder<MedicineType> builder)
         {
-            builder.HasKey(mt => mt.ID);
+            // Table name
+            builder.ToTable("MedicineTypes");
 
-            builder.HasMany(mt => mt.PharmacyMedicines)
-                .WithOne(pm => pm.MedicineType)
-                .HasForeignKey(pm => pm.MedicineTypeID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Primary key
+            builder.HasKey(medicineType => medicineType.ID);
 
-            builder.HasMany(mt => mt.ReportMedicines)
-                .WithOne(rm => rm.MedicineType)
-                .HasForeignKey(rm => rm.MedicineTypeID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // MedicineID property
+            builder.Property(medicineType => medicineType.MedicineID)
+                .IsRequired();
+            //.GreaterThan(0) // Adjust the condition as per your requirements
+            //.WithMessage("MedicineID must be greater than 0");
 
+            // TypeID property
+            builder.Property(medicineType => medicineType.TypeID)
+                .IsRequired();
+            //.GreaterThan(0) // Adjust the condition as per your requirements
+            //.WithMessage("TypeID must be greater than 0");
+
+            // Description property
+            builder.Property(medicineType => medicineType.Description)
+                .IsRequired()
+                .HasMaxLength(400); // Adjust the maximum length as per your requirements
+                                    //.WithMessage("Description is required");
+
+            // SideEffects property
+            builder.Property(medicineType => medicineType.SideEffects)
+                .IsRequired()
+                .HasMaxLength(100);// Adjust the maximum length as per your requirements
+                                   //.WithMessage("SideEffects is required");
+
+            // Warning property
+            builder.Property(medicineType => medicineType.Warning)
+                .IsRequired()
+                .HasMaxLength(100); // Adjust the maximum length as per your requirements
+                                    //.WithMessage("Warning is required");
+
+            // ExpirationDate property
+            builder.Property(medicineType => medicineType.ExpirationDate)
+                .IsRequired();
+                //.GreaterThan(DateTime.Now)
+                //.WithMessage("ExpirationDate must be in the future");
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(medicineType => medicineType.SomeProperty);
         }
     }
 }

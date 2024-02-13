@@ -1,19 +1,41 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    internal class PlaceShiftConfig : IEntityTypeConfiguration<PlaceShift>
+    public class PlaceShiftConfiguration : IEntityTypeConfiguration<PlaceShift>
     {
         public void Configure(EntityTypeBuilder<PlaceShift> builder)
         {
-            builder.HasKey(ps => ps.ID);
+            // Table name
+            builder.ToTable("PlaceShifts");
+
+            // Primary key
+            builder.HasKey(placeShift => placeShift.ID);
+
+            // ID property
+            builder.Property(placeShift => placeShift.ID)
+                .IsRequired()
+                .GreaterThan(0);
+
+            // EntityID property
+            builder.Property(placeShift => placeShift.EntityID)
+                .IsRequired()
+                .GreaterThan(0);
+
+            // PlaceType property
+            builder.Property(placeShift => placeShift.PlaceType)
+                .IsRequired();
+
+            // ShiftID property
+            builder.Property(placeShift => placeShift.ShiftID)
+                .IsRequired();
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(placeShift => placeShift.SomeProperty);
         }
     }
 }

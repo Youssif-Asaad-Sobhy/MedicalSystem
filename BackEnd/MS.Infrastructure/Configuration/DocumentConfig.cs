@@ -1,19 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    internal class DocumentConfig : IEntityTypeConfiguration<Document>
+    public class DocumentConfiguration : IEntityTypeConfiguration<Document>
     {
         public void Configure(EntityTypeBuilder<Document> builder)
         {
-            builder.HasKey(d => d.ID);
+            // Table name
+            builder.ToTable("Documents");
+
+            // Primary key
+            builder.HasKey(document => document.ID);
+
+            // Content property
+            builder.Property(document => document.Content)
+                .IsRequired()
+                .HasMaxLength(255); // Adjust the maximum length as per your requirements
+
+            // ReportID property
+            builder.Property(document => document.ReportID)
+                .IsRequired();
+
+            // Additional configuration if needed
         }
     }
 }

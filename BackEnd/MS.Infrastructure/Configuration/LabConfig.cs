@@ -1,39 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    public class LabConfig: IEntityTypeConfiguration<Lab>
+    public class LabConfiguration : IEntityTypeConfiguration<Lab>
     {
         public void Configure(EntityTypeBuilder<Lab> builder)
         {
-            builder.HasKey(l => l.ID);
+            // Table name
+            builder.ToTable("Labs");
 
-            builder.HasMany(l => l.TestLabs)
-                .WithOne(tl=>tl.Lab)
-                .HasForeignKey(tl => tl.LabID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Primary key
+            builder.HasKey(lab => lab.ID);
 
-            builder.HasMany(l => l.PlaceShifts)
-                .WithOne()
-                .HasForeignKey(ps => ps.EntityID)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Name property
+            builder.Property(lab => lab.Name)
+                .IsRequired()
+                .HasMaxLength(50); // Adjust the maximum length as per your requirements
 
-            builder.HasMany(p => p.PlaceEquipments)
-               .WithOne()
-               .HasForeignKey(ps => ps.EntityID)
-               .OnDelete(DeleteBehavior.Restrict);
+            // Type property
+            builder.Property(lab => lab.Type)
+                .IsRequired()
+                .HasConversion<string>(); // Convert enum to string for database storage
 
-            builder.HasMany(l => l.Reservations)
-               .WithOne()
-               .HasForeignKey(r => r.EntityID)
-               .OnDelete(DeleteBehavior.Restrict);
+            // HospitalID property
+            builder.Property(lab => lab.HospitalID)
+                .IsRequired();
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(lab => lab.SomeProperty);
         }
     }
 }

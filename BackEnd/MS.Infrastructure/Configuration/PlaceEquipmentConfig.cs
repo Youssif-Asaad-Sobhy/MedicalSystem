@@ -1,19 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    internal class PlaceEquipmentConfig : IEntityTypeConfiguration<PlaceEquipment>
+    public class PlaceEquipmentConfiguration : IEntityTypeConfiguration<PlaceEquipment>
     {
         public void Configure(EntityTypeBuilder<PlaceEquipment> builder)
         {
+            // Table name
+            builder.ToTable("PlaceEquipments");
+
+            // Primary key
             builder.HasKey(pe => pe.ID);
+
+            // EquipmentID property
+            builder.Property(pe => pe.EquipmentID)
+                .IsRequired();
+
+            // EntityID property
+            builder.Property(pe => pe.EntityID)
+                .IsRequired();
+
+            // PlaceType property
+            builder.Property(pe => pe.PlaceType)
+                .IsRequired()
+                .HasMaxLength(50); // Adjust the maximum length as per your requirements
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(pe => pe.SomeProperty);
         }
     }
 }

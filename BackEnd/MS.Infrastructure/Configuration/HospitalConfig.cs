@@ -1,29 +1,53 @@
-﻿using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MS.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-namespace MS.Infrastructure.Configuration
+using MS.Data.Entities;
+
+namespace MS.Infrastructure.Configurations
 {
-    public class HospitalConfig: IEntityTypeConfiguration<Hospital>
+    public class HospitalConfiguration : IEntityTypeConfiguration<Hospital>
     {
         public void Configure(EntityTypeBuilder<Hospital> builder)
         {
-            builder.HasKey(h => h.ID);
+            // Table name
+            builder.ToTable("Hospitals");
 
-            builder.HasMany(h=>h.Pharmacies)
-                .WithOne(p=>p.Hospital)
-                .HasForeignKey(p=>p.HospitalID)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(h => h.Labs)
-                .WithOne(l => l.Hospital)
-                .HasForeignKey(l => l.HospitalID)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(h => h.Departments)
-                .WithOne(d => d.Hospital)
-                .HasForeignKey(d => d.HospitalID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Primary key
+            builder.HasKey(hospital => hospital.ID);
+
+            // Name property
+            builder.Property(hospital => hospital.Name)
+                .IsRequired()
+                .HasMaxLength(50); // Adjust the maximum length as per your requirements
+
+            // Phone property
+            builder.Property(hospital => hospital.Phone)
+                .IsRequired()
+                .HasMaxLength(15) // Adjust the maximum length as per your requirements
+                .HasConversion(
+                    v => long.Parse(v),
+                    v => v.ToString());
+
+            // Government property
+            builder.Property(hospital => hospital.Government)
+                .IsRequired();
+
+            // City property
+            builder.Property(hospital => hospital.City)
+                .IsRequired();
+
+            // Country property
+            builder.Property(hospital => hospital.Country)
+                .IsRequired();
+
+            // Type property
+            builder.Property(hospital => hospital.Type)
+                .IsRequired()
+                .HasConversion<string>();
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(hospital => hospital.SomeProperty);
         }
     }
 }

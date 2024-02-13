@@ -1,19 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    internal class EntityAuthConfig : IEntityTypeConfiguration<EntityAuth>
+    public class EntityAuthConfiguration : IEntityTypeConfiguration<EntityAuth>
     {
         public void Configure(EntityTypeBuilder<EntityAuth> builder)
         {
-            builder.HasKey(e => e.ID);
+            // Table name
+            builder.ToTable("EntityAuths");
+
+            // Primary key
+            builder.HasKey(ea => ea.ID);
+
+            // UserID property
+            builder.Property(ea => ea.UserID)
+                .IsRequired();
+            // PlaceType property
+            builder.Property(ea => ea.PlaceType)
+                .IsRequired()
+                .HasConversion<string>();
+
+            // EntityID property
+            builder.Property(ea => ea.EntityID)
+                .IsRequired();
+            // Additional configuration if needed
         }
     }
 }

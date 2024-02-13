@@ -1,40 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    internal class ClinicConfig : IEntityTypeConfiguration<Clinic>
+    public class ClinicConfiguration : IEntityTypeConfiguration<Clinic>
     {
         public void Configure(EntityTypeBuilder<Clinic> builder)
         {
+            // Table name
+            builder.ToTable("Clinics");
+
+            // Primary key
             builder.HasKey(c => c.ID);
 
+            // Name property
+            builder.Property(c => c.Name)
+                .IsRequired()
+                .HasMaxLength(255); // Adjust the maximum length as per your requirements
 
-            builder.HasMany(c => c.ClinicPrices)
-                .WithOne(c => c.Clinic)
-                .HasForeignKey(c => c.ClinicID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // DepartmentID property
+            builder.Property(c => c.DepartmentID)
+                .IsRequired();
 
-            builder.HasMany(c => c.PlaceEquipment)
-               .WithOne()
-               .HasForeignKey(ps => ps.EntityID)
-               .OnDelete(DeleteBehavior.Restrict);
-            
-            builder.HasMany(c => c.PlaceShifts)
-                .WithOne()
-                .HasForeignKey(ps => ps.EntityID)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Additional configuration if needed
 
-            builder.HasMany(c => c.Reservations)
-               .WithOne()
-               .HasForeignKey(r => r.EntityID)
-               .OnDelete(DeleteBehavior.Restrict);
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(c => c.SomeProperty);
         }
     }
 }

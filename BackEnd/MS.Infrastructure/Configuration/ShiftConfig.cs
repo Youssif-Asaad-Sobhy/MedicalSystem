@@ -1,24 +1,47 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    public class ShiftConfig: IEntityTypeConfiguration<Shift>
+    public class ShiftConfiguration : IEntityTypeConfiguration<Shift>
     {
         public void Configure(EntityTypeBuilder<Shift> builder)
         {
-            builder.HasKey(s => s.ID);
+            // Table name
+            builder.ToTable("Shifts");
 
-            builder.HasMany(s => s.PlaceShifts)
-                .WithOne(ps => ps.Shift)
-                .HasForeignKey(ps => ps.ShiftID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Primary key
+            builder.HasKey(shift => shift.ID);
+
+            // ID property
+            builder.Property(shift => shift.ID)
+                .IsRequired()
+            ;//    .GreaterThan(0);
+
+            // Name property
+            builder.Property(shift => shift.Name)
+                .IsRequired();
+
+            // StartTime property
+            builder.Property(shift => shift.StartTime)
+                .IsRequired();
+
+            // EndTime property
+            builder.Property(shift => shift.EndTime)
+                .IsRequired()
+                .GreaterThanOrEqualTo(shift => shift.StartTime); // Ensure EndTime is greater than or equal to StartTime
+
+            // EntityID property
+            builder.Property(shift => shift.EntityID)
+                .IsRequired()
+               ;// .GreaterThan(0);
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(shift => shift.SomeProperty);
         }
     }
 }

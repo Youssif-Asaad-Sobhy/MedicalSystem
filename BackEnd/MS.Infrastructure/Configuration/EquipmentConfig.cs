@@ -1,25 +1,33 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MS.Infrastructure.Configuration
+namespace MS.Infrastructure.Configurations
 {
-    public class EquipmentConfig : IEntityTypeConfiguration<Equipment>
+    public class EquipmentConfiguration : IEntityTypeConfiguration<Equipment>
     {
-        public void Configure(EntityTypeBuilder<Equipment> builder) 
+        public void Configure(EntityTypeBuilder<Equipment> builder)
         {
-            builder.HasKey(e => e.ID);
+            // Table name
+            builder.ToTable("Equipments");
 
-            builder.HasMany(e => e.PlaceEquipments)
-                .WithOne(p => p.Equipment)
-                .HasForeignKey(p => p.EquipmentID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Primary key
+            builder.HasKey(equipment => equipment.ID);
 
+            // Name property
+            builder.Property(equipment => equipment.Name)
+                .IsRequired()
+                .HasMaxLength(50); // Adjust the maximum length as per your requirements
+
+            // Description property
+            builder.Property(equipment => equipment.Description)
+                .IsRequired()
+                .HasMaxLength(200); // Adjust the maximum length as per your requirements
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(equipment => equipment.SomeProperty);
         }
     }
 }

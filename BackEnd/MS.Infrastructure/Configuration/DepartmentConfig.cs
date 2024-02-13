@@ -1,25 +1,32 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MS.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FluentValidation;
-using MS.Infrastructure.Validation;
-namespace MS.Infrastructure.Configuration
+using MS.Data.Entities;
+
+namespace MS.Infrastructure.Configurations
 {
-    public class DepartmentConfig : IEntityTypeConfiguration<Department>
+    public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
-            builder.HasKey(d => d.ID);
+            // Table name
+            builder.ToTable("Departments");
 
-            builder.HasMany(d => d.Clinics)
-                .WithOne(c => c.Department)
-                .HasForeignKey(c => c.DepartmentID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Primary key
+            builder.HasKey(department => department.ID);
+
+            // Name property
+            builder.Property(department => department.Name)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            // HospitalID property
+            builder.Property(department => department.HospitalID)
+                .IsRequired();
+
+            // Additional configuration if needed
+
+            // Example: Ignore any other properties not mapped here
+            // builder.Ignore(department => department.SomeProperty);
         }
     }
 }
