@@ -23,39 +23,38 @@ namespace MS.Infrastructure.Contexts
         {
             #region Seeding Data
             modelBuilder.Entity<ApplicationUser>().HasData(
-                    new ApplicationUser
-                    {
-                        Id = "1",
-                        Name = "Mohamed",
-                        NID = "2636523632",
-                        Gender = "male",
-                        BirthDate = new DateTime(2002, 9, 25),
-                        UserName = "MohamedAli123",
-                        NormalizedEmail = "MOHAMED@EXAMPLE.COM",
-                        NormalizedUserName = "",
-                        EmailConfirmed = false,
-                        PhoneNumberConfirmed = false,
-                        TwoFactorEnabled = false,
-                        LockoutEnabled = false,
-                        AccessFailedCount = 0,
-
-                    },
-                    new ApplicationUser
-                    {
-                        Id = "2",
-                        Name = "Mona",
-                        NID = "5312523632",
-                        Gender = "Female",
-                        BirthDate = new DateTime(2012, 6, 25),
-                        UserName = "monaomar123",
-                        NormalizedEmail = "MONA@EXAMPLE.COM",
-                        NormalizedUserName = "",
-                        EmailConfirmed = false,
-                        PhoneNumberConfirmed = false,
-                        TwoFactorEnabled = false,
-                        LockoutEnabled = false,
-                        AccessFailedCount = 0,
-                    });
+                new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(), // Generate a unique ID
+                    Name = "Mohamed",
+                    NID = "2636523632",
+                    Gender = "male",
+                    BirthDate = new DateTime(2002, 9, 25),
+                    UserName = "MohamedAli123",
+                    NormalizedEmail = "MOHAMED@EXAMPLE.COM",
+                    NormalizedUserName = "MOHAMEDALI123",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                },
+                new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(), // Generate another unique ID
+                    Name = "Mona",
+                    NID = "5312523632",
+                    Gender = "Female",
+                    BirthDate = new DateTime(2012, 6, 25),
+                    UserName = "monaomar123",
+                    NormalizedEmail = "MONA@EXAMPLE.COM",
+                    NormalizedUserName = "MONAOMAR123",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                });
 
             modelBuilder.Entity<Clinic>().HasData(
                 new Clinic
