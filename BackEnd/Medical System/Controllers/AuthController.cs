@@ -16,7 +16,7 @@ namespace Medical_System.Controllers
             _authService = authService;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -30,7 +30,7 @@ namespace Medical_System.Controllers
             return Ok(result);
         }
         [HttpPost("token")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
+        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace Medical_System.Controllers
             return Ok(result);
         }
         [HttpPost("addrole")]
-        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleModel model)
+        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleDto model)
         {
             if (!ModelState.IsValid)
             {

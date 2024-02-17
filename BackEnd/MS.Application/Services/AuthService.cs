@@ -19,14 +19,14 @@ namespace MS.Application.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly JWTHelper _jwt;
-        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWTHelper> jwt)
+        private readonly JwtHelper _jwt;
+        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtHelper> jwt)
         {
             _userManager = userManager;
             _jwt = jwt.Value;
             _roleManager = roleManager;
         }
-        public async Task<string> AddRoleAsync(AddRoleModel model)
+        public async Task<string> AddRoleAsync(AddRoleDto model)
         {
             var user = await _userManager.FindByIdAsync(model.Userid);
             if (user == null || !await _roleManager.RoleExistsAsync(model.RoleName))
@@ -37,9 +37,9 @@ namespace MS.Application.Services
             return result.Succeeded ? string.Empty : "Something Went Wrong";
         }
 
-        public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
+        public async Task<AuthDto> GetTokenAsync(TokenRequestDto model)
         {
-            var authmodel = new AuthModel();
+            var authmodel = new AuthDto();
             var user = await _userManager.FindByEmailAsync(model.Emaail);
             if (user is null || (!await _userManager.CheckPasswordAsync(user, model.Password)))
             {
@@ -58,12 +58,12 @@ namespace MS.Application.Services
             return authmodel;
         }
 
-        public async Task<AuthModel> RegisterAsync(RegisterModel model)
+        public async Task<AuthDto> RegisterAsync(RegisterDto model)
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                return new AuthModel { Description = "email is already Register" };
+                return new AuthDto { Description = "email is already Register" };
             if (await _userManager.FindByNameAsync(model.UserName) is not null)
-                return new AuthModel { Description = "UserName is already Register" };
+                return new AuthDto { Description = "UserName is already Register" };
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -78,11 +78,11 @@ namespace MS.Application.Services
                 {
                     errors += $"{error.Description}, ";
                 }
-                return new AuthModel { Description = errors };
+                return new AuthDto { Description = errors };
             }
             await _userManager.AddToRoleAsync(user, "User");
             var JwtSecurityToken = await CreateJwtToken(user);
-            return new AuthModel
+            return new AuthDto
             {
                 Email = user.Email,
                 ExpiresOn = JwtSecurityToken.ValidTo,

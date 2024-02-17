@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Models.Authentication
 {
-    public class AddRoleModel
+    public class AddRoleDto
     {
         [Required]
         public string Userid { get; set; }

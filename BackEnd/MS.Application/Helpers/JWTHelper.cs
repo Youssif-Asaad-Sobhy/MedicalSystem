@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Helpers
 {
-    public class JWTHelper
+    public class JwtHelper
     {
         public string Key { get; set; }
         public string ValidIssuer { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Models.Authentication
 {
-    public class RegisterModel
+    public class RegisterDto
     {
         [Required, StringLength(20)]
         public string Name { get; set; }
