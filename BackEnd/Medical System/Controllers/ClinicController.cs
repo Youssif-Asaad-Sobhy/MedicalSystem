@@ -15,11 +15,9 @@ namespace Medical_System.Controllers
     public class ClinicController : ControllerBase
     {
         #region Constructor/props
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IClinicService _clinicService;
-        public ClinicController(IUnitOfWork unitOfWork, IClinicService clinicService)
+        public ClinicController( IClinicService clinicService)
         {
-            _unitOfWork = unitOfWork;
             _clinicService = clinicService;
         }
         #endregion
@@ -52,11 +50,11 @@ namespace Medical_System.Controllers
         [HttpPost("Post")]
         public async Task CreateClinicAsync([FromBody]ClinicModel model) //same comment as below
         {
-            Clinic clinic = new Clinic() {
-                DepartmentID = model.DepartmentID,
-                Name=model.Name
-            };
-            await _unitOfWork.Clinincs.AddAsync(clinic);
+            //Clinic clinic = new Clinic() {
+            //    DepartmentID = model.DepartmentID,
+            //    Name=model.Name
+            //};
+            //await _unitOfWork.Clinincs.AddAsync(clinic);
         }
         [HttpPut("Put/{ClinicID:int}")]
         public async Task<IActionResult> PutSingleAsync(ClinicDto model)

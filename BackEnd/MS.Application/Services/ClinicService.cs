@@ -20,7 +20,6 @@ namespace MS.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
-
         public async Task<Response<Clinic>> DeleteClinicAsync(int ClinicID)
         {
             var clincic = await _unitOfWork.Clinincs.GetByIdAsync(ClinicID);
