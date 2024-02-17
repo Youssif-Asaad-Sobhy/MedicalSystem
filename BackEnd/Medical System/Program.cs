@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MS.Application;
 using MS.Application.Interfaces;
 using MS.Application.Services;
+using MS.Data.Entities;
 using MS.Infrastructure;
 using MS.Infrastructure.Contexts;
+using MS.Infrastructure.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
@@ -20,6 +23,16 @@ builder.Services.AddDbContext<Context>(
                 });
 
 var app = builder.Build();
+
+#region Seeding part
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await RoleSeeder.SeedAsync(RoleManager);
+    await UserSeeder.SeedAsync(userManager);
+} 
+#endregion
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

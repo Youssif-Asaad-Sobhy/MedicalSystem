@@ -79,7 +79,7 @@ namespace Medical_System.Controllers
         }
 
         //done
-        [HttpPut("Put}")]
+        [HttpPut("Put")]
         public async Task<IActionResult> PutSingleAsync([FromBody]ClinicModel model) // why not using dto bro
         {
             try
