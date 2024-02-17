@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Clinc;
+using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Models.Clinic;
 using MS.Data.Entities;
 using MS.Infrastructure.Repositories.UnitOfWork;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Medical_System.Controllers
 {
@@ -13,14 +15,11 @@ namespace Medical_System.Controllers
     public class ClinicController : ControllerBase
     {
         #region Constructor/props
-        // there is error {unable to resolve I logger} 
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
         private readonly IClinicService _clinicService;
-        public ClinicController(IUnitOfWork unitOfWork, IClinicService clinicService, ILogger logger)
+        public ClinicController(IUnitOfWork unitOfWork, IClinicService clinicService)
         {
             _unitOfWork = unitOfWork;
-            _logger = logger;
             _clinicService = clinicService;
         }
         #endregion
@@ -29,51 +28,29 @@ namespace Medical_System.Controllers
         [HttpGet("Get/{ClinicID:int}")]
         public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ClinicID)
         {
-            try
+            var response = await _clinicService.GetClinicAsync(ClinicID);
+            if (!response.Succeeded)
             {
-                var response = await _clinicService.GetClinicAsync(ClinicID);
-                if (!response.Succeeded)
-                {
-                    return NotFound(response.Message);
-                }
-                return Ok(response);
-
+                return this.CreateResponse(response);
             }
-            catch (Exception ex)
-            {
-                // Log the exception
-                _logger.LogError($"An error occurred while processing the request: {ex.Message}");
-
-                return StatusCode(500, $"An error occurred while processing the request:{ex.Message}");
-            }
+            return this.CreateResponse(response);
         }
 
         // almost done 
         [HttpDelete("Delete/{ClinicID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ClinicID)
         {
-            try
+            var response = await _clinicService.DeleteClinicAsync(ClinicID);
+            if (!response.Succeeded)
             {
-                var response = await _clinicService.DeleteClinicAsync(ClinicID);
-                if (!response.Succeeded)
-                {
-                    return NotFound(response.Message);
-                }
-                return Ok(response);
-
+                return this.CreateResponse(response);
             }
-            catch (Exception ex)
-            {
-                // Log the exception
-                _logger.LogError($"An error occurred while processing the request: {ex}");
-                //return to endpoint
-                return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
-            }
+            return this.CreateResponse(response);
         }
 
         // i think done 
         [HttpPost("Post")]
-        public async Task PostSingleAsync([FromBody]ClinicModel model) //same comment as below
+        public async Task CreateClinicAsync([FromBody]ClinicModel model) //same comment as below
         {
             Clinic clinic = new Clinic() {
                 DepartmentID = model.DepartmentID,
@@ -84,26 +61,16 @@ namespace Medical_System.Controllers
         [HttpPut("Put/{ClinicID:int}")]
         public async Task<IActionResult> PutSingleAsync(ClinicDto model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                var response = await _clinicService.UpdateClinicAsync(model);
-                if (!response.Succeeded)
-                {
-                    return NotFound(response.Message);
-                }
-                return (IActionResult)response;
+                return BadRequest(ModelState);
             }
-            catch (Exception ex)
+            var response = await _clinicService.UpdateClinicAsync(model);
+            if (!response.Succeeded)
             {
-                // Log the exception
-                _logger.LogError($"An error occurred while processing the request: {ex}");
-
-                return StatusCode(500, $"An error occurred while processing the request. Please try again or contact support.");
+                return this.CreateResponse(response);
             }
+            return this.CreateResponse(response);
         } 
         #endregion
 

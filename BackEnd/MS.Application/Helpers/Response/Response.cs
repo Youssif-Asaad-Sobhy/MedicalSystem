@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Helpers.Response
 {
-    public class Response<T> : ResponseHandler
+    public class Response<T> 
     {
         public Response()
         {
@@ -39,18 +39,7 @@ namespace MS.Application.Helpers.Response
         public string Message { get; set; }
         public List<string> Errors { get; set; }
         public T Data { get; set; }
-
-        public Task ExecuteResultAsync(ActionContext context)
-        {
-            throw new NotImplementedException();
-        }
-        public static implicit operator ObjectResult(Response<T> response)
-        {
-            return new ObjectResult(response)
-            {
-                StatusCode = (int)response.StatusCode
-            };
-        }
+       
 
     }
 }

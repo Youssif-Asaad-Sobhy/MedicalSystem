@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,23 +7,20 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Helpers.Response
 {
-    public class ResponseHandler
+    public static class ResponseHandler
     {
 
-        public ResponseHandler()
-        {
-
-        }
-        public Response<T> Updated<T>()
+        public static Response<T> Updated<T>(T entity)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Updated Successfully"
+                Message = "Updated Successfully",
+                Data=entity
             };
         }
-        public Response<T> Deleted<T>()
+        public static Response<T> Deleted<T>()
         {
             return new Response<T>()
             {
@@ -31,18 +29,18 @@ namespace MS.Application.Helpers.Response
                 Message = "Deleted Successfully"
             };
         }
-        public Response<T> Success<T>(T entity, object Meta = null)
+        public static Response<T> Success<T>(T entity, object Meta = null)
         {
             return new Response<T>()
             {
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Added Successfully",
+                Message = "succeeded process",
                 Meta = Meta
             };
         }
-        public Response<T> Unauthorized<T>()
+        public static Response<T> Unauthorized<T>()
         {
             return new Response<T>()
             {
@@ -51,7 +49,7 @@ namespace MS.Application.Helpers.Response
                 Message = "UnAuthorized"
             };
         }
-        public Response<T> BadRequest<T>(string Message = null)
+        public static Response<T> BadRequest<T>(string Message = null)
         {
             return new Response<T>()
             {
@@ -61,7 +59,7 @@ namespace MS.Application.Helpers.Response
             };
         }
 
-        public Response<T> NotFound<T>(string message = null)
+        public static Response<T> NotFound<T>(string message = null)
         {
             return new Response<T>()
             {
@@ -71,7 +69,7 @@ namespace MS.Application.Helpers.Response
             };
         }
 
-        public Response<T> Created<T>(T entity, object Meta = null)
+        public static Response<T> Created<T>(T entity, object Meta = null)
         {
             return new Response<T>()
             {
@@ -80,6 +78,14 @@ namespace MS.Application.Helpers.Response
                 Succeeded = true,
                 Message = "Entity created",
                 Meta = Meta
+            };
+        }
+        public static IActionResult CreateResponse<T>(this ControllerBase controllerBase, Response<T> response)
+        {
+            return new ObjectResult(response)
+            {
+                StatusCode = (int)response.StatusCode
+
             };
         }
     }

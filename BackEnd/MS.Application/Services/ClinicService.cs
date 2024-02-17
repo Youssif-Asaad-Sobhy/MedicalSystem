@@ -26,10 +26,10 @@ namespace MS.Application.Services
             var clincic = await _unitOfWork.Clinincs.GetByIdAsync(ClinicID);
             if (clincic is null)
             {
-                return new Response<Clinic>($"Clinic with ID {ClinicID} not found.", false);
+                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
             }
             await _unitOfWork.Clinincs.DeleteAsync(clincic);
-            return new Response<Clinic>().Deleted<Clinic>();
+            return  ResponseHandler.Deleted<Clinic>();
         }
 
         public async Task<Response<Clinic>> GetClinicAsync(int ClinicID)
@@ -37,25 +37,25 @@ namespace MS.Application.Services
             var clincic= await _unitOfWork.Clinincs.GetByIdAsync(ClinicID);
             if (clincic is null)
             {
-                return new Response<Clinic>($"Clinic with ID {ClinicID} not found.",false);
+                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
             }
-            return new Response<Clinic>(clincic);
+            return ResponseHandler.Success(clincic);
         }
 
         public async Task<Response<Clinic>> UpdateClinicAsync(ClinicDto model)
         {
             if (model is null ||model.ID==0)
             {
-                return new Response<Clinic>($"ClinicModel with ID {model.ID} or the model  not found .", false);
+                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {model.ID} not found.");
             }
             var clinic = await _unitOfWork.Clinincs.GetByIdAsync(model.ID);
             if (clinic is null ||clinic.ID==0)
             {
-                return new Response<Clinic>($"Clinic with ID {model.ID} not found.", false);
+                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {clinic.ID} not found.");
             }
             clinic.Name = model.Name;
             clinic.DepartmentID = model.DepartmentID;
-            throw new NotImplementedException();
+            return ResponseHandler.Updated(clinic);
         }
     }
 }
