@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Models.Authentication
 {
-    public class AuthModel
+    public class AuthDto
     {
         public string Description { get; set; }
         public bool IsAuthenticted { get; set; }

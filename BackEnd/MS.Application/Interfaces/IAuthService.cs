@@ -9,8 +9,8 @@ namespace MS.Application.Interfaces
 {
     public interface IAuthService
     {
-        Task<AuthModel> RegisterAsync(RegisterModel model);
-        Task<AuthModel> GetTokenAsync(TokenRequestModel model);
-        Task<string> AddRoleAsync(AddRoleModel model);
+        Task<AuthDto> RegisterAsync(RegisterDto model);
+        Task<AuthDto> GetTokenAsync(TokenRequestDto model);
+        Task<string> AddRoleAsync(AddRoleDto model);
     }
 }

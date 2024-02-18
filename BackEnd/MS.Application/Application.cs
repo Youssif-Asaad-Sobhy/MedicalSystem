@@ -19,11 +19,12 @@ namespace MS.Application
         public static  void Appplicatiion_CS(this IServiceCollection services, IConfiguration Configuration)
         {
 
-            services.Configure<JWTHelper>(Configuration.GetSection("JWT"));
+            services.Configure<JwtHelper>(Configuration.GetSection("JWT"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
-           services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IClinicService, ClinicService>();
 
             services.AddAuthentication(options =>
             {

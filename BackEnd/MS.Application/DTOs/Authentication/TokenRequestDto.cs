@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Models.Authentication
 {
-    public class TokenRequestModel
+    public class TokenRequestDto
     {
         [Required, StringLength(100)]
         public string Emaail { get; set; }
