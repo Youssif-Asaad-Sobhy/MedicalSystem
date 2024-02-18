@@ -21,6 +21,400 @@ namespace MS.Infrastructure.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Seeding Data
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(), // Generate a unique ID
+                    Name = "Mohamed",
+                    NID = "2636523632",
+                    Gender = "male",
+                    BirthDate = new DateTime(2002, 9, 25),
+                    UserName = "MohamedAli123",
+                    NormalizedEmail = "MOHAMED@EXAMPLE.COM",
+                    NormalizedUserName = "MOHAMEDALI123",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                },
+                new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(), // Generate another unique ID
+                    Name = "Mona",
+                    NID = "5312523632",
+                    Gender = "Female",
+                    BirthDate = new DateTime(2012, 6, 25),
+                    UserName = "monaomar123",
+                    NormalizedEmail = "MONA@EXAMPLE.COM",
+                    NormalizedUserName = "MONAOMAR123",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                });
+
+            modelBuilder.Entity<Clinic>().HasData(
+                new Clinic
+                {
+                    ID = 1,
+                    Name = "Elzahraa",
+                    DepartmentID = 1,
+
+                },
+                new Clinic
+                {
+                    ID = 2,
+                    Name = "Alpha",
+                    DepartmentID = 2,
+
+                });
+            modelBuilder.Entity<ClinicPrice>().HasData(
+                new ClinicPrice
+                {
+                    ID = 3,
+                    Name = "X-ray",
+                    Price = 260.40,
+                    ClinicID = 1,
+                },
+                new ClinicPrice
+                {
+                    ID = 1,
+                    Name = "X-Alpha",
+                    Price = 341.40,
+                    ClinicID = 2,
+                });
+            modelBuilder.Entity<Department>().HasData(
+                new Department
+                {
+                    ID = 1,
+                    Name = "Cardiology",
+                    HospitalID = 1 // Assuming hospital ID is 1
+                },
+                new Department
+                {
+                    ID = 2,
+                    Name = "Orthopedics",
+                    HospitalID = 1 // Assuming hospital ID is 1
+                },
+                new Department
+                {
+                    ID = 3,
+                    Name = "Neurology",
+                    HospitalID = 2 // Assuming hospital ID is 2
+                },
+                new Department
+                {
+                    ID = 4,
+                    Name = "Oncology",
+                    HospitalID = 2 // Assuming hospital ID is 2
+                }
+                // Add more departments as needed
+            );
+
+            modelBuilder.Entity<Document>().HasData(
+                new Document
+                {
+                    ID = 1,
+                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
+                    ReportID = 1 // Assuming report ID is 1
+                },
+                new Document
+                {
+                    ID = 2,
+                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
+                    ReportID = 2 // Assuming report ID is 2
+                }
+                // Add more documents as needed
+            );
+            modelBuilder.Entity<Equipment>().HasData(
+                new Equipment
+                {
+                    ID = 1,
+                    Name = "MRI Machine",
+                    Description = "High-field MRI machine for diagnostic imaging"
+                },
+                new Equipment
+                {
+                    ID = 2,
+                    Name = "X-ray Machine",
+                    Description = "X-ray machine for radiographic imaging"
+                }
+            // Add more equipments as needed
+            );
+            modelBuilder.Entity<Hospital>().HasData(
+     new Hospital
+     {
+         ID = 1,
+         Name = "Mount Sinai Hospital",
+         Phone = "+1-212-241-6500",
+         Government = "State Government",
+         City = "New York City",
+         Country = "United States",
+         Type = HospitalType.Public // Use enum value for Public hospital type
+     },
+     new Hospital
+     {
+         ID = 2,
+         Name = "Mayo Clinic",
+         Phone = "+1-507-284-2511",
+         Government = "Local Government",
+         City = "Rochester",
+         Country = "United States",
+         Type = HospitalType.Private // Use enum value for Private hospital type
+     }
+ // Add more hospitals as needed
+ );
+            modelBuilder.Entity<Lab>().HasData(
+                new Lab
+                {
+                    ID = 1,
+                    Name = "Clinical Pathology Lab",
+                    Type = LabType.XRay,
+                    HospitalID = 1 // Assuming hospital ID, adjust accordingly
+                },
+                new Lab
+                {
+                    ID = 2,
+                    Name = "Microbiology Lab",
+                    Type = LabType.Lab,
+                    HospitalID = 2 // Assuming hospital ID, adjust accordingly
+                }
+            // Add more labs as needed
+            );
+
+            modelBuilder.Entity<Medicine>().HasData(
+                new Medicine
+                {
+                    ID = 1,
+                    Name = "Aspirin"
+                },
+                new Medicine
+                {
+                    ID = 2,
+                    Name = "Paracetamol"
+                }
+            // Add more medicines as needed
+            );
+            modelBuilder.Entity<MedicineType>().HasData(
+                new MedicineType
+                {
+                    ID = 1,
+                    MedicineID = 1, // Assuming medicine ID, adjust accordingly
+                    TypeID = 1, // Assuming type ID, adjust accordingly
+                    Description = "Painkiller",
+                    SideEffects = "May cause drowsiness",
+                    Warning = "Do not exceed recommended dosage",
+                    ExpirationDate = new DateTime(2023, 12, 31)
+                },
+                new MedicineType
+                {
+                    ID = 2,
+                    MedicineID = 2, // Assuming medicine ID, adjust accordingly
+                    TypeID = 2, // Assuming type ID, adjust accordingly
+                    Description = "Antibiotic",
+                    SideEffects = "Possible nausea and diarrhea",
+                    Warning = "Take with food",
+                    ExpirationDate = new DateTime(2024, 10, 15)
+                }
+            // Add more medicine types as needed
+            );
+            modelBuilder.Entity<Pharmacy>().HasData(
+                new Pharmacy
+                {
+                    ID = 1,
+                    Name = "Walgreens",
+                    HospitalID = 1 // Assuming hospital ID, adjust accordingly
+                },
+                new Pharmacy
+                {
+                    ID = 2,
+                    Name = "CVS Pharmacy",
+                    HospitalID = 2 // Assuming hospital ID, adjust accordingly
+                }
+            // Add more pharmacies as needed
+            );
+            modelBuilder.Entity<PharmacyMedicine>().HasData(
+                new PharmacyMedicine
+                {
+                    ID = 1,
+                    PharmacyID = 1, // Assuming pharmacy ID, adjust accordingly
+                    MedicineTypeID = 1, // Assuming medicine type ID, adjust accordingly
+                    Amount = 50,
+                    Price = 10.99 // Assuming price, adjust accordingly
+                },
+                new PharmacyMedicine
+                {
+                    ID = 2,
+                    PharmacyID = 2, // Assuming pharmacy ID, adjust accordingly
+                    MedicineTypeID = 2, // Assuming medicine type ID, adjust accordingly
+                    Amount = 100,
+                    Price = 5.99 // Assuming price, adjust accordingly
+                }
+            // Add more pharmacy-medicine associations as needed
+            );
+            modelBuilder.Entity<PlaceEquipment>().HasData(
+                new PlaceEquipment
+                {
+                    ID = 1,
+                    EquipmentID = 1, // Assuming equipment ID, adjust accordingly
+                    EntityID = 1, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
+                    PlaceType = PlaceType.Clinic // Assuming place type, adjust accordingly
+                },
+                new PlaceEquipment
+                {
+                    ID = 2,
+                    EquipmentID = 2, // Assuming equipment ID, adjust accordingly
+                    EntityID = 2, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
+                    PlaceType = PlaceType.Lab // Assuming place type, adjust accordingly
+                }
+            // Add more place-equipment associations as needed
+            );
+            modelBuilder.Entity<PlaceShift>().HasData(
+                new PlaceShift
+                {
+                    ID = 1,
+                    EntityID = 1, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
+                    PlaceType = PlaceType.Clinic, // Assuming place type, adjust accordingly
+                    ShiftID = 1 // Assuming shift ID, adjust accordingly
+                },
+                new PlaceShift
+                {
+                    ID = 2,
+                    EntityID = 2, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
+                    PlaceType = PlaceType.Lab, // Assuming place type, adjust accordingly
+                    ShiftID = 2 // Assuming shift ID, adjust accordingly
+                }
+            // Add more place-shift associations as needed
+            );
+            modelBuilder.Entity<Report>().HasData(
+                new Report
+                {
+                    ID = 1,
+                    Time = DateTime.Now.AddDays(-1), // Example date and time, adjust accordingly
+                    Description = "Description of report 1",
+                    UserID = "1", // Assuming user ID, adjust accordingly
+                    DoctorID = 1 // Assuming doctor ID, adjust accordingly
+                },
+                new Report
+                {
+                    ID = 2,
+                    Time = DateTime.Now.AddDays(-2), // Example date and time, adjust accordingly
+                    Description = "Description of report 2",
+                    UserID = "2", // Assuming user ID, adjust accordingly
+                    DoctorID = 2 // Assuming doctor ID, adjust accordingly
+                }
+            // Add more reports as needed
+            );
+            modelBuilder.Entity<ReportMedicine>().HasData(
+                new ReportMedicine
+                {
+                    ID = 1,
+                    ReportID = 1, // Assuming report ID, adjust accordingly
+                    MedicineTypeID = 1 // Assuming medicine type ID, adjust accordingly
+                },
+                new ReportMedicine
+                {
+                    ID = 2,
+                    ReportID = 2, // Assuming report ID, adjust accordingly
+                    MedicineTypeID = 2 // Assuming medicine type ID, adjust accordingly
+                }
+            // Add more report-medicine associations as needed
+            );
+            modelBuilder.Entity<Reservation>().HasData(
+                new Reservation
+                {
+                    ID = 1,
+                    Time = DateTime.Now.AddDays(1), // Example date and time, adjust accordingly
+                    State = ReservationState.Done, // Assuming reservation state, adjust accordingly
+                    PlaceType = PlaceType.Clinic, // Assuming place type, adjust accordingly
+                    EntityID = 1, // Assuming entity ID (clinic or lab), adjust accordingly
+                    Price = 50.99, // Assuming price, adjust accordingly
+                    UserID = "1" // Assuming user ID, adjust accordingly
+                },
+                new Reservation
+                {
+                    ID = 2,
+                    Time = DateTime.Now.AddDays(2), // Example date and time, adjust accordingly
+                    State = ReservationState.Runing, // Assuming reservation state, adjust accordingly
+                    PlaceType = PlaceType.Lab, // Assuming place type, adjust accordingly
+                    EntityID = 2, // Assuming entity ID (clinic or lab), adjust accordingly
+                    Price = 60.99, // Assuming price, adjust accordingly
+                    UserID = "2" // Assuming user ID, adjust accordingly
+                }
+            // Add more reservations as needed
+            );
+            modelBuilder.Entity<Shift>().HasData(
+                new Shift
+                {
+                    ID = 1,
+                    Name = "Morning Shift",
+                    StartTime = new DateTime(2024, 2, 17, 8, 0, 0), // Example start time, adjust accordingly
+                    EndTime = new DateTime(2024, 2, 17, 16, 0, 0), // Example end time, adjust accordingly
+                    EntityID = 1, // Assuming entity ID, adjust accordingly
+                    PlaceType = PlaceType.Clinic // Assuming place type, adjust accordingly
+                },
+                new Shift
+                {
+                    ID = 2,
+                    Name = "Evening Shift",
+                    StartTime = new DateTime(2024, 2, 17, 16, 0, 0), // Example start time, adjust accordingly
+                    EndTime = new DateTime(2024, 2, 17, 23, 0, 0), // Example end time, adjust accordingly
+                    EntityID = 2, // Assuming entity ID, adjust accordingly
+                    PlaceType = PlaceType.Lab // Assuming place type, adjust accordingly
+                }
+            // Add more shifts as needed
+            );
+            modelBuilder.Entity<TestLab>().HasData(
+                new TestLab
+                {
+                    ID = 1,
+                    TestLabID = 1, // Assuming test lab ID, adjust accordingly
+                    LabID = 1, // Assuming lab ID, adjust accordingly
+                    Price = 100.00, // Assuming price, adjust accordingly
+                    Description = "Description of test lab 1"
+                },
+                new TestLab
+                {
+                    ID = 2,
+                    TestLabID = 2, // Assuming test lab ID, adjust accordingly
+                    LabID = 2, // Assuming lab ID, adjust accordingly
+                    Price = 150.00, // Assuming price, adjust accordingly
+                    Description = "Description of test lab 2"
+                }
+            // Add more test labs as needed
+            );
+            modelBuilder.Entity<Test>().HasData(
+                new Test
+                {
+                    ID = 1,
+                    Name = "Blood Test"
+                },
+                new Test
+                {
+                    ID = 2,
+                    Name = "Urinalysis"
+                }
+            // Add more tests as needed
+            );
+            modelBuilder.Entity<Types>().HasData(
+                new Types
+                {
+                    ID = 1,
+                    Name = "Type 1"
+                },
+                new Types
+                {
+                    ID = 2,
+                    Name = "Type 2"
+                }
+            // Add more types as needed
+            );
+
+            #endregion
+
             #region Configs
             new ClinicConfig().Configure(modelBuilder.Entity<Clinic>());
             new ClinicPriceConfig().Configure(modelBuilder.Entity<ClinicPrice>());
