@@ -20,6 +20,18 @@ namespace MS.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model)
+        {
+            var clinic = new Clinic()
+            {
+                Name=model.Name,
+                DepartmentID=model.DepartmentID
+            };
+            await _unitOfWork.Clinincs.AddAsync(clinic);
+            return ResponseHandler.Created(clinic);
+        }
+
         public async Task<Response<Clinic>> DeleteClinicAsync(int ClinicID)
         {
             var clincic = await _unitOfWork.Clinincs.GetByIdAsync(ClinicID);
@@ -41,7 +53,7 @@ namespace MS.Application.Services
             return ResponseHandler.Success(clincic);
         }
 
-        public async Task<Response<Clinic>> UpdateClinicAsync(ClinicDto model)
+        public async Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model)
         {
             if (model is null ||model.ID==0)
             {
@@ -50,10 +62,11 @@ namespace MS.Application.Services
             var clinic = await _unitOfWork.Clinincs.GetByIdAsync(model.ID);
             if (clinic is null ||clinic.ID==0)
             {
-                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {clinic.ID} not found.");
+                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {model.ID} not found.");
             }
             clinic.Name = model.Name;
             clinic.DepartmentID = model.DepartmentID;
+            await _unitOfWork.Clinincs.UpdateAsync(clinic);
             return ResponseHandler.Updated(clinic);
         }
     }

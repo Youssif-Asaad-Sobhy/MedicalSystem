@@ -13,6 +13,7 @@ namespace MS.Application.Interfaces
     {
         Task<Response<Clinic>> GetClinicAsync(int ClinicID);
         Task<Response<Clinic>> DeleteClinicAsync(int ClinicID);
-        Task<Response<Clinic>> UpdateClinicAsync(ClinicDto model);
+        Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model);
+        Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model);
     }
 }
