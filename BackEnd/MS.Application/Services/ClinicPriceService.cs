@@ -19,17 +19,17 @@ namespace MS.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<Response<ClinicPrice>> CreateClinicPriceAsync(UpdateClinicPriceDto model)
+        public async Task<Response<ClinicPrice>> CreateClinicPriceAsync(CreateClinicPriceDto model)
         {
-            if (model is null || model.ID==0)
+            if (model is null )
             {
-                return ResponseHandler.BadRequest<ClinicPrice>($"ClinicPrice with ID {model.ID} not found.");
+                return ResponseHandler.BadRequest<ClinicPrice>($"ClinicPrice model not found.");
             }
             var clinicprice = new ClinicPrice()
             {
-                Name=model.Name,
-                Price=model.Price,
-                ClinicID=model.ClinicID
+                Name = model.Name,
+                Price = model.Price,
+                ClinicID = model.ClinicID
             };
             await _unitOfWork.ClinicPrices.AddAsync(clinicprice);
             return ResponseHandler.Created<ClinicPrice>(clinicprice);

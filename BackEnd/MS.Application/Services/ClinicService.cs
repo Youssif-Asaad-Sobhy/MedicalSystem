@@ -23,6 +23,10 @@ namespace MS.Application.Services
 
         public async Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model)
         {
+            if (model is null)
+            {
+                return ResponseHandler.BadRequest<Clinic>($"clinic model not found.");
+            }
             var clinic = new Clinic()
             {
                 Name=model.Name,

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Clinc;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
-using MS.Application.Models.Clinic;
 using MS.Data.Entities;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System.Reflection.Metadata.Ecma335;
