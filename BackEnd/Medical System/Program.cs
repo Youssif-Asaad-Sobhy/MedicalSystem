@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MS.Application;
 using MS.Application.Interfaces;
+using MS.Application.Middlewares;
 using MS.Application.Services;
 using MS.Data.Entities;
 using MS.Infrastructure;
@@ -43,6 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

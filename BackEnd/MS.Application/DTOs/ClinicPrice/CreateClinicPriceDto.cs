@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MS.Application.Models.Clinic
+namespace MS.Application.DTOs.ClinicPrice
 {
-    public class ClinicModel
+    public class CreateClinicPriceDto
     {
-        public int ID { get; set; }
-        [StringLength(50), Required]
+        [Required]
         public string Name { get; set; }
         [Required]
-        public int DepartmentID { get; set;}
+        public double Price { get; set; }
+        [Required]
+        public int ClinicID { get; set; }
     }
 }
