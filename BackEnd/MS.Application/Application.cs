@@ -22,17 +22,27 @@ namespace MS.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public static  void Appplicatiion_CS(this IServiceCollection services, IConfiguration Configuration)
         {
+            #region services
+            services.AddScoped<ILabService,LabService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IPharmacyService,PharmacyService>();
+            services.AddScoped<IMedicineService,MedicineService>();
+            services.AddScoped<IDocumentService,DocumentService>();
+            services.AddScoped<IHospitalService,HospitalService>();
+            services.AddScoped<IEquipmentService,EquipmentService>();
+            services.AddScoped<IEntityAuthService,EntityAuthService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IClinicPriceService, ClinicPriceService>();
+            services.AddScoped<IMedicineTypeService,MedicineTypeService>();
+            services.AddScoped<IApplicationService,ApplicationUserService>();
+            services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
+            #endregion
 
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IClinicService, ClinicService>();
-            services.AddScoped<IClinicPriceService, ClinicPriceService>();
-            services.AddScoped<IDepartmentService, DepartmentService>();
-            services.AddScoped<IDocumentService,DocumentService>();
-            services.AddScoped<IApplicationService,ApplicationUserService>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

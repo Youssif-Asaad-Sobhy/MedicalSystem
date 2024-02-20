@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.DTOs.EntityAuth
 {
-    internal class UpdateEntityAuthDto
+    public class UpdateEntityAuthDto
     {
         [Required]
         public int Id { get; set; }

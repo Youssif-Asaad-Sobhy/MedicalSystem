@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.DTOs.EntityAuth
 {
-    internal class CreateEntityAuthDto
+    public class CreateEntityAuthDto
     {
         [Required]
         public int UserID { get; set; }
