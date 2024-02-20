@@ -60,12 +60,12 @@ namespace MS.Application.Services
         {
             if (model == null|| model.ID==0)
             {
-                return ResponseHandler.BadRequest<ClinicPrice>($"Clinic with ID {model.ID} not found.");
+                return ResponseHandler.BadRequest<ClinicPrice>($"ClinicPrice with ID {model.ID} not found.");
             }
             var clinicprice = await _unitOfWork.ClinicPrices.GetByIdAsync(model.ID);
             if (clinicprice == null || clinicprice.ID == 0)
             {
-                return ResponseHandler.BadRequest<ClinicPrice>($"Clinic with ID {model.ID} not found.");
+                return ResponseHandler.BadRequest<ClinicPrice>($"ClinicPrice with ID {model.ID} not found.");
             }
             clinicprice.Name = model.Name;
             clinicprice.Price = model.Price;

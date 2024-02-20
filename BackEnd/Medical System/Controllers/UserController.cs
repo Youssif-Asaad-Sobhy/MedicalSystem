@@ -1,31 +1,32 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MS.Application.DTOs.Clinc;
+using MS.Application.DTOs.ApplicationUser;
+using MS.Application.DTOs.Document;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
-using MS.Data.Entities;
-using MS.Infrastructure.Repositories.UnitOfWork;
-using System.Reflection.Metadata.Ecma335;
+using MS.Application.Services;
 
 namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClinicController : ControllerBase
+    public class UserController : ControllerBase
     {
+
         #region Constructor/props
-        private readonly IClinicService _clinicService;
-        public ClinicController( IClinicService clinicService)
+        private readonly IApplicationService _applicationService;
+
+        public UserController(IApplicationService applicationService)
         {
-            _clinicService = clinicService;
+            _applicationService = applicationService;
         }
         #endregion
 
         #region Methods
-        [HttpGet("Get/{ClinicID:int}")]
-        public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ClinicID)
+        [HttpGet("Get/{ID}")]
+        public async Task<IActionResult> GetSingleClincAsync([FromRoute] string ID)
         {
-            var response = await _clinicService.GetClinicAsync(ClinicID);
+            var response = await _applicationService.GetUserByIDAsync(ID);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
@@ -34,10 +35,10 @@ namespace Medical_System.Controllers
         }
 
 
-        [HttpDelete("Delete/{ClinicID:int}")]
-        public async Task<IActionResult> DeleteSingleAsync(int ClinicID)
+        [HttpDelete("Delete/{ID}")]
+        public async Task<IActionResult> DeleteSingleAsync(string ID)
         {
-            var response = await _clinicService.DeleteClinicAsync(ClinicID);
+            var response = await _applicationService.DeleteUserAsync(ID);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
@@ -46,13 +47,13 @@ namespace Medical_System.Controllers
         }
 
         [HttpPost("Post")]
-        public async Task<IActionResult> CreateClinicAsync([FromBody]CreateClinicDto model) //same comment as below
+        public async Task<IActionResult> CreateClinicAsync([FromBody] CreateUserDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response=await _clinicService.CreateClinicAsync(model);
+            var response = await _applicationService.CreateUserAsync(model);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
@@ -60,21 +61,20 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpPut("Put")]
-        public async Task<IActionResult> PutSingleAsync(UpdateClinicDto model)
+        public async Task<IActionResult> PutSingleAsync([FromBody] UpdateUserDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response = await _clinicService.UpdateClinicAsync(model);
+            var response = await _applicationService.UpdateUserAsync(model);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
             }
             return this.CreateResponse(response);
-        } 
+        }
         #endregion
-
 
     }
 }
