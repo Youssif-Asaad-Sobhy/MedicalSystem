@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MS.Application.DTOs.Equipment
 {
-    internal class CreateEquipmentDto
+    public class CreateEquipmentDto
     {
         [Required]
         public string Name { get; set; }
-        [Required]
+
         public string Description { get; set; }
     }
 }

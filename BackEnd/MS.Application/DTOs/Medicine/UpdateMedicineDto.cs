@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace MS.Application.DTOs.Medicine
 {
-    internal class UpdateMedicineDto
+    public class UpdateMedicineDto
     {
+        [Required]
+        public int ID { get; set; }
+
         [Required]
         public string Name { get; set; }
     }

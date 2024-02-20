@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace MS.Application.DTOs.MedicineType
 {
-    internal class CreateMedicineTypeDto
+    public class CreateMedicineTypeDto
     {
         [Required]
         public int MedicineID { get; set; }
+
         [Required]
         public int TypeID { get; set; }
-        [Required]
+
         public string Description { get; set; }
-        [Required]
+
         public string SideEffects { get; set; }
-        [Required]
+
         public string Warning { get; set; }
+
         [Required]
         public DateTime ExpirationDate { get; set; }
     }
