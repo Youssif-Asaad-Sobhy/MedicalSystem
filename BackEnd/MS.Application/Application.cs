@@ -10,6 +10,10 @@ using MS.Data.Entities;
 using MS.Application.Interfaces;
 using MS.Application.Services;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using MS.Application.Helpers.ValidationHelper;
+using System.Reflection;
+using FluentValidation;
 
 namespace MS.Application
 {
@@ -25,7 +29,10 @@ namespace MS.Application
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IClinicService, ClinicService>();
-
+            services.AddScoped<IClinicPriceService, ClinicPriceService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IDocumentService,DocumentService>();
+            services.AddScoped<IApplicationService,ApplicationUserService>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -46,6 +53,10 @@ namespace MS.Application
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
                     };
                 });
+            // Get Validators
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            // 
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         }
 
     }

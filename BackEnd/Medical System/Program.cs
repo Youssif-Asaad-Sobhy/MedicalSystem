@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MS.Application;
 using MS.Application.Interfaces;
+using MS.Application.Middlewares;
 using MS.Application.Services;
 using MS.Infrastructure;
 using MS.Infrastructure.Contexts;
@@ -30,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
