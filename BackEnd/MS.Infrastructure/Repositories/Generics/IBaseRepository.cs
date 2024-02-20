@@ -20,7 +20,7 @@ namespace MS.Infrastructure.Repositories.Generics
         void RollBack();
         IQueryable<T> GetTableNoTracking();
         IQueryable<T> GetTableAsTracking();
-        Task<Boolean> AddAsync(T entity);
+        Task<T> AddAsync(T entity);
         Task AddRangeAsync(ICollection<T> entities);
         Task UpdateAsync(T entity);
         Task UpdateRangeAsync(ICollection<T> entities);

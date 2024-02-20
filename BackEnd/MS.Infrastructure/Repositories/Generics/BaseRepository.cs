@@ -46,12 +46,11 @@ namespace MS.Infrastructure.Repositories.Generics
             await _dbContext.SaveChangesAsync();
 
         }
-        public virtual async Task<Boolean> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
-            return await _dbContext.SaveChangesAsync()>0;
-
-            
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         public virtual async Task UpdateAsync(T entity)
