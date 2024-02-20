@@ -46,12 +46,12 @@ namespace MS.Infrastructure.Repositories.Generics
             await _dbContext.SaveChangesAsync();
 
         }
-        public virtual async Task<T> AddAsync(T entity)
+        public virtual async Task<Boolean> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync()>0;
 
-            return entity;
+            
         }
 
         public virtual async Task UpdateAsync(T entity)
@@ -104,6 +104,8 @@ namespace MS.Infrastructure.Repositories.Generics
         public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
          => await _dbContext.Set<T>().Where(expression).ToListAsync();
 
+        public async Task<T> GetByExpressionAsync(Expression<Func<T, bool>> expression) 
+            => await _dbContext.Set<T>().Where(expression).FirstOrDefaultAsync();
 
         #endregion
     }
