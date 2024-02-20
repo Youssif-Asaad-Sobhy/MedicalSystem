@@ -14,7 +14,7 @@ namespace MS.Application.Interfaces
     {
         Task<Response<Document>> GetDocByIDAsync(int ID);
         Task<Response<Document>> DeleteDocAsync(int ID);
-        Task<Response<Document>> UpdateDocAsync(UpdateDoctDto model);
-        Task<Response<Document>> CreateDocAsync(CreateDoctDto model);
+        Task<Response<Document>> UpdateDocAsync(UpdateEquipmentDto model);
+        Task<Response<Document>> CreateDocAsync(CreateEquipmentDto model);
     }
 }
