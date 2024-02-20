@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MS.Data.Enums;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using MS.Data.Enums;
 
 namespace MS.Application.DTOs.Lab
