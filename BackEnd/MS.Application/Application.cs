@@ -33,6 +33,19 @@ namespace MS.Application
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDocumentService,DocumentService>();
             services.AddScoped<IApplicationService,ApplicationUserService>();
+
+            services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
+            services.AddScoped<IPlaceShiftService, PlaceShiftService>();
+            services.AddScoped<IReportMedicineService, ReportMedicineService>();
+            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IShiftService, ShiftService>();
+            services.AddScoped<ITestLabService, TestLabService>();
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITypeService, TypeServices>();
+
+
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
