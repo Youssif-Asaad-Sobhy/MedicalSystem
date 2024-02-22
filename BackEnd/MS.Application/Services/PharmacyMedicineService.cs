@@ -1,4 +1,5 @@
-﻿using MS.Application.DTOs.MedicineType;
+using Microsoft.Extensions.Logging;
+using MS.Application.DTOs.MedicineType;
 using MS.Application.DTOs.PharmacyMedicine;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Services
 {
-    internal class PharmacyMedicineService : IPharmacyMedicineService
+    public class PharmacyMedicineService : IPharmacyMedicineService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -20,21 +21,22 @@ namespace MS.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<Response<PharmacyMedicine>> CreatePharmacyMedicineAsync(CreatePharmacyMedicineDto model)
         {
-            if (model == null)
+            if (model is null)
             {
-                return ResponseHandler.BadRequest<PharmacyMedicine>($"Model not found.");
+                return ResponseHandler.BadRequest<PharmacyMedicine>($"PharmacyMedicine model not found.");
             }
-            var Entity = new PharmacyMedicine()
+            var PharmacyMedicine = new PharmacyMedicine()
             {
+                PharmacyID =model.PharmacyID,
+                MedicineTypeID = model.MedicineTypeID,
                 Amount = model.Amount,
                 Price = model.Price,
-                MedicineTypeID = model.MedicineTypeID,
-                PharmacyID = model.PharmacyID
             };
-            await _unitOfWork.PharmacyMedicines.AddAsync(Entity);
-            return ResponseHandler.Created(Entity);
+            await _unitOfWork.PharmacyMedicines.AddAsync(PharmacyMedicine);
+            return ResponseHandler.Created(PharmacyMedicine);
         }
 
         public async Task<Response<PharmacyMedicine>> DeletePharmacyMedicineAsync(int ID)
