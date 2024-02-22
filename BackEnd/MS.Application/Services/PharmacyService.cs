@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using MS.Application.DTOs.MedicineType;
 using MS.Application.DTOs.Pharmacy;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -20,59 +21,53 @@ namespace MS.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
-
         public async Task<Response<Pharmacy>> CreatePharmacyAsync(CreatePharmacyDto model)
         {
-            if (model is null)
+            if (model == null)
             {
-                return ResponseHandler.BadRequest<Pharmacy>($"Pharmacy model not found.");
+                return ResponseHandler.BadRequest<Pharmacy>($"Model not found.");
             }
-            var Pharmacy = new Pharmacy()
+            var Entity = new Pharmacy()
             {
                 Name = model.Name,
-                HospitalID  = model.HospitalID,
+                HospitalID = model.HospitalID,
             };
-            await _unitOfWork.Pharmacies.AddAsync(Pharmacy);
-            return ResponseHandler.Created(Pharmacy);
+            await _unitOfWork.Pharmacies.AddAsync(Entity);
+            return ResponseHandler.Created(Entity);
         }
 
         public async Task<Response<Pharmacy>> DeletePharmacyAsync(int ID)
         {
-            var Pharmacy = await _unitOfWork.Pharmacies.GetByIdAsync(ID);
-            if (Pharmacy is null)
+            var Entity = await _unitOfWork.Pharmacies.GetByIdAsync(ID);
+            if (Entity is null || ID == 0)
             {
-                return ResponseHandler.BadRequest<Pharmacy>($"Pharmacy with ID {ID} not found.");
+                return ResponseHandler.BadRequest<Pharmacy>("model is null or not found");
             }
-            await _unitOfWork.Pharmacies.DeleteAsync(Pharmacy);
+            await _unitOfWork.Pharmacies.DeleteAsync(Entity);
             return ResponseHandler.Deleted<Pharmacy>();
         }
 
         public async Task<Response<Pharmacy>> GetPharmacyAsync(int ID)
         {
-            var Pharmacy = await _unitOfWork.Pharmacies.GetByIdAsync(ID);
-            if (Pharmacy is null)
+            var Entity = await _unitOfWork.Pharmacies.GetByIdAsync(ID);
+            if (Entity is null || ID == 0)
             {
-                return ResponseHandler.BadRequest<Pharmacy>($"Pharmacy with ID {ID} not found.");
+                return ResponseHandler.BadRequest<Pharmacy>("model is null or not found");
             }
-            return ResponseHandler.Success<Pharmacy>(Pharmacy);
+            return ResponseHandler.Success(Entity);
         }
 
         public async Task<Response<Pharmacy>> UpdatePharmacyAsync(UpdatePharmacyDto model)
         {
-            if (model is null || model.ID == 0)
+            var Entity = await _unitOfWork.Pharmacies.GetByIdAsync(model.ID);
+            if (Entity is null || model.ID == 0)
             {
-                return ResponseHandler.BadRequest<Pharmacy>($"Pharmacy with ID {model.ID} not found.");
+                return ResponseHandler.BadRequest<Pharmacy>("model is null or not found");
             }
-            var Pharmacy = await _unitOfWork.Pharmacies.GetByIdAsync(model.ID);
-            if (Pharmacy is null || Pharmacy.ID == 0)
-            {
-                return ResponseHandler.BadRequest<Pharmacy>($"Pharmacy with ID {model.ID} not found.");
-            }
-            Pharmacy.Name = model.Name;
-            Pharmacy.HospitalID = model.HospitalID;
-
-            await _unitOfWork.Pharmacies.UpdateAsync(Pharmacy);
-            return ResponseHandler.Updated(Pharmacy);
+            Entity.Name = model.Name;
+            Entity.HospitalID = model.HospitalID;
+            await _unitOfWork.Pharmacies.UpdateAsync(Entity);
+            return ResponseHandler.Success(Entity);
         }
     }
 }

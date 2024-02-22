@@ -50,7 +50,6 @@ namespace MS.Infrastructure.Repositories.Generics
         {
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-
             return entity;
         }
 
@@ -104,6 +103,8 @@ namespace MS.Infrastructure.Repositories.Generics
         public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
          => await _dbContext.Set<T>().Where(expression).ToListAsync();
 
+        public async Task<T> GetByExpressionAsync(Expression<Func<T, bool>> expression) 
+            => await _dbContext.Set<T>().Where(expression).FirstOrDefaultAsync();
 
         #endregion
     }
