@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -22,29 +22,26 @@ namespace MS.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public static  void Appplicatiion_CS(this IServiceCollection services, IConfiguration Configuration)
         {
+            #region services
+            services.AddScoped<ILabService,LabService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IPharmacyService,PharmacyService>();
+            services.AddScoped<IMedicineService,MedicineService>();
+            services.AddScoped<IDocumentService,DocumentService>();
+            services.AddScoped<IHospitalService,HospitalService>();
+            services.AddScoped<IEquipmentService,EquipmentService>();
+            services.AddScoped<IEntityAuthService,EntityAuthService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IClinicPriceService, ClinicPriceService>();
+            services.AddScoped<IMedicineTypeService,MedicineTypeService>();
+            services.AddScoped<IApplicationService,ApplicationUserService>();
+            services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
+            #endregion
 
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
-
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IClinicService, ClinicService>();
-            services.AddScoped<IClinicPriceService, ClinicPriceService>();
-            services.AddScoped<IDepartmentService, DepartmentService>();
-            services.AddScoped<IDocumentService,DocumentService>();
-            services.AddScoped<IApplicationService,ApplicationUserService>();
-
-            services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
-            services.AddScoped<IPlaceShiftService, PlaceShiftService>();
-            services.AddScoped<IReportMedicineService, ReportMedicineService>();
-            services.AddScoped<IReportService, ReportService>();
-            services.AddScoped<IReservationService, ReservationService>();
-            services.AddScoped<IShiftService, ShiftService>();
-            services.AddScoped<ITestLabService, TestLabService>();
-            services.AddScoped<ITestService, TestService>();
-            services.AddScoped<ITypeService, TypeServices>();
-
-
 
             services.AddAuthentication(options =>
             {
