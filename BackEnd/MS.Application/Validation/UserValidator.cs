@@ -13,14 +13,10 @@ namespace MS.Application.Validation
                 .WithMessage("ID is a must ");
 
             RuleFor(user => user.Name)
-                .NotEmpty()
-                .WithMessage("Name is required")
                 .MaximumLength(100)
                 .WithMessage("Name cannot be longer than 100 characters");
 
             RuleFor(user => user.Email)
-                .NotEmpty()
-                .WithMessage("Email is required")
                 .EmailAddress()
                 .WithMessage("Invalid email format");
             
@@ -33,14 +29,10 @@ namespace MS.Application.Validation
 
 
             RuleFor(user => user.Gender)
-                .NotEmpty()
-                .WithMessage("Gender is required")
                 .Must(gender => gender.ToLower() == "male" || gender.ToLower() == "female")
                 .WithMessage("Invalid gender");
 
             RuleFor(user => user.BirthDate)
-                .NotEmpty()
-                .WithMessage("BirthDate is required")
                 .LessThanOrEqualTo(DateTime.Now)
                 .WithMessage("BirthDate cannot be in the future");
 

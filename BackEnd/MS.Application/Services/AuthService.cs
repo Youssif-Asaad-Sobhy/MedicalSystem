@@ -64,12 +64,14 @@ namespace MS.Application.Services
                 return new AuthDto { Description = "email is already Register" };
             if (await _userManager.FindByNameAsync(model.UserName) is not null)
                 return new AuthDto { Description = "UserName is already Register" };
+            // make validation for nid thatbe unique 
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
                 Email = model.Email,
                 Name = model.Name,
                 Gender=model.Gender,
+                NID=model.NID,
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -91,7 +93,6 @@ namespace MS.Application.Services
                 Roles = new List<string> { "User" },
                 Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken),
                 Username = user.UserName,
-                Gender=user.Gender
             };
         }
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
