@@ -1,5 +1,4 @@
-﻿using MS.Application.DTOs.EntityAuth;
-using MS.Application.DTOs.Equipment;
+﻿using MS.Application.DTOs.Equipment;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;

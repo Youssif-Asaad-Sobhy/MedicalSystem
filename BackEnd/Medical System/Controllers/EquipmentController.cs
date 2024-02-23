@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MS.Application.DTOs.EntityAuth;
 using MS.Application.DTOs.Equipment;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;

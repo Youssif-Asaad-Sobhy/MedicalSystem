@@ -20,8 +20,6 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
 
         public IBaseRepository<Department> Departments { get; private set; }
 
-        public IBaseRepository<EntityAuth> EntityAuthes {  get; private set; }
-
         public IBaseRepository<Equipment> Equipments {  get; private set; }
 
         public IBaseRepository<Hospital> Hospitals { get; private set; }
@@ -64,7 +62,6 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
             Clinincs = new BaseRepository<Clinic>(context);
             ClinicPrices = new BaseRepository<ClinicPrice>(context);
             Departments = new BaseRepository<Department>(context);
-            EntityAuthes = new BaseRepository<EntityAuth>(context);
             Equipments = new BaseRepository<Equipment>(context);
             Hospitals = new BaseRepository<Hospital>(context);
             Labs = new BaseRepository<Lab>(context);

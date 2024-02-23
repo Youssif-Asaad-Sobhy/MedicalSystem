@@ -31,7 +31,6 @@ namespace MS.Application
             services.AddScoped<IDocumentService,DocumentService>();
             services.AddScoped<IHospitalService,HospitalService>();
             services.AddScoped<IEquipmentService,EquipmentService>();
-            services.AddScoped<IEntityAuthService,EntityAuthService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IClinicPriceService, ClinicPriceService>();
             services.AddScoped<IMedicineTypeService,MedicineTypeService>();

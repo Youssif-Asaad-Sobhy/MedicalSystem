@@ -13,7 +13,6 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<Clinic> Clinincs { get; }
         IBaseRepository<ClinicPrice> ClinicPrices { get; }
         IBaseRepository<Department> Departments { get; }
-        IBaseRepository<EntityAuth> EntityAuthes { get; }
         IBaseRepository<Equipment> Equipments { get; }
         IBaseRepository<Hospital> Hospitals { get; }
         IBaseRepository<Lab> Labs { get; }

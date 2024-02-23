@@ -89,7 +89,8 @@ namespace MS.Application.Services
                 IsAuthenticted = true,
                 Roles = new List<string> { "User" },
                 Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken),
-                Username = user.UserName
+                Username = user.UserName,
+                Gender=user.Gender
             };
         }
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)

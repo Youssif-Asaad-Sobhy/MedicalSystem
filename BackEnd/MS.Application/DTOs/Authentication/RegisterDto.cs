@@ -15,6 +15,9 @@ namespace MS.Application.Models.Authentication
         public string UserName { get; set; }
         [Required, StringLength(100)]
         public string Email { get; set; }
+        [Required, StringLength(7)]
+        public string Gender { get; set; }
+
         [Required, StringLength(20)]
         public string Password { get; set; }
         [Required, Compare("Password")]
