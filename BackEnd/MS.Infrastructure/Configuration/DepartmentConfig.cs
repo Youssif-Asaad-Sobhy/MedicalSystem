@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using MS.Data.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using FluentValidation;
-using MS.Infrastructure.Validation;
 namespace MS.Infrastructure.Configuration
 {
     public class DepartmentConfig : IEntityTypeConfiguration<Department>
