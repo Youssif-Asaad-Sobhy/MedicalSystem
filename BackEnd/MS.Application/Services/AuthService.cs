@@ -69,6 +69,7 @@ namespace MS.Application.Services
                 UserName = model.UserName,
                 Email = model.Email,
                 Name = model.Name,
+                Gender=model.Gender,
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
