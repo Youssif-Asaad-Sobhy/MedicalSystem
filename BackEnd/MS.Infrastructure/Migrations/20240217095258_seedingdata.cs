@@ -54,8 +54,8 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "Description", "DoctorID", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 1, "Description of report 1", 1, new DateTime(2024, 2, 16, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7883), "1" },
-                    { 2, "Description of report 2", 2, new DateTime(2024, 2, 15, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7928), "2" }
+                    { 1, "Description of report 1", 1, new DateTime(2024, 2, 16, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7883), "00992da5-ca28-4d64-ab61-44744c90b798" },
+                    { 2, "Description of report 2", 2, new DateTime(2024, 2, 15, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7928), "064650b8-3ce8-420b-a420-ed89cc8e0eba" }
                 });
 
             migrationBuilder.InsertData(
@@ -200,8 +200,8 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "EntityID", "PlaceType", "Price", "State", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 1, 1, 0, 50.990000000000002, 0, new DateTime(2024, 2, 18, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7970), "1" },
-                    { 2, 2, 1, 60.990000000000002, 1, new DateTime(2024, 2, 19, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7974), "2" }
+                    { 1, 1, 0, 50.990000000000002, 0, new DateTime(2024, 2, 18, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7970), "00992da5-ca28-4d64-ab61-44744c90b798" },
+                    { 2, 2, 1, 60.990000000000002, 1, new DateTime(2024, 2, 19, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7974), "064650b8-3ce8-420b-a420-ed89cc8e0eba" }
                 });
         }
 
