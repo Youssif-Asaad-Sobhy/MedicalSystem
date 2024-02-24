@@ -35,7 +35,7 @@ namespace MS.Application
             services.AddScoped<IClinicPriceService, ClinicPriceService>();
             services.AddScoped<IMedicineTypeService,MedicineTypeService>();
             services.AddScoped<IApplicationService,ApplicationUserService>();
-            services.AddScoped<IPharmacyMedicineService, PharmacyMedicineService>();
+            services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
             services.AddScoped<IPlaceShiftService, PlaceShiftService>();
             services.AddScoped<IReportMedicineService, ReportMedicineService>();

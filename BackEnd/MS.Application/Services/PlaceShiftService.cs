@@ -40,7 +40,7 @@ namespace MS.Application.Services
         public async Task<Response<PlaceShift>> DeletePlaceShiftAsync(int ID)
         {
             var PlaceShift = await _unitOfWork.PlaceShifts.GetByIdAsync(ID);
-            if (PlaceShift is null)
+            if (PlaceShift is null||ID==0)
             {
                 return ResponseHandler.BadRequest<PlaceShift>($"PlaceShift with ID {ID} not found.");
             }
@@ -51,7 +51,7 @@ namespace MS.Application.Services
         public async Task<Response<PlaceShift>> GetPlaceShiftAsync(int ID)
         {
             var PlaceShift = await _unitOfWork.PlaceShifts.GetByIdAsync(ID);
-            if (PlaceShift is null)
+            if (PlaceShift is null|| ID == 0)
             {
                 return ResponseHandler.BadRequest<PlaceShift>($"PlaceShift with ID {ID} not found.");
             }

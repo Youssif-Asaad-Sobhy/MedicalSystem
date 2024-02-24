@@ -42,7 +42,7 @@ namespace MS.Application.Services
         public async Task<Response<Shift>> DeleteShiftAsync(int ID)
         {
             var Shift = await _unitOfWork.Shifts.GetByIdAsync(ID);
-            if (Shift is null)
+            if (Shift is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Shift>($"Shift with ID {ID} not found.");
             }
@@ -53,7 +53,7 @@ namespace MS.Application.Services
         public async Task<Response<Shift>> GetShiftAsync(int ID)
         {
             var Shift = await _unitOfWork.Shifts.GetByIdAsync(ID);
-            if (Shift is null)
+            if (Shift is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Shift>($"Shift with ID {ID} not found.");
             }

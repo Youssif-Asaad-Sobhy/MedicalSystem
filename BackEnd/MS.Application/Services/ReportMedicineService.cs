@@ -39,7 +39,7 @@ namespace MS.Application.Services
         public async Task<Response<ReportMedicine>> DeleteReportMedicineAsync(int ID)
         {
             var ReportMedicine = await _unitOfWork.ReportMedicines.GetByIdAsync(ID);
-            if (ReportMedicine is null)
+            if (ReportMedicine is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<ReportMedicine>($"ReportMedicine with ID {ID} not found.");
             }
@@ -50,7 +50,7 @@ namespace MS.Application.Services
         public async Task<Response<ReportMedicine>> GetReportMedicineAsync(int ID)
         {
             var ReportMedicine = await _unitOfWork.ReportMedicines.GetByIdAsync(ID);
-            if (ReportMedicine is null)
+            if (ReportMedicine is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<ReportMedicine>($"ReportMedicine with ID {ID} not found.");
             }

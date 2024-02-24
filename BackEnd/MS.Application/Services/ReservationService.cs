@@ -43,7 +43,7 @@ namespace MS.Application.Services
         public async Task<Response<Reservation>> DeleteReservationAsync(int ID)
         {
             var Reservation = await _unitOfWork.Reservations.GetByIdAsync(ID);
-            if (Reservation is null)
+            if (Reservation is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Reservation>($"Reservation with ID {ID} not found.");
             }
@@ -54,7 +54,7 @@ namespace MS.Application.Services
         public async Task<Response<Reservation>> GetReservationAsync(int ID)
         {
             var Reservation = await _unitOfWork.Reservations.GetByIdAsync(ID);
-            if (Reservation is null)
+            if (Reservation is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Reservation>($"Reservation with ID {ID} not found.");
             }

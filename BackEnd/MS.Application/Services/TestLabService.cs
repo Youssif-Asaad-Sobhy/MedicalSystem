@@ -41,7 +41,7 @@ namespace MS.Application.Services
         public async Task<Response<TestLab>> DeleteTestLabAsync(int ID)
         {
             var testlab = await _unitOfWork.TestLabs.GetByIdAsync(ID);
-            if (testlab is null)
+            if (testlab is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<TestLab>($"Test with ID {ID} not found.");
             }
@@ -52,7 +52,7 @@ namespace MS.Application.Services
         public async Task<Response<TestLab>> GetTestLabAsync(int ID)
         {
             var testlab = await _unitOfWork.TestLabs.GetByIdAsync(ID);
-            if (testlab is null)
+            if (testlab is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<TestLab>($"TestLab with ID {ID} not found.");
             }
