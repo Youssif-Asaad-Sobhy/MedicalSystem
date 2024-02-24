@@ -38,7 +38,7 @@ namespace MS.Application.Services
         public async Task<Response<Test>> DeleteTestAsync(int ID)
         {
             var test = await _unitOfWork.Tests.GetByIdAsync(ID);
-            if (test is null)
+            if (test is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Test>($"Test with ID {ID} not found.");
             }
@@ -49,7 +49,7 @@ namespace MS.Application.Services
         public async Task<Response<Test>> GetTestAsync(int ID)
         {
             var test = await _unitOfWork.Tests.GetByIdAsync(ID);
-            if (test is null)
+            if (test is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Test>($"Test with ID {ID} not found.");
             }

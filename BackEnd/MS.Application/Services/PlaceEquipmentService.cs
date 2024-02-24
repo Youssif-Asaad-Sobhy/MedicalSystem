@@ -40,7 +40,7 @@ namespace MS.Application.Services
         public async Task<Response<PlaceEquipment>> DeletePlaceEquipmentAsync(int ID)
         {
             var PlaceEquipment = await _unitOfWork.PlaceEquipments.GetByIdAsync(ID);
-            if (PlaceEquipment is null)
+            if (PlaceEquipment is null||ID==0)
             {
                 return ResponseHandler.BadRequest<PlaceEquipment>($"PlaceEquipment with ID {ID} not found.");
             }
@@ -51,7 +51,7 @@ namespace MS.Application.Services
         public async Task<Response<PlaceEquipment>> GetPlaceEquipmentAsync(int ID)
         {
             var PlaceEquipment = await _unitOfWork.PlaceEquipments.GetByIdAsync(ID);
-            if (PlaceEquipment is null)
+            if (PlaceEquipment is null||ID==0)
             {
                 return ResponseHandler.BadRequest<PlaceEquipment>($"PlaceEquipment with ID {ID} not found.");
             }

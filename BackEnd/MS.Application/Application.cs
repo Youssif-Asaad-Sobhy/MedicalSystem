@@ -36,6 +36,15 @@ namespace MS.Application
             services.AddScoped<IMedicineTypeService,MedicineTypeService>();
             services.AddScoped<IApplicationService,ApplicationUserService>();
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
+            services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
+            services.AddScoped<IPlaceShiftService, PlaceShiftService>();
+            services.AddScoped<IReportMedicineService, ReportMedicineService>();
+            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IShiftService, ShiftService>();
+            services.AddScoped<ITestLabService, TestLabService>();
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITypeService, TypeServices>();
             #endregion
 
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));

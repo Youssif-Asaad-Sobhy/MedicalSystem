@@ -41,7 +41,7 @@ namespace MS.Application.Services
         public async Task<Response<Report>> DeleteReportAsync(int ID)
         {
             var Report = await _unitOfWork.Reports.GetByIdAsync(ID);
-            if (Report is null)
+            if (Report is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Report>($"Report with ID {ID} not found.");
             }
@@ -52,7 +52,7 @@ namespace MS.Application.Services
         public async Task<Response<Report>> GetReportAsync(int ID)
         {
             var Report = await _unitOfWork.Reports.GetByIdAsync(ID);
-            if (Report is null)
+            if (Report is null || ID == 0)
             {
                 return ResponseHandler.BadRequest<Report>($"Report with ID {ID} not found.");
             }
