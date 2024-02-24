@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.Helpers;
+using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Models.Authentication;
 using MS.Data.Entities;
+using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,11 +19,14 @@ namespace MS.Application.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JwtHelper _jwt;
-        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtHelper> jwt)
+
+        public AuthService(IUnitOfWork unitOfWork,UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtHelper> jwt)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _jwt = jwt.Value;
             _roleManager = roleManager;
@@ -40,7 +45,7 @@ namespace MS.Application.Services
         public async Task<AuthDto> GetTokenAsync(TokenRequestDto model)
         {
             var authmodel = new AuthDto();
-            var user = await _userManager.FindByEmailAsync(model.Emaail);
+            var user = await _userManager.FindByNameAsync(model.UserName);
             if (user is null || (!await _userManager.CheckPasswordAsync(user, model.Password)))
             {
                 authmodel.Description = "Email or pass is incorrect";
@@ -48,6 +53,8 @@ namespace MS.Application.Services
             }
             var JwtSecurityToken = await CreateJwtToken(user);
             authmodel.IsAuthenticted = true;
+            authmodel.Name = user.Name;
+            authmodel.NID = user.NID;
             authmodel.Email = user.Email;
             authmodel.Username = user.UserName;
             authmodel.ExpiresOn = JwtSecurityToken.ValidTo;
@@ -62,16 +69,22 @@ namespace MS.Application.Services
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
                 return new AuthDto { Description = "email is already Register" };
-            if (await _userManager.FindByNameAsync(model.UserName) is not null)
+            if (string.IsNullOrEmpty(model.Username))
+                model.Username = model.Name;
+            if (await _userManager.FindByNameAsync(model.Username) is not null)
                 return new AuthDto { Description = "UserName is already Register" };
             // make validation for nid thatbe unique 
+            if (await _unitOfWork.Users.GetByExpressionAsync(u => u.NID == model.NID) is not null)
+                return new AuthDto { Description = "National ID is already register" };
+
+
             var user = new ApplicationUser
             {
-                UserName = model.UserName,
+                UserName = model.Username,
                 Email = model.Email,
                 Name = model.Name,
-                Gender=model.Gender,
-                NID=model.NID,
+                Gender = model.Gender,
+                NID = model.NID,
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)

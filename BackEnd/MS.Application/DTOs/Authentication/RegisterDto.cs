@@ -11,10 +11,9 @@ namespace MS.Application.Models.Authentication
     {
         [Required, StringLength(14)]
         public string NID { get; set; }
-        [StringLength(20)]
+        [Required,StringLength(100)]
+        public string Username { get; set; }
         public string Name { get; set; }
-        [StringLength(50)]
-        public string UserName { get; set; }
         [ StringLength(100)]
         public string Email { get; set; }
         [StringLength(7)]

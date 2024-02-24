@@ -10,7 +10,7 @@ namespace MS.Application.Models.Authentication
     public class TokenRequestDto
     {
         [Required, StringLength(100)]
-        public string Emaail { get; set; }
+        public string UserName { get; set; }
         [Required, StringLength(50)]
         public string Password { get; set; }
     }
