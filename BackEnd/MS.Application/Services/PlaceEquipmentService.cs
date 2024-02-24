@@ -72,7 +72,7 @@ namespace MS.Application.Services
             PlaceEquipment.EntityID = model.EntityID;
             PlaceEquipment.EquipmentID = model.EquipmentID;
             PlaceEquipment.PlaceType = model.PlaceType;
-            
+
             await _unitOfWork.PlaceEquipments.UpdateAsync(PlaceEquipment);
             return ResponseHandler.Updated(PlaceEquipment);
         }

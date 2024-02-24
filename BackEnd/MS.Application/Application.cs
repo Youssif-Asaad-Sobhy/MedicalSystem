@@ -43,7 +43,7 @@ namespace MS.Application
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<IShiftService, ShiftService>();
             services.AddScoped<ITestLabService, TestLabService>();
-            services.AddScoped<ITestService, TestService>();
+            services.AddScoped< ITestService,  TestService>();
             services.AddScoped<ITypeService, TypeServices>();
             #endregion
 
