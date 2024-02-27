@@ -11,10 +11,9 @@ namespace MS.Application.DTOs.Equipment
     {
         [Required]
         public int ID { get; set; }
-
-        [Required]
+        [Required,StringLength(50)]
         public string Name { get; set; }
-
+        [Required, StringLength(255)]
         public string Description { get; set; }
     }
 }

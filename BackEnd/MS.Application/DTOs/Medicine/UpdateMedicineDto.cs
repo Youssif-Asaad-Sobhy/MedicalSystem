@@ -12,7 +12,7 @@ namespace MS.Application.DTOs.Medicine
         [Required]
         public int ID { get; set; }
 
-        [Required]
+        [Required,StringLength(50)]
         public string Name { get; set; }
     }
 }

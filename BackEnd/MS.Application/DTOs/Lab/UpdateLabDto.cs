@@ -11,10 +11,10 @@ namespace MS.Application.DTOs.Lab
         [Required]
         public int ID { get; set; }
 
-        [Required]
+        [Required, StringLength(25)]
         public string Name { get; set; }
 
-        [Required]
+        [Required,Range(1,2)]
         public LabType Type { get; set; }
 
         [Required]

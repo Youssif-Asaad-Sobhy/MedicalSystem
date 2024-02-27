@@ -9,9 +9,9 @@ namespace MS.Application.DTOs.Equipment
 {
     public class CreateEquipmentDto
     {
-        [Required]
+        [Required,StringLength(50)]
         public string Name { get; set; }
-
+        [Required,StringLength(255)]
         public string Description { get; set; }
     }
 }

@@ -9,9 +9,7 @@ namespace MS.Application.DTOs.Medicine
 {
     public class CreateMedicineDto
     {
-        [Required]
-        public int ID { get; set; }
-        [Required]
+        [Required,StringLength(50)]
         public string Name { get; set; }
     }
 }

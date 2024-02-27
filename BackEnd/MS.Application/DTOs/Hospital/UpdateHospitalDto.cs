@@ -14,21 +14,21 @@ namespace MS.Application.DTOs.Hospital
         [Required]
         public int ID { get; set; }
 
-        [Required]
+        [Required, StringLength(50)]
         public string Name { get; set; }
 
         public string Phone { get; set; }
 
-        [Required]
+        [Required, StringLength(25)]
         public string Government { get; set; }
 
-        [Required]
+        [Required, StringLength(25)]
         public string City { get; set; }
 
-        [Required]
+        [Required, StringLength(25)]
         public string Country { get; set; }
 
-        [Required]
+        [Required, Range(1, 2)]
         public HospitalType Type { get; set; }
     }
 }
