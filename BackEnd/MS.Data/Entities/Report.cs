@@ -12,7 +12,7 @@ namespace MS.Data.Entities
         public DateTime Time { get; set; }
         public string Description { get; set; }
         public string UserID { get; set; }
-        public int DoctorID { get; set; }
+        public string DoctorID { get; set; }
         public ApplicationUser User { get; set; }
         public ICollection<Document> Documents { get; set; }
         public ICollection<ReportMedicine> ReportMedicines { get; set; }

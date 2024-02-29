@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -15,10 +16,35 @@ namespace MS.Application.Services
     public class ReservationService : IReservationService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReservationService(IUnitOfWork unitOfWork)
+        public ReservationService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
+        }
+
+        public async Task<Response<Reservation>> ClinicReservationAsync(ClinicReservationDto model)
+        {
+            if (model is null)
+            {
+                return ResponseHandler.BadRequest<Reservation>($"Reservation model not found.");
+            }
+            var user =await _userManager.FindByIdAsync(model.UserID);
+            var clinic = await _unitOfWork.Clinincs.GetByIdAsync(model.ClinicID);
+            if (clinic is null || user == null)
+            {
+                return ResponseHandler.BadRequest<Reservation>($"Clinic or User not found. please enter correct ID");
+            }
+            var reservation = new Reservation()
+            {
+                Time=DateTime.Now,
+                UserID=user.Id,
+                EntityID=clinic.ID,
+                Price=model.Price
+            };
+            await _unitOfWork.Reservations.AddAsync(reservation);
+            return ResponseHandler.Created(reservation);
         }
 
         public async Task<Response<Reservation>> CreateReservationAsync(CreateReservationDto model)

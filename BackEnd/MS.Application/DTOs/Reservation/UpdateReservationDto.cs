@@ -12,7 +12,7 @@ namespace MS.Application.DTOs.Reservation
 
         [Required(ErrorMessage = "Time is required")]
         [RegularExpression(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$", ErrorMessage = "Time must be in the format yyyy-MM-ddTHH:mm:ss")]
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
 
         [Required]
         [MaxLength(1)]

@@ -296,7 +296,7 @@ namespace MS.Infrastructure.Contexts
                     Time = DateTime.Now.AddDays(-1), // Example date and time, adjust accordingly
                     Description = "Description of report 1",
                     UserID = "1", // Assuming user ID, adjust accordingly
-                    DoctorID = 1 // Assuming doctor ID, adjust accordingly
+                    DoctorID = "11" // Assuming doctor ID, adjust accordingly
                 },
                 new Report
                 {
@@ -304,7 +304,7 @@ namespace MS.Infrastructure.Contexts
                     Time = DateTime.Now.AddDays(-2), // Example date and time, adjust accordingly
                     Description = "Description of report 2",
                     UserID = "2", // Assuming user ID, adjust accordingly
-                    DoctorID = 2 // Assuming doctor ID, adjust accordingly
+                    DoctorID = "22" // Assuming doctor ID, adjust accordingly
                 }
             // Add more reports as needed
             );

@@ -41,7 +41,16 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-
+        [HttpPost("ClinicReservation")]
+        public async Task<IActionResult> CreateAsync([FromBody] ClinicReservationDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var response = await _service.ClinicReservationAsync(model);
+            return this.CreateResponse(response);
+        }
         [HttpPost("Post")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateReservationDto model)
         {
