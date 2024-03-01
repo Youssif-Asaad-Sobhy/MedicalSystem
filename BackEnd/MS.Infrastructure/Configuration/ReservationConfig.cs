@@ -14,6 +14,11 @@ namespace MS.Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.HasKey(r => r.ID);
+
+            builder.HasOne(r => r.PlacePrice)
+                .WithMany()
+                .HasForeignKey(r => r.PlacePriceId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

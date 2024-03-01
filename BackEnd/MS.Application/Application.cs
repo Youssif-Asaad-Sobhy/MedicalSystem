@@ -25,26 +25,26 @@ namespace MS.Application
             #region services
             services.AddScoped<ILabService,LabService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITypeService, TypeServices>();
+            services.AddScoped<IShiftService, ShiftService>();
+            services.AddScoped< ITestService,  TestService>();
             services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<ITestLabService, TestLabService>();
             services.AddScoped<IPharmacyService,PharmacyService>();
             services.AddScoped<IMedicineService,MedicineService>();
             services.AddScoped<IDocumentService,DocumentService>();
             services.AddScoped<IHospitalService,HospitalService>();
             services.AddScoped<IEquipmentService,EquipmentService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
-            services.AddScoped<IClinicPriceService, ClinicPriceService>();
+            services.AddScoped<IPlaceShiftService, PlaceShiftService>();
+            services.AddScoped<IPlacePriceService, PlacePriceService>();
+            services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<IMedicineTypeService,MedicineTypeService>();
             services.AddScoped<IApplicationService,ApplicationUserService>();
-            services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
-            services.AddScoped<IPlaceShiftService, PlaceShiftService>();
             services.AddScoped<IReportMedicineService, ReportMedicineService>();
-            services.AddScoped<IReportService, ReportService>();
-            services.AddScoped<IReservationService, ReservationService>();
-            services.AddScoped<IShiftService, ShiftService>();
-            services.AddScoped<ITestLabService, TestLabService>();
-            services.AddScoped< ITestService,  TestService>();
-            services.AddScoped<ITypeService, TypeServices>();
+            services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             #endregion
 
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));

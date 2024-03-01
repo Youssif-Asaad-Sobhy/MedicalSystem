@@ -16,6 +16,7 @@ namespace MS.Data.Entities
         public int HospitalID { get; set; }
         public Hospital Hospital { get; set; }
         public ICollection<TestLab> TestLabs { get; set; }
+        public ICollection<PlacePrice> PlacePrices { get; set; }
         public ICollection<PlaceShift> PlaceShifts { get; set; }
         public ICollection<PlaceEquipment> PlaceEquipments { get; set; }
         public ICollection<Reservation> Reservations { get; set; }

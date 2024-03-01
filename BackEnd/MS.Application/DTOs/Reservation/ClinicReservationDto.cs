@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace MS.Application.DTOs.Reservation
 {
-    public class ClinicReservationDto
+    public class PlaceReservationDto
     {
         [Required,StringLength(14)]
         public string UserID { get; set; }
-        public PlaceType PlaceType { get; set; } = PlaceType.Clinic;  
         [Required]
-        public int ClinicID { get; set; }
-        [Required]
-        public double Price { get; set; }
+        public int PlacePriceId { get; set; }
 
         
     }

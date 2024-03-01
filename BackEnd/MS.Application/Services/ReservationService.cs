@@ -24,48 +24,27 @@ namespace MS.Application.Services
             _userManager = userManager;
         }
 
-        public async Task<Response<Reservation>> ClinicReservationAsync(ClinicReservationDto model)
+        public async Task<Response<Reservation>> PlaceReservationAsync(PlaceReservationDto model)
         {
             if (model is null)
             {
                 return ResponseHandler.BadRequest<Reservation>($"Reservation model not found.");
             }
             var user =await _userManager.FindByIdAsync(model.UserID);
-            var clinic = await _unitOfWork.Clinincs.GetByIdAsync(model.ClinicID);
-            if (clinic is null || user == null)
+            var placePrice = await _unitOfWork.PlacePrice.GetByIdAsync(model.PlacePriceId);
+            if (placePrice is null || user == null)
             {
-                return ResponseHandler.BadRequest<Reservation>($"Clinic or User not found. please enter correct ID");
+                return ResponseHandler.BadRequest<Reservation>($"place or User not found. please enter correct ID");
             }
             var reservation = new Reservation()
             {
                 Time=DateTime.Now,
                 UserID=user.Id,
-                EntityID=clinic.ID,
-                Price=model.Price
+                PlacePriceId=model.PlacePriceId
             };
             await _unitOfWork.Reservations.AddAsync(reservation);
             return ResponseHandler.Created(reservation);
         }
-
-        public async Task<Response<Reservation>> CreateReservationAsync(CreateReservationDto model)
-        {
-            if (model is null)
-            {
-                return ResponseHandler.BadRequest<Reservation>($"Reservation model not found.");
-            }
-            var Reservation = new Reservation()
-            {
-                Time = DateTime.Now,
-                State = model.State,
-                PlaceType = model.PlaceType,
-                EntityID = model.EntityID,
-                Price = model.Price,
-                UserID = model.UserID,
-            };
-            await _unitOfWork.Reservations.AddAsync(Reservation);
-            return ResponseHandler.Created(Reservation);
-        }
-
         public async Task<Response<Reservation>> DeleteReservationAsync(int ID)
         {
             var Reservation = await _unitOfWork.Reservations.GetByIdAsync(ID);
@@ -101,9 +80,7 @@ namespace MS.Application.Services
             Reservation.Time = model.Time;
             Reservation.State = model.State;
             Reservation.UserID = model.UserID;
-            Reservation.EntityID = model.EntityID;
-            Reservation.PlaceType= model.PlaceType;
-            Reservation.Price = model.Price;
+            Reservation.PlacePriceId = model.PlacePriceId;
 
             await _unitOfWork.Reservations.UpdateAsync(Reservation);
             return ResponseHandler.Updated(Reservation);

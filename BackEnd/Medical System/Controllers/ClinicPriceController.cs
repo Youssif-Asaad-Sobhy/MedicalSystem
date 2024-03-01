@@ -13,8 +13,8 @@ namespace Medical_System.Controllers
     public class ClinicPriceController : ControllerBase
     {
         #region Constructor/props
-        private readonly IClinicPriceService _clinicPriceService;
-        public ClinicPriceController(IClinicPriceService clinicPriceService)
+        private readonly IPlacePriceService _clinicPriceService;
+        public ClinicPriceController(IPlacePriceService clinicPriceService)
         {
             _clinicPriceService=clinicPriceService;
         }

@@ -17,6 +17,6 @@ namespace MS.Application.DTOs.ClinicPrice
         [Required]
         public double Price { get; set; }
         [Required]
-        public int ClinicID { get; set; }
+        public int PlaceID { get; set; }
     }
 }

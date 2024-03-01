@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    public class ClinicPriceConfig : IEntityTypeConfiguration<ClinicPrice>
+    public class PlacePriceConfig : IEntityTypeConfiguration<PlacePrice>
     {
-        public void Configure(EntityTypeBuilder<ClinicPrice> builder) 
+        public void Configure(EntityTypeBuilder<PlacePrice> builder) 
         {
             builder.HasKey(c => c.ID);
-
         }
     }
 }

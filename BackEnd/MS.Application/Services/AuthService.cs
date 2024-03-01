@@ -129,10 +129,10 @@ namespace MS.Application.Services
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
+            List<string> audiences = new List<string>(_jwt.ValidAudience);
             var jwtSecurityToken = new JwtSecurityToken(
                 issuer: _jwt.ValidIssuer,
-                audience: _jwt.ValidAudience,
+                audience: audiences.ToString(),
                 claims: claims,
                 expires: DateTime.Now.AddDays(_jwt.DurationInDays),
                 signingCredentials: signingCredentials);

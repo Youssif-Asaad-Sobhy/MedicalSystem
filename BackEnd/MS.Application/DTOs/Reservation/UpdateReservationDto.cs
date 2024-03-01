@@ -18,17 +18,9 @@ namespace MS.Application.DTOs.Reservation
         [MaxLength(1)]
         public ReservationState State { get; set; }
 
-        [Required]
-        [MaxLength(1)]
-        public PlaceType PlaceType { get; set; }
-
         [Required(ErrorMessage = "EntityID is required")]
         [Range(1, int.MaxValue, ErrorMessage = "EntityID must be a positive integer")]
-        public int EntityID { get; set; }
-
-        [Required(ErrorMessage = "Price is required")]
-        [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive number")]
-        public double Price { get; set; }
+        public int PlacePriceId { get; set; }
 
         [Required(ErrorMessage = "UserID is required")]
         public string UserID { get; set; }

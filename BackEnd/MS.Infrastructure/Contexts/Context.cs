@@ -71,20 +71,20 @@ namespace MS.Infrastructure.Contexts
                     DepartmentID = 2,
 
                 });
-            modelBuilder.Entity<ClinicPrice>().HasData(
-                new ClinicPrice
+            modelBuilder.Entity<PlacePrice>().HasData(
+                new PlacePrice
                 {
                     ID = 3,
                     Name = "X-ray",
                     Price = 260.40,
-                    ClinicID = 1,
+                    PlaceID = 1,
                 },
-                new ClinicPrice
+                new PlacePrice
                 {
                     ID = 1,
                     Name = "X-Alpha",
                     Price = 341.40,
-                    ClinicID = 2,
+                    PlaceID = 2,
                 });
             modelBuilder.Entity<Department>().HasData(
                 new Department
@@ -295,7 +295,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 1,
                     Time = DateTime.Now.AddDays(-1), // Example date and time, adjust accordingly
                     Description = "Description of report 1",
-                    UserID = "1", // Assuming user ID, adjust accordingly
+                    UserID = "00992da5-ca28-4d64-ab61-44744c90b798", // Assuming user ID, adjust accordingly
                     DoctorID = "11" // Assuming doctor ID, adjust accordingly
                 },
                 new Report
@@ -303,7 +303,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 2,
                     Time = DateTime.Now.AddDays(-2), // Example date and time, adjust accordingly
                     Description = "Description of report 2",
-                    UserID = "2", // Assuming user ID, adjust accordingly
+                    UserID = "00992da5-ca28-4d64-ab61-44744c90b798", // Assuming user ID, adjust accordingly
                     DoctorID = "22" // Assuming doctor ID, adjust accordingly
                 }
             // Add more reports as needed
@@ -329,9 +329,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 1,
                     Time = DateTime.Now.AddDays(1), // Example date and time, adjust accordingly
                     State = ReservationState.Done, // Assuming reservation state, adjust accordingly
-                    PlaceType = PlaceType.Clinic, // Assuming place type, adjust accordingly
-                    EntityID = 1, // Assuming entity ID (clinic or lab), adjust accordingly
-                    Price = 50.99, // Assuming price, adjust accordingly
+                    PlacePriceId = 1,
                     UserID = "1" // Assuming user ID, adjust accordingly
                 },
                 new Reservation
@@ -339,9 +337,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 2,
                     Time = DateTime.Now.AddDays(2), // Example date and time, adjust accordingly
                     State = ReservationState.Runing, // Assuming reservation state, adjust accordingly
-                    PlaceType = PlaceType.Lab, // Assuming place type, adjust accordingly
-                    EntityID = 2, // Assuming entity ID (clinic or lab), adjust accordingly
-                    Price = 60.99, // Assuming price, adjust accordingly
+                    PlacePriceId = 1,
                     UserID = "2" // Assuming user ID, adjust accordingly
                 }
             // Add more reservations as needed
@@ -417,7 +413,7 @@ namespace MS.Infrastructure.Contexts
 
             #region Configs
             new ClinicConfig().Configure(modelBuilder.Entity<Clinic>());
-            new ClinicPriceConfig().Configure(modelBuilder.Entity<ClinicPrice>());
+            new PlacePriceConfig().Configure(modelBuilder.Entity<PlacePrice>());
             new DepartmentConfig().Configure(modelBuilder.Entity<Department>());
             new DocumentConfig().Configure(modelBuilder.Entity<Document>());
             new EquipmentConfig().Configure(modelBuilder.Entity<Equipment>());
@@ -443,7 +439,7 @@ namespace MS.Infrastructure.Contexts
         }
         #region DbSets
         public DbSet<Clinic> clinics { get; set; }
-        public DbSet<ClinicPrice> clinicsPrice { get; set; }
+        public DbSet<PlacePrice> placePrice { get; set; }
         public DbSet<Department> departments { get; set; }
         public DbSet<Document> documents { get; set; }
         public DbSet<Equipment> equipments { get; set; }
