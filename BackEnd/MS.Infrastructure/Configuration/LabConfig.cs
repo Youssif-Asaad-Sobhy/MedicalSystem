@@ -20,6 +20,11 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(tl => tl.LabID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(c => c.PlacePrices)
+                .WithOne()
+                .HasForeignKey(c => c.PlaceID)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasMany(l => l.PlaceShifts)
                 .WithOne()
                 .HasForeignKey(ps => ps.EntityID)
@@ -30,10 +35,6 @@ namespace MS.Infrastructure.Configuration
                .HasForeignKey(ps => ps.EntityID)
                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(l => l.Reservations)
-               .WithOne()
-               .HasForeignKey(r => r.EntityID)
-               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -41,19 +41,14 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-
-        [HttpPost("Post")]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateReservationDto model)
+        [HttpPost("ClinicReservation")]
+        public async Task<IActionResult> CreateAsync([FromBody] PlaceReservationDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response = await _service.CreateReservationAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+            var response = await _service.PlaceReservationAsync(model);
             return this.CreateResponse(response);
         }
         [HttpPut("Put")]

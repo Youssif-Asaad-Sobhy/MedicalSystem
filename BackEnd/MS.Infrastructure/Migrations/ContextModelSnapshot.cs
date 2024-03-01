@@ -104,10 +104,10 @@ namespace MS.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00992da5-ca28-4d64-ab61-44744c90b798",
+                            Id = "c80e4cb5-2dc7-4661-8912-c94263b8c271",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "bf73e652-d598-450b-91b2-dc18a7b3d44e",
+                            ConcurrencyStamp = "84dd1891-51e4-469c-9abd-cb784862a843",
                             EmailConfirmed = false,
                             Gender = "male",
                             LockoutEnabled = false,
@@ -116,16 +116,16 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MOHAMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMEDALI123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9ae810c8-31ad-43ef-92df-05d451ad17a5",
+                            SecurityStamp = "e027d2b2-15fc-4caa-a849-e8f8e2263eb1",
                             TwoFactorEnabled = false,
                             UserName = "MohamedAli123"
                         },
                         new
                         {
-                            Id = "064650b8-3ce8-420b-a420-ed89cc8e0eba",
+                            Id = "a2dc16fb-7648-4ea4-9cac-c4199885a2e1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "844c8e38-3d18-469a-be95-e9192a132532",
+                            ConcurrencyStamp = "b9f06d00-90a5-4bc2-b77a-8c28d4031e5c",
                             EmailConfirmed = false,
                             Gender = "Female",
                             LockoutEnabled = false,
@@ -134,7 +134,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MONA@EXAMPLE.COM",
                             NormalizedUserName = "MONAOMAR123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "916cf95f-c695-4118-8c3b-6573bc1286d1",
+                            SecurityStamp = "d7b3c1a7-e708-406b-abc8-a046bd94be47",
                             TwoFactorEnabled = false,
                             UserName = "monaomar123"
                         });
@@ -173,47 +173,6 @@ namespace MS.Infrastructure.Migrations
                             ID = 2,
                             DepartmentID = 2,
                             Name = "Alpha"
-                        });
-                });
-
-            modelBuilder.Entity("MS.Data.Entities.ClinicPrice", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("ClinicID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ClinicID");
-
-                    b.ToTable("clinicsPrice");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 3,
-                            ClinicID = 1,
-                            Name = "X-ray",
-                            Price = 260.39999999999998
-                        },
-                        new
-                        {
-                            ID = 1,
-                            ClinicID = 2,
-                            Name = "X-Alpha",
-                            Price = 341.39999999999998
                         });
                 });
 
@@ -649,6 +608,52 @@ namespace MS.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MS.Data.Entities.PlacePrice", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlaceID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaceType")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("PlaceID");
+
+                    b.ToTable("placePrice");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 3,
+                            Name = "X-ray",
+                            PlaceID = 1,
+                            PlaceType = 0,
+                            Price = 260.39999999999998
+                        },
+                        new
+                        {
+                            ID = 1,
+                            Name = "X-Alpha",
+                            PlaceID = 2,
+                            PlaceType = 0,
+                            Price = 341.39999999999998
+                        });
+                });
+
             modelBuilder.Entity("MS.Data.Entities.PlaceShift", b =>
                 {
                     b.Property<int>("ID")
@@ -703,8 +708,9 @@ namespace MS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DoctorID")
-                        .HasColumnType("int");
+                    b.Property<string>("DoctorID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
@@ -724,17 +730,17 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 1,
                             Description = "Description of report 1",
-                            DoctorID = 1,
-                            Time = new DateTime(2024, 2, 16, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7883),
-                            UserID = "1"
+                            DoctorID = "11",
+                            Time = new DateTime(2024, 2, 29, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6208),
+                            UserID = "00992da5-ca28-4d64-ab61-44744c90b798"
                         },
                         new
                         {
                             ID = 2,
                             Description = "Description of report 2",
-                            DoctorID = 2,
-                            Time = new DateTime(2024, 2, 15, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7928),
-                            UserID = "2"
+                            DoctorID = "22",
+                            Time = new DateTime(2024, 2, 28, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6283),
+                            UserID = "00992da5-ca28-4d64-ab61-44744c90b798"
                         });
                 });
 
@@ -783,14 +789,14 @@ namespace MS.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("EntityID")
+                    b.Property<int?>("ClinicID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlaceType")
+                    b.Property<int?>("LabID")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<int>("PlacePriceId")
+                        .HasColumnType("int");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
@@ -804,7 +810,11 @@ namespace MS.Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("EntityID");
+                    b.HasIndex("ClinicID");
+
+                    b.HasIndex("LabID");
+
+                    b.HasIndex("PlacePriceId");
 
                     b.HasIndex("UserID");
 
@@ -814,21 +824,17 @@ namespace MS.Infrastructure.Migrations
                         new
                         {
                             ID = 1,
-                            EntityID = 1,
-                            PlaceType = 0,
-                            Price = 50.990000000000002,
+                            PlacePriceId = 1,
                             State = 0,
-                            Time = new DateTime(2024, 2, 18, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7970),
+                            Time = new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6452),
                             UserID = "1"
                         },
                         new
                         {
                             ID = 2,
-                            EntityID = 2,
-                            PlaceType = 1,
-                            Price = 60.990000000000002,
+                            PlacePriceId = 1,
                             State = 1,
-                            Time = new DateTime(2024, 2, 19, 11, 52, 58, 420, DateTimeKind.Local).AddTicks(7974),
+                            Time = new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6465),
                             UserID = "2"
                         });
                 });
@@ -1132,17 +1138,6 @@ namespace MS.Infrastructure.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("MS.Data.Entities.ClinicPrice", b =>
-                {
-                    b.HasOne("MS.Data.Entities.Clinic", "Clinic")
-                        .WithMany("ClinicPrices")
-                        .HasForeignKey("ClinicID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Clinic");
-                });
-
             modelBuilder.Entity("MS.Data.Entities.Department", b =>
                 {
                     b.HasOne("MS.Data.Entities.Hospital", "Hospital")
@@ -1254,6 +1249,21 @@ namespace MS.Infrastructure.Migrations
                     b.Navigation("Equipment");
                 });
 
+            modelBuilder.Entity("MS.Data.Entities.PlacePrice", b =>
+                {
+                    b.HasOne("MS.Data.Entities.Clinic", null)
+                        .WithMany("PlacePrices")
+                        .HasForeignKey("PlaceID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MS.Data.Entities.Lab", null)
+                        .WithMany("PlacePrices")
+                        .HasForeignKey("PlaceID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MS.Data.Entities.PlaceShift", b =>
                 {
                     b.HasOne("MS.Data.Entities.Clinic", null)
@@ -1317,13 +1327,15 @@ namespace MS.Infrastructure.Migrations
                 {
                     b.HasOne("MS.Data.Entities.Clinic", null)
                         .WithMany("Reservations")
-                        .HasForeignKey("EntityID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ClinicID");
 
                     b.HasOne("MS.Data.Entities.Lab", null)
                         .WithMany("Reservations")
-                        .HasForeignKey("EntityID")
+                        .HasForeignKey("LabID");
+
+                    b.HasOne("MS.Data.Entities.PlacePrice", "PlacePrice")
+                        .WithMany()
+                        .HasForeignKey("PlacePriceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1332,6 +1344,8 @@ namespace MS.Infrastructure.Migrations
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PlacePrice");
 
                     b.Navigation("User");
                 });
@@ -1415,9 +1429,9 @@ namespace MS.Infrastructure.Migrations
 
             modelBuilder.Entity("MS.Data.Entities.Clinic", b =>
                 {
-                    b.Navigation("ClinicPrices");
-
                     b.Navigation("PlaceEquipment");
+
+                    b.Navigation("PlacePrices");
 
                     b.Navigation("PlaceShifts");
 
@@ -1446,6 +1460,8 @@ namespace MS.Infrastructure.Migrations
             modelBuilder.Entity("MS.Data.Entities.Lab", b =>
                 {
                     b.Navigation("PlaceEquipments");
+
+                    b.Navigation("PlacePrices");
 
                     b.Navigation("PlaceShifts");
 

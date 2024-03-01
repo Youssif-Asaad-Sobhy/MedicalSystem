@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -15,31 +16,35 @@ namespace MS.Application.Services
     public class ReservationService : IReservationService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReservationService(IUnitOfWork unitOfWork)
+        public ReservationService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
-        public async Task<Response<Reservation>> CreateReservationAsync(CreateReservationDto model)
+        public async Task<Response<Reservation>> PlaceReservationAsync(PlaceReservationDto model)
         {
             if (model is null)
             {
                 return ResponseHandler.BadRequest<Reservation>($"Reservation model not found.");
             }
-            var Reservation = new Reservation()
+            var user =await _userManager.FindByIdAsync(model.UserID);
+            var placePrice = await _unitOfWork.PlacePrice.GetByIdAsync(model.PlacePriceId);
+            if (placePrice is null || user == null)
             {
-                Time = DateTime.Now,
-                State = model.State,
-                PlaceType = model.PlaceType,
-                EntityID = model.EntityID,
-                Price = model.Price,
-                UserID = model.UserID,
+                return ResponseHandler.BadRequest<Reservation>($"place or User not found. please enter correct ID");
+            }
+            var reservation = new Reservation()
+            {
+                Time=DateTime.Now,
+                UserID=user.Id,
+                PlacePriceId=model.PlacePriceId
             };
-            await _unitOfWork.Reservations.AddAsync(Reservation);
-            return ResponseHandler.Created(Reservation);
+            await _unitOfWork.Reservations.AddAsync(reservation);
+            return ResponseHandler.Created(reservation);
         }
-
         public async Task<Response<Reservation>> DeleteReservationAsync(int ID)
         {
             var Reservation = await _unitOfWork.Reservations.GetByIdAsync(ID);
@@ -75,9 +80,7 @@ namespace MS.Application.Services
             Reservation.Time = model.Time;
             Reservation.State = model.State;
             Reservation.UserID = model.UserID;
-            Reservation.EntityID = model.EntityID;
-            Reservation.PlaceType= model.PlaceType;
-            Reservation.Price = model.Price;
+            Reservation.PlacePriceId = model.PlacePriceId;
 
             await _unitOfWork.Reservations.UpdateAsync(Reservation);
             return ResponseHandler.Updated(Reservation);

@@ -31,6 +31,7 @@ namespace MS.Application.Services
             }
             var user = new ApplicationUser()
             {
+                Id=model.NID,
                 Name=model.Name,
                 Email=model.Email,
                 PhoneNumber=model.Phone,

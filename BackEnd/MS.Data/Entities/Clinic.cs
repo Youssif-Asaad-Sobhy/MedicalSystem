@@ -13,7 +13,7 @@ namespace MS.Data.Entities
         public string Name { get; set; }
         public int DepartmentID { get; set; }
         public Department Department { get; set; }
-        public ICollection<ClinicPrice> ClinicPrices { get; set; }
+        public ICollection<PlacePrice> PlacePrices { get; set; }
         public ICollection<PlaceShift> PlaceShifts { get; set; }
         public ICollection<PlaceEquipment> PlaceEquipment { get; set; }
         public ICollection<Reservation> Reservations { get; set; }

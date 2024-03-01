@@ -11,7 +11,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         IBaseRepository<Clinic> Clinincs { get; }
-        IBaseRepository<ClinicPrice> ClinicPrices { get; }
+        IBaseRepository<PlacePrice> PlacePrice { get; }
         IBaseRepository<Department> Departments { get; }
         IBaseRepository<Equipment> Equipments { get; }
         IBaseRepository<Hospital> Hospitals { get; }

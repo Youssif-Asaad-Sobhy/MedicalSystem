@@ -23,15 +23,11 @@ namespace MS.Application.Validation
             RuleFor(reservation => reservation.State)
                 .IsInEnum().WithMessage("Invalid ReservationState");
 
-            RuleFor(reservation => reservation.PlaceType)
-                .IsInEnum().WithMessage("Invalid EntityType");
 
-            RuleFor(reservation => reservation.EntityID)
-                .NotEmpty().WithMessage("EntityID is required")
-                .GreaterThan(0).WithMessage("EntityID must be greater than 0");
+            RuleFor(reservation => reservation.PlacePriceId)
+                .NotEmpty().WithMessage("PlacePriceId is required")
+                .GreaterThan(0).WithMessage("PlacePriceId must be greater than 0");
 
-            RuleFor(reservation => reservation.Price)
-                .GreaterThanOrEqualTo(0).WithMessage("Price must be non-negative");
         }
 
         // Custom validation method to check if the reservation time is in the future

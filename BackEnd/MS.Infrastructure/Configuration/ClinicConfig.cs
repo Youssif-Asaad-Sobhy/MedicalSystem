@@ -16,10 +16,10 @@ namespace MS.Infrastructure.Configuration
             builder.HasKey(c => c.ID);
 
 
-            builder.HasMany(c => c.ClinicPrices)
-                .WithOne(c => c.Clinic)
-                .HasForeignKey(c => c.ClinicID)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(c => c.PlacePrices)
+                .WithOne()
+                .HasForeignKey(c => c.PlaceID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(c => c.PlaceEquipment)
                .WithOne()
@@ -30,11 +30,6 @@ namespace MS.Infrastructure.Configuration
                 .WithOne()
                 .HasForeignKey(ps => ps.EntityID)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasMany(c => c.Reservations)
-               .WithOne()
-               .HasForeignKey(r => r.EntityID)
-               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

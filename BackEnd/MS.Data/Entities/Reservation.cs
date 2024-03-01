@@ -13,10 +13,9 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public DateTime Time{ get; set; }
         public ReservationState State { get; set; }
-        public PlaceType PlaceType { get; set; }
-        public int EntityID { get; set; }
-        public double Price { get; set; }
+        public int PlacePriceId {  get; set; }
         public string UserID {  get; set; }
+        public PlacePrice PlacePrice { get; set; }
         public ApplicationUser User { get; set; }
 
     }
