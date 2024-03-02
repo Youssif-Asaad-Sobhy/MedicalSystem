@@ -71,5 +71,10 @@ namespace MS.Application.Services
             await _unitOfWork.Labs.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
         }
+        public async Task<Response<IEnumerable<Lab>>> GetLabsAsync()
+        {
+            var labs = await _unitOfWork.Labs.GetAllAsync();
+            return ResponseHandler.Success(labs);
+        }
     }
 }

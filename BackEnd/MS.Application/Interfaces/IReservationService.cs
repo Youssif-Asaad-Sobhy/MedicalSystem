@@ -11,5 +11,8 @@ namespace MS.Application.Interfaces
         Task<Response<Reservation>> DeleteReservationAsync(int ID);
         Task<Response<Reservation>> UpdateReservationAsync(UpdateReservationDto model);
         Task<Response<Reservation>> PlaceReservationAsync(PlaceReservationDto model);
+        Task<Response<IEnumerable<Reservation>>> TodaysReservationsAsync();
+       
+        
     }
 }

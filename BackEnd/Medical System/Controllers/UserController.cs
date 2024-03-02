@@ -23,30 +23,24 @@ namespace Medical_System.Controllers
         #endregion
 
         #region Methods
-        [HttpGet("Get/{ID}")]
+        [HttpGet("{ID}")]
         public async Task<IActionResult> GetSingleClincAsync([FromRoute] string ID)
         {
             var response = await _applicationService.GetUserByIDAsync(ID);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+
             return this.CreateResponse(response);
         }
 
 
-        [HttpDelete("Delete/{ID}")]
+        [HttpDelete("{ID}")]
         public async Task<IActionResult> DeleteSingleAsync(string ID)
         {
             var response = await _applicationService.DeleteUserAsync(ID);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+
             return this.CreateResponse(response);
         }
 
-        [HttpPost("Post")]
+        [HttpPost]
         public async Task<IActionResult> CreateClinicAsync([FromBody] CreateUserDto model)
         {
             if (!ModelState.IsValid)
@@ -54,13 +48,10 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _applicationService.CreateUserAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+
             return this.CreateResponse(response);
         }
-        [HttpPut("Put")]
+        [HttpPut]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdateUserDto model)
         {
             if (!ModelState.IsValid)
@@ -68,10 +59,13 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _applicationService.UpdateUserAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+
+            return this.CreateResponse(response);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBasicData(string id)
+        {
+            var response = await _applicationService.GetUserDataAsync(id);
             return this.CreateResponse(response);
         }
         #endregion

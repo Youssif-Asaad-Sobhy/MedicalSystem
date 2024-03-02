@@ -80,6 +80,17 @@ namespace MS.Application.Helpers.Response
                 Meta = Meta
             };
         }
+        public static Response<IEnumerable<T>> SuccessCollection<T>(IEnumerable<T> entities, object Meta = null)
+        {
+            return new Response<IEnumerable<T>>()
+            {
+                Data = entities,
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Succeeded = true,
+                Message = "Success",
+                Meta = Meta
+            };
+        }
         public static IActionResult CreateResponse<T>(this ControllerBase controllerBase, Response<T> response)
         {
             return new ObjectResult(response)

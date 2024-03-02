@@ -1,5 +1,6 @@
 ﻿using MS.Application.DTOs.ApplicationUser;
 using MS.Application.DTOs.Department;
+using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -16,5 +17,6 @@ namespace MS.Application.Interfaces
         Task<Response<ApplicationUser>> DeleteUserAsync(string ID);
         Task<Response<ApplicationUser>> UpdateUserAsync(UpdateUserDto model);
         Task<Response<ApplicationUser>> CreateUserAsync(CreateUserDto model);
+        Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID);
     }
 }

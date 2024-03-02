@@ -63,7 +63,7 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<Reservation>($"Reservation with ID {ID} not found.");
             }
-            return ResponseHandler.Success<Reservation>(Reservation);
+            return ResponseHandler.Success(Reservation);
         }
 
         public async Task<Response<Reservation>> UpdateReservationAsync(UpdateReservationDto model)
@@ -85,5 +85,17 @@ namespace MS.Application.Services
             await _unitOfWork.Reservations.UpdateAsync(Reservation);
             return ResponseHandler.Updated(Reservation);
         }
+
+        public async Task<Response<IEnumerable<Reservation>>> TodaysReservationsAsync()
+        {
+            // we must implement a query 
+            var TodayRes =await _unitOfWork.Reservations.GetByExpressionAsync(r=>r.Time.Date==DateTime.Today);
+            return ResponseHandler.Success(TodayRes);
+
+        }
+
+        
+        
+
     }
 }

@@ -25,6 +25,6 @@ namespace MS.Infrastructure.Repositories.Generics
         Task UpdateAsync(T entity);
         Task UpdateRangeAsync(ICollection<T> entities);
         Task DeleteAsync(T entity);
-        Task<T> GetByExpressionAsync(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression);
     }
 }

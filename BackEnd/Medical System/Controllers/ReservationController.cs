@@ -65,6 +65,12 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [HttpGet]
+        public async Task<IActionResult> TodaysReservations()
+        {
+            var response = await _service.TodaysReservationsAsync();
+            return this.CreateResponse(response);
+        }
         #endregion
     }
 }
