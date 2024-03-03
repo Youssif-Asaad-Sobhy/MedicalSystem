@@ -15,14 +15,14 @@ namespace Medical_System.Controllers
     {
         #region Constructor/props
         private readonly IClinicService _clinicService;
-        public ClinicController( IClinicService clinicService)
+        public ClinicController(IClinicService clinicService)
         {
             _clinicService = clinicService;
         }
         #endregion
 
         #region Methods
-        [HttpGet("Get/{ClinicID:int}")]
+        [HttpGet("/{ClinicID:int}")]
         public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ClinicID)
         {
             var response = await _clinicService.GetClinicAsync(ClinicID);
@@ -34,32 +34,24 @@ namespace Medical_System.Controllers
         }
 
 
-        [HttpDelete("Delete/{ClinicID:int}")]
+        [HttpDelete("/{ClinicID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ClinicID)
         {
             var response = await _clinicService.DeleteClinicAsync(ClinicID);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
             return this.CreateResponse(response);
         }
 
-        [HttpPost("Post")]
-        public async Task<IActionResult> CreateClinicAsync([FromBody]CreateClinicDto model) //same comment as below
+        [HttpPost]
+        public async Task<IActionResult> CreateClinicAsync([FromBody] CreateClinicDto model) //same comment as below
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response=await _clinicService.CreateClinicAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+            var response = await _clinicService.CreateClinicAsync(model);
             return this.CreateResponse(response);
         }
-        [HttpPut("Put")]
+        [HttpPut]
         public async Task<IActionResult> PutSingleAsync(UpdateClinicDto model)
         {
             if (!ModelState.IsValid)
@@ -67,12 +59,14 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _clinicService.UpdateClinicAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
             return this.CreateResponse(response);
-        } 
+        }
+        [HttpGet("All-Departments-Clinics/{DepId:int}")]
+        public async Task<IActionResult> GetDepClinics(int DepId)
+        {
+            var response = await _clinicService.GetAllClinicInDepAsync(DepId);
+            return this.CreateResponse(response);
+        }
         #endregion
 
 

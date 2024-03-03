@@ -12,9 +12,9 @@ namespace MS.Application.Interfaces
 {
     public interface IPlacePriceService
     {
-        Task<Response<PlacePrice>> GetClinicPriceAsync(int ID);
-        Task<Response<PlacePrice>> DeleteClinicPriceAsync(int ID);
-        Task<Response<PlacePrice>> UpdateClinicPriceAsync(UpdateClinicPriceDto model);
-        Task<Response<PlacePrice>> CreateClinicPriceAsync(CreateClinicPriceDto model);
+        Task<Response<PlacePrice>> GetPlacePriceAsync(int ID);
+        Task<Response<PlacePrice>> DeletePlacePriceAsync(int ID);
+        Task<Response<PlacePrice>> UpdatePlacePriceAsync(UpdatePlacePriceDto model);
+        Task<Response<PlacePrice>> CreatePlacePriceAsync(CreatePlacePriceDto model);
     }
 }

@@ -13,17 +13,17 @@ namespace Medical_System.Controllers
     public class ClinicPriceController : ControllerBase
     {
         #region Constructor/props
-        private readonly IPlacePriceService _clinicPriceService;
-        public ClinicPriceController(IPlacePriceService clinicPriceService)
+        private readonly IPlacePriceService _pricePriceService;
+        public ClinicPriceController(IPlacePriceService placePriceService)
         {
-            _clinicPriceService=clinicPriceService;
+            _pricePriceService=placePriceService;
         }
         #endregion
         #region Method
         [HttpGet("get/{ID:int}")]
-        public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ID)
+        public async Task<IActionResult> GetSingleAsync([FromRoute] int ID)
         {
-            var response = await _clinicPriceService.GetClinicPriceAsync(ID);
+            var response = await _pricePriceService.GetPlacePriceAsync(ID);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
@@ -33,7 +33,7 @@ namespace Medical_System.Controllers
         [HttpDelete("Delete/{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync([FromRoute]int ID)
         {
-            var response = await _clinicPriceService.GetClinicPriceAsync(ID);
+            var response = await _pricePriceService.GetPlacePriceAsync(ID);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
@@ -42,13 +42,13 @@ namespace Medical_System.Controllers
         }
 
         [HttpPost("Post")]
-        public async Task<IActionResult> CreateClinicAsync([FromBody] CreateClinicPriceDto model) 
+        public async Task<IActionResult> CreateClinicAsync([FromBody] CreatePlacePriceDto model) 
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response = await _clinicPriceService.CreateClinicPriceAsync(model);
+            var response = await _pricePriceService.CreatePlacePriceAsync(model);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
@@ -57,13 +57,13 @@ namespace Medical_System.Controllers
         }
 
         [HttpPut("Put")]
-        public async Task<IActionResult> PutSingleAsync([FromBody]UpdateClinicPriceDto model)
+        public async Task<IActionResult> PutSingleAsync([FromBody]UpdatePlacePriceDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response = await _clinicPriceService.UpdateClinicPriceAsync(model);
+            var response = await _pricePriceService.UpdatePlacePriceAsync(model);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
