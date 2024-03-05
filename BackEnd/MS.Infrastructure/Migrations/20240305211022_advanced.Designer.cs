@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MS.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240229234133_init")]
-    partial class init
+    [Migration("20240305211022_advanced")]
+    partial class advanced
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,10 +107,10 @@ namespace MS.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c80e4cb5-2dc7-4661-8912-c94263b8c271",
+                            Id = "4b5b507d-1ea6-4eb6-a752-36230e21dfa3",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "84dd1891-51e4-469c-9abd-cb784862a843",
+                            ConcurrencyStamp = "dd5c21b2-db99-45a5-937a-2ce51850eab9",
                             EmailConfirmed = false,
                             Gender = "male",
                             LockoutEnabled = false,
@@ -119,16 +119,16 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MOHAMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMEDALI123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e027d2b2-15fc-4caa-a849-e8f8e2263eb1",
+                            SecurityStamp = "9b41547c-d1da-4f38-9778-025aab7e853c",
                             TwoFactorEnabled = false,
                             UserName = "MohamedAli123"
                         },
                         new
                         {
-                            Id = "a2dc16fb-7648-4ea4-9cac-c4199885a2e1",
+                            Id = "f2ed8b3e-9d05-416c-b287-ad5f6fbaa19b",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "b9f06d00-90a5-4bc2-b77a-8c28d4031e5c",
+                            ConcurrencyStamp = "5c810b91-8881-48bc-bc98-ca76c1fd6098",
                             EmailConfirmed = false,
                             Gender = "Female",
                             LockoutEnabled = false,
@@ -137,7 +137,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MONA@EXAMPLE.COM",
                             NormalizedUserName = "MONAOMAR123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7b3c1a7-e708-406b-abc8-a046bd94be47",
+                            SecurityStamp = "aae7d146-378b-4b8a-ad16-e7a58139a31f",
                             TwoFactorEnabled = false,
                             UserName = "monaomar123"
                         });
@@ -734,7 +734,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 1,
                             Description = "Description of report 1",
                             DoctorID = "11",
-                            Time = new DateTime(2024, 2, 29, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6208),
+                            Time = new DateTime(2024, 3, 4, 23, 10, 20, 618, DateTimeKind.Local).AddTicks(6453),
                             UserID = "00992da5-ca28-4d64-ab61-44744c90b798"
                         },
                         new
@@ -742,7 +742,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 2,
                             Description = "Description of report 2",
                             DoctorID = "22",
-                            Time = new DateTime(2024, 2, 28, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6283),
+                            Time = new DateTime(2024, 3, 3, 23, 10, 20, 618, DateTimeKind.Local).AddTicks(6496),
                             UserID = "00992da5-ca28-4d64-ab61-44744c90b798"
                         });
                 });
@@ -829,7 +829,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 1,
                             PlacePriceId = 1,
                             State = 0,
-                            Time = new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6452),
+                            Time = new DateTime(2024, 3, 6, 23, 10, 20, 618, DateTimeKind.Local).AddTicks(6543),
                             UserID = "1"
                         },
                         new
@@ -837,7 +837,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 2,
                             PlacePriceId = 1,
                             State = 1,
-                            Time = new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6465),
+                            Time = new DateTime(2024, 3, 7, 23, 10, 20, 618, DateTimeKind.Local).AddTicks(6547),
                             UserID = "2"
                         });
                 });
