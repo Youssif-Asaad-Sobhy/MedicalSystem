@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Models.Authentication;
 
@@ -23,13 +24,9 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _authService.RegisterAsync(model);
-            if (!result.IsAuthenticted)
-            {
-                return BadRequest(result.Description);
-            }
-            return Ok(result);
+            return this.CreateResponse(result);
         }
-        [HttpPost("token")]
+        [HttpPost("LogIn")]
         public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestDto model)
         {
             if (!ModelState.IsValid)
@@ -37,11 +34,7 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _authService.GetTokenAsync(model);
-            if (!result.IsAuthenticted)
-            {
-                return BadRequest(result.Description);
-            }
-            return Ok(result);
+            return this.CreateResponse(result);
         }
         [HttpPost("addrole")]
         public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleDto model)
@@ -51,9 +44,7 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _authService.AddRoleAsync(model);
-            if (!string.IsNullOrEmpty(result))
-                return BadRequest(result);
-            return Ok(model);
+                return this.CreateResponse(result);
         }
     }
 }

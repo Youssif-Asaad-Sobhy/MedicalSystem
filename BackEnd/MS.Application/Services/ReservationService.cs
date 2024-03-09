@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using MS.Application.DTOs.Reservation;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -86,11 +87,13 @@ namespace MS.Application.Services
             return ResponseHandler.Updated(Reservation);
         }
 
-        public async Task<Response<IEnumerable<Reservation>>> TodaysReservationsAsync()
+        public async Task<PaginatedResult<IEnumerable<Reservation>>> TodaysReservationsAsync(PageFilter filter)
         {
             // we must implement a query 
-            var TodayRes =await _unitOfWork.Reservations.GetByExpressionAsync(r=>r.Time.Date==DateTime.Today);
-            return ResponseHandler.Success(TodayRes);
+            var TotalRecords = await _unitOfWork.Reservations.CountAsync(r => r.Time.Date == DateTime.Today);
+            var TodayRes =await _unitOfWork.Reservations
+                .GetByExpressionAsync((filter.PageNumber-1)*filter.PageSize,filter.PageSize,r=>r.Time.Date==DateTime.Today);
+            return ResponseHandler.Success(TodayRes,filter,TotalRecords);
 
         }
 
