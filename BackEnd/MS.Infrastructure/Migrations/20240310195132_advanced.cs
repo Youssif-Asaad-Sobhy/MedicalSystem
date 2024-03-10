@@ -18,8 +18,6 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "NID", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                        { "1", 0, new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "6c67ae09-283e-41a7-a162-ae8a7647e357", null, false, "Male", false, null, "1234567890", "Ahmed", "AHMED@EXAMPLE.COM", "AHMED123", null, null, false, "da5c68cf-483a-4f1b-9e5a-fa61bc2d86bc", false, "Ahmed123" },
-                        { "2", 0, new DateTime(1985, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "cd84e7d5-3c4a-4f3c-b8f2-7e6fb77fd2a0", null, false, "Female", false, null, "0987654321", "Fatima", "FATIMA@EXAMPLE.COM", "FATIMA321", null, null, false, "41b67cc3-6503-4dc5-8f91-35c934e55e54", false, "Fatima321" },
                         { "3", 0, new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "ec6a4cf4-6954-4a11-bb6e-bcbe58635032", null, false, "Male", false, null, "9876543210", "Mohammed", "MOHAMMED@EXAMPLE.COM", "MOHAMMED123", null, null, false, "8f7f23b1-98f1-445a-bfea-f2c4eb7b26c6", false, "Mohammed123" },
                         { "4", 0, new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "f16cfd3d-0452-4972-8d1a-aa3cb87bdfed", null, false, "Female", false, null, "0123456789", "Aisha", "AISHA@EXAMPLE.COM", "AISHA321", null, null, false, "c9877dfc-2c2d-49a3-9d4c-b62bcb5fd775", false, "Aisha321" },
                         { "5", 0, new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "e42c00a2-5a80-458b-8cd4-8a3e0e5c7249", null, false, "Male", false, null, "1122334455", "Ahmad", "AHMAD@EXAMPLE.COM", "AHMAD567", null, null, false, "1fd314a1-2880-4fc1-8365-4e95fc3b2794", false, "Ahmad567" },
@@ -323,17 +321,17 @@ namespace MS.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "reservations",
-                columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "State", "Time", "UserID" },
+                columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "State", "Time", "UserID" ,"SerialNumber" },
                 values: new object[,]
                 {
-                    { 3, null, null, 2, 0, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6478), "3" },
-                    { 4, null, null, 2, 1, new DateTime(2024, 3, 5, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6491), "4" },
-                    { 5, null, null, 3, 0, new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6504), "5" },
-                    { 6, null, null, 3, 1, new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517), "6" },
-                    { 7, null, null, 4, 0, new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530), "7" },
-                    { 8, null, null, 4, 1, new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543), "8" },
-                    { 9, null, null, 5, 0, new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556), "9" },
-                    { 10, null, null, 5, 1, new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569), "10" }
+                    { 3, null, null, 2, 0, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6478), "3" ,70000001},
+                    { 4, null, null, 2, 1, new DateTime(2024, 3, 5, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6491), "4" ,70000002},
+                    { 5, null, null, 3, 0, new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6504), "5" ,70000003},
+                    { 6, null, null, 3, 1, new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517), "6" ,70000004},
+                    { 7, null, null, 4, 0, new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530), "7" ,70000005},
+                    { 8, null, null, 4, 1, new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543), "8" ,70000006},
+                    { 9, null, null, 5, 0, new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556), "9" ,70000007},
+                    { 10, null, null, 5, 1, new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569), "10" ,70000008}
                 });
 
         }
