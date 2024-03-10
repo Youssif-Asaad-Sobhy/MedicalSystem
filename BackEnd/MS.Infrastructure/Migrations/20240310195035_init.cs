@@ -598,6 +598,7 @@ namespace MS.Infrastructure.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SerialNumber = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
                     PlacePriceId = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -636,8 +637,8 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "NID", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a2dc16fb-7648-4ea4-9cac-c4199885a2e1", 0, new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "b9f06d00-90a5-4bc2-b77a-8c28d4031e5c", null, false, "Female", false, null, "5312523632", "Mona", "MONA@EXAMPLE.COM", "MONAOMAR123", null, null, false, "d7b3c1a7-e708-406b-abc8-a046bd94be47", false, "monaomar123" },
-                    { "c80e4cb5-2dc7-4661-8912-c94263b8c271", 0, new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "84dd1891-51e4-469c-9abd-cb784862a843", null, false, "male", false, null, "2636523632", "Mohamed", "MOHAMED@EXAMPLE.COM", "MOHAMEDALI123", null, null, false, "e027d2b2-15fc-4caa-a849-e8f8e2263eb1", false, "MohamedAli123" }
+                    { "1", 0, new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "a91e415d-99bd-44ce-8b17-239299c967ca", null, false, "male", false, null, "2636523632", "Mohamed", "MOHAMED@EXAMPLE.COM", "MOHAMEDALI123", null, null, false, "e8096c73-0ba5-499a-b1f5-05b4211b6cf7", false, "MohamedAli123" },
+                    { "2", 0, new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "88e72826-066b-481f-b7bf-b15986d2e71a", null, false, "Female", false, null, "5312523632", "Mona", "MONA@EXAMPLE.COM", "MONAOMAR123", null, null, false, "d4b3299e-a697-4448-8632-da982348ea49", false, "monaomar123" }
                 });
 
             migrationBuilder.InsertData(
@@ -665,15 +666,6 @@ namespace MS.Infrastructure.Migrations
                 {
                     { 1, "Aspirin" },
                     { 2, "Paracetamol" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "reports",
-                columns: new[] { "ID", "Description", "DoctorID", "Time", "UserID" },
-                values: new object[,]
-                {
-                    { 1, "Description of report 1", "11", new DateTime(2024, 2, 29, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6208), "a2dc16fb-7648-4ea4-9cac-c4199885a2e1" },
-                    { 2, "Description of report 2", "22", new DateTime(2024, 2, 28, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6283), "a2dc16fb-7648-4ea4-9cac-c4199885a2e1" }
                 });
 
             migrationBuilder.InsertData(
@@ -715,15 +707,6 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "documents",
-                columns: new[] { "ID", "Content", "ReportID" },
-                values: new object[,]
-                {
-                    { 1, new byte[0], 1 },
-                    { 2, new byte[0], 2 }
-                });
-
-            migrationBuilder.InsertData(
                 table: "labs",
                 columns: new[] { "ID", "HospitalID", "Name", "Type" },
                 values: new object[,]
@@ -751,12 +734,30 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "reports",
+                columns: new[] { "ID", "Description", "DoctorID", "Time", "UserID" },
+                values: new object[,]
+                {
+                    { 1, "Description of report 1", "11", new DateTime(2024, 3, 9, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7207), "1" },
+                    { 2, "Description of report 2", "22", new DateTime(2024, 3, 8, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7268), "2" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "clinics",
                 columns: new[] { "ID", "DepartmentID", "Name" },
                 values: new object[,]
                 {
                     { 1, 1, "Elzahraa" },
                     { 2, 2, "Alpha" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "documents",
+                columns: new[] { "ID", "Content", "ReportID" },
+                values: new object[,]
+                {
+                    { 1, new byte[0], 1 },
+                    { 2, new byte[0], 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -815,11 +816,11 @@ namespace MS.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "reservations",
-                columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "State", "Time", "UserID" },
+                columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "SerialNumber", "State", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 1, null, null, 1, 0, new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6452), "a2dc16fb-7648-4ea4-9cac-c4199885a2e1" },
-                    { 2, null, null, 1, 1, new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6465), "a2dc16fb-7648-4ea4-9cac-c4199885a2e1" }
+                    { 1, null, null, 1, 0, 0, new DateTime(2024, 3, 11, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7418), "1" },
+                    { 2, null, null, 1, 0, 1, new DateTime(2024, 3, 12, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7427), "2" }
                 });
 
             migrationBuilder.CreateIndex(

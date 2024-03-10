@@ -71,6 +71,12 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _service.GetLabsAsync();
+            return this.CreateResponse(response);
+        }
         #endregion
     }
 }

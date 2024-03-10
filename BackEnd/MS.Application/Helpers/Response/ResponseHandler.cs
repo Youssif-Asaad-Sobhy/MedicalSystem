@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
+using MS.Application.Helpers.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +12,10 @@ namespace MS.Application.Helpers.Response
 {
     public static class ResponseHandler
     {
-
+        public static PaginatedResult<T> Success<T>(T data, PageFilter pageFilter, int TotalRecords)
+        {
+            return new(true, data, null, TotalRecords, pageFilter.PageNumber, pageFilter.PageSize);
+        }
         public static Response<T> Updated<T>(T entity)
         {
             return new Response<T>()
@@ -80,15 +86,12 @@ namespace MS.Application.Helpers.Response
                 Meta = Meta
             };
         }
-        public static Response<IEnumerable<T>> SuccessCollection<T>(IEnumerable<T> entities, object Meta = null)
+        public static IActionResult SuccessCollection<T>(this ControllerBase controllerBase,PaginatedResult<T> result)
         {
-            return new Response<IEnumerable<T>>()
+
+            return new ObjectResult(result)
             {
-                Data = entities,
-                StatusCode = System.Net.HttpStatusCode.OK,
-                Succeeded = true,
-                Message = "Success",
-                Meta = Meta
+                StatusCode =(int) HttpStatusCode.OK
             };
         }
         public static IActionResult CreateResponse<T>(this ControllerBase controllerBase, Response<T> response)

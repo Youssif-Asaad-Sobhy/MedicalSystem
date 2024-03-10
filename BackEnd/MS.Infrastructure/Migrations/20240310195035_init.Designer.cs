@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MS.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240229234133_init")]
+    [Migration("20240310195035_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace MS.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -107,10 +107,10 @@ namespace MS.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c80e4cb5-2dc7-4661-8912-c94263b8c271",
+                            Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "84dd1891-51e4-469c-9abd-cb784862a843",
+                            ConcurrencyStamp = "a91e415d-99bd-44ce-8b17-239299c967ca",
                             EmailConfirmed = false,
                             Gender = "male",
                             LockoutEnabled = false,
@@ -119,16 +119,16 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MOHAMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMEDALI123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e027d2b2-15fc-4caa-a849-e8f8e2263eb1",
+                            SecurityStamp = "e8096c73-0ba5-499a-b1f5-05b4211b6cf7",
                             TwoFactorEnabled = false,
                             UserName = "MohamedAli123"
                         },
                         new
                         {
-                            Id = "a2dc16fb-7648-4ea4-9cac-c4199885a2e1",
+                            Id = "2",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "b9f06d00-90a5-4bc2-b77a-8c28d4031e5c",
+                            ConcurrencyStamp = "88e72826-066b-481f-b7bf-b15986d2e71a",
                             EmailConfirmed = false,
                             Gender = "Female",
                             LockoutEnabled = false,
@@ -137,7 +137,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MONA@EXAMPLE.COM",
                             NormalizedUserName = "MONAOMAR123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7b3c1a7-e708-406b-abc8-a046bd94be47",
+                            SecurityStamp = "d4b3299e-a697-4448-8632-da982348ea49",
                             TwoFactorEnabled = false,
                             UserName = "monaomar123"
                         });
@@ -734,16 +734,16 @@ namespace MS.Infrastructure.Migrations
                             ID = 1,
                             Description = "Description of report 1",
                             DoctorID = "11",
-                            Time = new DateTime(2024, 2, 29, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6208),
-                            UserID = "00992da5-ca28-4d64-ab61-44744c90b798"
+                            Time = new DateTime(2024, 3, 9, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7207),
+                            UserID = "1"
                         },
                         new
                         {
                             ID = 2,
                             Description = "Description of report 2",
                             DoctorID = "22",
-                            Time = new DateTime(2024, 2, 28, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6283),
-                            UserID = "00992da5-ca28-4d64-ab61-44744c90b798"
+                            Time = new DateTime(2024, 3, 8, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7268),
+                            UserID = "2"
                         });
                 });
 
@@ -801,6 +801,9 @@ namespace MS.Infrastructure.Migrations
                     b.Property<int>("PlacePriceId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SerialNumber")
+                        .HasColumnType("int");
+
                     b.Property<int>("State")
                         .HasColumnType("int");
 
@@ -828,16 +831,18 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 1,
                             PlacePriceId = 1,
+                            SerialNumber = 0,
                             State = 0,
-                            Time = new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6452),
+                            Time = new DateTime(2024, 3, 11, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7418),
                             UserID = "1"
                         },
                         new
                         {
                             ID = 2,
                             PlacePriceId = 1,
+                            SerialNumber = 0,
                             State = 1,
-                            Time = new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6465),
+                            Time = new DateTime(2024, 3, 12, 21, 50, 34, 313, DateTimeKind.Local).AddTicks(7427),
                             UserID = "2"
                         });
                 });

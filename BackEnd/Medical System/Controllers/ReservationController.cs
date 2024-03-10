@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Reservation;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 
@@ -65,6 +66,13 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [HttpGet]
+        public async Task<IActionResult> TodaysReservations([FromQuery]PageFilter filter)
+        {
+            var response = await _service.TodaysReservationsAsync(filter);
+            return this.SuccessCollection(response);
+        }
+
         #endregion
     }
 }
