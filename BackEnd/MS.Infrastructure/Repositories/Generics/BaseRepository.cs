@@ -59,6 +59,9 @@ namespace MS.Infrastructure.Repositories.Generics
             await _dbContext.SaveChangesAsync();
 
         }
+        public async Task<IEnumerable<T>> GetAllAsync(int Skip, int Take)
+            => await _dbContext.Set<T>().Skip(Skip).Take(Take).ToListAsync();
+            
 
         public virtual async Task DeleteAsync(T entity)
         {
@@ -103,9 +106,15 @@ namespace MS.Infrastructure.Repositories.Generics
         public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
          => await _dbContext.Set<T>().Where(expression).ToListAsync();
 
-        public async Task<T> GetByExpressionAsync(Expression<Func<T, bool>> expression) 
-            => await _dbContext.Set<T>().Where(expression).FirstOrDefaultAsync();
-
+        public async Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression)
+          => await _dbContext.Set<T>().Where(expression).ToListAsync();
+        public async Task<IEnumerable<T>> GetByExpressionAsync(int Skip, int Take, Expression<Func<T, bool>> expression)
+          => await _dbContext.Set<T>().Where(expression).Skip(Skip).Take(Take).ToListAsync();
+        public async Task<int> CountAsync(Expression<Func<T, bool>>? expression = default)
+        {
+            if (expression is null)  return await _dbContext.Set<T>().CountAsync();
+            else return await _dbContext.Set<T>().CountAsync(expression);
+        }
         #endregion
     }
 }

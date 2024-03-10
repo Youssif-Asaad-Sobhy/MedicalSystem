@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using MS.Application.DTOs.Reservation;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -63,7 +64,7 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<Reservation>($"Reservation with ID {ID} not found.");
             }
-            return ResponseHandler.Success<Reservation>(Reservation);
+            return ResponseHandler.Success(Reservation);
         }
 
         public async Task<Response<Reservation>> UpdateReservationAsync(UpdateReservationDto model)
@@ -85,5 +86,19 @@ namespace MS.Application.Services
             await _unitOfWork.Reservations.UpdateAsync(Reservation);
             return ResponseHandler.Updated(Reservation);
         }
+
+        public async Task<PaginatedResult<IEnumerable<Reservation>>> TodaysReservationsAsync(PageFilter filter)
+        {
+            // we must implement a query 
+            var TotalRecords = await _unitOfWork.Reservations.CountAsync(r => r.Time.Date == DateTime.Today);
+            var TodayRes =await _unitOfWork.Reservations
+                .GetByExpressionAsync((filter.PageNumber-1)*filter.PageSize,filter.PageSize,r=>r.Time.Date==DateTime.Today);
+            return ResponseHandler.Success(TodayRes,filter,TotalRecords);
+
+        }
+
+        
+        
+
     }
 }

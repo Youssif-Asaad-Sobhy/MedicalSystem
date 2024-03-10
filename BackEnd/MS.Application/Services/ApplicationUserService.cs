@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MS.Application.DTOs.ApplicationUser;
+using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -80,5 +81,20 @@ namespace MS.Application.Services
             await _userManager.UpdateAsync(user);
             return ResponseHandler.Success(user);
         }
+        public async Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID)
+        {
+            var user = await _userManager.FindByIdAsync(NID);
+            if (user is null)
+            {
+                return ResponseHandler.BadRequest<UserBasicDataDto>("user is null");
+            }
+            var data = new UserBasicDataDto()
+            {
+                Name = user.Name,
+                NID = user.NID,
+            };
+            return ResponseHandler.Success(data);
+        }
+
     }
 }

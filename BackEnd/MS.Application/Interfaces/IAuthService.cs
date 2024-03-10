@@ -1,4 +1,5 @@
-﻿using MS.Application.Models.Authentication;
+﻿using MS.Application.Helpers.Response;
+using MS.Application.Models.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace MS.Application.Interfaces
 {
     public interface IAuthService
     {
-        Task<AuthDto> RegisterAsync(RegisterDto model);
-        Task<AuthDto> GetTokenAsync(TokenRequestDto model);
-        Task<string> AddRoleAsync(AddRoleDto model);
+        Task<Response<AuthDto>> RegisterAsync(RegisterDto model);
+        Task<Response<AuthDto>> GetTokenAsync(TokenRequestDto model);
+        Task<Response<string>> AddRoleAsync(AddRoleDto model);
     }
 }

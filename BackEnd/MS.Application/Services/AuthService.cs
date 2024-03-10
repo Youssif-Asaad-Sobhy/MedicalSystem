@@ -31,30 +31,33 @@ namespace MS.Application.Services
             _jwt = jwt.Value;
             _roleManager = roleManager;
         }
-        public async Task<string> AddRoleAsync(AddRoleDto model)
+        public async Task<Response<string>> AddRoleAsync(AddRoleDto model)
         {
             var user = await _userManager.FindByIdAsync(model.Userid);
             if (user == null || !await _roleManager.RoleExistsAsync(model.RoleName))
-                return "Invalid user ID or Role";
+                return ResponseHandler.BadRequest<string>("Invalid user ID or Role");
             if (await _userManager.IsInRoleAsync(user, model.RoleName))
-                return "Role is already assigned to this user";
+                return ResponseHandler.BadRequest<string>("Role is already assigned to this user");
+
             var result = await _userManager.AddToRoleAsync(user, model.RoleName);
-            return result.Succeeded ? string.Empty : "Something Went Wrong";
+
+            return result.Succeeded ? ResponseHandler.Success<string>(string.Empty) 
+                : ResponseHandler.BadRequest<string>("Something Went Wrong");
         }
 
-        public async Task<AuthDto> GetTokenAsync(TokenRequestDto model)
+        public async Task<Response<AuthDto>> GetTokenAsync(TokenRequestDto model)
         {
             var authmodel = new AuthDto();
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user is null || (!await _userManager.CheckPasswordAsync(user, model.Password)))
             {
-                authmodel.Description = "Email or pass is incorrect";
-                return authmodel;
+                return ResponseHandler.BadRequest<AuthDto>("Email or pass is incorrect");
             }
             var JwtSecurityToken = await CreateJwtToken(user);
             authmodel.IsAuthenticted = true;
             authmodel.Name = user.Name;
             authmodel.NID = user.NID;
+            authmodel.Gender = user.Gender;
             authmodel.Email = user.Email;
             authmodel.Username = user.UserName;
             authmodel.ExpiresOn = JwtSecurityToken.ValidTo;
@@ -62,20 +65,21 @@ namespace MS.Application.Services
 
             var roleslist = await _userManager.GetRolesAsync(user);
             authmodel.Roles = roleslist.ToList();
-            return authmodel;
+            return ResponseHandler.Success(authmodel);
         }
 
-        public async Task<AuthDto> RegisterAsync(RegisterDto model)
+        public async Task<Response<AuthDto>> RegisterAsync(RegisterDto model)
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                return new AuthDto { Description = "email is already Register" };
+                return ResponseHandler.BadRequest<AuthDto>("email is already Register");
             if (string.IsNullOrEmpty(model.Username))
                 model.Username = model.Name;
             if (await _userManager.FindByNameAsync(model.Username) is not null)
-                return new AuthDto { Description = "UserName is already Register" };
+                return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
             // make validation for nid thatbe unique 
-            if (await _unitOfWork.Users.GetByExpressionAsync(u => u.NID == model.NID) is not null)
-                return new AuthDto { Description = "National ID is already register" };
+            // بص هو في حاجه غلط ف اللوجيك بتاع الاف كونديشن ده بس مش عارف ازاي بجد شغال كدا
+            if (await _unitOfWork.Users.GetByExpressionAsync(u => u.NID == model.NID)==null)
+                return ResponseHandler.BadRequest<AuthDto>("National ID is already register");
 
 
             var user = new ApplicationUser
@@ -94,19 +98,22 @@ namespace MS.Application.Services
                 {
                     errors += $"{error.Description}, ";
                 }
-                return new AuthDto { Description = errors };
+                return ResponseHandler.BadRequest<AuthDto>(errors);
             }
             await _userManager.AddToRoleAsync(user, "User");
             var JwtSecurityToken = await CreateJwtToken(user);
-            return new AuthDto
-            {
-                Email = user.Email,
-                ExpiresOn = JwtSecurityToken.ValidTo,
-                IsAuthenticted = true,
-                Roles = new List<string> { "User" },
-                Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken),
-                Username = user.UserName,
-            };
+            var authdto= new AuthDto
+                {
+                    Email = user.Email,
+                    Gender=user.Gender,
+                    NID=user.NID,
+                    ExpiresOn = JwtSecurityToken.ValidTo,
+                    IsAuthenticted = true,
+                    Roles = new List<string> { "User" },
+                    Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken),
+                    Username = user.UserName,
+                };
+            return ResponseHandler.Created(authdto);
         }
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
         {
