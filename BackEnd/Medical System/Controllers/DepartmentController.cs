@@ -73,6 +73,16 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [HttpGet("All-Departments")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var response = await _departmentService.GetAllDepartmentsAsync();
+            if (!response.Succeeded)
+            {
+                return this.CreateResponse(response);
+            }
+            return this.CreateResponse(response);
+        }
         #endregion
     }
 }

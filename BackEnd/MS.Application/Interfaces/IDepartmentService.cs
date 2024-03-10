@@ -13,6 +13,7 @@ namespace MS.Application.Interfaces
     public interface IDepartmentService
     {
         Task<Response<Department>> GetDepartmentByIDAsync(int ID);
+        Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync();
         Task<Response<Department>> DeleteDepartmentAsync(int DeptID);
         Task<Response<Department>> UpdateDepartmentAsync(UpdateDeptDto model);
         Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model);
