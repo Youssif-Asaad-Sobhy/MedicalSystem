@@ -33,7 +33,6 @@ namespace MS.Application.Services
             var user = new ApplicationUser()
             {
                 Id=model.NID,
-                Name=model.Name,
                 Email=model.Email,
                 PhoneNumber=model.Phone,
                 NID=model.NID,
@@ -73,7 +72,6 @@ namespace MS.Application.Services
                 return ResponseHandler.BadRequest<ApplicationUser>("User model is null or not found");
             }
             user.Email = model.Email;
-            user.Name = model.Name;
             user.PhoneNumber = model.Phone;
             user.NID = model.NID;
             user.Gender = model.Gender;
@@ -90,7 +88,6 @@ namespace MS.Application.Services
             }
             var data = new UserBasicDataDto()
             {
-                Name = user.Name,
                 NID = user.NID,
             };
             return ResponseHandler.Success(data);

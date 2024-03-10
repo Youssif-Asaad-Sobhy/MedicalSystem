@@ -26,7 +26,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "1", // Generate a unique ID
-                    Name = "Mohamed",
                     NID = "2636523632",
                     Gender = "male",
                     BirthDate = new DateTime(2002, 9, 25),
@@ -42,7 +41,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "2", // Generate another unique ID
-                    Name = "Mona",
                     NID = "5312523632",
                     Gender = "Female",
                     BirthDate = new DateTime(2012, 6, 25),

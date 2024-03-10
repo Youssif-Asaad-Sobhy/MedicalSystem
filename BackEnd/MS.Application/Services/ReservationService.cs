@@ -25,17 +25,17 @@ namespace MS.Application.Services
             _userManager = userManager;
         }
 
-        public async Task<Response<Reservation>> PlaceReservationAsync(PlaceReservationDto model)
+        public async Task<Response<ReservationDto>> PlaceReservationAsync(PlaceReservationDto model)
         {
             if (model is null)
             {
-                return ResponseHandler.BadRequest<Reservation>($"Reservation model not found.");
+                return ResponseHandler.BadRequest<ReservationDto>($"Reservation model not found.");
             }
             var user =await _userManager.FindByIdAsync(model.UserID);
             var placePrice = await _unitOfWork.PlacePrice.GetByIdAsync(model.PlacePriceId);
             if (placePrice is null || user == null)
             {
-                return ResponseHandler.BadRequest<Reservation>($"place or User not found. please enter correct ID");
+                return ResponseHandler.BadRequest<ReservationDto>($"place or User not found. please enter correct ID");
             }
             var reservation = new Reservation()
             {
@@ -44,7 +44,16 @@ namespace MS.Application.Services
                 PlacePriceId=model.PlacePriceId
             };
             await _unitOfWork.Reservations.AddAsync(reservation);
-            return ResponseHandler.Created(reservation);
+            ReservationDto reservatioDto = new ReservationDto()
+            {
+                ID=reservation.ID,
+                Time=reservation.Time,
+                SerialNumber=reservation.SerialNumber,
+                State=reservation.State,
+                UserID=reservation.UserID,
+                PlacePriceId=reservation.PlacePriceId
+            };
+            return ResponseHandler.Created(reservatioDto);
         }
         public async Task<Response<Reservation>> DeleteReservationAsync(int ID)
         {

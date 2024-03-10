@@ -67,7 +67,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpGet]
-        public async Task<IActionResult> TodaysReservations([FromQuery]PageFilter filter)
+        public async Task<IActionResult> GetTodayReservations([FromQuery]PageFilter filter)
         {
             var response = await _service.TodaysReservationsAsync(filter);
             return this.SuccessCollection(response);
