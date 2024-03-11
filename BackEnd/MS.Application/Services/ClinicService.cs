@@ -32,24 +32,24 @@ namespace MS.Application.Services
                 Name=model.Name,
                 DepartmentID=model.DepartmentID
             };
-            await _unitOfWork.Clinincs.AddAsync(clinic);
+            await _unitOfWork.Clinics.AddAsync(clinic);
             return ResponseHandler.Created(clinic);
         }
 
         public async Task<Response<Clinic>> DeleteClinicAsync(int ClinicID)
         {
-            var clincic = await _unitOfWork.Clinincs.GetByIdAsync(ClinicID);
+            var clincic = await _unitOfWork.Clinics.GetByIdAsync(ClinicID);
             if (clincic is null)
             {
                 return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
             }
-            await _unitOfWork.Clinincs.DeleteAsync(clincic);
+            await _unitOfWork.Clinics.DeleteAsync(clincic);
             return  ResponseHandler.Deleted<Clinic>();
         }
 
         public async Task<Response<Clinic>> GetClinicAsync(int ClinicID)
         {
-            var clincic= await _unitOfWork.Clinincs.GetByIdAsync(ClinicID);
+            var clincic= await _unitOfWork.Clinics.GetByIdAsync(ClinicID);
             if (clincic is null)
             {
                 return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
@@ -63,15 +63,21 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {model.ID} not found.");
             }
-            var clinic = await _unitOfWork.Clinincs.GetByIdAsync(model.ID);
+            var clinic = await _unitOfWork.Clinics.GetByIdAsync(model.ID);
             if (clinic is null ||clinic.ID==0)
             {
                 return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {model.ID} not found.");
             }
             clinic.Name = model.Name;
             clinic.DepartmentID = model.DepartmentID;
-            await _unitOfWork.Clinincs.UpdateAsync(clinic);
+            await _unitOfWork.Clinics.UpdateAsync(clinic);
             return ResponseHandler.Updated(clinic);
         }
+        public async Task<Response<IEnumerable<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId)
+        {
+            var clinics = await _unitOfWork.Clinics.GetByExpressionAsync(c => c.DepartmentID == departmentId);
+            return ResponseHandler.Success(clinics);
+        }
+
     }
 }
