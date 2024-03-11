@@ -73,10 +73,10 @@ namespace MS.Application.Services
             await _unitOfWork.Clinics.UpdateAsync(clinic);
             return ResponseHandler.Updated(clinic);
         }
-        public async Task<Response<List<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId)
+        public async Task<Response<IEnumerable<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId)
         {
             var clinics = await _unitOfWork.Clinics.GetByExpressionAsync(c => c.DepartmentID == departmentId);
-            return ResponseHandler.Success(clinics.ToList());
+            return ResponseHandler.Success(clinics);
         }
 
     }

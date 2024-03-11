@@ -116,16 +116,6 @@ namespace MS.Infrastructure.Repositories.Generics
             if (expression is null)  return await _dbContext.Set<T>().CountAsync();
             else return await _dbContext.Set<T>().CountAsync(expression);
         }
-
-        public Task<IEnumerable<T>> GetByDepartmentIdAsync(int departmentId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Clinic> GetByExpressionAsync(int departmentId)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

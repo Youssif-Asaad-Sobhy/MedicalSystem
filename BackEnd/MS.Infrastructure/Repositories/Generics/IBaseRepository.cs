@@ -11,8 +11,6 @@ namespace MS.Infrastructure.Repositories.Generics
 {
     public interface IBaseRepository<T> where T:class
     {
-        Task<IEnumerable<T>> GetByDepartmentIdAsync(int departmentId);
-
         Task DeleteRangeAsync(ICollection<T> entities);
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
@@ -32,6 +30,5 @@ namespace MS.Infrastructure.Repositories.Generics
         Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression);
         Task<IEnumerable<T>> GetByExpressionAsync(int Skip , int Take, Expression<Func<T, bool>> expression);
         Task<int> CountAsync(Expression<Func<T, bool>>? expression=default);
-        Task<Clinic> GetByExpressionAsync(int departmentId);
     }
 }

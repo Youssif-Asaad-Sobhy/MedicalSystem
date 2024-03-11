@@ -74,7 +74,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
-        [HttpGet("GetAllClinicsWithDepartmentId/{DepartmentId:int}")]
+        [HttpGet("GetAllClinics/{DepartmentId:int}")]
         public async Task<IActionResult> GetAllClinicsWithDepartmentIdAsync(int DepartmentId)
         {
             var response = await _clinicService.GetAllClinicsWithDepartmentIdAsync(DepartmentId);
