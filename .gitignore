@@ -56,7 +56,7 @@ dlldata.c
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
-
+ContextModelSnapshot.cs
 
 # .NET Core
 project.lock.json
