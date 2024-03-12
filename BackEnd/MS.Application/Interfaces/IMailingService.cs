@@ -9,7 +9,7 @@ namespace MS.Application.Interfaces
 {
     public interface IMailingService
     {
-        Task<string> SendEmailAsync(string mailTo);
-        bool VerifyOTP(string enteredOTP);
+        Task SendEmailAsync(string mailTo);
+        Task<bool> VerifyOTP(string userEmailAddress,string enteredOTP);
     }
 }

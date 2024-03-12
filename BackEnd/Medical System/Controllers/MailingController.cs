@@ -11,24 +11,22 @@ namespace Medical_System.Controllers
     public class MailingController : ControllerBase
     {
         private readonly IMailingService _mailingService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MailingController(IMailingService mailingService, IHttpContextAccessor httpContextAccessor)
+        public MailingController(IMailingService mailingService)
         {
             _mailingService = mailingService;
-            _httpContextAccessor = httpContextAccessor;
         }
         [HttpPost("send")]
-        public async Task<IActionResult> SendMail([FromForm] MailRequestDto dto)
+        public async Task<IActionResult> SendMail(MailRequestDto dto)
         {
-            string otp = await _mailingService.SendEmailAsync(dto.ToEmail);
-            return Ok(new { OTP = otp, Expiration = DateTime.UtcNow.Add(MailingService.ExpirationDuration) });
+            await _mailingService.SendEmailAsync(dto.ToEmail);
+            return Ok();
         }
 
         [HttpPost("verify-otp")]
-        public IActionResult VerifyOTP([FromBody] VerifyOTPRequest request)
+        public async Task<IActionResult> VerifyOTP([FromBody] VerifyOTPRequest request)
         {
-            bool isOTPValid = _mailingService.VerifyOTP(request.EnteredOTP);
+            bool isOTPValid =await _mailingService.VerifyOTP(request.Email,request.EnteredOTP);
 
             if (isOTPValid)
             {

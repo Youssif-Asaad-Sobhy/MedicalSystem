@@ -11,20 +11,25 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using MS.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using MS.Infrastructure.Repositories.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 namespace MS.Application.Services
 {
     public class MailingService : IMailingService
     {
         private readonly MailSettings _mailSettings;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public static readonly TimeSpan ExpirationDuration = TimeSpan.FromMinutes(10);
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MailingService(IOptions<MailSettings> mailSettings, IHttpContextAccessor httpContextAccessor)
+        public MailingService(IOptions<MailSettings> mailSettings, UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
             _mailSettings = mailSettings.Value;
-            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
-        public async Task<string> SendEmailAsync(string mailTo)
+        public async Task SendEmailAsync(string mailTo)
         {
             string otp = OTPHelper.GenerateOTP();
             string body = $"<p>Your OTP is: {otp}</p>";
@@ -36,30 +41,20 @@ namespace MS.Application.Services
             };
 
             email.To.Add(MailboxAddress.Parse(mailTo));
+            var user = await _userManager.FindByEmailAsync(mailTo);
+            if (user == null)
+            {
+                throw new Exception("user is null here ");
+            }
+            var otpEntity = new OTP
+            {
+                Code = otp,
+                UserID = user.Id,
+                ExpirationTime = DateTime.UtcNow.Add(TimeSpan.FromMinutes(10))
+            };
+
 
             var builder = new BodyBuilder();
-            // if i have attachment
-            //if (attachments != null)
-            //{
-            //    byte[] fileBytes;
-            //    foreach (var file in attachments)
-            //    {
-            //        if (file.Length > 0)
-            //        {
-            //            using var ms = new MemoryStream();
-            //            file.CopyTo(ms);
-            //            fileBytes = ms.ToArray();
-
-            //            builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
-            //        }
-            //    }
-            //}
-            DateTime expirationTime = DateTime.UtcNow.Add(ExpirationDuration);
-
-            // Store OTP and expiration time in session
-            _httpContextAccessor.HttpContext.Session.SetString("StoredOTP", otp);
-            _httpContextAccessor.HttpContext.Session.SetString("OTPExpiration", expirationTime.ToString("o"));
-            _httpContextAccessor.HttpContext.Session.SetString("UserEmailAddress", mailTo);
             builder.HtmlBody = body;
             email.Body = builder.ToMessageBody();
             email.From.Add(new MailboxAddress(_mailSettings.DisplayName, _mailSettings.Email));
@@ -71,24 +66,23 @@ namespace MS.Application.Services
             await smtp.SendAsync(email);
 
             smtp.Disconnect(true);
-            return otp;
+            _unitOfWork.OTPs.AddAsync(otpEntity);
+
         }
 
-        public bool VerifyOTP(string enteredOTP)
+        public async Task<bool> VerifyOTP(string userEmailAddress, string enteredOTP)
         {
+            var otpEntity = await _unitOfWork.OTPs
+                .GetByExpressionSingleAsync(o => o.UserID == userEmailAddress && o.ExpirationTime > DateTime.UtcNow);
 
-            string storedOTP = _httpContextAccessor.HttpContext.Session.GetString("StoredOTP");
-            DateTime expirationTime = DateTime.Parse(_httpContextAccessor.HttpContext.Session.GetString("OTPExpiration"));
-            string userEmailAddress = _httpContextAccessor.HttpContext.Session.GetString("UserEmailAddress");
-            // Check if OTP has expired
-            if (DateTime.UtcNow > expirationTime)
+            if (otpEntity == null)
             {
-                // OTP has expired
+                // OTP not found or expired
                 return false;
             }
 
             // Compare the entered OTP with the stored OTP
-            return enteredOTP == storedOTP && userEmailAddress != null;
+            return enteredOTP == otpEntity.Code;
         }
     }
 }

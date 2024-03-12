@@ -28,9 +28,6 @@ namespace MS.Infrastructure.Repositories.Generics
         #endregion
 
 
-        #region Methods
-
-        #endregion
 
         #region Actions
         public virtual async Task<T> GetByIdAsync(int id) =>
@@ -116,6 +113,9 @@ namespace MS.Infrastructure.Repositories.Generics
             if (expression is null)  return await _dbContext.Set<T>().CountAsync();
             else return await _dbContext.Set<T>().CountAsync(expression);
         }
+
+        public async Task<T> GetByExpressionSingleAsync(Expression<Func<T, bool>> expression)
+         => await _dbContext.Set<T>().Where(expression).FirstOrDefaultAsync();
         #endregion
     }
 }

@@ -31,6 +31,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<Types> Types { get; }
         IBaseRepository<ApplicationUser> Users { get; }
         IBaseRepository<Document> Documents { get; }
+        IBaseRepository<OTP> OTPs { get; }
 
 
         // TO DO : Add Generic of all Entities

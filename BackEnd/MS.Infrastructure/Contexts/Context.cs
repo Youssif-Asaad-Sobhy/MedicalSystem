@@ -1681,6 +1681,7 @@ namespace MS.Infrastructure.Contexts
             base.OnModelCreating(modelBuilder);
         }
         #region DbSets
+        public DbSet<OTP> OTPs { get; set; }
         public DbSet<Clinic> clinics { get; set; }
         public DbSet<PlacePrice> placePrice { get; set; }
         public DbSet<Department> departments { get; set; }
