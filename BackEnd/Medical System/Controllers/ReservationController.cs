@@ -80,7 +80,7 @@ namespace Medical_System.Controllers
 
             if (response.Succeeded)
             {
-                return Ok(response.Data);
+                return this.CreateResponse(response);
             }
             else
             {
