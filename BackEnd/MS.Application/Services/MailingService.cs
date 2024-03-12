@@ -50,6 +50,7 @@ namespace MS.Application.Services
             {
                 Code = otp,
                 UserID = user.Id,
+                Email = user.Email,
                 ExpirationTime = DateTime.UtcNow.Add(TimeSpan.FromMinutes(10))
             };
 
@@ -73,7 +74,7 @@ namespace MS.Application.Services
         public async Task<bool> VerifyOTP(string userEmailAddress, string enteredOTP)
         {
             var otpEntity = await _unitOfWork.OTPs
-                .GetByExpressionSingleAsync(o => o.UserID == userEmailAddress && o.ExpirationTime > DateTime.UtcNow);
+                .GetByExpressionSingleAsync(o => o.Email == userEmailAddress && o.ExpirationTime > DateTime.UtcNow);
 
             if (otpEntity == null)
             {

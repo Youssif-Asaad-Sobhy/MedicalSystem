@@ -12,6 +12,7 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public string Code { get; set; }
         public string UserID { get; set; }
+        public string Email {  get; set; }
         public ApplicationUser User { get; set; }
         public DateTime ExpirationTime { get; set; }
     }
