@@ -19,8 +19,8 @@ namespace Medical_System.Controllers
         [HttpPost("send")]
         public async Task<IActionResult> SendMail(MailRequestDto dto)
         {
-            await _mailingService.SendEmailAsync(dto.ToEmail);
-            return Ok();
+            var res=await _mailingService.SendEmailAsync(dto.ToEmail);
+            return Ok(res);
         }
 
         [HttpPost("verify-otp")]

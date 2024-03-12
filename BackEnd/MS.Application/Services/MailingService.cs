@@ -29,7 +29,7 @@ namespace MS.Application.Services
             _userManager = userManager;
             _unitOfWork = unitOfWork;
         }
-        public async Task SendEmailAsync(string mailTo)
+        public async Task<object> SendEmailAsync(string mailTo)
         {
             string otp = OTPHelper.GenerateOTP();
             string body = $"<p>Your OTP is: {otp}</p>";
@@ -44,7 +44,11 @@ namespace MS.Application.Services
             var user = await _userManager.FindByEmailAsync(mailTo);
             if (user == null)
             {
-                throw new Exception("user is null here ");
+                return new { Message ="user is null here "};
+            }
+            else if(user.EmailConfirmed)
+            {
+                return new { Message = "This Email is Already Confirmed" };
             }
             var otpEntity = new OTP
             {
@@ -68,7 +72,8 @@ namespace MS.Application.Services
 
             smtp.Disconnect(true);
             _unitOfWork.OTPs.AddAsync(otpEntity);
-
+            return new
+            { Message ="Sent Ya 8aly"};
         }
 
         public async Task<bool> VerifyOTP(string userEmailAddress, string enteredOTP)
@@ -81,8 +86,19 @@ namespace MS.Application.Services
                 // OTP not found or expired
                 return false;
             }
-
+            var user = await _userManager.FindByEmailAsync(userEmailAddress);
+            if (user == null||user.EmailConfirmed)
+            {
+                return false;
+            }
+            if (enteredOTP== otpEntity.Code)
+            {
+                user.EmailConfirmed = true;
+                await _userManager.UpdateAsync(user);
+            }
             // Compare the entered OTP with the stored OTP
+
+
             return enteredOTP == otpEntity.Code;
         }
     }
