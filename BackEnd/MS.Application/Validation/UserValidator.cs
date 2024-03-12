@@ -12,9 +12,6 @@ namespace MS.Application.Validation
                 .NotNull()
                 .WithMessage("ID is a must ");
 
-            RuleFor(user => user.Name)
-                .MaximumLength(100)
-                .WithMessage("Name cannot be longer than 100 characters");
 
             RuleFor(user => user.Email)
                 .EmailAddress()

@@ -18,7 +18,6 @@ namespace MS.Infrastructure.Seeder
             {
                 var defaultuser = new ApplicationUser()
                 {
-                    Name = "admin user",
                     NID = "52153315053",
                     Gender = "Male",
                     BirthDate = new DateTime(2002, 9, 25)

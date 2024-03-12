@@ -5,7 +5,6 @@ namespace MS.Application.DTOs.Reservation
     public class UserBasicDataDto
     {
         public string NID { get; set; }
-        public string Name { get; set; }
         public int Age
         {
             get

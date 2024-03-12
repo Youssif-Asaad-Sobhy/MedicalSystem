@@ -55,7 +55,6 @@ namespace MS.Application.Services
             }
             var JwtSecurityToken = await CreateJwtToken(user);
             authmodel.IsAuthenticted = true;
-            authmodel.Name = user.Name;
             authmodel.NID = user.NID;
             authmodel.Gender = user.Gender;
             authmodel.Email = user.Email;
@@ -72,8 +71,6 @@ namespace MS.Application.Services
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
                 return ResponseHandler.BadRequest<AuthDto>("email is already Register");
-            if (string.IsNullOrEmpty(model.Username))
-                model.Username = model.Name;
             if (await _userManager.FindByNameAsync(model.Username) is not null)
                 return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
             // make validation for nid thatbe unique 
@@ -86,7 +83,6 @@ namespace MS.Application.Services
             {
                 UserName = model.Username,
                 Email = model.Email,
-                Name = model.Name,
                 Gender = model.Gender,
                 NID = model.NID,
             };
