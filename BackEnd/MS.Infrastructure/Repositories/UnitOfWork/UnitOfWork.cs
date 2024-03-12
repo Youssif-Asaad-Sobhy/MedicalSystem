@@ -14,7 +14,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         #region Vars/Props
         private readonly Context _context;
         // TO DO : Implement Generic of all Entities
-        public IBaseRepository<Clinic> Clinincs { get; private set; }
+        public IBaseRepository<Clinic> Clinics { get; private set; }
 
         public IBaseRepository<PlacePrice> PlacePrice { get; private set; }
 
@@ -59,7 +59,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         public UnitOfWork(Context context)
         {
             _context = context;
-            Clinincs = new BaseRepository<Clinic>(context);
+            Clinics = new BaseRepository<Clinic>(context);
             PlacePrice = new BaseRepository<PlacePrice>(context);
             Departments = new BaseRepository<Department>(context);
             Equipments = new BaseRepository<Equipment>(context);
