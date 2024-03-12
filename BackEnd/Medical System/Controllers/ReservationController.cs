@@ -82,10 +82,8 @@ namespace Medical_System.Controllers
             {
                 return this.CreateResponse(response);
             }
-            else
-            {
-                return BadRequest(response.Message);
-            }
+            return this.CreateResponse(response);
+ 
         }
         #endregion
     }
