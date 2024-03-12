@@ -73,6 +73,20 @@ namespace Medical_System.Controllers
             return this.SuccessCollection(response);
         }
 
+        [HttpGet("UserReservations")]
+        public async Task<IActionResult> GetUserReservationsAsync([FromQuery] string userId)
+        {
+            var response = await _service.GetUserReservationsAsync(userId);
+
+            if (response.Succeeded)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
         #endregion
     }
 }

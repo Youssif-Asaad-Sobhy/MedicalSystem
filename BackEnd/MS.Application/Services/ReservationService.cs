@@ -105,9 +105,14 @@ namespace MS.Application.Services
             return ResponseHandler.Success(TodayRes,filter,TotalRecords);
 
         }
-
-        
-        
-
+        public async Task<Response<IEnumerable<Reservation>>> GetUserReservationsAsync(string userId)
+        {
+            var reservations = await _unitOfWork.Reservations.GetByExpressionAsync(r => r.UserID == userId);
+            if (reservations == null || !reservations.Any())
+            {
+                return ResponseHandler.NotFound<IEnumerable<Reservation>>("No reservations found for the provided user ID.");
+            }
+            return ResponseHandler.Success(reservations);
+        }
     }
 }
