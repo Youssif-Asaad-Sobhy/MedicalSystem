@@ -2,6 +2,7 @@
 using MS.Application.DTOs.ClinicPrice;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace MS.Application.Interfaces
         Task<Response<PlacePrice>> DeletePlacePriceAsync(int ID);
         Task<Response<PlacePrice>> UpdatePlacePriceAsync(UpdatePlacePriceDto model);
         Task<Response<PlacePrice>> CreatePlacePriceAsync(CreatePlacePriceDto model);
+        Task<Response<IEnumerable<PlacePrice>>> GetAllPlacePricesAsync(PlaceType placeType,int placeId);
     }
 }

@@ -61,12 +61,6 @@ namespace Medical_System.Controllers
             var response = await _clinicService.UpdateClinicAsync(model);
             return this.CreateResponse(response);
         }
-        [HttpGet("All-Departments-Clinics/{DepId:int}")]
-        public async Task<IActionResult> GetDepClinics(int DepId)
-        {
-            var response = await _clinicService.GetAllClinicInDepAsync(DepId);
-            return this.CreateResponse(response);
-        }
 
         [HttpGet("GetAllClinics/{DepartmentId:int}")]
         public async Task<IActionResult> GetAllClinicsWithDepartmentIdAsync(int DepartmentId)

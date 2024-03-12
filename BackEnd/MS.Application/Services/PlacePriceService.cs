@@ -2,6 +2,7 @@
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,16 @@ namespace MS.Application.Services
                 return ResponseHandler.BadRequest<PlacePrice>($"ClinicPrice with ID {ID} not found.");
             }
             return ResponseHandler.Success(ClinicPrice);
+        }
+
+        public async Task<Response<IEnumerable<PlacePrice>>> GetAllPlacePricesAsync(PlaceType placeType, int placeId)
+        {
+            var places = await _unitOfWork.PlacePrice.GetByExpressionAsync(x=>x.PlaceID==placeId && x.PlaceType == placeType);
+            if (places == null )
+            {
+                return ResponseHandler.BadRequest<IEnumerable<PlacePrice>>($"placeId or placeType is wrong or there is not prices for this place");
+            }
+            return ResponseHandler.Success(places);
         }
 
         public async Task<Response<PlacePrice>> UpdatePlacePriceAsync(UpdatePlacePriceDto model)

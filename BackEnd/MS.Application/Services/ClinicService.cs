@@ -49,7 +49,7 @@ namespace MS.Application.Services
         }
         public async Task<Response<IEnumerable<Clinic>>> GetAllClinicInDepAsync(int DepId)
         {
-            var clinics = await _unitOfWork.Clinincs.GetByExpressionAsync(c=>c.DepartmentID == DepId);
+            var clinics = await _unitOfWork.Clinics.GetByExpressionAsync(c=>c.DepartmentID == DepId);
             if (clinics.IsNullOrEmpty())
                 return ResponseHandler.BadRequest<IEnumerable<Clinic>>($"Departments Id is wrong or Department is Emprty");
             return ResponseHandler.Success(clinics);
