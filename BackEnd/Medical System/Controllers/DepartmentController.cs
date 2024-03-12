@@ -22,7 +22,7 @@ namespace Medical_System.Controllers
         #endregion
 
         #region Methods
-        [HttpGet("Get/{ID:int}")]
+        [HttpGet("{ID:int}")]
         public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ID)
         {
             var response = await _departmentService.GetDepartmentByIDAsync(ID);
@@ -34,7 +34,7 @@ namespace Medical_System.Controllers
         }
 
 
-        [HttpDelete("Delete/{ID:int}")]
+        [HttpDelete("{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ID)
         {
             var response = await _departmentService.DeleteDepartmentAsync(ID);
@@ -45,7 +45,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
-        [HttpPost("Post")]
+        [HttpPost]
         public async Task<IActionResult> CreateClinicAsync([FromBody] CreateDeptDto model)
         {
             if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-        [HttpPut("Put")]
+        [HttpPut]
         public async Task<IActionResult> PutSingleAsync(UpdateDeptDto model)
         {
             if (!ModelState.IsValid)
@@ -67,6 +67,16 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _departmentService.UpdateDepartmentAsync(model);
+            if (!response.Succeeded)
+            {
+                return this.CreateResponse(response);
+            }
+            return this.CreateResponse(response);
+        }
+        [HttpGet("All-Departments")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var response = await _departmentService.GetAllDepartmentsAsync();
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);

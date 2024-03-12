@@ -45,6 +45,17 @@ namespace MS.Application.Services
             return ResponseHandler.Deleted<Department>();
         }
 
+        public async Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync()
+        {
+
+            var deps = await _unitOfWork.Departments.GetAllAsync();
+            if (deps is null)
+            {
+                return ResponseHandler.BadRequest<IEnumerable<Department>>("department model is null or not found");
+            }
+            return ResponseHandler.Success(deps);
+        }
+
         public async Task<Response<Department>> GetDepartmentByIDAsync(int ID)
         {
             var dept = await _unitOfWork.Departments.GetByIdAsync(ID);

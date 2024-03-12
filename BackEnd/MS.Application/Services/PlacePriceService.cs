@@ -2,6 +2,7 @@
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace MS.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<Response<PlacePrice>> CreateClinicPriceAsync(CreateClinicPriceDto model)
+        public async Task<Response<PlacePrice>> CreatePlacePriceAsync(CreatePlacePriceDto model)
         {
             if (model is null )
             {
@@ -29,13 +30,14 @@ namespace MS.Application.Services
             {
                 Name = model.Name,
                 Price = model.Price,
+                PlaceType= model.PlaceType,
                 PlaceID = model.PlaceID
             };
             await _unitOfWork.PlacePrice.AddAsync(clinicprice);
             return ResponseHandler.Created<PlacePrice>(clinicprice);
         }
 
-        public async Task<Response<PlacePrice>> DeleteClinicPriceAsync(int ID)
+        public async Task<Response<PlacePrice>> DeletePlacePriceAsync(int ID)
         {
             var ClinicPrice = await _unitOfWork.PlacePrice.GetByIdAsync(ID);
             if (ClinicPrice == null || ID == 0)
@@ -46,7 +48,7 @@ namespace MS.Application.Services
             return ResponseHandler.Deleted<PlacePrice>();
         }
 
-        public async Task<Response<PlacePrice>> GetClinicPriceAsync(int ID)
+        public async Task<Response<PlacePrice>> GetPlacePriceAsync(int ID)
         {
             var ClinicPrice = await _unitOfWork.PlacePrice.GetByIdAsync(ID);
             if (ClinicPrice == null || ID == 0)
@@ -56,7 +58,17 @@ namespace MS.Application.Services
             return ResponseHandler.Success(ClinicPrice);
         }
 
-        public async Task<Response<PlacePrice>> UpdateClinicPriceAsync(UpdateClinicPriceDto model)
+        public async Task<Response<IEnumerable<PlacePrice>>> GetAllPlacePricesAsync(PlaceType placeType, int placeId)
+        {
+            var places = await _unitOfWork.PlacePrice.GetByExpressionAsync(x=>x.PlaceID==placeId && x.PlaceType == placeType);
+            if (places == null )
+            {
+                return ResponseHandler.BadRequest<IEnumerable<PlacePrice>>($"placeId or placeType is wrong or there is not prices for this place");
+            }
+            return ResponseHandler.Success(places);
+        }
+
+        public async Task<Response<PlacePrice>> UpdatePlacePriceAsync(UpdatePlacePriceDto model)
         {
             if (model == null|| model.ID==0)
             {
