@@ -13,7 +13,6 @@ namespace MS.Application.Interfaces
         Task<Response<Reservation>> UpdateReservationAsync(UpdateReservationDto model);
         Task<Response<ReservationDto>> PlaceReservationAsync(PlaceReservationDto model);
         Task<PaginatedResult<IEnumerable<Reservation>>> TodaysReservationsAsync(PageFilter filter);
-       
-        
+        Task<Response<IEnumerable<Reservation>>> GetUserReservationsAsync(string userId);
     }
 }
