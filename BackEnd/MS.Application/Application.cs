@@ -14,6 +14,7 @@ using MediatR;
 using MS.Application.Helpers.ValidationHelper;
 using System.Reflection;
 using FluentValidation;
+using MS.Application.Helpers.OTP;
 
 namespace MS.Application
 {
@@ -23,6 +24,7 @@ namespace MS.Application
         public static  void Appplicatiion_CS(this IServiceCollection services, IConfiguration Configuration)
         {
             #region services
+
             services.AddScoped<ILabService,LabService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITypeService, TypeServices>();
@@ -36,6 +38,7 @@ namespace MS.Application
             services.AddScoped<IDocumentService,DocumentService>();
             services.AddScoped<IHospitalService,HospitalService>();
             services.AddScoped<IEquipmentService,EquipmentService>();
+            services.AddTransient<IMailingService, MailingService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IPlaceShiftService, PlaceShiftService>();
             services.AddScoped<IPlacePriceService, PlacePriceService>();
@@ -48,6 +51,7 @@ namespace MS.Application
             #endregion
 
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
