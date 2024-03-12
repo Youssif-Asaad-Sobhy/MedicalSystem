@@ -9,7 +9,7 @@ namespace MS.Data.Enums
     public enum ReservationState
     {
         Done,
-        Runing
+        Running
     }
     public enum PlaceType
     {

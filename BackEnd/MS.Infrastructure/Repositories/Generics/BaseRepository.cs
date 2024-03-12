@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MS.Infrastructure.Contexts;
 using System.Linq.Expressions;
+using MS.Data.Entities;
 
 namespace MS.Infrastructure.Repositories.Generics
 {

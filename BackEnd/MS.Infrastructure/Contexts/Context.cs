@@ -1296,7 +1296,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 2,
                     Time = new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(1531),
-                    State = ReservationState.Runing,
+                    State = ReservationState.Running,
                     PlacePriceId = 1,
                     UserID = "2" ,
                     SerialNumber=543864963
@@ -1341,7 +1341,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 7,
                     Time = new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530),
-                    State = ReservationState.Runing,
+                    State = ReservationState.Running,
                     PlacePriceId = 4,
                     UserID = "7",
                     SerialNumber = 70000005
@@ -1350,7 +1350,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 8,
                     Time = new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543),
-                    State = ReservationState.Runing,
+                    State = ReservationState.Running,
                     PlacePriceId = 4,
                     UserID = "8",
                     SerialNumber = 70000006
@@ -1359,7 +1359,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 9,
                     Time = new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556),
-                    State = ReservationState.Runing,
+                    State = ReservationState.Running,
                     PlacePriceId = 5,
                     UserID = "9",
                     SerialNumber = 70000007
