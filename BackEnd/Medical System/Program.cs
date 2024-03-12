@@ -8,10 +8,12 @@ using MS.Data.Entities;
 using MS.Infrastructure;
 using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Seeder;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+ options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.Appplicatiion_CS(builder.Configuration);
 builder.Services.Infrastructure_CS();
 builder.Services.AddLogging();
