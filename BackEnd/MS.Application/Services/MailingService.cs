@@ -15,6 +15,7 @@ using MS.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using MS.Application.Helpers.Response;
 namespace MS.Application.Services
 {
     public class MailingService : IMailingService
@@ -29,7 +30,7 @@ namespace MS.Application.Services
             _userManager = userManager;
             _unitOfWork = unitOfWork;
         }
-        public async Task<object> SendEmailAsync(string mailTo)
+        public async Task<Response<object>> SendEmailAsync(string mailTo)
         {
             string otp = OTPHelper.GenerateOTP();
             string body = $"<p>Your OTP is: {otp}</p>";
@@ -44,11 +45,7 @@ namespace MS.Application.Services
             var user = await _userManager.FindByEmailAsync(mailTo);
             if (user == null)
             {
-                return new { Message ="user is null here "};
-            }
-            else if(user.EmailConfirmed)
-            {
-                return new { Message = "This Email is Already Confirmed" };
+                return ResponseHandler.BadRequest<object>("User Is Null");
             }
             var otpEntity = new OTP
             {
@@ -72,11 +69,10 @@ namespace MS.Application.Services
 
             smtp.Disconnect(true);
             _unitOfWork.OTPs.AddAsync(otpEntity);
-            return new
-            { Message ="Sent Ya 8aly"};
+            return ResponseHandler.Success<object>("Sent Ya 8aly");
         }
 
-        public async Task<bool> VerifyOTP(string userEmailAddress, string enteredOTP)
+        public async Task<Response<bool>> VerifyOTP(string userEmailAddress, string enteredOTP)
         {
             var otpEntity = await _unitOfWork.OTPs
                 .GetByExpressionSingleAsync(o => o.Email == userEmailAddress && o.ExpirationTime > DateTime.UtcNow);
@@ -84,22 +80,23 @@ namespace MS.Application.Services
             if (otpEntity == null)
             {
                 // OTP not found or expired
-                return false;
+                return ResponseHandler.BadRequest<bool>("Invalid OTP or expired");
             }
             var user = await _userManager.FindByEmailAsync(userEmailAddress);
-            if (user == null||user.EmailConfirmed)
+            if (user == null)
             {
-                return false;
+                return ResponseHandler.BadRequest<bool>("User Is Null here");
             }
             if (enteredOTP== otpEntity.Code)
             {
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
+                return ResponseHandler.Success(true);
             }
             // Compare the entered OTP with the stored OTP
 
 
-            return enteredOTP == otpEntity.Code;
+            return ResponseHandler.BadRequest<bool>("Invalid OTP or expired");
         }
     }
 }

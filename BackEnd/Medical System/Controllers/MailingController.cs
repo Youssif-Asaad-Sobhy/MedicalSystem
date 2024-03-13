@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.Helpers.OTP;
+using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Services;
 
@@ -17,25 +18,18 @@ namespace Medical_System.Controllers
             _mailingService = mailingService;
         }
         [HttpPost("send")]
-        public async Task<IActionResult> SendMail(MailRequestDto dto)
+        public async Task<IActionResult> SendMail([FromQuery]MailRequestDto dto)
         {
             var res=await _mailingService.SendEmailAsync(dto.ToEmail);
-            return Ok(res);
+            return this.CreateResponse(res);
         }
 
         [HttpPost("verify-otp")]
-        public async Task<IActionResult> VerifyOTP([FromBody] VerifyOTPRequest request)
+        public async Task<IActionResult> VerifyOTP([FromQuery] VerifyOTPRequest request)
         {
-            bool isOTPValid =await _mailingService.VerifyOTP(request.Email,request.EnteredOTP);
+            var isOTPValid =await _mailingService.VerifyOTP(request.Email,request.EnteredOTP);
 
-            if (isOTPValid)
-            {
-                return Ok(new { Message = "OTP verification successful" });
-            }
-            else
-            {
-                return BadRequest(new { Message = "Invalid OTP or expired" });
-            }
+            return this.CreateResponse(isOTPValid);
         }
     }
 }

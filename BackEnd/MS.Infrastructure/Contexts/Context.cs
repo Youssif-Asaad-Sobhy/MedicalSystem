@@ -56,7 +56,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "3",
-                    Name = "Mohammed",
                     NID = "9876543210",
                     Gender = "Male",
                     BirthDate = new DateTime(1988, 10, 5),
@@ -72,7 +71,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "4",
-                    Name = "Aisha",
                     NID = "0123456789",
                     Gender = "Female",
                     BirthDate = new DateTime(1995, 3, 25),
@@ -88,7 +86,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "5",
-                    Name = "Ahmad",
                     NID = "1122334455",
                     Gender = "Male",
                     BirthDate = new DateTime(1978, 3, 10),
@@ -104,7 +101,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "6",
-                    Name = "Aya",
                     NID = "3344556677",
                     Gender = "Female",
                     BirthDate = new DateTime(1989, 7, 5),
@@ -120,7 +116,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "7",
-                    Name = "Omar",
                     NID = "5544332211",
                     Gender = "Male",
                     BirthDate = new DateTime(1995, 12, 12),
@@ -136,7 +131,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "8",
-                    Name = "Sara",
                     NID = "7788990011",
                     Gender = "Female",
                     BirthDate = new DateTime(1980, 1, 30),
@@ -152,7 +146,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "9",
-                    Name = "Ali",
                     NID = "6677889900",
                     Gender = "Male",
                     BirthDate = new DateTime(1998, 5, 20),
@@ -168,7 +161,6 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "10",
-                    Name = "Laila",
                     NID = "1122334455",
                     Gender = "Female",
                     BirthDate = new DateTime(1982, 10, 10),

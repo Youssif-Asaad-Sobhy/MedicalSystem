@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using MS.Application.Helpers.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MS.Application.Interfaces
 {
     public interface IMailingService
     {
-        Task<object> SendEmailAsync(string mailTo);
-        Task<bool> VerifyOTP(string userEmailAddress,string enteredOTP);
+        Task<Response<object>> SendEmailAsync(string mailTo);
+        Task<Response<bool>> VerifyOTP(string userEmailAddress,string enteredOTP);
     }
 }

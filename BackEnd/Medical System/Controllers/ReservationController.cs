@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Pagination;
@@ -7,6 +8,7 @@ using MS.Application.Interfaces;
 
 namespace Medical_System.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Reservation : ControllerBase
@@ -66,7 +68,7 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-        [HttpGet]
+        [HttpGet("All-Reservations")]
         public async Task<IActionResult> GetTodayReservations([FromQuery]PageFilter filter)
         {
             var response = await _service.TodaysReservationsAsync(filter);
@@ -74,16 +76,27 @@ namespace Medical_System.Controllers
         }
 
         [HttpGet("UserReservations")]
-        public async Task<IActionResult> GetUserReservationsAsync([FromQuery] string userId)
+        public async Task<IActionResult> GetUserReservationsAsync()
         {
-            var response = await _service.GetUserReservationsAsync(userId);
-
-            if (response.Succeeded)
+            try
             {
+                // Retrieve the user ID from the token sent in the headers
+                var userId = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+
+                if (userId == null)
+                {
+                    return BadRequest("User ID not found in token.");
+                }
+
+                // Retrieve reservations associated with the user ID
+                var response = await _service.GetUserReservationsAsync(userId);
+
                 return this.CreateResponse(response);
             }
-            return this.CreateResponse(response);
- 
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
         #endregion
     }
