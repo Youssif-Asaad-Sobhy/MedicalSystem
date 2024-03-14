@@ -1,10 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
+using MS.Application.Helpers.UserManagerExtensions;
 using MS.Application.Interfaces;
+using MS.Data.Entities;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Medical_System.Controllers
 {
@@ -15,9 +22,13 @@ namespace Medical_System.Controllers
     {
         #region Constructor/props
         private readonly IReservationService _service;
-        public Reservation(IReservationService service)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public Reservation(IReservationService service, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _service = service;
+            _userManager = userManager;
         }
         #endregion
 
@@ -78,25 +89,13 @@ namespace Medical_System.Controllers
         [HttpGet("UserReservations")]
         public async Task<IActionResult> GetUserReservationsAsync()
         {
-            try
+            var userId = _userManager.GetCurrentUserId(_httpContextAccessor);
+            if (userId == null)
             {
-                // Retrieve the user ID from the token sent in the headers
-                var userId = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
-
-                if (userId == null)
-                {
-                    return BadRequest("User ID not found in token.");
-                }
-
-                // Retrieve reservations associated with the user ID
-                var response = await _service.GetUserReservationsAsync(userId);
-
-                return this.CreateResponse(response);
+                return BadRequest("User ID not found in token.");
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var response = await _service.GetUserReservationsAsync(userId);
+            return this.CreateResponse(response);
         }
         #endregion
     }
