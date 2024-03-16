@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Services
 {
-    public class ApplicationUserService: IApplicationService
+    public class ApplicationUserService: IApplicationUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -97,5 +97,38 @@ namespace MS.Application.Services
             return ResponseHandler.Success(data);
         }
 
+        public async Task<Response<ApplicationUser>> changePasswordAsync(ChangePasswordDto model)
+        {
+            if (model.OldPassword == model.NewPassword)
+            {
+                return ResponseHandler.BadRequest<ApplicationUser>("can you please choose a new password");
+            }
+            var currentuser = await _userManager.FindByNameAsync(model.UserName);
+            if (currentuser == null) { return ResponseHandler.NotFound<ApplicationUser>(); }
+            var res=await _userManager.ChangePasswordAsync(currentuser,model.OldPassword,model.NewPassword);
+            if (!res.Succeeded)
+            {
+                return ResponseHandler.BadRequest<ApplicationUser>
+                    (string.Join(", ", res.Errors.Select(error => error.Description)));
+            }
+            return ResponseHandler.Success<ApplicationUser>("password has been changed");
+        }
+
+        public async Task<Response<ApplicationUser>> ForgotPasswordAsync(ForgotPasswordDto model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return ResponseHandler.NotFound<ApplicationUser>();
+            }
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                var errorMessage = string.Join(", ", result.Errors.Select(error => error.Description));
+                return ResponseHandler.BadRequest<ApplicationUser>(errorMessage);
+            }
+            return ResponseHandler.Success<ApplicationUser>("Password reset successfully");
+        }
     }
 }

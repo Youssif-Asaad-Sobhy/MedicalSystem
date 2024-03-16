@@ -44,7 +44,7 @@ namespace MS.Application
             services.AddScoped<IPlacePriceService, PlacePriceService>();
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<IMedicineTypeService,MedicineTypeService>();
-            services.AddScoped<IApplicationService,ApplicationUserService>();
+            services.AddScoped<IApplicationUserService,ApplicationUserService>();
             services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
             services.AddScoped<IReportMedicineService, ReportMedicineService>();
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
