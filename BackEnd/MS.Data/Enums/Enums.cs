@@ -12,8 +12,8 @@ namespace MS.Data.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ReservationState
     {
-        Done,
-        Running
+        Running,
+        Done
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PlaceType

@@ -12,7 +12,7 @@ namespace MS.Data.Entities
     {
         public int ID { get; set; }
         public DateTime Time{ get; set; }
-        public int SerialNumber { get; set; }
+        public string SerialNumber { get; set; } 
         public ReservationState State { get; set; }
         public int PlacePriceId {  get; set; }
         public string UserID {  get; set; }

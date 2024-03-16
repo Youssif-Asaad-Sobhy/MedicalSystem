@@ -56,6 +56,8 @@ namespace MS.Application.Services
             var JwtSecurityToken = await CreateJwtToken(user);
             authmodel.IsAuthenticted = true;
             authmodel.NID = user.NID;
+            authmodel.FirstName = user.FirstName;
+            authmodel.LastName = user.LastName;
             authmodel.Gender = user.Gender;
             authmodel.Email = user.Email;
             authmodel.Username = user.UserName;
@@ -75,12 +77,15 @@ namespace MS.Application.Services
                 return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
             // make validation for nid thatbe unique 
             // بص هو في حاجه غلط ف اللوجيك بتاع الاف كونديشن ده بس مش عارف ازاي بجد شغال كدا
-            if (await _unitOfWork.Users.GetByExpressionAsync(u => u.NID == model.NID)==null)
+            if (await _unitOfWork.Users.GetByExpressionSingleAsync(u => u.NID == model.NID)!=null)
                 return ResponseHandler.BadRequest<AuthDto>("National ID is already register");
 
 
             var user = new ApplicationUser
             {
+                Id = model.NID,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.Username,
                 Email = model.Email,
                 Gender = model.Gender,
@@ -100,6 +105,8 @@ namespace MS.Application.Services
             var JwtSecurityToken = await CreateJwtToken(user);
             var authdto= new AuthDto
                 {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     Email = user.Email,
                     Gender=user.Gender,
                     NID=user.NID,
@@ -132,10 +139,7 @@ namespace MS.Application.Services
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-            List<string> audiences = new List<string>(_jwt.ValidAudience);
             var jwtSecurityToken = new JwtSecurityToken(
-                issuer: _jwt.ValidIssuer,
-                audience: audiences.ToString(),
                 claims: claims,
                 expires: DateTime.Now.AddDays(_jwt.DurationInDays),
                 signingCredentials: signingCredentials);

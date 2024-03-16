@@ -8,6 +8,8 @@ namespace MS.Application.Models.Authentication
 {
     public class AuthDto
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Description { get; set; }
         public bool IsAuthenticted { get; set; }
         public string Username { get; set; }
