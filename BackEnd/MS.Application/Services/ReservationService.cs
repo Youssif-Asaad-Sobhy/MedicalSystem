@@ -31,17 +31,17 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<ReservationDto>($"Reservation model not found.");
             }
-            var user =await _userManager.FindByIdAsync(model.UserID);
             var placePrice = await _unitOfWork.PlacePrice.GetByIdAsync(model.PlacePriceId);
-            if (placePrice is null || user == null)
+            if (placePrice is null )
             {
                 return ResponseHandler.BadRequest<ReservationDto>($"place or User not found. please enter correct ID");
             }
             var reservation = new Reservation()
             {
                 Time=DateTime.Now,
-                UserID=user.Id,
-                PlacePriceId=model.PlacePriceId
+                UserID=model.UserID,
+                PlacePriceId=model.PlacePriceId,
+                SerialNumber= DateTime.Now.ToString("d") + model.PlacePriceId.ToString(),
             };
             await _unitOfWork.Reservations.AddAsync(reservation);
             ReservationDto reservatioDto = new ReservationDto()

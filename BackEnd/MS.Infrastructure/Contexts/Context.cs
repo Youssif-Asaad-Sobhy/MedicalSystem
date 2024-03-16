@@ -26,6 +26,8 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "1", // Generate a unique ID
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     NID = "2636523632",
                     Gender = "male",
                     BirthDate = new DateTime(2002, 9, 25),
@@ -41,6 +43,8 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "2", // Generate another unique ID
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     NID = "5312523632",
                     Gender = "Female",
                     BirthDate = new DateTime(2012, 6, 25),
@@ -57,6 +61,8 @@ namespace MS.Infrastructure.Contexts
                 {
                     Id = "3",
                     NID = "9876543210",
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     Gender = "Male",
                     BirthDate = new DateTime(1988, 10, 5),
                     UserName = "MOHAMMED123",
@@ -71,6 +77,8 @@ namespace MS.Infrastructure.Contexts
                 new ApplicationUser
                 {
                     Id = "4",
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     NID = "0123456789",
                     Gender = "Female",
                     BirthDate = new DateTime(1995, 3, 25),
@@ -87,6 +95,8 @@ namespace MS.Infrastructure.Contexts
                 {
                     Id = "5",
                     NID = "1122334455",
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     Gender = "Male",
                     BirthDate = new DateTime(1978, 3, 10),
                     UserName = "AHMAD567",
@@ -105,6 +115,8 @@ namespace MS.Infrastructure.Contexts
                     Gender = "Female",
                     BirthDate = new DateTime(1989, 7, 5),
                     UserName = "AYA789",
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     NormalizedEmail = "AYA@EXAMPLE.COM",
                     NormalizedUserName = "AYA789",
                     EmailConfirmed = false,
@@ -123,6 +135,8 @@ namespace MS.Infrastructure.Contexts
                     NormalizedEmail = "OMAR@EXAMPLE.COM",
                     NormalizedUserName = "OMAR101",
                     EmailConfirmed = false,
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
@@ -139,6 +153,8 @@ namespace MS.Infrastructure.Contexts
                     NormalizedUserName = "SARA2022",
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
@@ -154,6 +170,8 @@ namespace MS.Infrastructure.Contexts
                     NormalizedUserName = "ALI3030",
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
@@ -169,6 +187,8 @@ namespace MS.Infrastructure.Contexts
                     NormalizedUserName = "LAILA4040",
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
+                    FirstName = "mohamed",
+                    LastName = "Ali",
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
@@ -1280,7 +1300,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Done,
                     PlacePriceId = 1,
                     UserID = "1" ,
-                    SerialNumber=45165153
+                    SerialNumber="45165153"
                 },
                 new Reservation
                 {
@@ -1289,7 +1309,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Running,
                     PlacePriceId = 1,
                     UserID = "2" ,
-                    SerialNumber=543864963
+                    SerialNumber="543864963"
                 },
                 new Reservation
                 {
@@ -1298,7 +1318,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Done,
                     PlacePriceId = 2,
                     UserID = "3",
-                    SerialNumber = 70000001
+                    SerialNumber = "70000001"
                 },
                 new Reservation
                 {
@@ -1307,7 +1327,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Done,
                     PlacePriceId = 2,
                     UserID = "4",
-                    SerialNumber = 70000002
+                    SerialNumber = "70000002"
                 },
                 new Reservation
                 {
@@ -1316,7 +1336,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Done,
                     PlacePriceId = 3,
                     UserID = "5",
-                    SerialNumber = 70000003
+                    SerialNumber = "70000003"
                 },
                 new Reservation
                 {
@@ -1325,7 +1345,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Done,
                     PlacePriceId = 3,
                     UserID = "6",
-                    SerialNumber = 70000004
+                    SerialNumber = "70000004"
                 },
                 new Reservation
                 {
@@ -1334,7 +1354,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Running,
                     PlacePriceId = 4,
                     UserID = "7",
-                    SerialNumber = 70000005
+                    SerialNumber = "70000005"
                 },
                 new Reservation
                 {
@@ -1343,7 +1363,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Running,
                     PlacePriceId = 4,
                     UserID = "8",
-                    SerialNumber = 70000006
+                    SerialNumber = "70000006"
                 },
                 new Reservation
                 {
@@ -1352,7 +1372,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Running,
                     PlacePriceId = 5,
                     UserID = "9",
-                    SerialNumber = 70000007
+                    SerialNumber = "70000007"
                 },
                 new Reservation
                 {
@@ -1361,7 +1381,7 @@ namespace MS.Infrastructure.Contexts
                     State = ReservationState.Done,
                     PlacePriceId = 5,
                     UserID = "10",
-                    SerialNumber = 70000008
+                    SerialNumber = "70000008"
                 }
 
             // Add more reservations as needed
