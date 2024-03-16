@@ -35,6 +35,15 @@ namespace MS.Application.Helpers.Response
                 Message = "Deleted Successfully"
             };
         }
+         public static Response<T> Success<T>(string message= "succeeded process")
+        {
+            return new Response<T>()
+            {
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Succeeded = true,
+                Message =message,
+            };
+        }
         public static Response<T> Success<T>(T entity, object Meta = null)
         {
             return new Response<T>()

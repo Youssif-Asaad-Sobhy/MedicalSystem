@@ -76,7 +76,7 @@ namespace MS.Application.Services
             if (await _userManager.FindByNameAsync(model.Username) is not null)
                 return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
             // make validation for nid thatbe unique 
-            // بص هو في حاجه غلط ف اللوجيك بتاع الاف كونديشن ده بس مش عارف ازاي بجد شغال كدا
+
             if (await _unitOfWork.Users.GetByExpressionSingleAsync(u => u.NID == model.NID)!=null)
                 return ResponseHandler.BadRequest<AuthDto>("National ID is already register");
 

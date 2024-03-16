@@ -18,6 +18,7 @@ namespace MS.Application.Interfaces
         Task<Response<ApplicationUser>> UpdateUserAsync(UpdateUserDto model);
         Task<Response<ApplicationUser>> CreateUserAsync(CreateUserDto model);
         Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID);
-        Task<Response<ApplicationUser>> changePasswordAsync(ApplicationUser user,ChangePasswordDto model);
+        Task<Response<ApplicationUser>> changePasswordAsync(ChangePasswordDto model);
+        Task<Response<ApplicationUser>> ForgotPasswordAsync(ForgotPasswordDto model);
     }
 }

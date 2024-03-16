@@ -12,14 +12,14 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ApplicationUserController : ControllerBase
     {
 
         #region Constructor/props
         private readonly IApplicationUserService _applicationService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(IApplicationUserService applicationService, UserManager<ApplicationUser> userManager)
+        public ApplicationUserController(IApplicationUserService applicationService, UserManager<ApplicationUser> userManager)
         {
             _applicationService = applicationService;
             _userManager = userManager;
@@ -75,12 +75,21 @@ namespace Medical_System.Controllers
         [HttpPost("ChangePassowrd")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto model)
         {
-            var currentuser =await _userManager.FindByNameAsync(User.Identity.Name);
-            if (currentuser == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest("user  not found ");
+                return BadRequest(ModelState);
             }
-            var response = await _applicationService.changePasswordAsync(currentuser, model);
+            var response = await _applicationService.changePasswordAsync(model);
+            return this.CreateResponse(response);
+        }
+        [HttpPost("ForgetPassword")]
+        public async Task<IActionResult> ForgetPassword(ForgotPasswordDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var response = await _applicationService.ForgotPasswordAsync(model);
             return this.CreateResponse(response);
         }
         #endregion
