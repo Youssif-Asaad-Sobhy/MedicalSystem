@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.ApplicationUser;
 using MS.Application.DTOs.Document;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Services;
+using MS.Data.Entities;
 
 namespace Medical_System.Controllers
 {
@@ -14,11 +16,13 @@ namespace Medical_System.Controllers
     {
 
         #region Constructor/props
-        private readonly IApplicationService _applicationService;
+        private readonly IApplicationUserService _applicationService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(IApplicationService applicationService)
+        public UserController(IApplicationUserService applicationService, UserManager<ApplicationUser> userManager)
         {
             _applicationService = applicationService;
+            _userManager = userManager;
         }
         #endregion
 
@@ -32,7 +36,7 @@ namespace Medical_System.Controllers
         }
 
 
-        [HttpDelete("{ID}")]
+        [HttpDelete("DeleteUser/{ID}")]
         public async Task<IActionResult> DeleteSingleAsync(string ID)
         {
             var response = await _applicationService.DeleteUserAsync(ID);
@@ -62,10 +66,21 @@ namespace Medical_System.Controllers
 
             return this.CreateResponse(response);
         }
-        [HttpGet("{id}")]
+        [HttpGet("BasicData/{id}")]
         public async Task<IActionResult> GetBasicData(string id)
         {
             var response = await _applicationService.GetUserDataAsync(id);
+            return this.CreateResponse(response);
+        }
+        [HttpPost("ChangePassowrd")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto model)
+        {
+            var currentuser =await _userManager.FindByNameAsync(User.Identity.Name);
+            if (currentuser == null)
+            {
+                return BadRequest("user  not found ");
+            }
+            var response = await _applicationService.changePasswordAsync(currentuser, model);
             return this.CreateResponse(response);
         }
         #endregion

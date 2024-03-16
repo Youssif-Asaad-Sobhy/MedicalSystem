@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Interfaces
 {
-    public interface IApplicationService
+    public interface IApplicationUserService
     {
         Task<Response<ApplicationUser>> GetUserByIDAsync(string ID);
         Task<Response<ApplicationUser>> DeleteUserAsync(string ID);
         Task<Response<ApplicationUser>> UpdateUserAsync(UpdateUserDto model);
         Task<Response<ApplicationUser>> CreateUserAsync(CreateUserDto model);
         Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID);
+        Task<Response<ApplicationUser>> changePasswordAsync(ApplicationUser user,ChangePasswordDto model);
     }
 }

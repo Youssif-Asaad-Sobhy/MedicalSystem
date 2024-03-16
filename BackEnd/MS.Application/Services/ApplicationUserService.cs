@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Services
 {
-    public class ApplicationUserService: IApplicationService
+    public class ApplicationUserService: IApplicationUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -93,5 +93,16 @@ namespace MS.Application.Services
             return ResponseHandler.Success(data);
         }
 
+        public async Task<Response<ApplicationUser>> changePasswordAsync(ApplicationUser user,ChangePasswordDto model)
+        {
+            if (user ==null) { return ResponseHandler.NotFound<ApplicationUser>(); }
+            var res=await _userManager.ChangePasswordAsync(user,model.OldPassword,model.NewPassword);
+            if (!res.Succeeded)
+            {
+                return ResponseHandler.BadRequest<ApplicationUser>
+                    (string.Join(", ", res.Errors.Select(error => error.Description)));
+            }
+            return ResponseHandler.Success(user);
+        }
     }
 }
