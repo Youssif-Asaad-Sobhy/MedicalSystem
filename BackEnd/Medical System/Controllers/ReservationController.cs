@@ -109,7 +109,12 @@ namespace Medical_System.Controllers
             var reservationInfo = await _service.GetReservationINFO(id);
             return this.CreateResponse(reservationInfo);
         }
-
+        [HttpPost("UserPlaceInClinic")]
+        public async Task<IActionResult> GetUserPlaceInClinic([FromBody] PlaceUserInClinicDto model)
+        {
+            var response = await _service.GetUserPlaceInClinic(model);
+            return this.CreateResponse(response);
+        }
 
         #endregion
     }

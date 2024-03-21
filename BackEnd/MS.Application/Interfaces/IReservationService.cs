@@ -16,5 +16,7 @@ namespace MS.Application.Interfaces
         Task<PaginatedResult<IEnumerable<Reservation>>> TodaysReservationsAsync(PageFilter filter);
         Task<Response<IEnumerable<Reservation>>> GetUserReservationsAsync(string userId);
         Task<Response<ReservationINFODto>> GetReservationINFO(int ID);
+        // i want to get the place of user in this clinic
+        Task<Response<string>> GetUserPlaceInClinic(PlaceUserInClinicDto model);
     }
 }
