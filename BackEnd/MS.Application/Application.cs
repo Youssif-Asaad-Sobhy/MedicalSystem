@@ -53,7 +53,10 @@ namespace MS.Application
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<Context>()
+                .AddDefaultTokenProviders()
+                .AddTokenProvider<EmailTokenProvider<ApplicationUser>>(TokenOptions.DefaultEmailProvider);
 
             services.AddAuthentication(options =>
             {

@@ -116,7 +116,7 @@ namespace MS.Application.Services
 
         public async Task<Response<ApplicationUser>> ForgotPasswordAsync(ForgotPasswordDto model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 return ResponseHandler.NotFound<ApplicationUser>();

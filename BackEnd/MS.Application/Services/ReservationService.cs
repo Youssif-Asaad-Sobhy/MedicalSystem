@@ -125,5 +125,30 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success<ReservationINFODto>(reservations);
         }
+        public async Task<Response<string>> GetUserPlaceInClinic(PlaceUserInClinicDto model)
+        {
+            DateTime day = model.ReservationDate;
+            DateTime startOfToday = day.Date;
+            DateTime endOfToday = startOfToday.AddDays(1).AddTicks(-1);
+            var reservations = await _unitOfWork.Reservations
+            .GetByExpressionAsync(r =>
+              r.PlacePrice.PlaceID == model.ClinicId &&
+              r.Time >= startOfToday &&
+              r.Time < endOfToday
+              );
+            if (reservations == null || !reservations.Any()) {
+                return ResponseHandler.NotFound<string>("No reservations found for the provided user ID."); 
+            }
+            int place ;
+            var userReservation = reservations.FirstOrDefault(r => r.UserID == model.UserId && r.State == Data.Enums.ReservationState.Running);
+            if (userReservation != null)
+            {
+                place = reservations.Count(r => r.Time < userReservation.Time && r.State == Data.Enums.ReservationState.Running);
+                return ResponseHandler.Success<string>($"Your place in the clinic is {place}");
+            }
+
+            return ResponseHandler.NotFound<string>("No running reservations found for the provided user ID.");
+        }
     }
 }
+ 
