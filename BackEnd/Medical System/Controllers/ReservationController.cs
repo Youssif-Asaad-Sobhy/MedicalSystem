@@ -27,14 +27,12 @@ namespace Medical_System.Controllers
         private readonly IReservationService _service;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IResrvationRepo _reservationRepo;
 
-        public Reservation(IReservationService service, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, IResrvationRepo reservationRepo)
+        public Reservation(IReservationService service, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _service = service;
             _userManager = userManager;
-            _reservationRepo = reservationRepo;
         }
         #endregion
 
