@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ using MS.Application.Helpers.Response;
 using MS.Application.Helpers.UserManagerExtensions;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Infrastructure.Repositories.Dtos;
+using MS.Infrastructure.Repositories.Repository.RepoInterfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -24,6 +27,7 @@ namespace Medical_System.Controllers
         private readonly IReservationService _service;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
         public Reservation(IReservationService service, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -97,6 +101,16 @@ namespace Medical_System.Controllers
             var response = await _service.GetUserReservationsAsync(userId);
             return this.CreateResponse(response);
         }
+
+
+        [HttpGet("ReservationINFO/{id}")]
+        public async Task<IActionResult> GetReservationInfo(int id)
+        {
+            var reservationInfo = await _service.GetReservationINFO(id);
+            return this.CreateResponse(reservationInfo);
+        }
+
+
         #endregion
     }
 }

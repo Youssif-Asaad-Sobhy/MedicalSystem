@@ -1,6 +1,8 @@
 ﻿using MS.Data.Entities;
 using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Repositories.Generics;
+using MS.Infrastructure.Repositories.Repository.RepoClasses;
+using MS.Infrastructure.Repositories.Repository.RepoInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +44,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
 
         public IBaseRepository<ReportMedicine> ReportMedicines { get; private set; }
 
-        public IBaseRepository<Reservation> Reservations { get; private set; }
+        public IResrvationRepo Reservations { get; private set; }
 
         public IBaseRepository<Shift> Shifts { get; private set; }
 
@@ -74,7 +76,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
             PlaceShifts = new BaseRepository<PlaceShift>(context);
             Reports = new BaseRepository<Report>(context);
             ReportMedicines = new BaseRepository<ReportMedicine>(context);
-            Reservations = new BaseRepository<Reservation>(context);
+            Reservations = new ReservationRepo(context);
             Shifts = new BaseRepository<Shift>(context);
             Tests = new BaseRepository<Test>(context);
             TestLabs = new BaseRepository<TestLab>(context);
