@@ -2,6 +2,7 @@
 using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
+using MS.Infrastructure.Repositories.Dtos;
 using System.Threading.Tasks;
 
 namespace MS.Application.Interfaces
@@ -14,5 +15,6 @@ namespace MS.Application.Interfaces
         Task<Response<ReservationDto>> PlaceReservationAsync(PlaceReservationDto model);
         Task<PaginatedResult<IEnumerable<Reservation>>> TodaysReservationsAsync(PageFilter filter);
         Task<Response<IEnumerable<Reservation>>> GetUserReservationsAsync(string userId);
+        Task<Response<ReservationINFODto>> GetReservationINFO(int ID);
     }
 }

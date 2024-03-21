@@ -1,5 +1,6 @@
 ﻿using MS.Data.Entities;
 using MS.Infrastructure.Repositories.Generics;
+using MS.Infrastructure.Repositories.Repository.RepoInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<PlaceShift> PlaceShifts { get; }
         IBaseRepository<Report> Reports { get; }
         IBaseRepository<ReportMedicine> ReportMedicines { get; }
-        IBaseRepository<Reservation> Reservations { get; }
+        IResrvationRepo Reservations { get; }
         IBaseRepository<Shift> Shifts { get; }
         IBaseRepository<Test> Tests { get; }
         IBaseRepository<TestLab> TestLabs { get; }

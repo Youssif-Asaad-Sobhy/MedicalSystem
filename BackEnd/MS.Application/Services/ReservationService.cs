@@ -5,6 +5,7 @@ using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Infrastructure.Repositories.Dtos;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -113,6 +114,16 @@ namespace MS.Application.Services
                 return ResponseHandler.NotFound<IEnumerable<Reservation>>("No reservations found for the provided user ID.");
             }
             return ResponseHandler.Success(reservations);
+        }
+
+        public async Task<Response<ReservationINFODto>> GetReservationINFO(int id)
+        {
+            var reservations=await _unitOfWork.Reservations.GetReservationINFO(id);
+            if (reservations == null )
+            {
+                return ResponseHandler.NotFound<ReservationINFODto>("NO Data found on the ID");
+            }
+            return ResponseHandler.Success<ReservationINFODto>(reservations);
         }
     }
 }
