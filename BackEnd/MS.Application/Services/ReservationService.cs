@@ -139,7 +139,7 @@ namespace MS.Application.Services
             if (reservations == null || !reservations.Any()) {
                 return ResponseHandler.NotFound<string>("No reservations found for the provided user ID."); 
             }
-            int place ;
+            int place =1;
             var userReservation = reservations.FirstOrDefault(r => r.UserID == model.UserId && r.State == Data.Enums.ReservationState.Running);
             if (userReservation != null)
             {

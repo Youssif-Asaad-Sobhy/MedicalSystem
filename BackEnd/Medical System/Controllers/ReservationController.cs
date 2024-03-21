@@ -109,9 +109,18 @@ namespace Medical_System.Controllers
             var reservationInfo = await _service.GetReservationINFO(id);
             return this.CreateResponse(reservationInfo);
         }
-        [HttpPost("UserPlaceInClinic")]
-        public async Task<IActionResult> GetUserPlaceInClinic([FromBody] PlaceUserInClinicDto model)
+        [HttpGet("UserPlaceInClinic")]
+        public async Task<IActionResult> GetUserPlaceInClinic([FromQuery]PlaceUserInClinicDto model)
         {
+            if(model.UserId == null)
+            {
+                var userId = _userManager.GetCurrentUserId(_httpContextAccessor);
+                if (userId == null)
+                {
+                    return BadRequest("User ID not found in token.");
+                }
+                model.UserId = userId;
+            }
             var response = await _service.GetUserPlaceInClinic(model);
             return this.CreateResponse(response);
         }
