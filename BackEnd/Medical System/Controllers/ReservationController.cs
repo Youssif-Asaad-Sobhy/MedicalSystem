@@ -103,6 +103,15 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
+        [HttpGet("PlaceReservation")]
+        public async Task <IActionResult>GetUserPlace([FromQuery]int placeID,[FromQuery]PlaceType placeType)
+        {
+            var result = await _service.GetUsersByPlace(placeID, placeType);
+            return this.CreateResponse(result);
+
+
+        }
+
         #endregion
     }
 }

@@ -170,18 +170,28 @@ namespace MS.Application.Services
             }
             return 0;
         }
-        public async Task<Response<IEnumerable<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType)
+        public async Task<Response<List<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType)
         {
             var reservations = await _unitOfWork.Reservations
                 .GetByExpressionAsync(r => r.PlacePrice.PlaceType == placeType
                                       && r.PlacePrice.PlaceID == placeId
-                                      && r.State == ReservationState.Running);
-
-                
-
-
-
-            return new Response<IEnumerable<GetAllcurrentReservationDto>>(reservations);
+                                      && r.State == ReservationState.Running, [r=>r.User]);
+            if (!reservations.Any())
+                return ResponseHandler.NotFound<List<GetAllcurrentReservationDto>>("no data ");
+            List<GetAllcurrentReservationDto> ret=new List<GetAllcurrentReservationDto>();
+            foreach (var reservation in reservations)
+            {
+                var data = new GetAllcurrentReservationDto
+                {
+                    firstname = reservation.User.FirstName,
+                    lastname = reservation.User.LastName,
+                    Nid = reservation.User.NID,
+                    BirthDate= reservation.User.BirthDate,
+                    SerialNumber=reservation.SerialNumber
+                };
+                ret.Add(data);
+            }
+            return ResponseHandler.Success(ret);
         }
 
     }

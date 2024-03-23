@@ -18,7 +18,7 @@ namespace MS.Application.Interfaces
         Task<Response<List<UserReservationDetails>>> GetUserReservationsAsync(string userId);
         Task<ReservationINFODto> GetReservationINFO(int id);
         // i want to get the place of user in this clinic
-        Task<Response<string>> GetUserPlaceInClinic(PlaceUserInClinicDto model);
-        Task<Response<IEnumerable<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType);
+        Task<int> GetUserPlaceInClinic(PlaceUserInClinicDto model);
+        Task<Response<List<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType);
     }
 }
