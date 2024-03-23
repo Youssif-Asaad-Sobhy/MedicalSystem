@@ -103,38 +103,6 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
-
-        [HttpGet("ReservationINFO/{id}")]
-        public async Task<IActionResult> GetReservationInfo(int id)
-        {
-            var reservationInfo = await _service.GetReservationINFO(id);
-            return this.CreateResponse(reservationInfo);
-        }
-
-        [HttpGet("GetallCurrentReservations/{PlaceId}{PlaceType}")]
-        public async Task<IActionResult> GetUsersByPlace(int PlaceId,PlaceType PlaceType)
-        {
-            var reservationInfo = await _service.GetUsersByPlace(PlaceId,PlaceType);
-            return this.CreateResponse(reservationInfo);
-        }
-
-
-        [HttpGet("UserPlaceInClinic")]
-        public async Task<IActionResult> GetUserPlaceInClinic([FromQuery]PlaceUserInClinicDto model)
-        {
-            if(model.UserId == null)
-            {
-                var userId = _userManager.GetCurrentUserId(_httpContextAccessor);
-                if (userId == null)
-                {
-                    return BadRequest("User ID not found in token.");
-                }
-                model.UserId = userId;
-            }
-            var response = await _service.GetUserPlaceInClinic(model);
-            return this.CreateResponse(response);
-        }
-
         #endregion
     }
 }

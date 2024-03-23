@@ -104,8 +104,17 @@ namespace MS.Infrastructure.Repositories.Generics
         public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
          => await _dbContext.Set<T>().Where(expression).ToListAsync();
 
-        public async Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression)
-          => await _dbContext.Set<T>().Where(expression).ToListAsync();
+        public async Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression,Expression<Func<T, object>>[] includes = null)
+        {
+            IQueryable<T> query = _dbContext.Set<T>();
+
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return await query.Where(expression).ToListAsync();
+        }
         public async Task<IEnumerable<T>> GetByExpressionAsync(int Skip, int Take, Expression<Func<T, bool>> expression)
           => await _dbContext.Set<T>().Where(expression).Skip(Skip).Take(Take).ToListAsync();
         public async Task<int> CountAsync(Expression<Func<T, bool>>? expression = default)

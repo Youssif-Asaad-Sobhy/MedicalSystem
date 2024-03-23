@@ -9,8 +9,8 @@ namespace MS.Application.DTOs.Reservation
 {
     public class PlaceUserInClinicDto
     {
-        public int ClinicId { get; set; }
-        public string UserId { get; set; }
+        public int PlaceId { get; set; }
+        public string? UserId { get; set; }
         [Description("Has default Value of Now")]
         public DateTime ReservationDate { get; set; } = DateTime.Now;
     }

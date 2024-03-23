@@ -68,14 +68,14 @@ namespace MS.Application.Services
             await smtp.SendAsync(email);
 
             smtp.Disconnect(true);
-            _unitOfWork.OTPs.AddAsync(otpEntity);
+            await _unitOfWork.OTPs.AddAsync(otpEntity);
             return ResponseHandler.Success<object>("Sent Ya 8aly");
         }
 
         public async Task<Response<bool>> VerifyOTP(string userEmailAddress, string enteredOTP)
         {
             var otpEntity = await _unitOfWork.OTPs
-                .GetByExpressionSingleAsync(o => o.Email == userEmailAddress && o.ExpirationTime > DateTime.UtcNow);
+                .GetByExpressionSingleAsync(o => o.Email == userEmailAddress && o.Code == enteredOTP && o.ExpirationTime > DateTime.UtcNow);
 
             if (otpEntity == null)
             {
