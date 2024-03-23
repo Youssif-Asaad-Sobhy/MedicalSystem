@@ -14,6 +14,8 @@ namespace MS.Infrastructure.Repositories.Repository.RepoInterfaces
     {
 
         Task<ReservationINFODto> GetReservationINFO(int id);
+        //Task<GetAllcurrentReservationDto> GetAllCurrentReservation(int placeid, string placetype);
+
 //        Task<IEnumerable<Reservation>> GetByExpressionAsync(Expression<Func<Reservation, bool>> expression);
     }
 }

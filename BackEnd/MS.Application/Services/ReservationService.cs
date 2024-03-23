@@ -5,7 +5,9 @@ using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.Dtos;
+using MS.Infrastructure.Repositories.Generics;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -149,6 +151,20 @@ namespace MS.Application.Services
 
             return ResponseHandler.NotFound<string>("No running reservations found for the provided user ID.");
         }
+        public async Task<Response<IEnumerable<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType)
+        {
+            var reservations = await _unitOfWork.Reservations
+                .GetByExpressionAsync(r => r.PlacePrice.PlaceType == placeType
+                                      && r.PlacePrice.PlaceID == placeId
+                                      && r.State == ReservationState.Running);
+
+                
+
+
+
+            return new Response<IEnumerable<GetAllcurrentReservationDto>>(reservations);
+        }
+
     }
 }
  
