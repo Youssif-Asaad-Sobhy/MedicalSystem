@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MS.Data.Enums;
+using MS.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +13,7 @@ namespace MS.Data.Entities
         public int ID { get; set; }
         public int EquipmentID { get; set; }
         public int EntityID { get; set; }
-        public EntityType EType { get; set; }
-
+        public PlaceType PlaceType { get; set; }
+        public Equipment Equipment { get; set;}
     }
 }

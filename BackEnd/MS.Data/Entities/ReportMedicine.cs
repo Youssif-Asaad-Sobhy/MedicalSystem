@@ -10,6 +10,8 @@ namespace MS.Data.Entities
     {
         public int ID { get; set; }
         public int ReportID { get; set; }
-        public int MedID { get; set; }
+        public int MedicineTypeID { get; set; }
+        public Report Report { get; set; }
+        public MedicineType MedicineType { get; set; }
     }
 }
