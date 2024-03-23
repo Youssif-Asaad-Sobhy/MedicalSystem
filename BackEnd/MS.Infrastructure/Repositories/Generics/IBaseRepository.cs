@@ -28,7 +28,7 @@ namespace MS.Infrastructure.Repositories.Generics
         Task UpdateRangeAsync(ICollection<T> entities);
         Task DeleteAsync(T entity);
         Task<T> GetByExpressionSingleAsync(Expression<Func<T, bool>> expression);
-        Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetByExpressionAsync(Expression<Func<T, bool>> expression, Expression<Func<T, object>>[] includes = null);
         Task<IEnumerable<T>> GetByExpressionAsync(int Skip , int Take, Expression<Func<T, bool>> expression);
         Task<int> CountAsync(Expression<Func<T, bool>>? expression=default);
     }

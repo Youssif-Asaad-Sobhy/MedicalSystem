@@ -106,48 +106,67 @@ namespace MS.Application.Services
             return ResponseHandler.Success(TodayRes,filter,TotalRecords);
 
         }
-        public async Task<Response<IEnumerable<Reservation>>> GetUserReservationsAsync(string userId)
+        public async Task<Response<List<UserReservationDetails>>> GetUserReservationsAsync(string userId)
         {
-            var reservations = await _unitOfWork.Reservations.GetByExpressionAsync(r => r.UserID == userId);
-            if (reservations == null || !reservations.Any())
+            var reservations = await _unitOfWork.Reservations
+                .GetByExpressionAsync(r => r.UserID == userId, [r => r.PlacePrice]);
+
+            if (!reservations.Any())
             {
-                return ResponseHandler.NotFound<IEnumerable<Reservation>>("No reservations found for the provided user ID.");
+                return ResponseHandler.NotFound<List<UserReservationDetails>>("No reservations found for the provided user ID.");
             }
-            return ResponseHandler.Success(reservations);
+            List<UserReservationDetails> ret = new List<UserReservationDetails>();
+            foreach (var reservation in reservations)
+            {
+                var reservationInfo = await GetReservationINFO(reservation.ID);
+                var curPlace = await GetUserPlaceInClinic(new PlaceUserInClinicDto { PlaceId = reservation.PlacePrice.PlaceID, UserId = userId });
+                var data = new UserReservationDetails
+                {
+                    firstname = reservationInfo.firstname,
+                    lastname = reservationInfo.lastname,
+                    Nid = reservationInfo.Nid,
+                    PlaceName = reservationInfo.PlaceName,
+                    Price = reservationInfo.Price,
+                    Time = reservationInfo.Time,
+                    Waiting = curPlace
+                };
+                ret.Add(data);
+            }
+            return ResponseHandler.Success(ret);
         }
 
-        public async Task<Response<ReservationINFODto>> GetReservationINFO(int id)
+
+        public async Task<ReservationINFODto> GetReservationINFO(int id)
         {
             var reservations=await _unitOfWork.Reservations.GetReservationINFO(id);
             if (reservations == null )
             {
-                return ResponseHandler.NotFound<ReservationINFODto>("NO Data found on the ID");
+                return null;
             }
-            return ResponseHandler.Success<ReservationINFODto>(reservations);
+            return reservations;
         }
-        public async Task<Response<string>> GetUserPlaceInClinic(PlaceUserInClinicDto model)
+        public async Task<int> GetUserPlaceInClinic(PlaceUserInClinicDto model)
         {
-            DateTime day = model.ReservationDate;
+            DateTime day = model.ReservationDate ;
             DateTime startOfToday = day.Date;
             DateTime endOfToday = startOfToday.AddDays(1).AddTicks(-1);
             var reservations = await _unitOfWork.Reservations
             .GetByExpressionAsync(r =>
-              r.PlacePrice.PlaceID == model.ClinicId &&
+              r.PlacePrice.PlaceID == model.PlaceId &&
               r.Time >= startOfToday &&
               r.Time < endOfToday
               );
             if (reservations == null || !reservations.Any()) {
-                return ResponseHandler.NotFound<string>("No reservations found for the provided user ID."); 
+                return 0; 
             }
             int place =1;
             var userReservation = reservations.FirstOrDefault(r => r.UserID == model.UserId && r.State == Data.Enums.ReservationState.Running);
             if (userReservation != null)
             {
                 place = reservations.Count(r => r.Time < userReservation.Time && r.State == Data.Enums.ReservationState.Running);
-                return ResponseHandler.Success<string>($"Your place in the clinic is {place}");
+                return place;
             }
-
-            return ResponseHandler.NotFound<string>("No running reservations found for the provided user ID.");
+            return 0;
         }
     }
 }

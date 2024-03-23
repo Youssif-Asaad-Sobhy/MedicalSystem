@@ -32,7 +32,6 @@ namespace MS.Infrastructure.Repositories.Repository.RepoClasses
                 .Include(r => r.User)
                 .Include(r => r.PlacePrice)
                 .Where(r => r.ID == id)
-                
                 .FirstOrDefaultAsync();
                 var ret = new ReservationINFODto
                 {
