@@ -5,7 +5,9 @@ using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.Dtos;
+using MS.Infrastructure.Repositories.Generics;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -168,6 +170,30 @@ namespace MS.Application.Services
             }
             return 0;
         }
+        public async Task<Response<List<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType)
+        {
+            var reservations = await _unitOfWork.Reservations
+                .GetByExpressionAsync(r => r.PlacePrice.PlaceType == placeType
+                                      && r.PlacePrice.PlaceID == placeId
+                                      && r.State == ReservationState.Running, [r=>r.User]);
+            if (!reservations.Any())
+                return ResponseHandler.NotFound<List<GetAllcurrentReservationDto>>("no data ");
+            List<GetAllcurrentReservationDto> ret=new List<GetAllcurrentReservationDto>();
+            foreach (var reservation in reservations)
+            {
+                var data = new GetAllcurrentReservationDto
+                {
+                    firstname = reservation.User.FirstName,
+                    lastname = reservation.User.LastName,
+                    Nid = reservation.User.NID,
+                    BirthDate= reservation.User.BirthDate,
+                    SerialNumber=reservation.SerialNumber
+                };
+                ret.Add(data);
+            }
+            return ResponseHandler.Success(ret);
+        }
+
     }
 }
  

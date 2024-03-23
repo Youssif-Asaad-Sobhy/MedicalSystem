@@ -10,6 +10,7 @@ using MS.Application.Helpers.Response;
 using MS.Application.Helpers.UserManagerExtensions;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.Dtos;
 using MS.Infrastructure.Repositories.Repository.RepoInterfaces;
 using System.IdentityModel.Tokens.Jwt;
@@ -100,6 +101,15 @@ namespace Medical_System.Controllers
             }
             var response = await _service.GetUserReservationsAsync(userId);
             return this.CreateResponse(response);
+        }
+
+        [HttpGet("PlaceReservation")]
+        public async Task <IActionResult>GetUserPlace([FromQuery]int placeID,[FromQuery]PlaceType placeType)
+        {
+            var result = await _service.GetUsersByPlace(placeID, placeType);
+            return this.CreateResponse(result);
+
+
         }
 
         #endregion
