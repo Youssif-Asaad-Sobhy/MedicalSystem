@@ -123,8 +123,17 @@ namespace MS.Infrastructure.Repositories.Generics
             else return await _dbContext.Set<T>().CountAsync(expression);
         }
 
-        public async Task<T> GetByExpressionSingleAsync(Expression<Func<T, bool>> expression)
-         => await _dbContext.Set<T>().Where(expression).FirstOrDefaultAsync();
+        public async Task<T> GetByExpressionSingleAsync(Expression<Func<T, bool>> expression, Expression<Func<T, object>>[] includes = null)
+        {
+            IQueryable<T> query = _dbContext.Set<T>();
+
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return await query.Where(expression).FirstOrDefaultAsync();
+        }
         #endregion
     }
 }

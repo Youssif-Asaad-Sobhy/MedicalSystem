@@ -1,9 +1,14 @@
 ﻿using System;
-
+using MS.Application.DTOs.Report;
+using MS.Data.Entities;
 namespace MS.Application.DTOs.Reservation
 {
     public class UserBasicDataDto
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public string NID { get; set; }
         public int Age
         {
@@ -30,5 +35,6 @@ namespace MS.Application.DTOs.Reservation
                 return 0;
             }
         }
+        public ICollection<ReportDto> report { get; set;}
     }
 }
