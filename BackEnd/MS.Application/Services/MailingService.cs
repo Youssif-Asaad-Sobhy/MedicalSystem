@@ -32,6 +32,11 @@ namespace MS.Application.Services
         }
         public async Task<Response<object>> SendEmailAsync(string mailTo)
         {
+            if (!IsValidEmail(mailTo))
+            {
+                return ResponseHandler.BadRequest<object>("Invalid email address.");
+            }
+
             string otp = OTPHelper.GenerateOTP();
             string body = $"<p>Your OTP is: {otp}</p>";
 
@@ -47,11 +52,12 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<object>("User Is Null");
             }
+             
             var otpEntity = new OTP
             {
                 Code = otp,
                 UserID = user.Id,
-                Email = user.Email,
+                Email = mailTo,
                 ExpirationTime = DateTime.UtcNow.Add(TimeSpan.FromMinutes(10))
             };
 
@@ -68,8 +74,14 @@ namespace MS.Application.Services
             await smtp.SendAsync(email);
 
             smtp.Disconnect(true);
+
             await _unitOfWork.OTPs.AddAsync(otpEntity);
             return ResponseHandler.Success<object>("Sent Ya 8aly");
+        }
+        private bool IsValidEmail(string email)
+        {
+                var addr = new MailAddress(email);
+                return addr.Address == email;
         }
 
         public async Task<Response<bool>> VerifyOTP(string userEmailAddress, string enteredOTP)
