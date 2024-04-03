@@ -13,6 +13,7 @@ namespace MS.Data.Entities
         public string LastName { get; set; }
         public string NID { get; set; }
         public string Gender { get; set; }
+        public bool IsRegister { get; set; }
         public DateTime BirthDate { get; set; }
         public ICollection<Report> Reports { get; set; }
         public ICollection<Reservation> Reservations { get; set; }

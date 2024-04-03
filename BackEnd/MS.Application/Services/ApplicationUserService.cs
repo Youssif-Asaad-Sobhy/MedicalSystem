@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MS.Application.DTOs.ApplicationUser;
+using MS.Application.DTOs.Report;
 using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -85,14 +86,25 @@ namespace MS.Application.Services
         }
         public async Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID)
         {
-            var user = await _userManager.FindByIdAsync(NID);
+            var user = await _unitOfWork.Users.GetByExpressionSingleAsync(u=>u.Id==NID, [u=>u.Reports]);
             if (user is null)
             {
                 return ResponseHandler.BadRequest<UserBasicDataDto>("user is null");
             }
             var data = new UserBasicDataDto()
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
                 NID = user.NID,
+                report = user.Reports.Select(r => new ReportDto()
+                {
+                    ID = r.ID,
+                    Time = r.Time,
+                    Description = r.Description
+                }).ToList() 
+
             };
             return ResponseHandler.Success(data);
         }
