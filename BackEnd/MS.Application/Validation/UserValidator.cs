@@ -21,7 +21,7 @@ namespace MS.Application.Validation
             RuleFor(user => user.NID)
               .NotEmpty()
               .WithMessage("NID is required")
-              .Length(14)
+              .Length(14,14)
               .WithMessage("NID must be a 14-digit number");
 
 
@@ -35,24 +35,6 @@ namespace MS.Application.Validation
 
         }
 
-        private bool ContainUppercaseLetter(string password)
-        {
-            return Regex.IsMatch(password, @"[A-Z]");
-        }
-
-        private bool ContainLowercaseLetter(string password)
-        {
-            return Regex.IsMatch(password, @"[a-z]");
-        }
-
-        private bool ContainDigit(string password)
-        {
-            return Regex.IsMatch(password, @"\d");
-        }
-
-        private bool ContainSpecialCharacter(string password)
-        {
-            return Regex.IsMatch(password, @"[^A-Za-z0-9]");
-        }
+       
     }
 }

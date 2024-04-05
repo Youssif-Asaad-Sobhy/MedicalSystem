@@ -71,14 +71,20 @@ namespace MS.Application.Services
 
         public async Task<Response<AuthDto>> RegisterAsync(RegisterDto model)
         {
-            if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                return ResponseHandler.BadRequest<AuthDto>("email is already Register");
-            if (await _userManager.FindByNameAsync(model.Username) is not null)
-                return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
+            var user1=await _userManager.FindByIdAsync(model.NID);
+            if (user1 is null)
+            {
+                if (await _userManager.FindByEmailAsync(model.Email) is not null)
+                    return ResponseHandler.BadRequest<AuthDto>("email is already Register");
+                if (await _userManager.FindByNameAsync(model.Username) is not null)
+                    return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
+            }
+            else if (user1.IsRegister)
+                return ResponseHandler.BadRequest<AuthDto>("User is already Register");
             // make validation for nid thatbe unique 
-
             if (await _unitOfWork.Users.GetByExpressionSingleAsync(u => u.NID == model.NID)!=null)
                 return ResponseHandler.BadRequest<AuthDto>("National ID is already register");
+
 
 
             var user = new ApplicationUser
@@ -90,8 +96,12 @@ namespace MS.Application.Services
                 Email = model.Email,
                 Gender = model.Gender,
                 NID = model.NID,
+                IsRegister= true,
+                BirthDate = model.BirthDate
             };
-            var result = await _userManager.CreateAsync(user, model.Password);
+
+            var result =user1==null?
+                await _userManager.CreateAsync(user, model.Password):await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
                 var errors = string.Empty;
@@ -101,6 +111,15 @@ namespace MS.Application.Services
                 }
                 return ResponseHandler.BadRequest<AuthDto>(errors);
             }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var rs = await _userManager.ResetPasswordAsync(user, token, model.Password);
+            if (!rs.Succeeded)
+            {
+                var errorMessage = string.Join(", ", rs.Errors.Select(error => error.Description));
+                return ResponseHandler.BadRequest<AuthDto>(errorMessage);
+            }
+
             await _userManager.AddToRoleAsync(user, "User");
             var JwtSecurityToken = await CreateJwtToken(user);
             var authdto= new AuthDto

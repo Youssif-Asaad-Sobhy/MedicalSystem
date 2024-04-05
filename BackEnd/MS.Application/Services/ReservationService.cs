@@ -39,12 +39,19 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<ReservationDto>($"place or User not found. please enter correct ID");
             }
+            var user = await _userManager.FindByIdAsync(model.UserID);
+
+            if (user is null)
+            {
+               await _userManager
+                    .CreateAsync(new ApplicationUser { NID=model.UserID,Id = model.UserID, UserName = model.UserID, FirstName=model.FirstName,LastName=model.LastName, IsRegister=false, Gender="female", BirthDate=DateTime.Now});
+            }
             var reservation = new Reservation()
             {
                 Time=DateTime.Now,
                 UserID=model.UserID,
                 PlacePriceId=model.PlacePriceId,
-                SerialNumber= DateTime.Now.ToString("d") + model.PlacePriceId.ToString(),
+                SerialNumber= $"{DateTime.Now.TimeOfDay.TotalSeconds}{DateTime.Now.Day}{DateTime.Now.Month}{DateTime.Now.Year}",
             };
             await _unitOfWork.Reservations.AddAsync(reservation);
             ReservationDto reservatioDto = new ReservationDto()

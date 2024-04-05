@@ -14,7 +14,9 @@ namespace MS.Application.DTOs.Reservation
         public string UserID { get; set; }
         [Required]
         public int PlacePriceId { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
 
-        
+
     }
 }
