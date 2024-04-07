@@ -14,7 +14,7 @@ namespace MS.Data.Entities
         public string Description { get; set; }
         public string SideEffects { get; set; }
         public string Warning { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
         public Medicine Medicine { get; set; }
         public Types Types { get; set; }
         public ICollection<PharmacyMedicine> PharmacyMedicines { get; set; }
