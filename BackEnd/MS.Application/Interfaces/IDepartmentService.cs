@@ -1,5 +1,6 @@
 ﻿using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.Department;
+using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -17,5 +18,6 @@ namespace MS.Application.Interfaces
         Task<Response<Department>> DeleteDepartmentAsync(int DeptID);
         Task<Response<Department>> UpdateDepartmentAsync(UpdateDeptDto model);
         Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model);
+        Task<Response<List<Department>>> GetFilteredAllDepartmentsAsync(RootFilter filter);
     }
 }
