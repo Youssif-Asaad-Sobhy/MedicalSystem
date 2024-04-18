@@ -1,4 +1,5 @@
 ﻿using MS.Application.DTOs.Department;
+using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -14,10 +15,11 @@ namespace MS.Application.Services
     public class DepartmentService : IDepartmentService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public DepartmentService(IUnitOfWork unitOfWork)
+        private  IFilter<Department> _filter;
+        public DepartmentService(IUnitOfWork unitOfWork, IFilter<Department> filter)
         {
             _unitOfWork = unitOfWork;
+            _filter = filter;
         }
         public async Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model)
         {
@@ -48,10 +50,23 @@ namespace MS.Application.Services
         public async Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync()
         {
 
-            var deps = await _unitOfWork.Departments.GetAllAsync();
+             var deps = await _unitOfWork.Departments.GetAllAsync();
+            // var deps = await _filter.GetFilterAsync(filter);
             if (deps is null)
             {
                 return ResponseHandler.BadRequest<IEnumerable<Department>>("department model is null or not found");
+            }
+            return ResponseHandler.Success(deps);
+        }
+
+        public async Task<Response<List<Department>>> GetFilteredAllDepartmentsAsync(RootFilter filter)
+        {
+
+            // var deps = await _unitOfWork.Departments.GetAllAsync();
+             var deps = await _filter.GetFilterAsync(filter);
+            if (deps is null)
+            {
+                return ResponseHandler.BadRequest<List<Department>>("department model is null or not found");
             }
             return ResponseHandler.Success(deps);
         }

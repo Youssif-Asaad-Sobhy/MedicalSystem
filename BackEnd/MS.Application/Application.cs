@@ -15,6 +15,7 @@ using MS.Application.Helpers.ValidationHelper;
 using System.Reflection;
 using FluentValidation;
 using MS.Application.Helpers.OTP;
+using MS.Infrastructure.Repositories.Generics;
 
 namespace MS.Application
 {
@@ -48,7 +49,10 @@ namespace MS.Application
             services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
             services.AddScoped<IReportMedicineService, ReportMedicineService>();
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
+            services.AddScoped(typeof(IFilter<>), typeof(FilterServices<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             #endregion
+
 
             services.Configure<JwtHelper>(Configuration.GetSection("JWT"));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));

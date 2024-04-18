@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.Department;
+using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Services;
+using Newtonsoft.Json;
 
 namespace Medical_System.Controllers
 {
@@ -83,6 +86,22 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [HttpGet("Filtered-Departments")]
+        public async Task<IActionResult> GetFilteredAllDepartmentsAsync([FromQuery] string filter)
+        {
+            var filterResult = new RootFilter();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filterResult = JsonConvert.DeserializeObject<RootFilter>(filter);
+            }
+            else
+            {
+                filterResult = new RootFilter();
+            }
+            var response = await _departmentService.GetFilteredAllDepartmentsAsync(filterResult);
+            return this.CreateResponse(response);
+        }   
         #endregion
     }
 }
