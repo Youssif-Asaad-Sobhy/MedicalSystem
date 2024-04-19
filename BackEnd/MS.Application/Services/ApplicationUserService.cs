@@ -40,7 +40,8 @@ namespace MS.Application.Services
                 PhoneNumber=model.Phone,
                 NID=model.NID,
                 Gender=model.Gender,
-                BirthDate=model.BirthDate
+                BirthDate=model.BirthDate,
+                IsRegister=true,
             };
             await _unitOfWork.Users.AddAsync(user);
             return ResponseHandler.Created(user);
