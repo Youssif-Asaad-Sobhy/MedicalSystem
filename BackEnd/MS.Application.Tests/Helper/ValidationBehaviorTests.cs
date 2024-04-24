@@ -6,15 +6,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-public class ValidationBehaviorTests
+namespace MS.Application.Helpers.ValidationHelper
 {
-    [Fact]
-    public async Task Handle_WhenCalledWithInvalidRequest_ThrowsValidationException()
+    public class ValidationBehaviorTests
     {
-    }
+        [Fact]
+        public async Task Handle_WhenCalledWithInvalidRequest_ThrowsValidationException()
+        {
+        }
 
-    [Fact]
-    public async Task Handle_WhenCalledWithValidRequest_ReturnsResponseFromNextDelegate()
-    {
+        [Fact]
+        public async Task Handle_WhenCalledWithValidRequest_ReturnsResponseFromNextDelegate()
+        {
+        }
     }
 }
