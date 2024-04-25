@@ -1,4 +1,5 @@
 ﻿using MS.Application.DTOs.Clinc;
+using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -16,5 +17,8 @@ namespace MS.Application.Interfaces
         Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model);
         Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model);
         Task<Response<IEnumerable<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId);
+        Task<Response<List<Clinic>>>GetAllFilteredClinicsAsync(RootFilter filter);
+
+        Task<Response<IEnumerable<Clinic>>> GetAllClinicsAsync();
     }
 }

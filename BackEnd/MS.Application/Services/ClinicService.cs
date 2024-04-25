@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
+using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -16,10 +17,11 @@ namespace MS.Application.Services
     public class ClinicService : IClinicService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public ClinicService(IUnitOfWork unitOfWork)
+        private IFilter<Clinic> _filter;
+        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter)
         {
             _unitOfWork = unitOfWork;
+            _filter = filter;
         }
 
         public async Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model)
@@ -81,5 +83,24 @@ namespace MS.Application.Services
             return ResponseHandler.Success(clinics);
         }
 
+        public async Task<Response<List<Clinic>>> GetAllFilteredClinicsAsync(RootFilter filter)
+        {
+            var clinics = await _filter.GetFilterAsync(filter);
+            if (clinics is null)
+            {
+                return ResponseHandler.BadRequest<List<Clinic>>("clinic model is null or not found");
+            }
+            return ResponseHandler.Success(clinics);
+        }
+
+        public async Task<Response<IEnumerable<Clinic>>> GetAllClinicsAsync()
+        {
+            var clinics = await _unitOfWork.Clinics.GetAllAsync();
+             if(clinics is null)
+             {
+                return ResponseHandler.BadRequest<IEnumerable<Clinic>>("clinic model is null or not found");
+             }
+            return ResponseHandler.Success(clinics);
+        }
     }
 }

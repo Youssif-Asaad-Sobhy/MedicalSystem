@@ -31,7 +31,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<TestLab> TestLabs { get; }
         IBaseRepository<Types> Types { get; }
         IBaseRepository<ApplicationUser> Users { get; }
-        IBaseRepository<Document> Documents { get; }
+        IBaseRepository<Attachment> Attachment { get; }
         IBaseRepository<OTP> OTPs { get; }
 
 

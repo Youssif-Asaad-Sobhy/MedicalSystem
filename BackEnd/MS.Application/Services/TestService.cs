@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using MS.Application.DTOs.Attachment;
 using MS.Application.DTOs.Test;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -15,10 +17,11 @@ namespace MS.Application.Services
     public class TestService : ITestService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public TestService(IUnitOfWork unitOfWork)
+        private readonly IAttachmentService _attachmentService;
+        public TestService(IUnitOfWork unitOfWork, IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
+            _attachmentService = attachmentService;
         }
 
         public async Task<Response<Test>> CreateTestAsync(CreateTestDto model)
@@ -31,7 +34,14 @@ namespace MS.Application.Services
             {
                 Name = model.Name,
             };
-            await _unitOfWork.Tests.AddAsync(test);
+             await _unitOfWork.Tests.AddAsync(test);
+            var dto=new UploadFileDTO()
+            {
+                File=model.Photo,
+                FolderName="TestPhoto",
+                ParentId=test.ID,
+            };
+             await _attachmentService.UploadFileAsync(dto);
             return ResponseHandler.Created(test);
         }
 
@@ -73,5 +83,6 @@ namespace MS.Application.Services
             await _unitOfWork.Tests.UpdateAsync(test);
             return ResponseHandler.Updated(test);
         }
+       
     }
 }

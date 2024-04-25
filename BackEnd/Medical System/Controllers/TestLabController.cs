@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.TestLab;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
-
+using MS.Application.DTOs.TestLab;
 namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
@@ -64,6 +64,16 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _service.UpdateTestLabAsync(model);
+            if (!response.Succeeded)
+            {
+                return this.CreateResponse(response);
+            }
+            return this.CreateResponse(response);
+        }
+        [HttpGet("GetListTest")]
+        public async Task<IActionResult> GetListAsync([FromBody] AllTestDto model)
+        {
+            var response = await _service.GetTestListAsync();
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);

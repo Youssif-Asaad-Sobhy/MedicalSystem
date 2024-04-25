@@ -15,6 +15,7 @@ namespace MS.Infrastructure.Repositories.Generics
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAllAsync(int Skip, int Take);
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, object>>[] includes = null);
         Task<IEnumerable<T>>GetByNameAsync(Expression<Func<T,bool>>expression,string name);
         Task SaveChangesAsync();
         IDbContextTransaction BeginTransaction();

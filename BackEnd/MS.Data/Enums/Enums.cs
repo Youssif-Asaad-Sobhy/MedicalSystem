@@ -10,6 +10,13 @@ using System.Threading.Tasks;
 namespace MS.Data.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum FileType
+    {
+        PDF=1,
+        DOCX=2,
+        Photo=3
+    }   
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ReservationState
     {
         Running,

@@ -56,7 +56,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
 
         public IBaseRepository<ApplicationUser> Users { get; private set; }
 
-        public IBaseRepository<Document> Documents { get; private set; }
+        public IBaseRepository<Attachment> Attachment { get; private set; }
         public IBaseRepository<OTP> OTPs {  get; private set; }
         #endregion
         public UnitOfWork(Context context)
@@ -82,7 +82,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
             TestLabs = new BaseRepository<TestLab>(context);
             Types = new BaseRepository<Types>(context);
             Users = new BaseRepository<ApplicationUser>(context);
-            Documents = new BaseRepository<Document>(context);
+            Attachment = new BaseRepository<Attachment>(context);
             OTPs=new BaseRepository<OTP>(context);
         }
 

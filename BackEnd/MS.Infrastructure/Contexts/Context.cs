@@ -414,67 +414,6 @@ namespace MS.Infrastructure.Contexts
                     Name = "Nephrology"
                 });
 
-            modelBuilder.Entity<Document>().HasData(
-                new Document
-                {
-                    ID = 1,
-                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
-                    ReportID = 1 // Assuming report ID is 1
-                },
-                new Document
-                {
-                    ID = 2,
-                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
-                    ReportID = 2 // Assuming report ID is 2
-                },
-                new Document
-                {
-                    ID = 3,
-                    Content = new byte[0] { },
-                    ReportID = 3
-                },
-                new Document
-                {
-                    ID = 4,
-                    Content = new byte[0] { },
-                    ReportID = 4
-                },
-                new Document
-                {
-                    ID = 5,
-                    Content = new byte[0] { },
-                    ReportID = 5
-                },
-                new Document
-                {
-                    ID = 6,
-                    Content = new byte[0] { },
-                    ReportID = 6
-                },
-                new Document
-                {
-                    ID = 7,
-                    Content = new byte[0] { },
-                    ReportID = 7
-                },
-                new Document
-                {
-                    ID = 8,
-                    Content = new byte[0] { },
-                    ReportID = 8
-                },
-                new Document
-                {
-                    ID = 9,
-                    Content = new byte[0] { },
-                    ReportID = 9
-                },
-                new Document
-                {
-                    ID = 10,
-                    Content = new byte[0] { },
-                    ReportID = 10
-                });
 
             modelBuilder.Entity<Equipment>().HasData(
                 new Equipment
@@ -1678,7 +1617,7 @@ namespace MS.Infrastructure.Contexts
             new ClinicConfig().Configure(modelBuilder.Entity<Clinic>());
             new PlacePriceConfig().Configure(modelBuilder.Entity<PlacePrice>());
             new DepartmentConfig().Configure(modelBuilder.Entity<Department>());
-            new DocumentConfig().Configure(modelBuilder.Entity<Document>());
+            new DocumentConfig().Configure(modelBuilder.Entity<Attachment>());
             new EquipmentConfig().Configure(modelBuilder.Entity<Equipment>());
             new HospitalConfig().Configure(modelBuilder.Entity<Hospital>());
             new LabConfig().Configure(modelBuilder.Entity<Lab>());
@@ -1696,16 +1635,19 @@ namespace MS.Infrastructure.Contexts
             new TestLabConfig().Configure(modelBuilder.Entity<TestLab>());
             new TypesConfig().Configure(modelBuilder.Entity<Types>());
             new UserConfig().Configure(modelBuilder.Entity<ApplicationUser>()); 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
             #endregion
 
             base.OnModelCreating(modelBuilder);
         }
         #region DbSets
+        public DbSet<Disease> Diseases { get; set; }
+        public DbSet<ApplicationUserDisease> UserDiseases { get; set; }  
         public DbSet<OTP> OTPs { get; set; }
         public DbSet<Clinic> clinics { get; set; }
         public DbSet<PlacePrice> placePrice { get; set; }
         public DbSet<Department> departments { get; set; }
-        public DbSet<Document> documents { get; set; }
+        public DbSet<Attachment> documents { get; set; }
         public DbSet<Equipment> equipments { get; set; }
         public DbSet<Hospital> hospitals { get; set; }
         public DbSet<Lab> labs { get; set; }
@@ -1722,7 +1664,13 @@ namespace MS.Infrastructure.Contexts
         public DbSet<Test> tests { get; set; }
         public DbSet<TestLab> testLabs { get; set; }
         public DbSet<Types> types { get; set; }
-        public DbSet<ApplicationUser> users { get; set; } 
+        public DbSet<ApplicationUser> users { get; set; }
         #endregion
+        protected override void OnConfiguring
+                (DbContextOptionsBuilder OptionsBuilder)
+        {
+            OptionsBuilder.UseSqlServer(@"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MedicalSystem;Integrated Security=True;");
+            base.OnConfiguring(OptionsBuilder);
+        }
     }
 }

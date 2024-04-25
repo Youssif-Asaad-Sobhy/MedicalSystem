@@ -36,7 +36,7 @@ namespace MS.Application
             services.AddScoped<ITestLabService, TestLabService>();
             services.AddScoped<IPharmacyService,PharmacyService>();
             services.AddScoped<IMedicineService,MedicineService>();
-            services.AddScoped<IDocumentService,DocumentService>();
+            services.AddScoped<IAttachmentService,AttachmentService>();
             services.AddScoped<IHospitalService,HospitalService>();
             services.AddScoped<IEquipmentService,EquipmentService>();
             services.AddTransient<IMailingService, MailingService>();
@@ -51,6 +51,7 @@ namespace MS.Application
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             services.AddScoped(typeof(IFilter<>), typeof(FilterServices<>));
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IAttachmentService, AttachmentService>();
             #endregion
 
 

@@ -3,17 +3,15 @@ using MS.Data.Entities;
 
 namespace MS.Application.Validation
 {
-    public class DocumentValidator : AbstractValidator<Document>
+    public class AttachmentValidator : AbstractValidator<Attachment>
     {
-        public DocumentValidator()
+        public AttachmentValidator()
         {
             RuleFor(document => document.ID)
                 .GreaterThan(0)
                 .WithMessage("ID must be greater than 0");
 
-            RuleFor(document => document.Content)
-                .NotEmpty()
-                .WithMessage("Content is required");
+            
 
             RuleFor(document => document.ReportID)
                 .GreaterThan(0)

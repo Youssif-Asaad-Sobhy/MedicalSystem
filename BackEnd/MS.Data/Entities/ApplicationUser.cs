@@ -17,6 +17,7 @@ namespace MS.Data.Entities
         public DateTime BirthDate { get; set; }
         public ICollection<Report> Reports { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
+        public ICollection<ApplicationUserDisease> UserDiseases { get; set; }
 
     }
 }

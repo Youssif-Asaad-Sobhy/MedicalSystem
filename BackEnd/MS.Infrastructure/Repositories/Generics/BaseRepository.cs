@@ -59,7 +59,17 @@ namespace MS.Infrastructure.Repositories.Generics
         }
         public async Task<IEnumerable<T>> GetAllAsync(int Skip, int Take)
             => await _dbContext.Set<T>().Skip(Skip).Take(Take).ToListAsync();
-            
+        public async Task<IEnumerable<T>> GetAllAsync( Expression<Func<T, object>>[] includes = null)
+        {
+            IQueryable<T> query = _dbContext.Set<T>();
+
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return await query.ToListAsync();
+        }
 
         public virtual async Task DeleteAsync(T entity)
         {

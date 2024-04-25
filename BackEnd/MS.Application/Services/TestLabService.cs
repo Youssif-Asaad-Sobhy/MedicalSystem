@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MS.Application.DTOs.Attachment;
 using MS.Application.DTOs.TestLab;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -15,10 +16,12 @@ namespace MS.Application.Services
     public class TestLabService : ITestLabService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly AttachmentService _attachmentService;
 
-        public TestLabService(IUnitOfWork unitOfWork)
+        public TestLabService(IUnitOfWork unitOfWork, AttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
+            _attachmentService = attachmentService;
         }
 
         public async Task<Response<TestLab>> CreateTestLabAsync(CreateTestLabDto model)
@@ -56,7 +59,36 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<TestLab>($"TestLab with ID {ID} not found.");
             }
-            return ResponseHandler.Success<TestLab>(testlab);
+            return ResponseHandler.Success(testlab);
+        }
+
+        public async Task<Response<List<AllTestDto>>> GetTestListAsync()
+        {
+            var tests = await _unitOfWork.TestLabs.GetAllAsync([x=>x.Test, x=>x.Test.Photo]);
+            if (tests is null)
+            {
+                return ResponseHandler.BadRequest<List<AllTestDto>>($"No tests found.");
+            }
+            var result = new List<AllTestDto>();
+            foreach (var test in tests)
+            {
+
+                var dto = new DownloadFileDTO()
+                {
+                    FolderName = "TestPhoto",
+                    FileName =test.Test?.Photo?.FileName,
+                };
+                var ph =await _attachmentService.DownloadFileAsync(dto);
+                var res = new AllTestDto()
+                {
+                    ID = test.ID,
+                    Name = test.Test?.Name,
+                    price = test.Price,
+                    photo=test.Test?.Photo?.ViewUrl
+                };
+                result.Add(res);
+            }
+            return ResponseHandler.Success(result);
         }
 
         public async Task<Response<TestLab>> UpdateTestLabAsync(UpdateTestLabDto model)
