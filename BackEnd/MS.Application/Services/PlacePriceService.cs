@@ -58,10 +58,11 @@ namespace MS.Application.Services
             return ResponseHandler.Success(ClinicPrice);
         }
 
+        
         public async Task<Response<IEnumerable<PlacePrice>>> GetAllPlacePricesAsync(PlaceType placeType, int placeId)
         {
             var places = await _unitOfWork.PlacePrice.GetByExpressionAsync(x=>x.PlaceID==placeId && x.PlaceType == placeType);
-            if (places == null )
+            if (places == null || !places.Any())
             {
                 return ResponseHandler.BadRequest<IEnumerable<PlacePrice>>($"placeId or placeType is wrong or there is not prices for this place");
             }
