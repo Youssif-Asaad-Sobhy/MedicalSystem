@@ -12,15 +12,11 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Services
 {
-    public class DepartmentService : IDepartmentService
+    public class DepartmentService(IUnitOfWork unitOfWork, IFilter<Department> filter) : IDepartmentService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private  IFilter<Department> _filter;
-        public DepartmentService(IUnitOfWork unitOfWork, IFilter<Department> filter)
-        {
-            _unitOfWork = unitOfWork;
-            _filter = filter;
-        }
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private  IFilter<Department> _filter = filter;
+
         public async Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model)
         {
             if(model == null)
