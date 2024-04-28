@@ -14,7 +14,7 @@ namespace MS.Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Test> builder)
         {
             builder.HasKey(t => t.ID);
-            // i want t add cnfig for a relashionship between test and document 
+           
             builder.HasOne(t => t.Photo)
                 .WithOne()
                 .HasForeignKey<Test>(t => t.PhotoID);

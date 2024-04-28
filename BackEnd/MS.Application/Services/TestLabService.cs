@@ -16,9 +16,9 @@ namespace MS.Application.Services
     public class TestLabService : ITestLabService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly AttachmentService _attachmentService;
+        private readonly IAttachmentService _attachmentService;
 
-        public TestLabService(IUnitOfWork unitOfWork, AttachmentService attachmentService)
+        public TestLabService(IUnitOfWork unitOfWork, IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
             _attachmentService = attachmentService;

@@ -1507,57 +1507,61 @@ namespace MS.Infrastructure.Contexts
                     Price = 550.0,
                     TestLabID = 10
                 });
+            modelBuilder.Entity<Attachment>().HasData(
+                    new Attachment
+                    {
+                        ID = 1,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl="lol",
+                        ViewUrl="lol"
+                    },
+                    new Attachment
+                    {
+                        ID = 2,
+                        FileName = "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                        FolderName = "Test",
+                        Title = "Sample Attachment 2",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol"
+                    },
+                    new Attachment
+                    {
+                        ID = 3,
+                        FileName = "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                        FolderName = "Test",
+                        Title = "Sample Attachment 3",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol"
+                    }
+                );
             modelBuilder.Entity<Test>().HasData(
                 new Test
                 {
                     ID = 1,
-                    Name = "Blood Test"
+                    Name = "Blood Test",
+                    PhotoID=1
                 },
                 new Test
                 {
                     ID = 2,
-                    Name = "Urinalysis"
+                    Name = "Urinalysis",
+                    PhotoID=2
                 },
                 new Test
                 {
                     ID = 3,
-                    Name = "MRI Scan"
-                },
-                new Test
-                {
-                    ID = 4,
-                    Name = "X-ray Imaging"
-                },
-                new Test
-                {
-                    ID = 5,
-                    Name = "Ultrasound Examination"
-                },
-                new Test
-                {
-                    ID = 6,
-                    Name = "CT Scan"
-                },
-                new Test
-                {
-                    ID = 7,
-                    Name = "EKG Test"
-                },
-                new Test
-                {
-                    ID = 8,
-                    Name = "Colonoscopy"
-                },
-                new Test
-                {
-                    ID = 9,
-                    Name = "Endoscopy"
-                },
-                new Test
-                {
-                    ID = 10,
-                    Name = "Biopsy"
-                });
+                    Name = "MRI Scan",
+                    PhotoID=3
+                }
+               );
 
             modelBuilder.Entity<Types>().HasData(
                 new Types
@@ -1617,7 +1621,7 @@ namespace MS.Infrastructure.Contexts
             new ClinicConfig().Configure(modelBuilder.Entity<Clinic>());
             new PlacePriceConfig().Configure(modelBuilder.Entity<PlacePrice>());
             new DepartmentConfig().Configure(modelBuilder.Entity<Department>());
-            new DocumentConfig().Configure(modelBuilder.Entity<Attachment>());
+            new AttachmentConfig().Configure(modelBuilder.Entity<Attachment>());
             new EquipmentConfig().Configure(modelBuilder.Entity<Equipment>());
             new HospitalConfig().Configure(modelBuilder.Entity<Hospital>());
             new LabConfig().Configure(modelBuilder.Entity<Lab>());
@@ -1669,7 +1673,8 @@ namespace MS.Infrastructure.Contexts
         protected override void OnConfiguring
                 (DbContextOptionsBuilder OptionsBuilder)
         {
-            OptionsBuilder.UseSqlServer(@"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MedicalSystem;Integrated Security=True;");
+            OptionsBuilder.UseSqlServer(
+     "Server=(localdb)\\MSSQLLocalDB;Database=MedicalSystem;Integrated Security=True;Connect Timeout=30");
             base.OnConfiguring(OptionsBuilder);
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    internal class DocumentConfig : IEntityTypeConfiguration<Attachment>
+    internal class AttachmentConfig : IEntityTypeConfiguration<Attachment>
     {
         public void Configure(EntityTypeBuilder<Attachment> builder)
         {
