@@ -32,8 +32,8 @@ namespace MS.Application.Services
             }
             var testlab = new TestLab()
             {
-                TestLabID=model .TestLabID,
-                LabID=model .TestLabID,
+                TestID=model .TestID,
+                LabID=model .TestID,
                 Price=model .Price,
                 Description=model .Description,
             };
@@ -102,8 +102,8 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<TestLab>($"TestLab with ID {model.ID} not found.");
             }
-            testlab.TestLabID = model.TestLabID;
-            testlab.LabID = model.TestLabID;
+            testlab.TestID = model.TestID;
+            testlab.LabID = model.TestID;
             testlab.Price = model.Price;
             testlab.Description = model.Description;
             await _unitOfWork.TestLabs.UpdateAsync(testlab);

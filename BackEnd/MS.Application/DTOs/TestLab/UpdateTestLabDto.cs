@@ -9,8 +9,8 @@ namespace MS.Application.DTOs.TestLab
         public int ID { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "TestLabID must be a positive integer")]
-        public int TestLabID { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "TestID must be a positive integer")]
+        public int TestID { get; set; }
 
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "LabID must be a positive integer")]

@@ -9,7 +9,7 @@ namespace MS.Data.Entities
     public class TestLab
     {
         public int ID { get; set; }
-        public int TestLabID { get; set; }
+        public int TestID { get; set; }
         public int LabID { get; set; }
 
         public double Price { get; set; }

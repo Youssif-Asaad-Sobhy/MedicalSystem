@@ -1105,6 +1105,7 @@ namespace MS.Infrastructure.Contexts
                     Description = "Description of report 1",
                     UserID = "1", // Assuming user ID, adjust accordingly
                     DoctorID = "11" // Assuming doctor ID, adjust accordingly
+                    
                 },
                 new Report
                 {
@@ -1430,7 +1431,7 @@ namespace MS.Infrastructure.Contexts
                 new TestLab
                 {
                     ID = 1,
-                    TestLabID = 1, // Assuming test lab ID, adjust accordingly
+                    TestID = 1, // Assuming test lab ID, adjust accordingly
                     LabID = 1, // Assuming lab ID, adjust accordingly
                     Price = 100.00, // Assuming price, adjust accordingly
                     Description = "Description of test lab 1"
@@ -1438,7 +1439,7 @@ namespace MS.Infrastructure.Contexts
                 new TestLab
                 {
                     ID = 2,
-                    TestLabID = 2, // Assuming test lab ID, adjust accordingly
+                    TestID = 2, // Assuming test lab ID, adjust accordingly
                     LabID = 2, // Assuming lab ID, adjust accordingly
                     Price = 150.00, // Assuming price, adjust accordingly
                     Description = "Description of test lab 2"
@@ -1449,63 +1450,7 @@ namespace MS.Infrastructure.Contexts
                     Description = "Description of test lab 3",
                     LabID = 3,
                     Price = 200.0,
-                    TestLabID = 3
-                },
-                new TestLab
-                {
-                    ID = 4,
-                    Description = "Description of test lab 4",
-                    LabID = 4,
-                    Price = 250.0,
-                    TestLabID = 4
-                },
-                new TestLab
-                {
-                    ID = 5,
-                    Description = "Description of test lab 5",
-                    LabID = 5,
-                    Price = 300.0,
-                    TestLabID = 5
-                },
-                new TestLab
-                {
-                    ID = 6,
-                    Description = "Description of test lab 6",
-                    LabID = 6,
-                    Price = 350.0,
-                    TestLabID = 6
-                },
-                new TestLab
-                {
-                    ID = 7,
-                    Description = "Description of test lab 7",
-                    LabID = 7,
-                    Price = 400.0,
-                    TestLabID = 7
-                },
-                new TestLab
-                {
-                    ID = 8,
-                    Description = "Description of test lab 8",
-                    LabID = 8,
-                    Price = 450.0,
-                    TestLabID = 8
-                },
-                new TestLab
-                {
-                    ID = 9,
-                    Description = "Description of test lab 9",
-                    LabID = 9,
-                    Price = 500.0,
-                    TestLabID = 9
-                },
-                new TestLab
-                {
-                    ID = 10,
-                    Description = "Description of test lab 10",
-                    LabID = 10,
-                    Price = 550.0,
-                    TestLabID = 10
+                    TestID = 3
                 });
             modelBuilder.Entity<Attachment>().HasData(
                     new Attachment
@@ -1517,7 +1462,8 @@ namespace MS.Infrastructure.Contexts
                         Title = "Sample Attachment 1",
                         Type = "Image",
                         DownloadUrl="lol",
-                        ViewUrl="lol"
+                        ViewUrl="lol",
+                        ReportID = 1
                     },
                     new Attachment
                     {
@@ -1528,7 +1474,8 @@ namespace MS.Infrastructure.Contexts
                         Title = "Sample Attachment 2",
                         Type = "Image",
                         DownloadUrl = "lol",
-                        ViewUrl = "lol"
+                        ViewUrl = "lol",
+                        ReportID = 2
                     },
                     new Attachment
                     {
@@ -1539,7 +1486,8 @@ namespace MS.Infrastructure.Contexts
                         Title = "Sample Attachment 3",
                         Type = "Image",
                         DownloadUrl = "lol",
-                        ViewUrl = "lol"
+                        ViewUrl = "lol",
+                        ReportID = 3
                     }
                 );
             modelBuilder.Entity<Test>().HasData(
@@ -1651,7 +1599,7 @@ namespace MS.Infrastructure.Contexts
         public DbSet<Clinic> clinics { get; set; }
         public DbSet<PlacePrice> placePrice { get; set; }
         public DbSet<Department> departments { get; set; }
-        public DbSet<Attachment> documents { get; set; }
+        public DbSet<Attachment> attachments { get; set; }
         public DbSet<Equipment> equipments { get; set; }
         public DbSet<Hospital> hospitals { get; set; }
         public DbSet<Lab> labs { get; set; }
@@ -1670,12 +1618,5 @@ namespace MS.Infrastructure.Contexts
         public DbSet<Types> types { get; set; }
         public DbSet<ApplicationUser> users { get; set; }
         #endregion
-        protected override void OnConfiguring
-                (DbContextOptionsBuilder OptionsBuilder)
-        {
-            OptionsBuilder.UseSqlServer(
-     "Server=(localdb)\\MSSQLLocalDB;Database=MedicalSystem;Integrated Security=True;Connect Timeout=30");
-            base.OnConfiguring(OptionsBuilder);
-        }
     }
 }
