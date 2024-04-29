@@ -27,8 +27,4 @@
     <ProjectReference Include="..\MS.Data\MS.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

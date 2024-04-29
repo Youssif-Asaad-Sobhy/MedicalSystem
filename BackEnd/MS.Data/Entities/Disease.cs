@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace MS.Data.Entities
 {
-    public class Test
+    public class Disease
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int PhotoID { get; set; }
-        public Attachment Photo { get; set; }
-        public ICollection<TestLab> TestLabs { get; set; }
+        public string Description { get; set; }
+        public string Symptoms { get; set; }
+        public string Causes { get; set; }
+        public ICollection<ApplicationUserDisease> UserDiseases{ get; set; }
     }
 }

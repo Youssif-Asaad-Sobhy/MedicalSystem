@@ -17,7 +17,7 @@ namespace MS.Infrastructure.Configuration
 
             builder.HasOne(testlab => testlab.Test)
                 .WithMany(test => test.TestLabs)
-                .HasForeignKey(testlab => testlab.TestLabID)
+                .HasForeignKey(testlab => testlab.TestID)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

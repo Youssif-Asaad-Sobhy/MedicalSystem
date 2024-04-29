@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MS.Infrastructure.Configuration
 {
-    internal class DocumentConfig : IEntityTypeConfiguration<Document>
+    internal class AttachmentConfig : IEntityTypeConfiguration<Attachment>
     {
-        public void Configure(EntityTypeBuilder<Document> builder)
+        public void Configure(EntityTypeBuilder<Attachment> builder)
         {
             builder.HasKey(d => d.ID);
         }

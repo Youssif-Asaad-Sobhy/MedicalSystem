@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MS.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240313112545_init")]
+    [Migration("20240428182024_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -47,7 +47,18 @@ namespace MS.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRegister")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -106,15 +117,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "6088455b-73ae-40a6-bea5-81037663b6c0",
+                            ConcurrencyStamp = "6cded918-cae7-4fca-84dc-3a37258486e9",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "male",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "2636523632",
                             NormalizedEmail = "MOHAMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMEDALI123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8adc4d98-b206-47ff-897e-fe2ba95f0fa0",
+                            SecurityStamp = "bdbd2f79-1c0d-4a8a-8280-2fd6604677da",
                             TwoFactorEnabled = false,
                             UserName = "MohamedAli123"
                         },
@@ -123,15 +137,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "2",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "ea236a21-468e-4f15-83d7-60550cfdf05a",
+                            ConcurrencyStamp = "82d7713d-cda6-460b-9652-ff6d18aac5f9",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Female",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "5312523632",
                             NormalizedEmail = "MONA@EXAMPLE.COM",
                             NormalizedUserName = "MONAOMAR123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a5af322f-050b-4348-9861-2d67b85ce158",
+                            SecurityStamp = "8037c795-f224-4f06-a763-d3e9e06a0a59",
                             TwoFactorEnabled = false,
                             UserName = "monaomar123"
                         },
@@ -140,15 +157,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "3",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "78f16d33-a3e9-4c37-ae8f-e46cda5a2808",
+                            ConcurrencyStamp = "df49be7c-c96a-4a64-8185-59caacd16333",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Male",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "9876543210",
                             NormalizedEmail = "MOHAMMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMMED123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "64bf9e73-aa0c-46f4-a659-50f764ceef7a",
+                            SecurityStamp = "7e67c0e7-b73a-4e4f-86d5-602c32738cab",
                             TwoFactorEnabled = false,
                             UserName = "MOHAMMED123"
                         },
@@ -157,15 +177,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "4",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "54fe6888-83b5-4e8b-9233-58d6f9bb4925",
+                            ConcurrencyStamp = "9b68cf8a-0e99-4325-b096-18efa6661b86",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Female",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "0123456789",
                             NormalizedEmail = "AISHA@EXAMPLE.COM",
                             NormalizedUserName = "AISHA321",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d14846ab-d8f1-415e-8eb0-85d9bcf220dd",
+                            SecurityStamp = "c1a80815-9bf4-4a5b-8aa0-2cbea1c9ebfc",
                             TwoFactorEnabled = false,
                             UserName = "AISHA321"
                         },
@@ -174,15 +197,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "5",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "57815ff9-fbb5-42b5-8bd4-31f61d11a19c",
+                            ConcurrencyStamp = "545cae7e-e4c8-4d34-9015-8a36539d28b6",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Male",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "1122334455",
                             NormalizedEmail = "AHMAD@EXAMPLE.COM",
                             NormalizedUserName = "AHMAD567",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "560a7718-643e-458a-b616-c16a89f24846",
+                            SecurityStamp = "41aba73f-00d6-4d71-9af4-438b45c78160",
                             TwoFactorEnabled = false,
                             UserName = "AHMAD567"
                         },
@@ -191,15 +217,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "6",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1989, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e8053c81-9718-4f69-9118-680de9e50ab8",
+                            ConcurrencyStamp = "da4694dd-88d4-4e9a-b98f-fadbffaea7ac",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Female",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "3344556677",
                             NormalizedEmail = "AYA@EXAMPLE.COM",
                             NormalizedUserName = "AYA789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "40ba7847-1851-4760-ad21-7e800e21feb9",
+                            SecurityStamp = "d456e20f-cc16-4d41-a794-afb988883f38",
                             TwoFactorEnabled = false,
                             UserName = "AYA789"
                         },
@@ -208,15 +237,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "7",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1995, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "beff6eb1-32ea-49f1-80b7-f74274944842",
+                            ConcurrencyStamp = "5b7972ae-af0a-4096-a252-15b11a5bc448",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Male",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "5544332211",
                             NormalizedEmail = "OMAR@EXAMPLE.COM",
                             NormalizedUserName = "OMAR101",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec70074f-0da9-4c24-8ecd-6b54a23f216a",
+                            SecurityStamp = "edd17d4e-9abe-438a-b1ec-0decfb50dff2",
                             TwoFactorEnabled = false,
                             UserName = "OMAR101"
                         },
@@ -225,15 +257,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "8",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1980, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "b0abbe7d-beb7-40e9-bd19-544db021cb54",
+                            ConcurrencyStamp = "c14a4034-5d41-47e4-a8a8-589a66d954f5",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Female",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "7788990011",
                             NormalizedEmail = "SARA@EXAMPLE.COM",
                             NormalizedUserName = "SARA2022",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c1b8cd6e-7ad6-46ca-a38b-7b4e4afefcf2",
+                            SecurityStamp = "fd0dc172-9504-4165-8743-19cf81229d4c",
                             TwoFactorEnabled = false,
                             UserName = "SARA2022"
                         },
@@ -242,15 +277,18 @@ namespace MS.Infrastructure.Migrations
                             Id = "9",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1998, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "69a08ddb-17f2-48f6-a410-724256c8d93f",
+                            ConcurrencyStamp = "7a8eafb6-48bc-416a-8e00-9ed6fbb8ef87",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Male",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "6677889900",
                             NormalizedEmail = "ALI@EXAMPLE.COM",
                             NormalizedUserName = "ALI3030",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ba889282-a19a-4c78-9309-0fedd661bfb4",
+                            SecurityStamp = "976b2646-4c85-426b-9ca1-c37d1cc90f7f",
                             TwoFactorEnabled = false,
                             UserName = "ALI3030"
                         },
@@ -259,17 +297,142 @@ namespace MS.Infrastructure.Migrations
                             Id = "10",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1982, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "b03c0fc7-de4f-42a9-b2fb-f1021c76f1fa",
+                            ConcurrencyStamp = "c657ef8f-b4a6-4288-be08-6d8e293403a3",
                             EmailConfirmed = false,
+                            FirstName = "mohamed",
                             Gender = "Female",
+                            IsRegister = true,
+                            LastName = "Ali",
                             LockoutEnabled = false,
                             NID = "1122334455",
                             NormalizedEmail = "LAILA@EXAMPLE.COM",
                             NormalizedUserName = "LAILA4040",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "022736af-c3ec-496b-bb20-c2a4c3bb9512",
+                            SecurityStamp = "e9159705-2cdc-4ba1-80db-d09d3f7f6a2e",
                             TwoFactorEnabled = false,
                             UserName = "LAILA4040"
+                        });
+                });
+
+            modelBuilder.Entity("MS.Data.Entities.ApplicationUserDisease", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Diagnosis")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DiagnosisDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DiseaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("DiseaseId");
+
+                    b.ToTable("UserDiseases");
+                });
+
+            modelBuilder.Entity("MS.Data.Entities.Attachment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("DownloadUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Filepath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FolderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReportID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ViewUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ReportID");
+
+                    b.ToTable("attachments");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            DownloadUrl = "lol",
+                            FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                            Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                            FolderName = "Test",
+                            ReportID = 1,
+                            TestId = 0,
+                            Title = "Sample Attachment 1",
+                            Type = "Image",
+                            ViewUrl = "lol"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            DownloadUrl = "lol",
+                            FileName = "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                            Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                            FolderName = "Test",
+                            ReportID = 2,
+                            TestId = 0,
+                            Title = "Sample Attachment 2",
+                            Type = "Image",
+                            ViewUrl = "lol"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            DownloadUrl = "lol",
+                            FileName = "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                            Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                            FolderName = "Test",
+                            ReportID = 3,
+                            TestId = 0,
+                            Title = "Sample Attachment 3",
+                            Type = "Image",
+                            ViewUrl = "lol"
                         });
                 });
 
@@ -441,7 +604,7 @@ namespace MS.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MS.Data.Entities.Document", b =>
+            modelBuilder.Entity("MS.Data.Entities.Disease", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -449,80 +612,27 @@ namespace MS.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<byte[]>("Content")
+                    b.Property<string>("Causes")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReportID")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Symptoms")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ReportID");
-
-                    b.ToTable("documents");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Content = new byte[0],
-                            ReportID = 1
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Content = new byte[0],
-                            ReportID = 2
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Content = new byte[0],
-                            ReportID = 3
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Content = new byte[0],
-                            ReportID = 4
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Content = new byte[0],
-                            ReportID = 5
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Content = new byte[0],
-                            ReportID = 6
-                        },
-                        new
-                        {
-                            ID = 7,
-                            Content = new byte[0],
-                            ReportID = 7
-                        },
-                        new
-                        {
-                            ID = 8,
-                            Content = new byte[0],
-                            ReportID = 8
-                        },
-                        new
-                        {
-                            ID = 9,
-                            Content = new byte[0],
-                            ReportID = 9
-                        },
-                        new
-                        {
-                            ID = 10,
-                            Content = new byte[0],
-                            ReportID = 10
-                        });
+                    b.ToTable("Diseases");
                 });
 
             modelBuilder.Entity("MS.Data.Entities.Equipment", b =>
@@ -924,7 +1034,7 @@ namespace MS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExpirationDate")
+                    b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MedicineID")
@@ -1618,7 +1728,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 1,
                             Description = "Description of report 1",
                             DoctorID = "11",
-                            Time = new DateTime(2024, 3, 12, 13, 25, 44, 588, DateTimeKind.Local).AddTicks(8088),
+                            Time = new DateTime(2024, 4, 27, 21, 20, 23, 471, DateTimeKind.Local).AddTicks(6078),
                             UserID = "1"
                         },
                         new
@@ -1626,7 +1736,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 2,
                             Description = "Description of report 2",
                             DoctorID = "22",
-                            Time = new DateTime(2024, 3, 11, 13, 25, 44, 588, DateTimeKind.Local).AddTicks(8161),
+                            Time = new DateTime(2024, 4, 26, 21, 20, 23, 471, DateTimeKind.Local).AddTicks(6141),
                             UserID = "2"
                         },
                         new
@@ -1797,8 +1907,9 @@ namespace MS.Infrastructure.Migrations
                     b.Property<int>("PlacePriceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SerialNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
@@ -1827,8 +1938,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 1,
                             PlacePriceId = 1,
-                            SerialNumber = 45165153,
-                            State = 0,
+                            SerialNumber = "45165153",
+                            State = 1,
                             Time = new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(741),
                             UserID = "1"
                         },
@@ -1836,8 +1947,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 2,
                             PlacePriceId = 1,
-                            SerialNumber = 543864963,
-                            State = 1,
+                            SerialNumber = "543864963",
+                            State = 0,
                             Time = new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(1531),
                             UserID = "2"
                         },
@@ -1845,8 +1956,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 3,
                             PlacePriceId = 2,
-                            SerialNumber = 70000001,
-                            State = 0,
+                            SerialNumber = "70000001",
+                            State = 1,
                             Time = new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6478),
                             UserID = "3"
                         },
@@ -1854,8 +1965,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 4,
                             PlacePriceId = 2,
-                            SerialNumber = 70000002,
-                            State = 0,
+                            SerialNumber = "70000002",
+                            State = 1,
                             Time = new DateTime(2024, 3, 5, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6491),
                             UserID = "4"
                         },
@@ -1863,8 +1974,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 5,
                             PlacePriceId = 3,
-                            SerialNumber = 70000003,
-                            State = 0,
+                            SerialNumber = "70000003",
+                            State = 1,
                             Time = new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6504),
                             UserID = "5"
                         },
@@ -1872,8 +1983,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 6,
                             PlacePriceId = 3,
-                            SerialNumber = 70000004,
-                            State = 0,
+                            SerialNumber = "70000004",
+                            State = 1,
                             Time = new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517),
                             UserID = "6"
                         },
@@ -1881,8 +1992,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 7,
                             PlacePriceId = 4,
-                            SerialNumber = 70000005,
-                            State = 1,
+                            SerialNumber = "70000005",
+                            State = 0,
                             Time = new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530),
                             UserID = "7"
                         },
@@ -1890,8 +2001,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 8,
                             PlacePriceId = 4,
-                            SerialNumber = 70000006,
-                            State = 1,
+                            SerialNumber = "70000006",
+                            State = 0,
                             Time = new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543),
                             UserID = "8"
                         },
@@ -1899,8 +2010,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 9,
                             PlacePriceId = 5,
-                            SerialNumber = 70000007,
-                            State = 1,
+                            SerialNumber = "70000007",
+                            State = 0,
                             Time = new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556),
                             UserID = "9"
                         },
@@ -1908,8 +2019,8 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 10,
                             PlacePriceId = 5,
-                            SerialNumber = 70000008,
-                            State = 0,
+                            SerialNumber = "70000008",
+                            State = 1,
                             Time = new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569),
                             UserID = "10"
                         });
@@ -1923,7 +2034,7 @@ namespace MS.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EntityID")
@@ -1936,7 +2047,7 @@ namespace MS.Infrastructure.Migrations
                     b.Property<int>("PlaceType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -2048,7 +2159,13 @@ namespace MS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PhotoID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("PhotoID")
+                        .IsUnique();
 
                     b.ToTable("tests");
 
@@ -2056,52 +2173,20 @@ namespace MS.Infrastructure.Migrations
                         new
                         {
                             ID = 1,
-                            Name = "Blood Test"
+                            Name = "Blood Test",
+                            PhotoID = 1
                         },
                         new
                         {
                             ID = 2,
-                            Name = "Urinalysis"
+                            Name = "Urinalysis",
+                            PhotoID = 2
                         },
                         new
                         {
                             ID = 3,
-                            Name = "MRI Scan"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Name = "X-ray Imaging"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Name = "Ultrasound Examination"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Name = "CT Scan"
-                        },
-                        new
-                        {
-                            ID = 7,
-                            Name = "EKG Test"
-                        },
-                        new
-                        {
-                            ID = 8,
-                            Name = "Colonoscopy"
-                        },
-                        new
-                        {
-                            ID = 9,
-                            Name = "Endoscopy"
-                        },
-                        new
-                        {
-                            ID = 10,
-                            Name = "Biopsy"
+                            Name = "MRI Scan",
+                            PhotoID = 3
                         });
                 });
 
@@ -2123,14 +2208,14 @@ namespace MS.Infrastructure.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("TestLabID")
+                    b.Property<int>("TestID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
                     b.HasIndex("LabID");
 
-                    b.HasIndex("TestLabID");
+                    b.HasIndex("TestID");
 
                     b.ToTable("testLabs");
 
@@ -2141,7 +2226,7 @@ namespace MS.Infrastructure.Migrations
                             Description = "Description of test lab 1",
                             LabID = 1,
                             Price = 100.0,
-                            TestLabID = 1
+                            TestID = 1
                         },
                         new
                         {
@@ -2149,7 +2234,7 @@ namespace MS.Infrastructure.Migrations
                             Description = "Description of test lab 2",
                             LabID = 2,
                             Price = 150.0,
-                            TestLabID = 2
+                            TestID = 2
                         },
                         new
                         {
@@ -2157,63 +2242,7 @@ namespace MS.Infrastructure.Migrations
                             Description = "Description of test lab 3",
                             LabID = 3,
                             Price = 200.0,
-                            TestLabID = 3
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Description = "Description of test lab 4",
-                            LabID = 4,
-                            Price = 250.0,
-                            TestLabID = 4
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Description = "Description of test lab 5",
-                            LabID = 5,
-                            Price = 300.0,
-                            TestLabID = 5
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Description = "Description of test lab 6",
-                            LabID = 6,
-                            Price = 350.0,
-                            TestLabID = 6
-                        },
-                        new
-                        {
-                            ID = 7,
-                            Description = "Description of test lab 7",
-                            LabID = 7,
-                            Price = 400.0,
-                            TestLabID = 7
-                        },
-                        new
-                        {
-                            ID = 8,
-                            Description = "Description of test lab 8",
-                            LabID = 8,
-                            Price = 450.0,
-                            TestLabID = 8
-                        },
-                        new
-                        {
-                            ID = 9,
-                            Description = "Description of test lab 9",
-                            LabID = 9,
-                            Price = 500.0,
-                            TestLabID = 9
-                        },
-                        new
-                        {
-                            ID = 10,
-                            Description = "Description of test lab 10",
-                            LabID = 10,
-                            Price = 550.0,
-                            TestLabID = 10
+                            TestID = 3
                         });
                 });
 
@@ -2419,6 +2448,36 @@ namespace MS.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MS.Data.Entities.ApplicationUserDisease", b =>
+                {
+                    b.HasOne("MS.Data.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserDiseases")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MS.Data.Entities.Disease", "Disease")
+                        .WithMany("UserDiseases")
+                        .HasForeignKey("DiseaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Disease");
+                });
+
+            modelBuilder.Entity("MS.Data.Entities.Attachment", b =>
+                {
+                    b.HasOne("MS.Data.Entities.Report", "Report")
+                        .WithMany("Attachments")
+                        .HasForeignKey("ReportID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Report");
+                });
+
             modelBuilder.Entity("MS.Data.Entities.Clinic", b =>
                 {
                     b.HasOne("MS.Data.Entities.Department", "Department")
@@ -2439,17 +2498,6 @@ namespace MS.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Hospital");
-                });
-
-            modelBuilder.Entity("MS.Data.Entities.Document", b =>
-                {
-                    b.HasOne("MS.Data.Entities.Report", "Report")
-                        .WithMany("Documents")
-                        .HasForeignKey("ReportID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Report");
                 });
 
             modelBuilder.Entity("MS.Data.Entities.Lab", b =>
@@ -2653,6 +2701,17 @@ namespace MS.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MS.Data.Entities.Test", b =>
+                {
+                    b.HasOne("MS.Data.Entities.Attachment", "Photo")
+                        .WithOne("Test")
+                        .HasForeignKey("MS.Data.Entities.Test", "PhotoID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Photo");
+                });
+
             modelBuilder.Entity("MS.Data.Entities.TestLab", b =>
                 {
                     b.HasOne("MS.Data.Entities.Lab", "Lab")
@@ -2663,7 +2722,7 @@ namespace MS.Infrastructure.Migrations
 
                     b.HasOne("MS.Data.Entities.Test", "Test")
                         .WithMany("TestLabs")
-                        .HasForeignKey("TestLabID")
+                        .HasForeignKey("TestID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2728,6 +2787,13 @@ namespace MS.Infrastructure.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("UserDiseases");
+                });
+
+            modelBuilder.Entity("MS.Data.Entities.Attachment", b =>
+                {
+                    b.Navigation("Test");
                 });
 
             modelBuilder.Entity("MS.Data.Entities.Clinic", b =>
@@ -2744,6 +2810,11 @@ namespace MS.Infrastructure.Migrations
             modelBuilder.Entity("MS.Data.Entities.Department", b =>
                 {
                     b.Navigation("Clinics");
+                });
+
+            modelBuilder.Entity("MS.Data.Entities.Disease", b =>
+                {
+                    b.Navigation("UserDiseases");
                 });
 
             modelBuilder.Entity("MS.Data.Entities.Equipment", b =>
@@ -2796,7 +2867,7 @@ namespace MS.Infrastructure.Migrations
 
             modelBuilder.Entity("MS.Data.Entities.Report", b =>
                 {
-                    b.Navigation("Documents");
+                    b.Navigation("Attachments");
 
                     b.Navigation("ReportMedicines");
                 });

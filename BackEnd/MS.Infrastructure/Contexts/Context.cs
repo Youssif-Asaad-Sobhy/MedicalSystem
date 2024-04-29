@@ -414,67 +414,6 @@ namespace MS.Infrastructure.Contexts
                     Name = "Nephrology"
                 });
 
-            modelBuilder.Entity<Document>().HasData(
-                new Document
-                {
-                    ID = 1,
-                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
-                    ReportID = 1 // Assuming report ID is 1
-                },
-                new Document
-                {
-                    ID = 2,
-                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
-                    ReportID = 2 // Assuming report ID is 2
-                },
-                new Document
-                {
-                    ID = 3,
-                    Content = new byte[0] { },
-                    ReportID = 3
-                },
-                new Document
-                {
-                    ID = 4,
-                    Content = new byte[0] { },
-                    ReportID = 4
-                },
-                new Document
-                {
-                    ID = 5,
-                    Content = new byte[0] { },
-                    ReportID = 5
-                },
-                new Document
-                {
-                    ID = 6,
-                    Content = new byte[0] { },
-                    ReportID = 6
-                },
-                new Document
-                {
-                    ID = 7,
-                    Content = new byte[0] { },
-                    ReportID = 7
-                },
-                new Document
-                {
-                    ID = 8,
-                    Content = new byte[0] { },
-                    ReportID = 8
-                },
-                new Document
-                {
-                    ID = 9,
-                    Content = new byte[0] { },
-                    ReportID = 9
-                },
-                new Document
-                {
-                    ID = 10,
-                    Content = new byte[0] { },
-                    ReportID = 10
-                });
 
             modelBuilder.Entity<Equipment>().HasData(
                 new Equipment
@@ -1166,6 +1105,7 @@ namespace MS.Infrastructure.Contexts
                     Description = "Description of report 1",
                     UserID = "1", // Assuming user ID, adjust accordingly
                     DoctorID = "11" // Assuming doctor ID, adjust accordingly
+                    
                 },
                 new Report
                 {
@@ -1491,7 +1431,7 @@ namespace MS.Infrastructure.Contexts
                 new TestLab
                 {
                     ID = 1,
-                    TestLabID = 1, // Assuming test lab ID, adjust accordingly
+                    TestID = 1, // Assuming test lab ID, adjust accordingly
                     LabID = 1, // Assuming lab ID, adjust accordingly
                     Price = 100.00, // Assuming price, adjust accordingly
                     Description = "Description of test lab 1"
@@ -1499,7 +1439,7 @@ namespace MS.Infrastructure.Contexts
                 new TestLab
                 {
                     ID = 2,
-                    TestLabID = 2, // Assuming test lab ID, adjust accordingly
+                    TestID = 2, // Assuming test lab ID, adjust accordingly
                     LabID = 2, // Assuming lab ID, adjust accordingly
                     Price = 150.00, // Assuming price, adjust accordingly
                     Description = "Description of test lab 2"
@@ -1510,115 +1450,66 @@ namespace MS.Infrastructure.Contexts
                     Description = "Description of test lab 3",
                     LabID = 3,
                     Price = 200.0,
-                    TestLabID = 3
-                },
-                new TestLab
-                {
-                    ID = 4,
-                    Description = "Description of test lab 4",
-                    LabID = 4,
-                    Price = 250.0,
-                    TestLabID = 4
-                },
-                new TestLab
-                {
-                    ID = 5,
-                    Description = "Description of test lab 5",
-                    LabID = 5,
-                    Price = 300.0,
-                    TestLabID = 5
-                },
-                new TestLab
-                {
-                    ID = 6,
-                    Description = "Description of test lab 6",
-                    LabID = 6,
-                    Price = 350.0,
-                    TestLabID = 6
-                },
-                new TestLab
-                {
-                    ID = 7,
-                    Description = "Description of test lab 7",
-                    LabID = 7,
-                    Price = 400.0,
-                    TestLabID = 7
-                },
-                new TestLab
-                {
-                    ID = 8,
-                    Description = "Description of test lab 8",
-                    LabID = 8,
-                    Price = 450.0,
-                    TestLabID = 8
-                },
-                new TestLab
-                {
-                    ID = 9,
-                    Description = "Description of test lab 9",
-                    LabID = 9,
-                    Price = 500.0,
-                    TestLabID = 9
-                },
-                new TestLab
-                {
-                    ID = 10,
-                    Description = "Description of test lab 10",
-                    LabID = 10,
-                    Price = 550.0,
-                    TestLabID = 10
+                    TestID = 3
                 });
+            modelBuilder.Entity<Attachment>().HasData(
+                    new Attachment
+                    {
+                        ID = 1,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl="lol",
+                        ViewUrl="lol",
+                        ReportID = 1
+                    },
+                    new Attachment
+                    {
+                        ID = 2,
+                        FileName = "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                        FolderName = "Test",
+                        Title = "Sample Attachment 2",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                        ReportID = 2
+                    },
+                    new Attachment
+                    {
+                        ID = 3,
+                        FileName = "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                        FolderName = "Test",
+                        Title = "Sample Attachment 3",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                        ReportID = 3
+                    }
+                );
             modelBuilder.Entity<Test>().HasData(
                 new Test
                 {
                     ID = 1,
-                    Name = "Blood Test"
+                    Name = "Blood Test",
+                    PhotoID=1
                 },
                 new Test
                 {
                     ID = 2,
-                    Name = "Urinalysis"
+                    Name = "Urinalysis",
+                    PhotoID=2
                 },
                 new Test
                 {
                     ID = 3,
-                    Name = "MRI Scan"
-                },
-                new Test
-                {
-                    ID = 4,
-                    Name = "X-ray Imaging"
-                },
-                new Test
-                {
-                    ID = 5,
-                    Name = "Ultrasound Examination"
-                },
-                new Test
-                {
-                    ID = 6,
-                    Name = "CT Scan"
-                },
-                new Test
-                {
-                    ID = 7,
-                    Name = "EKG Test"
-                },
-                new Test
-                {
-                    ID = 8,
-                    Name = "Colonoscopy"
-                },
-                new Test
-                {
-                    ID = 9,
-                    Name = "Endoscopy"
-                },
-                new Test
-                {
-                    ID = 10,
-                    Name = "Biopsy"
-                });
+                    Name = "MRI Scan",
+                    PhotoID=3
+                }
+               );
 
             modelBuilder.Entity<Types>().HasData(
                 new Types
@@ -1678,7 +1569,7 @@ namespace MS.Infrastructure.Contexts
             new ClinicConfig().Configure(modelBuilder.Entity<Clinic>());
             new PlacePriceConfig().Configure(modelBuilder.Entity<PlacePrice>());
             new DepartmentConfig().Configure(modelBuilder.Entity<Department>());
-            new DocumentConfig().Configure(modelBuilder.Entity<Document>());
+            new AttachmentConfig().Configure(modelBuilder.Entity<Attachment>());
             new EquipmentConfig().Configure(modelBuilder.Entity<Equipment>());
             new HospitalConfig().Configure(modelBuilder.Entity<Hospital>());
             new LabConfig().Configure(modelBuilder.Entity<Lab>());
@@ -1696,16 +1587,19 @@ namespace MS.Infrastructure.Contexts
             new TestLabConfig().Configure(modelBuilder.Entity<TestLab>());
             new TypesConfig().Configure(modelBuilder.Entity<Types>());
             new UserConfig().Configure(modelBuilder.Entity<ApplicationUser>()); 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
             #endregion
 
             base.OnModelCreating(modelBuilder);
         }
         #region DbSets
+        public DbSet<Disease> Diseases { get; set; }
+        public DbSet<ApplicationUserDisease> UserDiseases { get; set; }  
         public DbSet<OTP> OTPs { get; set; }
         public DbSet<Clinic> clinics { get; set; }
         public DbSet<PlacePrice> placePrice { get; set; }
         public DbSet<Department> departments { get; set; }
-        public DbSet<Document> documents { get; set; }
+        public DbSet<Attachment> attachments { get; set; }
         public DbSet<Equipment> equipments { get; set; }
         public DbSet<Hospital> hospitals { get; set; }
         public DbSet<Lab> labs { get; set; }
@@ -1722,7 +1616,7 @@ namespace MS.Infrastructure.Contexts
         public DbSet<Test> tests { get; set; }
         public DbSet<TestLab> testLabs { get; set; }
         public DbSet<Types> types { get; set; }
-        public DbSet<ApplicationUser> users { get; set; } 
+        public DbSet<ApplicationUser> users { get; set; }
         #endregion
     }
 }

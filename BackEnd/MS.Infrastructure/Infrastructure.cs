@@ -14,10 +14,15 @@ namespace MS.Infrastructure
     public static class Infrastructure
     {
 
-        public static void Infrastructure_CS(this IServiceCollection services)
+        public static void Infrastructure_CS(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddTransient<IUnitOfWork,UnitOfWork>();
             services.AddScoped<IResrvationRepo, ReservationRepo>();
+            services.AddDbContext<Context>(
+                options =>
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                });
         }
     }
 }

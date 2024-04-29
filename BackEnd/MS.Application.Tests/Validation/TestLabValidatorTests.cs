@@ -23,11 +23,11 @@ namespace MS.Application.Tests.Validation
         }
 
         [Fact]
-        public void ShouldHaveError_When_TestLabID_IsEmptyOrLessThanOne()
+        public void ShouldHaveError_When_TestID_IsEmptyOrLessThanOne()
         {
-            var model = new TestLab { TestLabID = 0 };
+            var model = new TestLab { TestID = 0 };
             var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(testLab => testLab.TestLabID);
+            result.ShouldHaveValidationErrorFor(testLab => testLab.TestID);
         }
 
         [Fact]
@@ -68,14 +68,14 @@ namespace MS.Application.Tests.Validation
             var model = new TestLab
             {
                 ID = 1,
-                TestLabID = 1,
+                TestID = 1,
                 LabID = 1,
                 Price = 0,
                 Description = "Valid Description"
             };
             var result = _validator.TestValidate(model);
             result.ShouldNotHaveValidationErrorFor(testLab => testLab.ID);
-            result.ShouldNotHaveValidationErrorFor(testLab => testLab.TestLabID);
+            result.ShouldNotHaveValidationErrorFor(testLab => testLab.TestID);
             result.ShouldNotHaveValidationErrorFor(testLab => testLab.LabID);
             result.ShouldNotHaveValidationErrorFor(testLab => testLab.Price);
             result.ShouldNotHaveValidationErrorFor(testLab => testLab.Description);
