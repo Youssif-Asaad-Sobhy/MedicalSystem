@@ -71,13 +71,9 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpGet("GetListTest")]
-        public async Task<IActionResult> GetListAsync([FromBody] AllTestDto model)
+        public async Task<IActionResult> GetListAsync()
         {
             var response = await _service.GetTestListAsync();
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
             return this.CreateResponse(response);
         }
         #endregion

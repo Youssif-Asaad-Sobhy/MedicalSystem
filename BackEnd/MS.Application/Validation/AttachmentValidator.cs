@@ -7,15 +7,12 @@ namespace MS.Application.Validation
     {
         public AttachmentValidator()
         {
-            RuleFor(Attachment => Attachment.ID)
-                .GreaterThan(0)
-                .WithMessage("ID must be greater than 0");
-
-            
-
-            RuleFor(Attachment => Attachment.ReportID)
-                .GreaterThan(0)
-                .WithMessage("ReportID must be greater than 0");
+            RuleFor(Attachment => Attachment.FileName)
+            .NotEmpty()
+            .WithMessage("FileName must not be empty");
+            RuleFor(Attachment => Attachment.FolderName)
+                .NotEmpty()
+                .WithMessage("FolderName must not be empty");
         }
     }
 }

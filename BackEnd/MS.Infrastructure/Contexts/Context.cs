@@ -1463,7 +1463,6 @@ namespace MS.Infrastructure.Contexts
                         Type = "Image",
                         DownloadUrl="lol",
                         ViewUrl="lol",
-                        ReportID = 1
                     },
                     new Attachment
                     {
@@ -1475,7 +1474,6 @@ namespace MS.Infrastructure.Contexts
                         Type = "Image",
                         DownloadUrl = "lol",
                         ViewUrl = "lol",
-                        ReportID = 2
                     },
                     new Attachment
                     {
@@ -1487,7 +1485,6 @@ namespace MS.Infrastructure.Contexts
                         Type = "Image",
                         DownloadUrl = "lol",
                         ViewUrl = "lol",
-                        ReportID = 3
                     }
                 );
             modelBuilder.Entity<Test>().HasData(

@@ -17,8 +17,6 @@ namespace MS.Data.Entities
         public string DownloadUrl { get; set; }
         public string Filepath { get; set; }
         public string Type { get; set; }
-        public int ReportID { get; set; }
-        public Report Report { get; set; }
         public int TestId { get; set; }
         public Test? Test { get; set; }
 
