@@ -84,7 +84,7 @@ namespace MS.Application.Services
                     ID = test.ID,
                     Name = test.Test?.Name,
                     price = test.Price,
-                    photo=test.Test.Photo.ViewUrl
+                    photo=test.Test?.Photo?.ViewUrl
                 };
                 result.Add(res);
             }

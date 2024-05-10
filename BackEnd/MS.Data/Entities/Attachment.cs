@@ -19,6 +19,8 @@ namespace MS.Data.Entities
         public string Type { get; set; }
         public int TestId { get; set; }
         public Test? Test { get; set; }
+        public int ClinicId { get; set; }
+        public Clinic? Clinic { get; set; }
 
     }
 }

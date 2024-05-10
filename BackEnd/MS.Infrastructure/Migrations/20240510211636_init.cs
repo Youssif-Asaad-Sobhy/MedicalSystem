@@ -59,6 +59,27 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "attachments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FolderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ViewUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DownloadUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Filepath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TestId = table.Column<int>(type: "int", nullable: false),
+                    ClinicId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_attachments", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Diseases",
                 columns: table => new
                 {
@@ -300,6 +321,26 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tests",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tests", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_tests_attachments_PhotoID",
+                        column: x => x.PhotoID,
+                        principalTable: "attachments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserDiseases",
                 columns: table => new
                 {
@@ -419,48 +460,57 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "attachments",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FolderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ViewUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DownloadUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Filepath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReportID = table.Column<int>(type: "int", nullable: false),
-                    TestId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_attachments", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_attachments_reports_ReportID",
-                        column: x => x.ReportID,
-                        principalTable: "reports",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "clinics",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                    DepartmentID = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhotoID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_clinics", x => x.ID);
                     table.ForeignKey(
+                        name: "FK_clinics_attachments_PhotoID",
+                        column: x => x.PhotoID,
+                        principalTable: "attachments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_clinics_departments_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "departments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "testLabs",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TestID = table.Column<int>(type: "int", nullable: false),
+                    LabID = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_testLabs", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_testLabs_labs_LabID",
+                        column: x => x.LabID,
+                        principalTable: "labs",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_testLabs_tests_TestID",
+                        column: x => x.TestID,
+                        principalTable: "tests",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -515,26 +565,6 @@ namespace MS.Infrastructure.Migrations
                         name: "FK_reportsMedicines_reports_ReportID",
                         column: x => x.ReportID,
                         principalTable: "reports",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tests",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhotoID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tests", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_tests_attachments_PhotoID",
-                        column: x => x.PhotoID,
-                        principalTable: "attachments",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -646,34 +676,6 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "testLabs",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TestID = table.Column<int>(type: "int", nullable: false),
-                    LabID = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_testLabs", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_testLabs_labs_LabID",
-                        column: x => x.LabID,
-                        principalTable: "labs",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_testLabs_tests_TestID",
-                        column: x => x.TestID,
-                        principalTable: "tests",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "reservations",
                 columns: table => new
                 {
@@ -719,16 +721,26 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "IsRegister", "LastName", "LockoutEnabled", "LockoutEnd", "NID", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "6cded918-cae7-4fca-84dc-3a37258486e9", null, false, "mohamed", "male", true, "Ali", false, null, "2636523632", "MOHAMED@EXAMPLE.COM", "MOHAMEDALI123", null, null, false, "bdbd2f79-1c0d-4a8a-8280-2fd6604677da", false, "MohamedAli123" },
-                    { "10", 0, new DateTime(1982, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "c657ef8f-b4a6-4288-be08-6d8e293403a3", null, false, "mohamed", "Female", true, "Ali", false, null, "1122334455", "LAILA@EXAMPLE.COM", "LAILA4040", null, null, false, "e9159705-2cdc-4ba1-80db-d09d3f7f6a2e", false, "LAILA4040" },
-                    { "2", 0, new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "82d7713d-cda6-460b-9652-ff6d18aac5f9", null, false, "mohamed", "Female", true, "Ali", false, null, "5312523632", "MONA@EXAMPLE.COM", "MONAOMAR123", null, null, false, "8037c795-f224-4f06-a763-d3e9e06a0a59", false, "monaomar123" },
-                    { "3", 0, new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "df49be7c-c96a-4a64-8185-59caacd16333", null, false, "mohamed", "Male", true, "Ali", false, null, "9876543210", "MOHAMMED@EXAMPLE.COM", "MOHAMMED123", null, null, false, "7e67c0e7-b73a-4e4f-86d5-602c32738cab", false, "MOHAMMED123" },
-                    { "4", 0, new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "9b68cf8a-0e99-4325-b096-18efa6661b86", null, false, "mohamed", "Female", true, "Ali", false, null, "0123456789", "AISHA@EXAMPLE.COM", "AISHA321", null, null, false, "c1a80815-9bf4-4a5b-8aa0-2cbea1c9ebfc", false, "AISHA321" },
-                    { "5", 0, new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "545cae7e-e4c8-4d34-9015-8a36539d28b6", null, false, "mohamed", "Male", true, "Ali", false, null, "1122334455", "AHMAD@EXAMPLE.COM", "AHMAD567", null, null, false, "41aba73f-00d6-4d71-9af4-438b45c78160", false, "AHMAD567" },
-                    { "6", 0, new DateTime(1989, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "da4694dd-88d4-4e9a-b98f-fadbffaea7ac", null, false, "mohamed", "Female", true, "Ali", false, null, "3344556677", "AYA@EXAMPLE.COM", "AYA789", null, null, false, "d456e20f-cc16-4d41-a794-afb988883f38", false, "AYA789" },
-                    { "7", 0, new DateTime(1995, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "5b7972ae-af0a-4096-a252-15b11a5bc448", null, false, "mohamed", "Male", true, "Ali", false, null, "5544332211", "OMAR@EXAMPLE.COM", "OMAR101", null, null, false, "edd17d4e-9abe-438a-b1ec-0decfb50dff2", false, "OMAR101" },
-                    { "8", 0, new DateTime(1980, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "c14a4034-5d41-47e4-a8a8-589a66d954f5", null, false, "mohamed", "Female", true, "Ali", false, null, "7788990011", "SARA@EXAMPLE.COM", "SARA2022", null, null, false, "fd0dc172-9504-4165-8743-19cf81229d4c", false, "SARA2022" },
-                    { "9", 0, new DateTime(1998, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "7a8eafb6-48bc-416a-8e00-9ed6fbb8ef87", null, false, "mohamed", "Male", true, "Ali", false, null, "6677889900", "ALI@EXAMPLE.COM", "ALI3030", null, null, false, "976b2646-4c85-426b-9ca1-c37d1cc90f7f", false, "ALI3030" }
+                    { "1", 0, new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "926841f2-3ab7-423a-8ac6-31633cace8ec", null, false, "mohamed", "male", true, "Ali", false, null, "2636523632", "MOHAMED@EXAMPLE.COM", "MOHAMEDALI123", null, null, false, "5722e544-59c5-48a8-ab3d-145b31879ff0", false, "MohamedAli123" },
+                    { "10", 0, new DateTime(1982, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "daa8768f-1867-41b8-bede-0159b9ea7bd7", null, false, "mohamed", "Female", true, "Ali", false, null, "1122334455", "LAILA@EXAMPLE.COM", "LAILA4040", null, null, false, "6d8da42b-f6f7-43ee-a1d5-9d85db8eb64c", false, "LAILA4040" },
+                    { "2", 0, new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "cbb4bfa8-b239-4e98-8f68-8261e215a7e8", null, false, "mohamed", "Female", true, "Ali", false, null, "5312523632", "MONA@EXAMPLE.COM", "MONAOMAR123", null, null, false, "c93f146c-b18b-4e20-a7df-312f0a4b9194", false, "monaomar123" },
+                    { "3", 0, new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "82356260-e032-4921-a941-a09270a41ff3", null, false, "mohamed", "Male", true, "Ali", false, null, "9876543210", "MOHAMMED@EXAMPLE.COM", "MOHAMMED123", null, null, false, "b6a5f485-2960-4112-8061-4f51c30a3003", false, "MOHAMMED123" },
+                    { "4", 0, new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "a85287e6-8d85-43e6-8be1-e266ca09f270", null, false, "mohamed", "Female", true, "Ali", false, null, "0123456789", "AISHA@EXAMPLE.COM", "AISHA321", null, null, false, "f3ef8ccc-68eb-4fed-9e5a-318849e3a8b1", false, "AISHA321" },
+                    { "5", 0, new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "8cef6d77-21a3-42c7-aa8a-cee3366415a7", null, false, "mohamed", "Male", true, "Ali", false, null, "1122334455", "AHMAD@EXAMPLE.COM", "AHMAD567", null, null, false, "acc390d5-6c39-4f56-9429-e1b900870a62", false, "AHMAD567" },
+                    { "6", 0, new DateTime(1989, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "4c582239-835d-4f0f-8a6d-812314673450", null, false, "mohamed", "Female", true, "Ali", false, null, "3344556677", "AYA@EXAMPLE.COM", "AYA789", null, null, false, "f7193787-1ac2-4967-90bf-3017964cc71f", false, "AYA789" },
+                    { "7", 0, new DateTime(1995, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "39c1a68b-deaa-4485-a73c-e55dc6c0a7a7", null, false, "mohamed", "Male", true, "Ali", false, null, "5544332211", "OMAR@EXAMPLE.COM", "OMAR101", null, null, false, "e11696f8-2913-45bb-8357-1209ad385d6d", false, "OMAR101" },
+                    { "8", 0, new DateTime(1980, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "da25a851-1f44-499d-b063-3089c60a5084", null, false, "mohamed", "Female", true, "Ali", false, null, "7788990011", "SARA@EXAMPLE.COM", "SARA2022", null, null, false, "885dcf2e-5afd-4c83-855f-f935870c15ab", false, "SARA2022" },
+                    { "9", 0, new DateTime(1998, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "191fef50-5b39-4a6d-a770-fa5250c1dd96", null, false, "mohamed", "Male", true, "Ali", false, null, "6677889900", "ALI@EXAMPLE.COM", "ALI3030", null, null, false, "0d295efa-fe3d-4276-819e-ea54991ac46a", false, "ALI3030" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "attachments",
+                columns: new[] { "ID", "ClinicId", "DownloadUrl", "FileName", "Filepath", "FolderName", "TestId", "Title", "Type", "ViewUrl" },
+                values: new object[,]
+                {
+                    { 1, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 2, 0, "lol", "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg", "Test", 0, "Sample Attachment 2", "Image", "lol" },
+                    { 3, 0, "lol", "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "Test", 0, "Sample Attachment 3", "Image", "lol" }
                 });
 
             migrationBuilder.InsertData(
@@ -889,8 +901,8 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "Description", "DoctorID", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 1, "Description of report 1", "11", new DateTime(2024, 4, 27, 21, 20, 23, 471, DateTimeKind.Local).AddTicks(6078), "1" },
-                    { 2, "Description of report 2", "22", new DateTime(2024, 4, 26, 21, 20, 23, 471, DateTimeKind.Local).AddTicks(6141), "2" },
+                    { 1, "Description of report 1", "11", new DateTime(2024, 5, 10, 0, 16, 34, 534, DateTimeKind.Local).AddTicks(261), "1" },
+                    { 2, "Description of report 2", "22", new DateTime(2024, 5, 9, 0, 16, 34, 534, DateTimeKind.Local).AddTicks(385), "2" },
                     { 3, "Description of report 3", "1", new DateTime(2024, 3, 1, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6357), "1" },
                     { 4, "Description of report 4", "2", new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6431), "2" },
                     { 5, "Description of report 5", "3", new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6505), "3" },
@@ -902,30 +914,32 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "attachments",
-                columns: new[] { "ID", "DownloadUrl", "FileName", "Filepath", "FolderName", "ReportID", "TestId", "Title", "Type", "ViewUrl" },
+                table: "reservations",
+                columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "SerialNumber", "State", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 1, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 1, 0, "Sample Attachment 1", "Image", "lol" },
-                    { 2, "lol", "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg", "Test", 2, 0, "Sample Attachment 2", "Image", "lol" },
-                    { 3, "lol", "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "Test", 3, 0, "Sample Attachment 3", "Image", "lol" }
+                    { 9, null, null, 5, "70000007", 0, new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556), "9" },
+                    { 10, null, null, 5, "70000008", 1, new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569), "10" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "tests",
+                columns: new[] { "ID", "Name", "PhotoID" },
+                values: new object[,]
+                {
+                    { 1, "Blood Test", 1 },
+                    { 2, "Urinalysis", 2 },
+                    { 3, "MRI Scan", 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "clinics",
-                columns: new[] { "ID", "DepartmentID", "Name" },
+                columns: new[] { "ID", "DepartmentID", "Description", "Name", "PhotoID" },
                 values: new object[,]
                 {
-                    { 1, 1, "Elzahraa" },
-                    { 2, 2, "Alpha" },
-                    { 3, 3, "Mediplus" },
-                    { 4, 4, "HealthLine" },
-                    { 5, 5, "MediCare" },
-                    { 6, 6, "Wellness Pharmacy" },
-                    { 7, 7, "CarePlus" },
-                    { 8, 8, "MediPharm" },
-                    { 9, 9, "MediCo" },
-                    { 10, 10, "PharmaCare" }
+                    { 1, 1, "", "Elzahraa", 1 },
+                    { 2, 2, "", "Alpha", 2 },
+                    { 3, 3, "", "Mediplus", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -946,6 +960,45 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "placeEquipments",
+                columns: new[] { "ID", "EntityID", "EquipmentID", "PlaceType" },
+                values: new object[,]
+                {
+                    { 4, 4, 4, 1 },
+                    { 5, 5, 5, 0 },
+                    { 6, 6, 6, 1 },
+                    { 7, 7, 7, 0 },
+                    { 8, 8, 8, 1 },
+                    { 9, 9, 9, 0 },
+                    { 10, 10, 10, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "placePrice",
+                columns: new[] { "ID", "Name", "PlaceID", "PlaceType", "Price" },
+                values: new object[,]
+                {
+                    { 4, "MRI", 4, 1, 599.99000000000001 },
+                    { 7, "PET Scan", 7, 1, 1199.99 },
+                    { 9, "Fluoroscopy", 9, 1, 699.99000000000001 },
+                    { 10, "DEXA Scan", 10, 2, 249.99000000000001 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "placeShifts",
+                columns: new[] { "ID", "EntityID", "PlaceType", "ShiftID" },
+                values: new object[,]
+                {
+                    { 4, 4, 1, 1 },
+                    { 5, 5, 0, 2 },
+                    { 6, 6, 0, 1 },
+                    { 7, 7, 0, 2 },
+                    { 8, 8, 1, 1 },
+                    { 9, 9, 0, 2 },
+                    { 10, 10, 1, 1 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "reportsMedicines",
                 columns: new[] { "ID", "MedicineTypeID", "ReportID" },
                 values: new object[,]
@@ -963,20 +1016,23 @@ namespace MS.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "testLabs",
+                columns: new[] { "ID", "Description", "LabID", "Price", "TestID" },
+                values: new object[,]
+                {
+                    { 1, "Description of test lab 1", 1, 100.0, 1 },
+                    { 2, "Description of test lab 2", 2, 150.0, 2 },
+                    { 3, "Description of test lab 3", 3, 200.0, 3 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "placeEquipments",
                 columns: new[] { "ID", "EntityID", "EquipmentID", "PlaceType" },
                 values: new object[,]
                 {
                     { 1, 1, 1, 0 },
                     { 2, 2, 2, 1 },
-                    { 3, 3, 3, 0 },
-                    { 4, 4, 4, 1 },
-                    { 5, 5, 5, 0 },
-                    { 6, 6, 6, 1 },
-                    { 7, 7, 7, 0 },
-                    { 8, 8, 8, 1 },
-                    { 9, 9, 9, 0 },
-                    { 10, 10, 10, 1 }
+                    { 3, 3, 3, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -984,16 +1040,9 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "Name", "PlaceID", "PlaceType", "Price" },
                 values: new object[,]
                 {
-                    { 1, "X-Alpha", 2, 0, 341.39999999999998 },
+                    { 1, "X-Alpha", 2, 1, 341.39999999999998 },
                     { 2, "X-Beta", 3, 2, 419.99000000000001 },
-                    { 3, "X-ray", 1, 1, 260.39999999999998 },
-                    { 4, "MRI", 4, 1, 599.99000000000001 },
-                    { 5, "CT Scan", 5, 0, 799.99000000000001 },
-                    { 6, "Ultrasound", 6, 0, 499.99000000000001 },
-                    { 7, "PET Scan", 7, 1, 1199.99 },
-                    { 8, "Mammography", 8, 0, 299.99000000000001 },
-                    { 9, "Fluoroscopy", 9, 1, 699.99000000000001 },
-                    { 10, "DEXA Scan", 10, 2, 249.99000000000001 }
+                    { 3, "X-ray", 1, 1, 260.39999999999998 }
                 });
 
             migrationBuilder.InsertData(
@@ -1003,24 +1052,7 @@ namespace MS.Infrastructure.Migrations
                 {
                     { 1, 1, 0, 1 },
                     { 2, 2, 1, 2 },
-                    { 3, 3, 1, 2 },
-                    { 4, 4, 1, 1 },
-                    { 5, 5, 0, 2 },
-                    { 6, 6, 0, 1 },
-                    { 7, 7, 0, 2 },
-                    { 8, 8, 1, 1 },
-                    { 9, 9, 0, 2 },
-                    { 10, 10, 1, 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "tests",
-                columns: new[] { "ID", "Name", "PhotoID" },
-                values: new object[,]
-                {
-                    { 1, "Blood Test", 1 },
-                    { 2, "Urinalysis", 2 },
-                    { 3, "MRI Scan", 3 }
+                    { 3, 3, 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -1028,26 +1060,14 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "SerialNumber", "State", "Time", "UserID" },
                 values: new object[,]
                 {
+                    { 7, null, null, 4, "70000005", 0, new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530), "7" },
+                    { 8, null, null, 4, "70000006", 0, new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543), "8" },
                     { 1, null, null, 1, "45165153", 1, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(741), "1" },
                     { 2, null, null, 1, "543864963", 0, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(1531), "2" },
                     { 3, null, null, 2, "70000001", 1, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6478), "3" },
                     { 4, null, null, 2, "70000002", 1, new DateTime(2024, 3, 5, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6491), "4" },
                     { 5, null, null, 3, "70000003", 1, new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6504), "5" },
-                    { 6, null, null, 3, "70000004", 1, new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517), "6" },
-                    { 7, null, null, 4, "70000005", 0, new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530), "7" },
-                    { 8, null, null, 4, "70000006", 0, new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543), "8" },
-                    { 9, null, null, 5, "70000007", 0, new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556), "9" },
-                    { 10, null, null, 5, "70000008", 1, new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569), "10" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "testLabs",
-                columns: new[] { "ID", "Description", "LabID", "Price", "TestID" },
-                values: new object[,]
-                {
-                    { 1, "Description of test lab 1", 1, 100.0, 1 },
-                    { 2, "Description of test lab 2", 2, 150.0, 2 },
-                    { 3, "Description of test lab 3", 3, 200.0, 3 }
+                    { 6, null, null, 3, "70000004", 1, new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517), "6" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1090,14 +1110,15 @@ namespace MS.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_attachments_ReportID",
-                table: "attachments",
-                column: "ReportID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_clinics_DepartmentID",
                 table: "clinics",
                 column: "DepartmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_clinics_PhotoID",
+                table: "clinics",
+                column: "PhotoID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_departments_HospitalID",
@@ -1284,6 +1305,9 @@ namespace MS.Infrastructure.Migrations
                 name: "medicinesType");
 
             migrationBuilder.DropTable(
+                name: "reports");
+
+            migrationBuilder.DropTable(
                 name: "placePrice");
 
             migrationBuilder.DropTable(
@@ -1299,6 +1323,9 @@ namespace MS.Infrastructure.Migrations
                 name: "types");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "clinics");
 
             migrationBuilder.DropTable(
@@ -1311,13 +1338,7 @@ namespace MS.Infrastructure.Migrations
                 name: "departments");
 
             migrationBuilder.DropTable(
-                name: "reports");
-
-            migrationBuilder.DropTable(
                 name: "hospitals");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

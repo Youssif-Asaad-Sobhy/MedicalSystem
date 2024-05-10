@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
 using MS.Application.Helpers.Filters;
@@ -18,7 +19,8 @@ namespace MS.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private IFilter<Clinic> _filter;
-        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter)
+
+        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter )
         {
             _unitOfWork = unitOfWork;
             _filter = filter;
@@ -53,12 +55,13 @@ namespace MS.Application.Services
        
         public async Task<Response<Clinic>> GetClinicAsync(int ClinicID)
         {
-            var clincic= await _unitOfWork.Clinics.GetByIdAsync(ClinicID);
-            if (clincic is null)
+            var clinic= await _unitOfWork.Clinics.GetByExpressionSingleAsync(c=>c.ID==ClinicID, [c => c.PlacePrices, c=>c.Photo, c=>c.PlaceShifts, c=>c.PlaceShifts]);
+            
+            if (clinic is null)
             {
                 return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
             }
-            return ResponseHandler.Success(clincic);
+            return ResponseHandler.Success(clinic);
         }
 
         public async Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model)

@@ -210,6 +210,8 @@ namespace MS.Infrastructure.Contexts
                     ID = 1,
                     Name = "Elzahraa",
                     DepartmentID = 1,
+                    Description="",
+                    PhotoID= 1
 
                 },
                 new Clinic
@@ -217,56 +219,18 @@ namespace MS.Infrastructure.Contexts
                     ID = 2,
                     Name = "Alpha",
                     DepartmentID = 2,
-
+                    Description = "",
+                    PhotoID =2
                 },
                 new Clinic
                 {
                     ID = 3,
                     DepartmentID = 3,
-                    Name = "Mediplus"
-                },
-                new Clinic
-                {
-                    ID = 4,
-                    DepartmentID = 4,
-                    Name = "HealthLine"
-                },
-                new Clinic
-                {
-                    ID = 5,
-                    DepartmentID = 5,
-                    Name = "MediCare"
-                },
-                new Clinic
-                {
-                    ID = 6,
-                    DepartmentID = 6,
-                    Name = "Wellness Pharmacy"
-                },
-                new Clinic
-                {
-                    ID = 7,
-                    DepartmentID = 7,
-                    Name = "CarePlus"
-                },
-                new Clinic
-                {
-                    ID = 8,
-                    DepartmentID = 8,
-                    Name = "MediPharm"
-                },
-                new Clinic
-                {
-                    ID = 9,
-                    DepartmentID = 9,
-                    Name = "MediCo"
-                },
-                new Clinic
-                {
-                    ID = 10,
-                    DepartmentID = 10,
-                    Name = "PharmaCare"
-                });
+                    Name = "Mediplus",
+                    Description = "",
+                    PhotoID = 3
+                }
+                );
 
             modelBuilder.Entity<PlacePrice>().HasData(
                 new PlacePrice
@@ -275,7 +239,7 @@ namespace MS.Infrastructure.Contexts
                     Name = "X-Alpha",
                     Price = 341.40,
                     PlaceID = 2,
-                    PlaceType=PlaceType.Clinic
+                    PlaceType=PlaceType.Lab
                    
                 },
                 new PlacePrice
@@ -303,22 +267,7 @@ namespace MS.Infrastructure.Contexts
                     PlaceType = PlaceType.Lab,
                     Price = 599.99
                 },
-                new PlacePrice
-                {
-                    ID = 5,
-                    Name = "CT Scan",
-                    PlaceID = 5,
-                    PlaceType = PlaceType.Clinic,
-                    Price = 799.99
-                },
-                new PlacePrice
-                {
-                    ID = 6,
-                    Name = "Ultrasound",
-                    PlaceID = 6,
-                    PlaceType = PlaceType.Clinic,
-                    Price = 499.99
-                },
+               
                 new PlacePrice
                 {
                     ID = 7,
@@ -327,14 +276,7 @@ namespace MS.Infrastructure.Contexts
                     PlaceType = PlaceType.Lab,
                     Price = 1199.99
                 },
-                new PlacePrice
-                {
-                    ID = 8,
-                    Name = "Mammography",
-                    PlaceID = 8,
-                    PlaceType = PlaceType.Clinic,
-                    Price = 299.99
-                },
+            
                 new PlacePrice
                 {
                     ID = 9,

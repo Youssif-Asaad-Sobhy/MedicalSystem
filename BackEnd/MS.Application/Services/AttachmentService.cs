@@ -140,9 +140,9 @@ namespace MS.Application.Services
             }
             var url = $"{_httpContextAccessor.HttpContext.Request.Scheme}://" +
                       $"{_httpContextAccessor.HttpContext.Request.Host}" +
-                      $"/api/files";
-            var viewUrl = $"{url}/ViewFile/{folderName}/{fileName}";
-            var downloadUrl = $"{url}/DownloadFile/{folderName}/{fileName}";
+                      $"/api/Attachment";
+            var viewUrl = $"{url}/ViewFile?FolderName={folderName}&FileName={fileName}";
+            var downloadUrl = $"{url}/DownloadFile?FolderName={folderName}&FileName={fileName}";
             var file = new Attachment()
             {
                 Title = fileDTO.File.FileName,
@@ -152,6 +152,7 @@ namespace MS.Application.Services
                 ViewUrl = viewUrl,
                 DownloadUrl = downloadUrl,
                 TestId = fileDTO.FolderName == "Test" ? fileDTO.ParentId : 0,
+                ClinicId = fileDTO.FolderName == "Clinic" ? fileDTO.ParentId : 0,
                 Type = fileDTO.File.ContentType,
             };
             await _unitOfWork.Attachment.AddAsync(file);

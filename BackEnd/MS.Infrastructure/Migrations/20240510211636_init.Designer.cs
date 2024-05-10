@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MS.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240428182024_init")]
+    [Migration("20240510211636_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -117,7 +117,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "6cded918-cae7-4fca-84dc-3a37258486e9",
+                            ConcurrencyStamp = "926841f2-3ab7-423a-8ac6-31633cace8ec",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "male",
@@ -128,7 +128,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MOHAMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMEDALI123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bdbd2f79-1c0d-4a8a-8280-2fd6604677da",
+                            SecurityStamp = "5722e544-59c5-48a8-ab3d-145b31879ff0",
                             TwoFactorEnabled = false,
                             UserName = "MohamedAli123"
                         },
@@ -137,7 +137,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "2",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "82d7713d-cda6-460b-9652-ff6d18aac5f9",
+                            ConcurrencyStamp = "cbb4bfa8-b239-4e98-8f68-8261e215a7e8",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Female",
@@ -148,7 +148,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MONA@EXAMPLE.COM",
                             NormalizedUserName = "MONAOMAR123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8037c795-f224-4f06-a763-d3e9e06a0a59",
+                            SecurityStamp = "c93f146c-b18b-4e20-a7df-312f0a4b9194",
                             TwoFactorEnabled = false,
                             UserName = "monaomar123"
                         },
@@ -157,7 +157,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "3",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "df49be7c-c96a-4a64-8185-59caacd16333",
+                            ConcurrencyStamp = "82356260-e032-4921-a941-a09270a41ff3",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Male",
@@ -168,7 +168,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "MOHAMMED@EXAMPLE.COM",
                             NormalizedUserName = "MOHAMMED123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7e67c0e7-b73a-4e4f-86d5-602c32738cab",
+                            SecurityStamp = "b6a5f485-2960-4112-8061-4f51c30a3003",
                             TwoFactorEnabled = false,
                             UserName = "MOHAMMED123"
                         },
@@ -177,7 +177,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "4",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9b68cf8a-0e99-4325-b096-18efa6661b86",
+                            ConcurrencyStamp = "a85287e6-8d85-43e6-8be1-e266ca09f270",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Female",
@@ -188,7 +188,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "AISHA@EXAMPLE.COM",
                             NormalizedUserName = "AISHA321",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c1a80815-9bf4-4a5b-8aa0-2cbea1c9ebfc",
+                            SecurityStamp = "f3ef8ccc-68eb-4fed-9e5a-318849e3a8b1",
                             TwoFactorEnabled = false,
                             UserName = "AISHA321"
                         },
@@ -197,7 +197,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "5",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "545cae7e-e4c8-4d34-9015-8a36539d28b6",
+                            ConcurrencyStamp = "8cef6d77-21a3-42c7-aa8a-cee3366415a7",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Male",
@@ -208,7 +208,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "AHMAD@EXAMPLE.COM",
                             NormalizedUserName = "AHMAD567",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "41aba73f-00d6-4d71-9af4-438b45c78160",
+                            SecurityStamp = "acc390d5-6c39-4f56-9429-e1b900870a62",
                             TwoFactorEnabled = false,
                             UserName = "AHMAD567"
                         },
@@ -217,7 +217,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "6",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1989, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "da4694dd-88d4-4e9a-b98f-fadbffaea7ac",
+                            ConcurrencyStamp = "4c582239-835d-4f0f-8a6d-812314673450",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Female",
@@ -228,7 +228,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "AYA@EXAMPLE.COM",
                             NormalizedUserName = "AYA789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d456e20f-cc16-4d41-a794-afb988883f38",
+                            SecurityStamp = "f7193787-1ac2-4967-90bf-3017964cc71f",
                             TwoFactorEnabled = false,
                             UserName = "AYA789"
                         },
@@ -237,7 +237,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "7",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1995, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "5b7972ae-af0a-4096-a252-15b11a5bc448",
+                            ConcurrencyStamp = "39c1a68b-deaa-4485-a73c-e55dc6c0a7a7",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Male",
@@ -248,7 +248,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "OMAR@EXAMPLE.COM",
                             NormalizedUserName = "OMAR101",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "edd17d4e-9abe-438a-b1ec-0decfb50dff2",
+                            SecurityStamp = "e11696f8-2913-45bb-8357-1209ad385d6d",
                             TwoFactorEnabled = false,
                             UserName = "OMAR101"
                         },
@@ -257,7 +257,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "8",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1980, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c14a4034-5d41-47e4-a8a8-589a66d954f5",
+                            ConcurrencyStamp = "da25a851-1f44-499d-b063-3089c60a5084",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Female",
@@ -268,7 +268,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "SARA@EXAMPLE.COM",
                             NormalizedUserName = "SARA2022",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd0dc172-9504-4165-8743-19cf81229d4c",
+                            SecurityStamp = "885dcf2e-5afd-4c83-855f-f935870c15ab",
                             TwoFactorEnabled = false,
                             UserName = "SARA2022"
                         },
@@ -277,7 +277,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "9",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1998, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7a8eafb6-48bc-416a-8e00-9ed6fbb8ef87",
+                            ConcurrencyStamp = "191fef50-5b39-4a6d-a770-fa5250c1dd96",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Male",
@@ -288,7 +288,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "ALI@EXAMPLE.COM",
                             NormalizedUserName = "ALI3030",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "976b2646-4c85-426b-9ca1-c37d1cc90f7f",
+                            SecurityStamp = "0d295efa-fe3d-4276-819e-ea54991ac46a",
                             TwoFactorEnabled = false,
                             UserName = "ALI3030"
                         },
@@ -297,7 +297,7 @@ namespace MS.Infrastructure.Migrations
                             Id = "10",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1982, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c657ef8f-b4a6-4288-be08-6d8e293403a3",
+                            ConcurrencyStamp = "daa8768f-1867-41b8-bede-0159b9ea7bd7",
                             EmailConfirmed = false,
                             FirstName = "mohamed",
                             Gender = "Female",
@@ -308,7 +308,7 @@ namespace MS.Infrastructure.Migrations
                             NormalizedEmail = "LAILA@EXAMPLE.COM",
                             NormalizedUserName = "LAILA4040",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e9159705-2cdc-4ba1-80db-d09d3f7f6a2e",
+                            SecurityStamp = "6d8da42b-f6f7-43ee-a1d5-9d85db8eb64c",
                             TwoFactorEnabled = false,
                             UserName = "LAILA4040"
                         });
@@ -354,6 +354,9 @@ namespace MS.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("ClinicId")
+                        .HasColumnType("int");
+
                     b.Property<string>("DownloadUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -369,9 +372,6 @@ namespace MS.Infrastructure.Migrations
                     b.Property<string>("FolderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReportID")
-                        .HasColumnType("int");
 
                     b.Property<int>("TestId")
                         .HasColumnType("int");
@@ -390,19 +390,17 @@ namespace MS.Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ReportID");
-
                     b.ToTable("attachments");
 
                     b.HasData(
                         new
                         {
                             ID = 1,
+                            ClinicId = 0,
                             DownloadUrl = "lol",
                             FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
                             Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
                             FolderName = "Test",
-                            ReportID = 1,
                             TestId = 0,
                             Title = "Sample Attachment 1",
                             Type = "Image",
@@ -411,11 +409,11 @@ namespace MS.Infrastructure.Migrations
                         new
                         {
                             ID = 2,
+                            ClinicId = 0,
                             DownloadUrl = "lol",
                             FileName = "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
                             Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
                             FolderName = "Test",
-                            ReportID = 2,
                             TestId = 0,
                             Title = "Sample Attachment 2",
                             Type = "Image",
@@ -424,11 +422,11 @@ namespace MS.Infrastructure.Migrations
                         new
                         {
                             ID = 3,
+                            ClinicId = 0,
                             DownloadUrl = "lol",
                             FileName = "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
                             Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
                             FolderName = "Test",
-                            ReportID = 3,
                             TestId = 0,
                             Title = "Sample Attachment 3",
                             Type = "Image",
@@ -447,13 +445,22 @@ namespace MS.Infrastructure.Migrations
                     b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PhotoID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("DepartmentID");
+
+                    b.HasIndex("PhotoID")
+                        .IsUnique();
 
                     b.ToTable("clinics");
 
@@ -462,61 +469,25 @@ namespace MS.Infrastructure.Migrations
                         {
                             ID = 1,
                             DepartmentID = 1,
-                            Name = "Elzahraa"
+                            Description = "",
+                            Name = "Elzahraa",
+                            PhotoID = 1
                         },
                         new
                         {
                             ID = 2,
                             DepartmentID = 2,
-                            Name = "Alpha"
+                            Description = "",
+                            Name = "Alpha",
+                            PhotoID = 2
                         },
                         new
                         {
                             ID = 3,
                             DepartmentID = 3,
-                            Name = "Mediplus"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            DepartmentID = 4,
-                            Name = "HealthLine"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            DepartmentID = 5,
-                            Name = "MediCare"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            DepartmentID = 6,
-                            Name = "Wellness Pharmacy"
-                        },
-                        new
-                        {
-                            ID = 7,
-                            DepartmentID = 7,
-                            Name = "CarePlus"
-                        },
-                        new
-                        {
-                            ID = 8,
-                            DepartmentID = 8,
-                            Name = "MediPharm"
-                        },
-                        new
-                        {
-                            ID = 9,
-                            DepartmentID = 9,
-                            Name = "MediCo"
-                        },
-                        new
-                        {
-                            ID = 10,
-                            DepartmentID = 10,
-                            Name = "PharmaCare"
+                            Description = "",
+                            Name = "Mediplus",
+                            PhotoID = 3
                         });
                 });
 
@@ -1518,7 +1489,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 1,
                             Name = "X-Alpha",
                             PlaceID = 2,
-                            PlaceType = 0,
+                            PlaceType = 1,
                             Price = 341.39999999999998
                         },
                         new
@@ -1547,35 +1518,11 @@ namespace MS.Infrastructure.Migrations
                         },
                         new
                         {
-                            ID = 5,
-                            Name = "CT Scan",
-                            PlaceID = 5,
-                            PlaceType = 0,
-                            Price = 799.99000000000001
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Name = "Ultrasound",
-                            PlaceID = 6,
-                            PlaceType = 0,
-                            Price = 499.99000000000001
-                        },
-                        new
-                        {
                             ID = 7,
                             Name = "PET Scan",
                             PlaceID = 7,
                             PlaceType = 1,
                             Price = 1199.99
-                        },
-                        new
-                        {
-                            ID = 8,
-                            Name = "Mammography",
-                            PlaceID = 8,
-                            PlaceType = 0,
-                            Price = 299.99000000000001
                         },
                         new
                         {
@@ -1728,7 +1675,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 1,
                             Description = "Description of report 1",
                             DoctorID = "11",
-                            Time = new DateTime(2024, 4, 27, 21, 20, 23, 471, DateTimeKind.Local).AddTicks(6078),
+                            Time = new DateTime(2024, 5, 10, 0, 16, 34, 534, DateTimeKind.Local).AddTicks(261),
                             UserID = "1"
                         },
                         new
@@ -1736,7 +1683,7 @@ namespace MS.Infrastructure.Migrations
                             ID = 2,
                             Description = "Description of report 2",
                             DoctorID = "22",
-                            Time = new DateTime(2024, 4, 26, 21, 20, 23, 471, DateTimeKind.Local).AddTicks(6141),
+                            Time = new DateTime(2024, 5, 9, 0, 16, 34, 534, DateTimeKind.Local).AddTicks(385),
                             UserID = "2"
                         },
                         new
@@ -2467,17 +2414,6 @@ namespace MS.Infrastructure.Migrations
                     b.Navigation("Disease");
                 });
 
-            modelBuilder.Entity("MS.Data.Entities.Attachment", b =>
-                {
-                    b.HasOne("MS.Data.Entities.Report", "Report")
-                        .WithMany("Attachments")
-                        .HasForeignKey("ReportID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Report");
-                });
-
             modelBuilder.Entity("MS.Data.Entities.Clinic", b =>
                 {
                     b.HasOne("MS.Data.Entities.Department", "Department")
@@ -2486,7 +2422,15 @@ namespace MS.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MS.Data.Entities.Attachment", "Photo")
+                        .WithOne("Clinic")
+                        .HasForeignKey("MS.Data.Entities.Clinic", "PhotoID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Department");
+
+                    b.Navigation("Photo");
                 });
 
             modelBuilder.Entity("MS.Data.Entities.Department", b =>
@@ -2793,6 +2737,8 @@ namespace MS.Infrastructure.Migrations
 
             modelBuilder.Entity("MS.Data.Entities.Attachment", b =>
                 {
+                    b.Navigation("Clinic");
+
                     b.Navigation("Test");
                 });
 
@@ -2867,8 +2813,6 @@ namespace MS.Infrastructure.Migrations
 
             modelBuilder.Entity("MS.Data.Entities.Report", b =>
                 {
-                    b.Navigation("Attachments");
-
                     b.Navigation("ReportMedicines");
                 });
 

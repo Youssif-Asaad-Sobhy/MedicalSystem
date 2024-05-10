@@ -15,7 +15,10 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(c => c.ID);
 
-
+            builder.HasOne(c => c.Photo)
+                .WithOne(a=>a.Clinic)
+                .HasForeignKey<Clinic>(c => c.PhotoID)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(c => c.PlacePrices)
                 .WithOne()
                 .HasForeignKey(c => c.PlaceID)
