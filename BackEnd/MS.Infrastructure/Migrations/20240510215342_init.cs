@@ -721,16 +721,16 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "IsRegister", "LastName", "LockoutEnabled", "LockoutEnd", "NID", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "926841f2-3ab7-423a-8ac6-31633cace8ec", null, false, "mohamed", "male", true, "Ali", false, null, "2636523632", "MOHAMED@EXAMPLE.COM", "MOHAMEDALI123", null, null, false, "5722e544-59c5-48a8-ab3d-145b31879ff0", false, "MohamedAli123" },
-                    { "10", 0, new DateTime(1982, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "daa8768f-1867-41b8-bede-0159b9ea7bd7", null, false, "mohamed", "Female", true, "Ali", false, null, "1122334455", "LAILA@EXAMPLE.COM", "LAILA4040", null, null, false, "6d8da42b-f6f7-43ee-a1d5-9d85db8eb64c", false, "LAILA4040" },
-                    { "2", 0, new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "cbb4bfa8-b239-4e98-8f68-8261e215a7e8", null, false, "mohamed", "Female", true, "Ali", false, null, "5312523632", "MONA@EXAMPLE.COM", "MONAOMAR123", null, null, false, "c93f146c-b18b-4e20-a7df-312f0a4b9194", false, "monaomar123" },
-                    { "3", 0, new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "82356260-e032-4921-a941-a09270a41ff3", null, false, "mohamed", "Male", true, "Ali", false, null, "9876543210", "MOHAMMED@EXAMPLE.COM", "MOHAMMED123", null, null, false, "b6a5f485-2960-4112-8061-4f51c30a3003", false, "MOHAMMED123" },
-                    { "4", 0, new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "a85287e6-8d85-43e6-8be1-e266ca09f270", null, false, "mohamed", "Female", true, "Ali", false, null, "0123456789", "AISHA@EXAMPLE.COM", "AISHA321", null, null, false, "f3ef8ccc-68eb-4fed-9e5a-318849e3a8b1", false, "AISHA321" },
-                    { "5", 0, new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "8cef6d77-21a3-42c7-aa8a-cee3366415a7", null, false, "mohamed", "Male", true, "Ali", false, null, "1122334455", "AHMAD@EXAMPLE.COM", "AHMAD567", null, null, false, "acc390d5-6c39-4f56-9429-e1b900870a62", false, "AHMAD567" },
-                    { "6", 0, new DateTime(1989, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "4c582239-835d-4f0f-8a6d-812314673450", null, false, "mohamed", "Female", true, "Ali", false, null, "3344556677", "AYA@EXAMPLE.COM", "AYA789", null, null, false, "f7193787-1ac2-4967-90bf-3017964cc71f", false, "AYA789" },
-                    { "7", 0, new DateTime(1995, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "39c1a68b-deaa-4485-a73c-e55dc6c0a7a7", null, false, "mohamed", "Male", true, "Ali", false, null, "5544332211", "OMAR@EXAMPLE.COM", "OMAR101", null, null, false, "e11696f8-2913-45bb-8357-1209ad385d6d", false, "OMAR101" },
-                    { "8", 0, new DateTime(1980, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "da25a851-1f44-499d-b063-3089c60a5084", null, false, "mohamed", "Female", true, "Ali", false, null, "7788990011", "SARA@EXAMPLE.COM", "SARA2022", null, null, false, "885dcf2e-5afd-4c83-855f-f935870c15ab", false, "SARA2022" },
-                    { "9", 0, new DateTime(1998, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "191fef50-5b39-4a6d-a770-fa5250c1dd96", null, false, "mohamed", "Male", true, "Ali", false, null, "6677889900", "ALI@EXAMPLE.COM", "ALI3030", null, null, false, "0d295efa-fe3d-4276-819e-ea54991ac46a", false, "ALI3030" }
+                    { "1", 0, new DateTime(2002, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "2638b80d-1d8b-47d2-915b-062f93b39f7d", null, false, "mohamed", "male", true, "Ali", false, null, "2636523632", "MOHAMED@EXAMPLE.COM", "MOHAMEDALI123", null, null, false, "68889af8-6b8f-476a-bce4-d67c39023030", false, "MohamedAli123" },
+                    { "10", 0, new DateTime(1982, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "8bed64ef-a32b-46a3-903e-a96a59017c4d", null, false, "mohamed", "Female", true, "Ali", false, null, "1122334455", "LAILA@EXAMPLE.COM", "LAILA4040", null, null, false, "b491b644-2706-49b1-8735-891868508d8c", false, "LAILA4040" },
+                    { "2", 0, new DateTime(2012, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "b0426683-f97b-4bb5-ba08-717627dcab3e", null, false, "mohamed", "Female", true, "Ali", false, null, "5312523632", "MONA@EXAMPLE.COM", "MONAOMAR123", null, null, false, "2af902c5-5469-4cd4-8486-c06331844e0b", false, "monaomar123" },
+                    { "3", 0, new DateTime(1988, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "a3ddb0ae-5f7f-49a9-97a0-375a85642411", null, false, "mohamed", "Male", true, "Ali", false, null, "9876543210", "MOHAMMED@EXAMPLE.COM", "MOHAMMED123", null, null, false, "439a3102-3734-4e06-b8fb-53e2891e036c", false, "MOHAMMED123" },
+                    { "4", 0, new DateTime(1995, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "723261d7-cc8b-4c26-850f-fed97226aaeb", null, false, "mohamed", "Female", true, "Ali", false, null, "0123456789", "AISHA@EXAMPLE.COM", "AISHA321", null, null, false, "1c9070d6-a8e7-40b7-84db-e45b671157b4", false, "AISHA321" },
+                    { "5", 0, new DateTime(1978, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "cb31f8f2-242b-413a-aee3-a35d7ad617e3", null, false, "mohamed", "Male", true, "Ali", false, null, "1122334455", "AHMAD@EXAMPLE.COM", "AHMAD567", null, null, false, "34bcb9df-088d-43ea-a796-42b503df22d8", false, "AHMAD567" },
+                    { "6", 0, new DateTime(1989, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "ef794e42-10f9-4c3e-83af-1415251af4bc", null, false, "mohamed", "Female", true, "Ali", false, null, "3344556677", "AYA@EXAMPLE.COM", "AYA789", null, null, false, "6ddfdec4-4bf2-4394-b5b3-6d581b1d822b", false, "AYA789" },
+                    { "7", 0, new DateTime(1995, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "4a18a558-1f2b-4970-807f-2cb4a12e50e8", null, false, "mohamed", "Male", true, "Ali", false, null, "5544332211", "OMAR@EXAMPLE.COM", "OMAR101", null, null, false, "8e15ad88-6b33-4d93-9fbb-b85c0c1ecd2f", false, "OMAR101" },
+                    { "8", 0, new DateTime(1980, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "2aaff115-568a-462f-92b8-2d96afccd610", null, false, "mohamed", "Female", true, "Ali", false, null, "7788990011", "SARA@EXAMPLE.COM", "SARA2022", null, null, false, "b7999da5-6b31-4a3e-9753-da754b4cdc64", false, "SARA2022" },
+                    { "9", 0, new DateTime(1998, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "de9f1788-5381-4c8e-8242-e186ee6e8e03", null, false, "mohamed", "Male", true, "Ali", false, null, "6677889900", "ALI@EXAMPLE.COM", "ALI3030", null, null, false, "7592568f-7f37-499c-8a71-e033f7df4a76", false, "ALI3030" }
                 });
 
             migrationBuilder.InsertData(
@@ -740,7 +740,14 @@ namespace MS.Infrastructure.Migrations
                 {
                     { 1, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
                     { 2, 0, "lol", "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg", "Test", 0, "Sample Attachment 2", "Image", "lol" },
-                    { 3, 0, "lol", "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "Test", 0, "Sample Attachment 3", "Image", "lol" }
+                    { 3, 0, "lol", "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg", "Test", 0, "Sample Attachment 3", "Image", "lol" },
+                    { 4, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 5, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 6, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 7, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 8, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 9, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" },
+                    { 10, 0, "lol", "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg", "Test", 0, "Sample Attachment 1", "Image", "lol" }
                 });
 
             migrationBuilder.InsertData(
@@ -799,15 +806,15 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "EndTime", "EntityID", "Name", "PlaceType", "StartTime" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 1, "Morning Shift", 0, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 1, "Morning Shift", 1, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 2, new DateTime(2024, 2, 17, 23, 0, 0, 0, DateTimeKind.Unspecified), 2, "Evening Shift", 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 3, "Morning Shift", 0, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 3, "Morning Shift", 1, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 4, new DateTime(2024, 2, 17, 23, 0, 0, 0, DateTimeKind.Unspecified), 4, "Evening Shift", 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 5, "Morning Shift", 0, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 5, "Morning Shift", 1, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 6, new DateTime(2024, 2, 17, 23, 0, 0, 0, DateTimeKind.Unspecified), 6, "Evening Shift", 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 7, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 7, "Morning Shift", 0, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 7, "Morning Shift", 1, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 8, new DateTime(2024, 2, 17, 23, 0, 0, 0, DateTimeKind.Unspecified), 8, "Evening Shift", 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 9, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 9, "Morning Shift", 0, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 9, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified), 9, "Morning Shift", 1, new DateTime(2024, 2, 17, 8, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 10, new DateTime(2024, 2, 17, 23, 0, 0, 0, DateTimeKind.Unspecified), 10, "Evening Shift", 1, new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
@@ -901,8 +908,8 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "Description", "DoctorID", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 1, "Description of report 1", "11", new DateTime(2024, 5, 10, 0, 16, 34, 534, DateTimeKind.Local).AddTicks(261), "1" },
-                    { 2, "Description of report 2", "22", new DateTime(2024, 5, 9, 0, 16, 34, 534, DateTimeKind.Local).AddTicks(385), "2" },
+                    { 1, "Description of report 1", "11", new DateTime(2024, 5, 10, 0, 53, 42, 3, DateTimeKind.Local).AddTicks(262), "1" },
+                    { 2, "Description of report 2", "22", new DateTime(2024, 5, 9, 0, 53, 42, 3, DateTimeKind.Local).AddTicks(363), "2" },
                     { 3, "Description of report 3", "1", new DateTime(2024, 3, 1, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6357), "1" },
                     { 4, "Description of report 4", "2", new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6431), "2" },
                     { 5, "Description of report 5", "3", new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6505), "3" },
@@ -911,15 +918,6 @@ namespace MS.Infrastructure.Migrations
                     { 8, "Description of report 8", "6", new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6727), "6" },
                     { 9, "Description of report 9", "7", new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6801), "7" },
                     { 10, "Description of report 10", "8", new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6875), "8" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "reservations",
-                columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "SerialNumber", "State", "Time", "UserID" },
-                values: new object[,]
-                {
-                    { 9, null, null, 5, "70000007", 0, new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556), "9" },
-                    { 10, null, null, 5, "70000008", 1, new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569), "10" }
                 });
 
             migrationBuilder.InsertData(
@@ -939,7 +937,14 @@ namespace MS.Infrastructure.Migrations
                 {
                     { 1, 1, "", "Elzahraa", 1 },
                     { 2, 2, "", "Alpha", 2 },
-                    { 3, 3, "", "Mediplus", 3 }
+                    { 3, 3, "", "Mediplus", 3 },
+                    { 4, 4, "", "Elzahraa", 4 },
+                    { 5, 5, "", "Alpha", 5 },
+                    { 6, 6, "", "Mediplus", 6 },
+                    { 7, 7, "", "Elzahraa", 7 },
+                    { 8, 8, "", "Alpha", 8 },
+                    { 9, 9, "", "Mediplus", 9 },
+                    { 10, 10, "", "Elzahraa", 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -957,45 +962,6 @@ namespace MS.Infrastructure.Migrations
                     { 8, 90, 8, 8, 14.75 },
                     { 9, 110, 9, 9, 11.25 },
                     { 10, 70, 10, 10, 19.989999999999998 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "placeEquipments",
-                columns: new[] { "ID", "EntityID", "EquipmentID", "PlaceType" },
-                values: new object[,]
-                {
-                    { 4, 4, 4, 1 },
-                    { 5, 5, 5, 0 },
-                    { 6, 6, 6, 1 },
-                    { 7, 7, 7, 0 },
-                    { 8, 8, 8, 1 },
-                    { 9, 9, 9, 0 },
-                    { 10, 10, 10, 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "placePrice",
-                columns: new[] { "ID", "Name", "PlaceID", "PlaceType", "Price" },
-                values: new object[,]
-                {
-                    { 4, "MRI", 4, 1, 599.99000000000001 },
-                    { 7, "PET Scan", 7, 1, 1199.99 },
-                    { 9, "Fluoroscopy", 9, 1, 699.99000000000001 },
-                    { 10, "DEXA Scan", 10, 2, 249.99000000000001 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "placeShifts",
-                columns: new[] { "ID", "EntityID", "PlaceType", "ShiftID" },
-                values: new object[,]
-                {
-                    { 4, 4, 1, 1 },
-                    { 5, 5, 0, 2 },
-                    { 6, 6, 0, 1 },
-                    { 7, 7, 0, 2 },
-                    { 8, 8, 1, 1 },
-                    { 9, 9, 0, 2 },
-                    { 10, 10, 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1030,9 +996,16 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "EntityID", "EquipmentID", "PlaceType" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 0 },
+                    { 1, 1, 1, 1 },
                     { 2, 2, 2, 1 },
-                    { 3, 3, 3, 0 }
+                    { 3, 3, 3, 1 },
+                    { 4, 4, 4, 1 },
+                    { 5, 5, 5, 1 },
+                    { 6, 6, 6, 1 },
+                    { 7, 7, 7, 1 },
+                    { 8, 8, 8, 1 },
+                    { 9, 9, 9, 1 },
+                    { 10, 10, 10, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1042,7 +1015,14 @@ namespace MS.Infrastructure.Migrations
                 {
                     { 1, "X-Alpha", 2, 1, 341.39999999999998 },
                     { 2, "X-Beta", 3, 2, 419.99000000000001 },
-                    { 3, "X-ray", 1, 1, 260.39999999999998 }
+                    { 3, "X-ray", 1, 1, 260.39999999999998 },
+                    { 4, "MRI", 4, 1, 599.99000000000001 },
+                    { 5, "Ultrasound", 5, 1, 199.99000000000001 },
+                    { 6, "CT Scan", 6, 1, 399.99000000000001 },
+                    { 7, "PET Scan", 7, 1, 1199.99 },
+                    { 8, "Mammography", 8, 1, 199.99000000000001 },
+                    { 9, "Fluoroscopy", 9, 1, 699.99000000000001 },
+                    { 10, "DEXA Scan", 10, 2, 249.99000000000001 }
                 });
 
             migrationBuilder.InsertData(
@@ -1050,9 +1030,16 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "EntityID", "PlaceType", "ShiftID" },
                 values: new object[,]
                 {
-                    { 1, 1, 0, 1 },
+                    { 1, 1, 1, 1 },
                     { 2, 2, 1, 2 },
-                    { 3, 3, 1, 2 }
+                    { 3, 3, 1, 2 },
+                    { 4, 4, 1, 1 },
+                    { 5, 5, 1, 2 },
+                    { 6, 6, 1, 1 },
+                    { 7, 7, 1, 2 },
+                    { 8, 8, 1, 1 },
+                    { 9, 9, 1, 2 },
+                    { 10, 10, 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1060,14 +1047,16 @@ namespace MS.Infrastructure.Migrations
                 columns: new[] { "ID", "ClinicID", "LabID", "PlacePriceId", "SerialNumber", "State", "Time", "UserID" },
                 values: new object[,]
                 {
-                    { 7, null, null, 4, "70000005", 0, new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530), "7" },
-                    { 8, null, null, 4, "70000006", 0, new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543), "8" },
                     { 1, null, null, 1, "45165153", 1, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(741), "1" },
                     { 2, null, null, 1, "543864963", 0, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(1531), "2" },
                     { 3, null, null, 2, "70000001", 1, new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6478), "3" },
                     { 4, null, null, 2, "70000002", 1, new DateTime(2024, 3, 5, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6491), "4" },
                     { 5, null, null, 3, "70000003", 1, new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6504), "5" },
-                    { 6, null, null, 3, "70000004", 1, new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517), "6" }
+                    { 6, null, null, 3, "70000004", 1, new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6517), "6" },
+                    { 7, null, null, 1, "70000005", 0, new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530), "7" },
+                    { 8, null, null, 1, "70000006", 0, new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543), "8" },
+                    { 9, null, null, 1, "70000007", 0, new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556), "9" },
+                    { 10, null, null, 1, "70000008", 1, new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569), "10" }
                 });
 
             migrationBuilder.CreateIndex(

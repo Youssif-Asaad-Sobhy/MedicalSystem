@@ -230,7 +230,69 @@ namespace MS.Infrastructure.Contexts
                     Description = "",
                     PhotoID = 3
                 }
-                );
+                ,
+                new Clinic
+                {
+                    ID = 4,
+                    DepartmentID = 4,
+                    Name = "Elzahraa",
+                    Description = "",
+                    PhotoID = 4
+                }
+                ,
+                new Clinic
+                {
+                    ID = 5,
+                    DepartmentID = 5,
+                    Name = "Alpha",
+                    Description = "",
+                    PhotoID = 5
+                }
+                ,
+                new Clinic
+                {
+                    ID = 6,
+                    DepartmentID = 6,
+                    Name = "Mediplus",
+                    Description = "",
+                    PhotoID = 6
+                }
+                ,
+                new Clinic
+                {
+                    ID = 7,
+                    DepartmentID = 7,
+                    Name = "Elzahraa",
+                    Description = "",
+                    PhotoID = 7
+                }
+                ,
+                new Clinic
+                {
+                    ID = 8,
+                    DepartmentID = 8,
+                    Name = "Alpha",
+                    Description = "",
+                    PhotoID = 8
+                }
+                ,
+                new Clinic
+                {
+                    ID = 9,
+                    DepartmentID = 9,
+                    Name = "Mediplus",
+                    Description = "",
+                    PhotoID = 9
+                }
+                ,
+                new Clinic
+                {
+                    ID = 10,
+                    DepartmentID = 10,
+                    Name = "Elzahraa",
+                    Description = "",
+                    PhotoID = 10
+                });
 
             modelBuilder.Entity<PlacePrice>().HasData(
                 new PlacePrice
@@ -244,6 +306,14 @@ namespace MS.Infrastructure.Contexts
                 },
                 new PlacePrice
                 {
+                    ID = 2,
+                    Name = "X-Beta",
+                    PlaceID = 3,
+                    PlaceType = PlaceType.Pharmacy,
+                    Price = 419.99
+                },
+                new PlacePrice
+                {
                     ID = 3,
                     Name = "X-ray",
                     Price = 260.40,
@@ -253,21 +323,28 @@ namespace MS.Infrastructure.Contexts
                 },
                 new PlacePrice
                 {
-                    ID = 2,
-                    Name = "X-Beta",
-                    PlaceID = 3,
-                    PlaceType = PlaceType.Pharmacy,
-                    Price = 419.99
-                },
-                new PlacePrice
-                {
                     ID = 4,
                     Name = "MRI",
                     PlaceID = 4,
                     PlaceType = PlaceType.Lab,
                     Price = 599.99
                 },
-               
+                new PlacePrice
+                {
+                    ID = 5,
+                    Name = "Ultrasound",
+                    PlaceID = 5,
+                    PlaceType = PlaceType.Lab,
+                    Price = 199.99
+                },
+                new PlacePrice
+                {
+                    ID = 6,
+                    Name = "CT Scan",
+                    PlaceID = 6,
+                    PlaceType = PlaceType.Lab,
+                    Price = 399.99
+                },
                 new PlacePrice
                 {
                     ID = 7,
@@ -276,7 +353,14 @@ namespace MS.Infrastructure.Contexts
                     PlaceType = PlaceType.Lab,
                     Price = 1199.99
                 },
-            
+                new PlacePrice
+                {
+                    ID = 8,
+                    Name = "Mammography",
+                    PlaceID = 8,
+                    PlaceType = PlaceType.Lab,
+                    Price = 199.99
+                },
                 new PlacePrice
                 {
                     ID = 9,
@@ -900,7 +984,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 1,
                     EquipmentID = 1, // Assuming equipment ID, adjust accordingly
                     EntityID = 1, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
-                    PlaceType = PlaceType.Clinic // Assuming place type, adjust accordingly
+                    PlaceType = PlaceType.Lab // Assuming place type, adjust accordingly
                 },
                 new PlaceEquipment
                 {
@@ -914,7 +998,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 3,
                     EntityID = 3,
                     EquipmentID = 3,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -928,7 +1012,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 5,
                     EntityID = 5,
                     EquipmentID = 5,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -942,7 +1026,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 7,
                     EntityID = 7,
                     EquipmentID = 7,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -956,7 +1040,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 9,
                     EntityID = 9,
                     EquipmentID = 9,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -971,7 +1055,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 1,
                     EntityID = 1, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
-                    PlaceType = PlaceType.Clinic, // Assuming place type, adjust accordingly
+                    PlaceType = PlaceType.Lab, // Assuming place type, adjust accordingly
                     ShiftID = 1 // Assuming shift ID, adjust accordingly
                 },
                 new PlaceShift
@@ -999,21 +1083,21 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 5,
                     EntityID = 5,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 2
                 },
                 new PlaceShift
                 {
                     ID = 6,
                     EntityID = 6,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 1
                 },
                 new PlaceShift
                 {
                     ID = 7,
                     EntityID = 7,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 2
                 },
                 new PlaceShift
@@ -1027,7 +1111,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 9,
                     EntityID = 9,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 2
                 },
                 new PlaceShift
@@ -1244,7 +1328,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 7,
                     Time = new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530),
                     State = ReservationState.Running,
-                    PlacePriceId = 4,
+                    PlacePriceId = 1,
                     UserID = "7",
                     SerialNumber = "70000005"
                 },
@@ -1253,7 +1337,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 8,
                     Time = new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543),
                     State = ReservationState.Running,
-                    PlacePriceId = 4,
+                    PlacePriceId = 1,
                     UserID = "8",
                     SerialNumber = "70000006"
                 },
@@ -1262,7 +1346,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 9,
                     Time = new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556),
                     State = ReservationState.Running,
-                    PlacePriceId = 5,
+                    PlacePriceId = 1,
                     UserID = "9",
                     SerialNumber = "70000007"
                 },
@@ -1271,7 +1355,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 10,
                     Time = new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569),
                     State = ReservationState.Done,
-                    PlacePriceId = 5,
+                    PlacePriceId = 1,
                     UserID = "10",
                     SerialNumber = "70000008"
                 }
@@ -1286,7 +1370,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0), // Example start time, adjust accordingly
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0), // Example end time, adjust accordingly
                     EntityID = 1, // Assuming entity ID, adjust accordingly
-                    PlaceType = PlaceType.Clinic // Assuming place type, adjust accordingly
+                    PlaceType = PlaceType.Lab // Assuming place type, adjust accordingly
                 },
                 new Shift
                 {
@@ -1304,7 +1388,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 3,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.  Lab
                 },
                 new Shift
                 {
@@ -1322,7 +1406,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 5,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new Shift
                 {
@@ -1340,7 +1424,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 7,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new Shift
                 {
@@ -1358,7 +1442,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 9,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new Shift
                 {
@@ -1424,6 +1508,84 @@ namespace MS.Infrastructure.Contexts
                         Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
                         FolderName = "Test",
                         Title = "Sample Attachment 3",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    // Add more attachments as needed
+                    ,new Attachment
+                    {
+                        ID = 4,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 5,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 6,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 7,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 8,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 9,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 10,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
                         Type = "Image",
                         DownloadUrl = "lol",
                         ViewUrl = "lol",
