@@ -29,11 +29,9 @@ namespace Medical_System.Controllers
         public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ClinicID)
         {
             var response = await _clinicService.GetClinicAsync(ClinicID);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+
             return this.CreateResponse(response);
+       
         }
 
 
@@ -69,10 +67,7 @@ namespace Medical_System.Controllers
         public async Task<IActionResult> GetAllClinicsWithDepartmentIdAsync(int DepartmentId)
         {
             var response = await _clinicService.GetAllClinicsWithDepartmentIdAsync(DepartmentId);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+           
             return this.CreateResponse(response);
         }
 

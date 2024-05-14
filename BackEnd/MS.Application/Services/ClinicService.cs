@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
+using MS.Application.DTOs.Shift;
 using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -53,15 +54,40 @@ namespace MS.Application.Services
         }
      
        
-        public async Task<Response<Clinic>> GetClinicAsync(int ClinicID)
+        public async Task<Response<DetailedClinic>> GetClinicAsync(int ClinicID)
         {
-            var clinic= await _unitOfWork.Clinics.GetByExpressionSingleAsync(c=>c.ID==ClinicID, [c => c.PlacePrices, c=>c.Photo, c=>c.PlaceShifts, c=>c.PlaceShifts]);
-            
+            var clinic= await _unitOfWork.Clinics.GetByExpressionSingleAsync(c=>c.ID==ClinicID,
+                [c => c.PlacePrices, c=>c.Photo, c=>c.PlaceShifts, c=>c.PlaceShifts, c=>c.Department]);
+           
             if (clinic is null)
             {
-                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
+                return ResponseHandler.BadRequest<DetailedClinic>($"Clinic with ID {ClinicID} not found.");
             }
-            return ResponseHandler.Success(clinic);
+            var clinicData = new DetailedClinic()
+            {
+                ID = clinic.ID,
+                Name = clinic.Name,
+                DepartmentID = clinic.DepartmentID,
+                DepartmentName = clinic.Department.Name,
+                Price = clinic.PlacePrices.FirstOrDefault().Price,
+                PhotoID = clinic.PhotoID,
+                Photo = clinic.Photo.ViewUrl,
+                Shifts = []
+            };
+            foreach (var item in clinic.PlaceShifts)
+            {
+                var Placeshift = await _unitOfWork.PlaceShifts.GetByExpressionSingleAsync(s => s.ID == item.ShiftID, [ps=>ps.Shift]);
+                var shiftData = new ShiftBasicData()
+                {
+                    ID= Placeshift.Shift.ID,
+                    Name = Placeshift.Shift.Name,
+                    StartTime = Placeshift.Shift.StartTime,
+                    EndTime = Placeshift.Shift.EndTime,
+                };
+                clinicData.Shifts.Add(shiftData);
+            }
+            
+            return ResponseHandler.Success(clinicData);
         }
 
         public async Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model)

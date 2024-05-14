@@ -30,7 +30,7 @@ namespace MS.Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITypeService, TypeServices>();
             services.AddScoped<IShiftService, ShiftService>();
-            services.AddScoped< ITestService,  TestService>();
+            services.AddScoped<ITestService,  TestService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IAttachmentService,AttachmentService>();
@@ -40,7 +40,7 @@ namespace MS.Application
           
             services.AddScoped<IHospitalService,HospitalService>();
             services.AddScoped<IEquipmentService,EquipmentService>();
-            services.AddTransient<IMailingService, MailingService>();
+            services.AddScoped<IMailingService, MailingService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IPlaceShiftService, PlaceShiftService>();
             services.AddScoped<IPlacePriceService, PlacePriceService>();

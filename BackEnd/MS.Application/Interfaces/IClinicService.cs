@@ -12,7 +12,7 @@ namespace MS.Application.Interfaces
 {
     public interface IClinicService
     {
-        Task<Response<Clinic>> GetClinicAsync(int ClinicID);
+        Task<Response<DetailedClinic>> GetClinicAsync(int ClinicID);
         Task<Response<Clinic>> DeleteClinicAsync(int ClinicID);
         Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model);
         Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model);
