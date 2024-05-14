@@ -7,6 +7,7 @@ using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,13 @@ namespace MS.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private IFilter<Clinic> _filter;
+        private readonly IReservationService _reservationService;
 
-        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter )
+        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter, IReservationService reservationService )
         {
             _unitOfWork = unitOfWork;
             _filter = filter;
+            _reservationService = reservationService;
         }
 
         public async Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model)
@@ -57,11 +60,18 @@ namespace MS.Application.Services
         public async Task<Response<DetailedClinic>> GetClinicAsync(int ClinicID)
         {
             var clinic= await _unitOfWork.Clinics.GetByExpressionSingleAsync(c=>c.ID==ClinicID,
-                [c => c.PlacePrices, c=>c.Photo, c=>c.PlaceShifts, c=>c.PlaceShifts, c=>c.Department]);
+                [c => c.PlacePrices, c=>c.Photo, c=>c.PlaceShifts, c=>c.PlaceShifts, c=>c.Department,
+                c=>c.Reservations]);
            
             if (clinic is null)
             {
                 return ResponseHandler.BadRequest<DetailedClinic>($"Clinic with ID {ClinicID} not found.");
+            }
+            var result = await _reservationService.GetUsersByPlace(ClinicID, PlaceType.Clinic);
+            int x = 0;
+            if (result.Succeeded)
+            {
+                x = result.Data.Count();
             }
             var clinicData = new DetailedClinic()
             {
@@ -69,6 +79,8 @@ namespace MS.Application.Services
                 Name = clinic.Name,
                 DepartmentID = clinic.DepartmentID,
                 DepartmentName = clinic.Department.Name,
+                description = clinic.Description,
+                reservationCount = x,
                 Price = clinic.PlacePrices.FirstOrDefault().Price,
                 PhotoID = clinic.PhotoID,
                 Photo = clinic.Photo.ViewUrl,

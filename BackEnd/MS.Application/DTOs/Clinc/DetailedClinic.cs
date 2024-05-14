@@ -13,6 +13,8 @@ namespace MS.Application.DTOs.Clinc
         public int ID { get; set; }
         public string Name { get; set; }
         public int DepartmentID { get; set; }
+        public string description { get; set; }
+        public int reservationCount { get; set; }
         public string DepartmentName { get; set; }
         public double Price { get; set; }
         public int PhotoID { get; set; }
