@@ -14,5 +14,7 @@ namespace MS.Data.Entities
 
         public double Price { get; set; }
         public string Description { get; set; }
+        public Lab Lab { get; set; }
+        public Test Test { get; set; }
     }
 }
