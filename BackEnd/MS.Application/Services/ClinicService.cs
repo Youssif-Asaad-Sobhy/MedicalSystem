@@ -84,6 +84,7 @@ namespace MS.Application.Services
                 Price = clinic.PlacePrices.FirstOrDefault().Price,
                 PhotoID = clinic.PhotoID,
                 Photo = clinic.Photo.ViewUrl,
+                workdays= clinic.WorkDays,
                 Shifts = []
             };
             foreach (var item in clinic.PlaceShifts)
@@ -171,6 +172,7 @@ namespace MS.Application.Services
                     Price = Oclinic.PlacePrices.FirstOrDefault().Price,
                     PhotoID = Oclinic.PhotoID,
                     Photo = Oclinic.Photo.ViewUrl,
+                    workdays = Oclinic.WorkDays,
                     Shifts = []
                 };
                 foreach (var item in Oclinic.PlaceShifts)
