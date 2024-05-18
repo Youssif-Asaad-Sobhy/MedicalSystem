@@ -10,6 +10,24 @@ using System.Threading.Tasks;
 namespace MS.Data.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum WeekDays
+    {
+        [Description("Saturday")]
+        Saturday = 1,
+        [Description("Sunday")]
+        Sunday = 2,
+        [Description("Monday")]
+        Monday = 3,
+        [Description("Tuesday")]
+        Tuesday = 4,
+        [Description("Wednesday")]
+        Wednesday = 5,
+        [Description("Thursday")]
+        Thursday = 6,
+        [Description("Friday")]
+        Friday = 7
+    }   
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FileType
     {
         PDF=1,
