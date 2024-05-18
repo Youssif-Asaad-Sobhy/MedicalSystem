@@ -1,4 +1,5 @@
-﻿using MS.Data.Interfaces;
+﻿using MS.Data.Enums;
+using MS.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace MS.Data.Entities
         public string Name { get; set; }
         public int DepartmentID { get; set; }
         public string? Description { get; set; }
+        public List<WeekDays>? WorkDays { get; set; }
         public int PhotoID { get; set; }
         public Attachment Photo { get; set; }
         public Department Department { get; set; }

@@ -19,6 +19,6 @@ namespace MS.Application.Interfaces
         Task<Response<IEnumerable<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId);
         Task<Response<List<Clinic>>>GetAllFilteredClinicsAsync(RootFilter filter);
 
-        Task<Response<IEnumerable<Clinic>>> GetAllClinicsAsync();
+        Task<Response<List<DetailedClinic>>> GetAllClinicsAsync();
     }
 }

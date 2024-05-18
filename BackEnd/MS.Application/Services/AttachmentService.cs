@@ -153,6 +153,7 @@ namespace MS.Application.Services
                 DownloadUrl = downloadUrl,
                 TestId = fileDTO.FolderName == "Test" ? fileDTO.ParentId : 0,
                 ClinicId = fileDTO.FolderName == "Clinic" ? fileDTO.ParentId : 0,
+                UserDiseaseId = fileDTO.FolderName == "UserDisease" ? fileDTO.ParentId : 0,
                 Type = fileDTO.File.ContentType,
             };
             await _unitOfWork.Attachment.AddAsync(file);

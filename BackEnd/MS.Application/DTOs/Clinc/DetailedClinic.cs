@@ -1,5 +1,6 @@
 ﻿using MS.Application.DTOs.Shift;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace MS.Application.DTOs.Clinc
         public double Price { get; set; }
         public int PhotoID { get; set; }
         public string Photo { get; set; }
+        public List<WeekDays>? workdays { get; set; }
         public List<ShiftBasicData> Shifts { get; set; }
     }
 }

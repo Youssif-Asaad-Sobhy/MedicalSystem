@@ -84,6 +84,7 @@ namespace MS.Application.Services
                 Price = clinic.PlacePrices.FirstOrDefault().Price,
                 PhotoID = clinic.PhotoID,
                 Photo = clinic.Photo.ViewUrl,
+                workdays= clinic.WorkDays,
                 Shifts = []
             };
             foreach (var item in clinic.PlaceShifts)
@@ -134,14 +135,62 @@ namespace MS.Application.Services
             return ResponseHandler.Success(clinics);
         }
 
-        public async Task<Response<IEnumerable<Clinic>>> GetAllClinicsAsync()
+        public async Task<Response<List<DetailedClinic>>> GetAllClinicsAsync()
         {
+            var OutputList=new List<DetailedClinic>();
             var clinics = await _unitOfWork.Clinics.GetAllAsync();
-             if(clinics is null)
-             {
-                return ResponseHandler.BadRequest<IEnumerable<Clinic>>("clinic model is null or not found");
-             }
-            return ResponseHandler.Success(clinics);
+            if(clinics is null)
+            {
+               return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");
+            }
+            foreach(Clinic clinic in clinics)
+            {
+                var Oclinic = await _unitOfWork.Clinics.GetByExpressionSingleAsync(c => c.ID == clinic.ID,
+                     [c => c.PlacePrices,
+                         c => c.Photo,
+                         c => c.PlaceShifts,
+                         c => c.Department,
+                         c => c.Reservations]);
+                if (Oclinic is null)
+                {
+                    return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");
+                }
+                var result = await _reservationService.GetUsersByPlace(Oclinic.ID, PlaceType.Clinic);
+                int x = 0;
+                if (result.Succeeded)
+                {
+                    x = result.Data.Count();
+                }
+                var clinicData = new DetailedClinic()
+                {
+                    ID = Oclinic.ID,
+                    Name = Oclinic.Name,
+                    DepartmentID = Oclinic.DepartmentID,
+                    DepartmentName = Oclinic.Department.Name,
+                    description = Oclinic.Description,
+                    reservationCount = x,
+                    Price = Oclinic.PlacePrices.FirstOrDefault().Price,
+                    PhotoID = Oclinic.PhotoID,
+                    Photo = Oclinic.Photo.ViewUrl,
+                    workdays = Oclinic.WorkDays,
+                    Shifts = []
+                };
+                foreach (var item in Oclinic.PlaceShifts)
+                {
+                    var Placeshift = await _unitOfWork.PlaceShifts.GetByExpressionSingleAsync(s => s.ID == item.ShiftID, [ps => ps.Shift]);
+                    var shiftData = new ShiftBasicData()
+                    {
+                        ID = Placeshift.Shift.ID,
+                        Name = Placeshift.Shift.Name,
+                        StartTime = Placeshift.Shift.StartTime,
+                        EndTime = Placeshift.Shift.EndTime,
+                    };
+                    clinicData.Shifts.Add(shiftData);
+                }
+                OutputList.Add(clinicData);
+            }
+            return ResponseHandler.Success(OutputList);
+            //تم عمل هذه النقاشة بواسطة زياد عبدالنبي
         }
     }
 }
