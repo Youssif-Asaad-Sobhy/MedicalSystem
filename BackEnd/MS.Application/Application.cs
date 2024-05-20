@@ -26,6 +26,8 @@ namespace MS.Application
         {
             #region services
 
+            services.AddScoped<IApplicationUserDiseaseService, ApplicationUserDiseaseService>();
+            services.AddScoped<IDiseaseService, DiseaseService>();
             services.AddScoped<ILabService,LabService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITypeService, TypeServices>();
@@ -52,7 +54,7 @@ namespace MS.Application
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             services.AddScoped(typeof(IFilter<>), typeof(FilterServices<>));
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-           
+            
             #endregion
 
 
