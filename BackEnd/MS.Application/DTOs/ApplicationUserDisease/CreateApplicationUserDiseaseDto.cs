@@ -8,7 +8,7 @@ namespace MS.Application.DTOs.ApplicationUserDisease
         [Required, StringLength(50)]
         public string Type { get; set; }
 
-        [Required, Range(0, double.MaxValue)]
+        [Required]
         public double ValueResult { get; set; }
 
         [Required, StringLength(500)]
@@ -20,11 +20,11 @@ namespace MS.Application.DTOs.ApplicationUserDisease
         [Range(0, double.MaxValue)]
         public double? Weight { get; set; }
 
-        [Required, StringLength(50)]
-        public string ApplicationUserId { get; set; }
+        [Required]
+        public required string ApplicationUserId { get; set; }
 
         [Required]
-        public int DiseaseId { get; set; }
+        public required int DiseaseId { get; set; }
 
         [Required, StringLength(500)]
         public string Diagnosis { get; set; }

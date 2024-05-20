@@ -20,29 +20,23 @@ namespace Medical_System.Controllers
         #endregion
 
         #region Methods
-        [HttpGet("Get/{ID:int}")]
+        [HttpGet("{ID:int}")]
         public async Task<IActionResult> GetSingleAsync([FromRoute] int ID)
         {
             var response = await _service.GetDiseaseAsync(ID);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+            
             return this.CreateResponse(response);
         }
         
-        [HttpDelete("Delete/{ID:int}")]
+        [HttpDelete("{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ID)
         {
             var response = await _service.DeleteDiseaseAsync(ID);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+            
             return this.CreateResponse(response);
         }
         
-        [HttpPost("Post")]
+        [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CreateDiseaseDto model)
         {
             if (!ModelState.IsValid)
@@ -50,13 +44,10 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _service.CreateDiseaseAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+            
             return this.CreateResponse(response);
         }
-        [HttpPut("Put")]
+        [HttpPut]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdateDiseaseDto model)
         {
             if (!ModelState.IsValid)
@@ -64,10 +55,7 @@ namespace Medical_System.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _service.UpdateDiseaseAsync(model);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
+            
             return this.CreateResponse(response);
         }
         #endregion
