@@ -92,6 +92,12 @@ namespace Medical_System.Controllers
             var response = await _applicationService.ForgotPasswordAsync(model);
             return this.CreateResponse(response);
         }
+        [HttpGet("GetAllDiseaseOfUser/{ID}")]
+        public async Task<IActionResult> GetAllDiseaseOfUser([FromRoute]string ID)
+        {
+            var response = await _applicationService.GetAllUserDiseases(ID);
+            return this.CreateResponse(response);
+        }
         #endregion
 
     }
