@@ -43,27 +43,9 @@ namespace MS.Application.Services
             return ResponseHandler.Deleted<Department>();
         }
 
-        public async Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync()
+        public async Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync(string[]? filter)
         {
-
-             var deps = await _unitOfWork.Departments.GetAllAsync();
-            // var deps = await _filter.GetFilterAsync(filter);
-            if (deps is null)
-            {
-                return ResponseHandler.BadRequest<IEnumerable<Department>>("department model is null or not found");
-            }
-            return ResponseHandler.Success(deps);
-        }
-
-        public async Task<Response<List<Department>>> GetFilteredAllDepartmentsAsync(RootFilter filter)
-        {
-
-            // var deps = await _unitOfWork.Departments.GetAllAsync();
-             var deps = await _filter.GetFilterAsync(filter);
-            if (deps is null)
-            {
-                return ResponseHandler.BadRequest<List<Department>>("department model is null or not found");
-            }
+            var deps = await _unitOfWork.Departments.GetAllFilteredAsync(filter);
             return ResponseHandler.Success(deps);
         }
 

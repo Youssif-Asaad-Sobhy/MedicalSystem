@@ -17,8 +17,6 @@ namespace MS.Application.Interfaces
         Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model);
         Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model);
         Task<Response<IEnumerable<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId);
-        Task<Response<List<Clinic>>>GetAllFilteredClinicsAsync(RootFilter filter);
-
-        Task<Response<List<DetailedClinic>>> GetAllClinicsAsync();
+        Task<Response<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter);
     }
 }

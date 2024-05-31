@@ -4,11 +4,13 @@ using MS.Application.DTOs.Hospital;
 using MS.Application.DTOs.ApplicationUserDisease;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ApplicationUserDiseaseController : ControllerBase
     {
         #region Constructor/props
@@ -37,7 +39,7 @@ namespace Medical_System.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateApplicationUserDiseaseDto model)
+        public async Task<IActionResult> CreateAsync([FromQuery] CreateApplicationUserDiseaseDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +50,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpPut]
-        public async Task<IActionResult> PutSingleAsync([FromBody] UpdateApplicationUserDiseaseDto model)
+        public async Task<IActionResult> PutSingleAsync([FromQuery] UpdateApplicationUserDiseaseDto model)
         {
             if (!ModelState.IsValid)
             {

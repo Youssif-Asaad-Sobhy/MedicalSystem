@@ -11,6 +11,7 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AttachmentController : ControllerBase
     {
         #region Constructor/props
@@ -23,13 +24,13 @@ namespace Medical_System.Controllers
 
         #region Methods
         [HttpGet("{ID:int}")]
-        public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ID)
+        public async Task<IActionResult> GetSingleAsync([FromRoute] int ID)
         {
             var response = await _attachmentService.GetByIdAsync(ID);
             return this.CreateResponse(response);
         }
         [HttpGet("Get-All")]
-        public async Task<IActionResult> GetAllClinicAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             var response = await _attachmentService.GetAllFilesAsync();
             return this.CreateResponse(response);
@@ -44,7 +45,7 @@ namespace Medical_System.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClinicAsync([FromForm] UploadFileDTO uploadFileDto)
+        public async Task<IActionResult> CreateAsync([FromQuery] UploadFileDTO uploadFileDto)
         {
             if (!ModelState.IsValid)
             {

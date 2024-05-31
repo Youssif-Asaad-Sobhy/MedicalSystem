@@ -43,7 +43,7 @@ namespace Medical_System.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClinicAsync([FromBody] CreateClinicDto model) //same comment as below
+        public async Task<IActionResult> CreateClinicAsync([FromQuery] CreateClinicDto model) //same comment as below
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpPut]
-        public async Task<IActionResult> PutSingleAsync(UpdateClinicDto model)
+        public async Task<IActionResult> PutSingleAsync([FromQuery]UpdateClinicDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -70,27 +70,10 @@ namespace Medical_System.Controllers
            
             return this.CreateResponse(response);
         }
-
-        [HttpGet("Filtered-Clinics")]
-        public async Task<IActionResult> GetFilteredAllClinicsAsync([FromQuery] string filter)
-        {
-            var filterResult = new RootFilter();
-
-            if (!string.IsNullOrEmpty(filter))
-            {
-                filterResult = JsonConvert.DeserializeObject<RootFilter>(filter);
-            }
-            else
-            {
-                filterResult = new RootFilter();
-            }
-            var response = await _clinicService.GetAllFilteredClinicsAsync(filterResult);
-            return this.CreateResponse(response);
-        }
         [HttpGet("All-Clinics")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] string[]?filter)
         {
-            var response = await _clinicService.GetAllClinicsAsync();
+            var response = await _clinicService.GetAllClinicsAsync(filter);
             return this.CreateResponse(response);
         }
         #endregion
