@@ -119,12 +119,6 @@ namespace MS.Application.Services
             await _unitOfWork.Clinics.UpdateAsync(clinic);
             return ResponseHandler.Updated(clinic);
         }
-        public async Task<Response<IEnumerable<Clinic>>> GetAllClinicsWithDepartmentIdAsync(int departmentId)
-        {
-            var clinics = await _unitOfWork.Clinics.GetByExpressionAsync(c => c.DepartmentID == departmentId);
-            return ResponseHandler.Success(clinics);
-        }
-
         public async Task<Response<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter)
         {
             var OutputList=new List<DetailedClinic>();
