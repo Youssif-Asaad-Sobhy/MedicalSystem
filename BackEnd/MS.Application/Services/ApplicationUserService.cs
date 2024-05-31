@@ -172,6 +172,7 @@ namespace MS.Application.Services
                     DiagnosisDate = x.DiagnosisDate,
                     DocViewUrl = []
                 };
+
                 var atts = new List<string>();
                 if (x.Attachments == null)
                 {
