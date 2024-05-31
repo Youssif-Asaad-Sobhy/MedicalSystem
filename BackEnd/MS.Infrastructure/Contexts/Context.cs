@@ -223,7 +223,6 @@ namespace MS.Infrastructure.Contexts
                     BloodType = "A+",
                     MaritalStatus = "Married"
                 });
-
             modelBuilder.Entity<Clinic>().HasData(
               new Clinic
               {

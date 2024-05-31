@@ -14,10 +14,9 @@ namespace MS.Application.Interfaces
     public interface IDepartmentService
     {
         Task<Response<Department>> GetDepartmentByIDAsync(int ID);
-        Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync();
+        Task<Response<IEnumerable<Department>>> GetAllDepartmentsAsync(string[]? filter);
         Task<Response<Department>> DeleteDepartmentAsync(int DeptID);
         Task<Response<Department>> UpdateDepartmentAsync(UpdateDeptDto model);
         Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model);
-        Task<Response<List<Department>>> GetFilteredAllDepartmentsAsync(RootFilter filter);
     }
 }

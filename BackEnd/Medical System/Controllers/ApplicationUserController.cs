@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.ApplicationUser;
@@ -28,14 +29,14 @@ namespace Medical_System.Controllers
 
         #region Methods
         [HttpGet("{ID}")]
-        public async Task<IActionResult> GetSingleClincAsync([FromRoute] string ID)
+        public async Task<IActionResult> GetSingleUserAsync([FromRoute] string ID)
         {
             var response = await _applicationService.GetUserByIDAsync(ID);
 
             return this.CreateResponse(response);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteUser/{ID}")]
         public async Task<IActionResult> DeleteSingleAsync(string ID)
         {
@@ -45,7 +46,7 @@ namespace Medical_System.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClinicAsync([FromBody] CreateUserDto model)
+        public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -55,6 +56,7 @@ namespace Medical_System.Controllers
 
             return this.CreateResponse(response);
         }
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdateUserDto model)
         {
@@ -66,12 +68,14 @@ namespace Medical_System.Controllers
 
             return this.CreateResponse(response);
         }
+        [Authorize]
         [HttpGet("BasicData/{id}")]
         public async Task<IActionResult> GetBasicData(string id)
         {
             var response = await _applicationService.GetUserDataAsync(id);
             return this.CreateResponse(response);
         }
+        [Authorize]
         [HttpPost("ChangePassowrd")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto model)
         {
@@ -82,6 +86,7 @@ namespace Medical_System.Controllers
             var response = await _applicationService.changePasswordAsync(model);
             return this.CreateResponse(response);
         }
+        [Authorize]
         [HttpPost("ForgetPassword")]
         public async Task<IActionResult> ForgetPassword(ForgotPasswordDto model)
         {

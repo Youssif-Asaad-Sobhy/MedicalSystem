@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
@@ -17,7 +18,7 @@ namespace Medical_System.Controllers
             _authService = authService;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto model)
+        public async Task<IActionResult> RegisterAsync([FromQuery] RegisterDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -27,7 +28,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(result);
         }
         [HttpPost("LogIn")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestDto model)
+        public async Task<IActionResult> GetTokenAsync([FromQuery] TokenRequestDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -36,8 +37,9 @@ namespace Medical_System.Controllers
             var result = await _authService.GetTokenAsync(model);
             return this.CreateResponse(result);
         }
+        [Authorize(Roles ="Admin")]
         [HttpPost("addrole")]
-        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleDto model)
+        public async Task<IActionResult> AddRoleAsync([FromQuery] AddRoleDto model)
         {
             if (!ModelState.IsValid)
             {

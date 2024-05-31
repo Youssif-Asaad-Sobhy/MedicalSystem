@@ -8,6 +8,7 @@ using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
 using MS.Data.Enums;
+using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,14 @@ namespace MS.Application.Services
     public class ClinicService : IClinicService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private IFilter<Clinic> _filter;
+        private readonly Context _context;
         private readonly IReservationService _reservationService;
 
-        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter, IReservationService reservationService )
+        public ClinicService(IUnitOfWork unitOfWork, IReservationService reservationService,Context context )
         {
             _unitOfWork = unitOfWork;
-            _filter = filter;
             _reservationService = reservationService;
+            _context = context;
         }
 
         public async Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model)
@@ -125,20 +126,10 @@ namespace MS.Application.Services
             return ResponseHandler.Success(clinics);
         }
 
-        public async Task<Response<List<Clinic>>> GetAllFilteredClinicsAsync(RootFilter filter)
-        {
-            var clinics = await _filter.GetFilterAsync(filter);
-            if (clinics is null)
-            {
-                return ResponseHandler.BadRequest<List<Clinic>>("clinic model is null or not found");
-            }
-            return ResponseHandler.Success(clinics);
-        }
-
-        public async Task<Response<List<DetailedClinic>>> GetAllClinicsAsync()
+        public async Task<Response<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter)
         {
             var OutputList=new List<DetailedClinic>();
-            var clinics = await _unitOfWork.Clinics.GetAllAsync();
+            var clinics = await _unitOfWork.Clinics.GetAllFilteredAsync(filter);
             if(clinics is null)
             {
                return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");

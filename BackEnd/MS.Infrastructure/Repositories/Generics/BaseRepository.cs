@@ -110,6 +110,14 @@ namespace MS.Infrastructure.Repositories.Generics
 
         public async Task<IEnumerable<T>> GetAllAsync()
         => await _dbContext.Set<T>().ToListAsync();
+        public async Task<IEnumerable<T>> GetAllFilteredAsync(string[] filters)
+        {
+            var entity = _dbContext.Set<T>();
+
+            var result = DynamicFilterHelper.ApplyFilters(entity,filters);
+
+            return await result.ToListAsync();
+        }
 
         public async Task<IEnumerable<T>> GetByNameAsync(Expression<Func<T, bool>> expression, string name)
          => await _dbContext.Set<T>().Where(expression).ToListAsync();

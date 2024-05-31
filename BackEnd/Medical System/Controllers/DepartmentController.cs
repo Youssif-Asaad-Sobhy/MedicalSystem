@@ -77,31 +77,15 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpGet("All-Departments")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery]string[]?filter)
         {
-            var response = await _departmentService.GetAllDepartmentsAsync();
+            var response = await _departmentService.GetAllDepartmentsAsync(filter);
             if (!response.Succeeded)
             {
                 return this.CreateResponse(response);
             }
             return this.CreateResponse(response);
         }
-        [HttpGet("Filtered-Departments")]
-        public async Task<IActionResult> GetFilteredAllDepartmentsAsync([FromQuery] string filter)
-        {
-            var filterResult = new RootFilter();
-
-            if (!string.IsNullOrEmpty(filter))
-            {
-                filterResult = JsonConvert.DeserializeObject<RootFilter>(filter);
-            }
-            else
-            {
-                filterResult = new RootFilter();
-            }
-            var response = await _departmentService.GetFilteredAllDepartmentsAsync(filterResult);
-            return this.CreateResponse(response);
-        }   
         #endregion
     }
 }
