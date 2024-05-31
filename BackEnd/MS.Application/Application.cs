@@ -52,7 +52,6 @@ namespace MS.Application
             services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
             services.AddScoped<IReportMedicineService, ReportMedicineService>();
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
-            services.AddScoped(typeof(IFilter<>), typeof(FilterServices<>));
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             
             #endregion

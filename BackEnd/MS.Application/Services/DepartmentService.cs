@@ -1,5 +1,4 @@
 ﻿using MS.Application.DTOs.Department;
-using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -12,11 +11,9 @@ using System.Threading.Tasks;
 
 namespace MS.Application.Services
 {
-    public class DepartmentService(IUnitOfWork unitOfWork, IFilter<Department> filter) : IDepartmentService
+    public class DepartmentService(IUnitOfWork unitOfWork) : IDepartmentService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private  IFilter<Department> _filter = filter;
-
         public async Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model)
         {
             if(model == null)
