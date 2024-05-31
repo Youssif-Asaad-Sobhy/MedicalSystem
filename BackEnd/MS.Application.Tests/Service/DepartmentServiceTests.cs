@@ -18,7 +18,7 @@ namespace MS.Application.Tests.Services
 
         public DepartmentServiceTests(Mock<IUnitOfWork> mock , IFilter<Department> filter)
         {
-            _unitOfWorkMock = mock;
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
             _filter = filter;
             _departmentService = new DepartmentService(_unitOfWorkMock.Object,_filter);
         }
