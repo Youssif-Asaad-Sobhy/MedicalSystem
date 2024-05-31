@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.TestLab;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
-
+using MS.Application.DTOs.TestLab;
 namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
@@ -68,6 +68,12 @@ namespace Medical_System.Controllers
             {
                 return this.CreateResponse(response);
             }
+            return this.CreateResponse(response);
+        }
+        [HttpGet("GetListTest")]
+        public async Task<IActionResult> GetListAsync()
+        {
+            var response = await _service.GetTestListAsync();
             return this.CreateResponse(response);
         }
         #endregion

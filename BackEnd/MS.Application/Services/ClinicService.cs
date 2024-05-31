@@ -1,9 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
+using MS.Application.DTOs.Shift;
+using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Data.Enums;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -16,10 +20,14 @@ namespace MS.Application.Services
     public class ClinicService : IClinicService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private IFilter<Clinic> _filter;
+        private readonly IReservationService _reservationService;
 
-        public ClinicService(IUnitOfWork unitOfWork)
+        public ClinicService(IUnitOfWork unitOfWork, IFilter<Clinic> filter, IReservationService reservationService )
         {
             _unitOfWork = unitOfWork;
+            _filter = filter;
+            _reservationService = reservationService;
         }
 
         public async Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model)
@@ -49,14 +57,50 @@ namespace MS.Application.Services
         }
      
        
-        public async Task<Response<Clinic>> GetClinicAsync(int ClinicID)
+        public async Task<Response<DetailedClinic>> GetClinicAsync(int ClinicID)
         {
-            var clincic= await _unitOfWork.Clinics.GetByIdAsync(ClinicID);
-            if (clincic is null)
+            var clinic= await _unitOfWork.Clinics.GetByExpressionSingleAsync(c=>c.ID==ClinicID,
+                [c => c.PlacePrices, c=>c.Photo, c=>c.PlaceShifts, c=>c.PlaceShifts, c=>c.Department,
+                c=>c.Reservations]);
+           
+            if (clinic is null)
             {
-                return ResponseHandler.BadRequest<Clinic>($"Clinic with ID {ClinicID} not found.");
+                return ResponseHandler.BadRequest<DetailedClinic>($"Clinic with ID {ClinicID} not found.");
             }
-            return ResponseHandler.Success(clincic);
+            var result = await _reservationService.GetUsersByPlace(ClinicID, PlaceType.Clinic);
+            int x = 0;
+            if (result.Succeeded)
+            {
+                x = result.Data.Count();
+            }
+            var clinicData = new DetailedClinic()
+            {
+                ID = clinic.ID,
+                Name = clinic.Name,
+                DepartmentID = clinic.DepartmentID,
+                DepartmentName = clinic.Department.Name,
+                description = clinic.Description,
+                reservationCount = x,
+                Price = clinic.PlacePrices.FirstOrDefault().Price,
+                PhotoID = clinic.PhotoID,
+                Photo = clinic.Photo.ViewUrl,
+                workdays= clinic.WorkDays,
+                Shifts = []
+            };
+            foreach (var item in clinic.PlaceShifts)
+            {
+                var Placeshift = await _unitOfWork.PlaceShifts.GetByExpressionSingleAsync(s => s.ID == item.ShiftID, [ps=>ps.Shift]);
+                var shiftData = new ShiftBasicData()
+                {
+                    ID= Placeshift.Shift.ID,
+                    Name = Placeshift.Shift.Name,
+                    StartTime = Placeshift.Shift.StartTime,
+                    EndTime = Placeshift.Shift.EndTime,
+                };
+                clinicData.Shifts.Add(shiftData);
+            }
+            
+            return ResponseHandler.Success(clinicData);
         }
 
         public async Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model)
@@ -81,5 +125,72 @@ namespace MS.Application.Services
             return ResponseHandler.Success(clinics);
         }
 
+        public async Task<Response<List<Clinic>>> GetAllFilteredClinicsAsync(RootFilter filter)
+        {
+            var clinics = await _filter.GetFilterAsync(filter);
+            if (clinics is null)
+            {
+                return ResponseHandler.BadRequest<List<Clinic>>("clinic model is null or not found");
+            }
+            return ResponseHandler.Success(clinics);
+        }
+
+        public async Task<Response<List<DetailedClinic>>> GetAllClinicsAsync()
+        {
+            var OutputList=new List<DetailedClinic>();
+            var clinics = await _unitOfWork.Clinics.GetAllAsync();
+            if(clinics is null)
+            {
+               return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");
+            }
+            foreach(Clinic clinic in clinics)
+            {
+                var Oclinic = await _unitOfWork.Clinics.GetByExpressionSingleAsync(c => c.ID == clinic.ID,
+                     [c => c.PlacePrices,
+                         c => c.Photo,
+                         c => c.PlaceShifts,
+                         c => c.Department,
+                         c => c.Reservations]);
+                if (Oclinic is null)
+                {
+                    return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");
+                }
+                var result = await _reservationService.GetUsersByPlace(Oclinic.ID, PlaceType.Clinic);
+                int x = 0;
+                if (result.Succeeded)
+                {
+                    x = result.Data.Count();
+                }
+                var clinicData = new DetailedClinic()
+                {
+                    ID = Oclinic.ID,
+                    Name = Oclinic.Name,
+                    DepartmentID = Oclinic.DepartmentID,
+                    DepartmentName = Oclinic.Department.Name,
+                    description = Oclinic.Description,
+                    reservationCount = x,
+                    Price = Oclinic.PlacePrices.FirstOrDefault().Price,
+                    PhotoID = Oclinic.PhotoID,
+                    Photo = Oclinic.Photo.ViewUrl,
+                    workdays = Oclinic.WorkDays,
+                    Shifts = []
+                };
+                foreach (var item in Oclinic.PlaceShifts)
+                {
+                    var Placeshift = await _unitOfWork.PlaceShifts.GetByExpressionSingleAsync(s => s.ID == item.ShiftID, [ps => ps.Shift]);
+                    var shiftData = new ShiftBasicData()
+                    {
+                        ID = Placeshift.Shift.ID,
+                        Name = Placeshift.Shift.Name,
+                        StartTime = Placeshift.Shift.StartTime,
+                        EndTime = Placeshift.Shift.EndTime,
+                    };
+                    clinicData.Shifts.Add(shiftData);
+                }
+                OutputList.Add(clinicData);
+            }
+            return ResponseHandler.Success(OutputList);
+            //تم عمل هذه النقاشة بواسطة زياد عبدالنبي
+        }
     }
 }

@@ -14,7 +14,6 @@ namespace MS.Data.Entities
         public string UserID { get; set; }
         public string DoctorID { get; set; }
         public ApplicationUser User { get; set; }
-        public ICollection<Document> Documents { get; set; }
         public ICollection<ReportMedicine> ReportMedicines { get; set; }
     }
 }

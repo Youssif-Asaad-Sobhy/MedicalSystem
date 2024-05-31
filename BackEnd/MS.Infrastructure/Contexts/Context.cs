@@ -22,15 +22,15 @@ namespace MS.Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Seeding Data
-            modelBuilder.Entity<ApplicationUser>().HasData(
+              modelBuilder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
                 {
-                    Id = "1", // Generate a unique ID
-                    FirstName = "mohamed",
+                    Id = "1",
+                    FirstName = "Mohamed",
                     LastName = "Ali",
                     NID = "2636523632",
-                    Gender = "male",
-                    IsRegister=true,
+                    Gender = "Male",
+                    IsRegister = true,
                     BirthDate = new DateTime(2002, 9, 25),
                     UserName = "MohamedAli123",
                     NormalizedEmail = "MOHAMED@EXAMPLE.COM",
@@ -40,12 +40,14 @@ namespace MS.Infrastructure.Contexts
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "O+",
+                    MaritalStatus = "Single"
                 },
                 new ApplicationUser
                 {
-                    Id = "2", // Generate another unique ID
-                    FirstName = "mohamed",
-                    LastName = "Ali",
+                    Id = "2",
+                    FirstName = "Mona",
+                    LastName = "Omar",
                     NID = "5312523632",
                     Gender = "Female",
                     IsRegister = true,
@@ -58,13 +60,15 @@ namespace MS.Infrastructure.Contexts
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "A+",
+                    MaritalStatus = "Single"
                 },
                 new ApplicationUser
                 {
                     Id = "3",
-                    NID = "9876543210",
-                    FirstName = "mohamed",
+                    FirstName = "Mohammed",
                     LastName = "Ali",
+                    NID = "9876543210",
                     Gender = "Male",
                     IsRegister = true,
                     BirthDate = new DateTime(1988, 10, 5),
@@ -76,11 +80,13 @@ namespace MS.Infrastructure.Contexts
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "B+",
+                    MaritalStatus = "Married"
                 },
                 new ApplicationUser
                 {
                     Id = "4",
-                    FirstName = "mohamed",
+                    FirstName = "Aisha",
                     LastName = "Ali",
                     NID = "0123456789",
                     Gender = "Female",
@@ -94,13 +100,15 @@ namespace MS.Infrastructure.Contexts
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "AB+",
+                    MaritalStatus = "Married"
                 },
                 new ApplicationUser
                 {
                     Id = "5",
-                    NID = "1122334455",
-                    FirstName = "mohamed",
+                    FirstName = "Ahmad",
                     LastName = "Ali",
+                    NID = "1122334455",
                     Gender = "Male",
                     IsRegister = true,
                     BirthDate = new DateTime(1978, 3, 10),
@@ -112,17 +120,19 @@ namespace MS.Infrastructure.Contexts
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "O-",
+                    MaritalStatus = "Single"
                 },
                 new ApplicationUser
                 {
                     Id = "6",
+                    FirstName = "Aya",
+                    LastName = "Ali",
                     NID = "3344556677",
                     Gender = "Female",
                     IsRegister = true,
                     BirthDate = new DateTime(1989, 7, 5),
                     UserName = "AYA789",
-                    FirstName = "mohamed",
-                    LastName = "Ali",
                     NormalizedEmail = "AYA@EXAMPLE.COM",
                     NormalizedUserName = "AYA789",
                     EmailConfirmed = false,
@@ -130,10 +140,14 @@ namespace MS.Infrastructure.Contexts
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "A-",
+                    MaritalStatus = "Married"
                 },
                 new ApplicationUser
                 {
                     Id = "7",
+                    FirstName = "Omar",
+                    LastName = "Ali",
                     NID = "5544332211",
                     Gender = "Male",
                     IsRegister = true,
@@ -142,16 +156,18 @@ namespace MS.Infrastructure.Contexts
                     NormalizedEmail = "OMAR@EXAMPLE.COM",
                     NormalizedUserName = "OMAR101",
                     EmailConfirmed = false,
-                    FirstName = "mohamed",
-                    LastName = "Ali",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "B-",
+                    MaritalStatus = "Single"
                 },
                 new ApplicationUser
                 {
                     Id = "8",
+                    FirstName = "Sara",
+                    LastName = "Ali",
                     NID = "7788990011",
                     Gender = "Female",
                     IsRegister = true,
@@ -161,15 +177,17 @@ namespace MS.Infrastructure.Contexts
                     NormalizedUserName = "SARA2022",
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
-                    FirstName = "mohamed",
-                    LastName = "Ali",
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "AB-",
+                    MaritalStatus = "Single"
                 },
                 new ApplicationUser
                 {
                     Id = "9",
+                    FirstName = "Ali",
+                    LastName = "Ali",
                     NID = "6677889900",
                     Gender = "Male",
                     IsRegister = true,
@@ -179,94 +197,124 @@ namespace MS.Infrastructure.Contexts
                     NormalizedUserName = "ALI3030",
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
-                    FirstName = "mohamed",
-                    LastName = "Ali",
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "O+",
+                    MaritalStatus = "Single"
                 },
                 new ApplicationUser
                 {
                     Id = "10",
+                    FirstName = "Laila",
+                    LastName = "Ali",
                     NID = "1122334455",
                     Gender = "Female",
-                    IsRegister=true,
+                    IsRegister = true,
                     BirthDate = new DateTime(1982, 10, 10),
                     UserName = "LAILA4040",
                     NormalizedEmail = "LAILA@EXAMPLE.COM",
                     NormalizedUserName = "LAILA4040",
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
-                    FirstName = "mohamed",
-                    LastName = "Ali",
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 0,
+                    BloodType = "A+",
+                    MaritalStatus = "Married"
                 });
 
             modelBuilder.Entity<Clinic>().HasData(
-                new Clinic
-                {
-                    ID = 1,
-                    Name = "Elzahraa",
-                    DepartmentID = 1,
-
-                },
-                new Clinic
-                {
-                    ID = 2,
-                    Name = "Alpha",
-                    DepartmentID = 2,
-
-                },
-                new Clinic
-                {
-                    ID = 3,
-                    DepartmentID = 3,
-                    Name = "Mediplus"
-                },
-                new Clinic
-                {
-                    ID = 4,
-                    DepartmentID = 4,
-                    Name = "HealthLine"
-                },
-                new Clinic
-                {
-                    ID = 5,
-                    DepartmentID = 5,
-                    Name = "MediCare"
-                },
-                new Clinic
-                {
-                    ID = 6,
-                    DepartmentID = 6,
-                    Name = "Wellness Pharmacy"
-                },
-                new Clinic
-                {
-                    ID = 7,
-                    DepartmentID = 7,
-                    Name = "CarePlus"
-                },
-                new Clinic
-                {
-                    ID = 8,
-                    DepartmentID = 8,
-                    Name = "MediPharm"
-                },
-                new Clinic
-                {
-                    ID = 9,
-                    DepartmentID = 9,
-                    Name = "MediCo"
-                },
-                new Clinic
-                {
-                    ID = 10,
-                    DepartmentID = 10,
-                    Name = "PharmaCare"
-                });
+              new Clinic
+              {
+                  ID = 1,
+                  Name = "Elzahraa",
+                  DepartmentID = 1,
+                  Description = "",
+                  PhotoID = 1,
+                  WorkDays = new List<WeekDays> { WeekDays.Sunday, WeekDays.Monday, WeekDays.Wednesday, WeekDays.Friday }
+              },
+              new Clinic
+              {
+                  ID = 2,
+                  Name = "Alpha",
+                  DepartmentID = 2,
+                  Description = "",
+                  PhotoID = 2,
+                  WorkDays = new List<WeekDays> { WeekDays.Monday, WeekDays.Tuesday, WeekDays.Thursday }
+              },
+              new Clinic
+              {
+                  ID = 3,
+                  DepartmentID = 3,
+                  Name = "Mediplus",
+                  Description = "",
+                  PhotoID = 3,
+                  WorkDays = new List<WeekDays> { WeekDays.Tuesday, WeekDays.Wednesday, WeekDays.Thursday, WeekDays.Saturday }
+              },
+              new Clinic
+              {
+                  ID = 4,
+                  DepartmentID = 4,
+                  Name = "Elzahraa",
+                  Description = "",
+                  PhotoID = 4,
+                  WorkDays = new List<WeekDays> { WeekDays.Sunday, WeekDays.Monday, WeekDays.Friday }
+              },
+              new Clinic
+              {
+                  ID = 5,
+                  DepartmentID = 5,
+                  Name = "Alpha",
+                  Description = "",
+                  PhotoID = 5,
+                  WorkDays = new List<WeekDays> { WeekDays.Monday, WeekDays.Tuesday, WeekDays.Wednesday, WeekDays.Thursday }
+              },
+              new Clinic
+              {
+                  ID = 6,
+                  DepartmentID = 6,
+                  Name = "Mediplus",
+                  Description = "",
+                  PhotoID = 6,
+                  WorkDays = new List<WeekDays> { WeekDays.Tuesday, WeekDays.Wednesday, WeekDays.Friday }
+              },
+              new Clinic
+              {
+                  ID = 7,
+                  DepartmentID = 7,
+                  Name = "Elzahraa",
+                  Description = "",
+                  PhotoID = 7,
+                  WorkDays = new List<WeekDays> { WeekDays.Sunday, WeekDays.Tuesday, WeekDays.Thursday }
+              },
+              new Clinic
+              {
+                  ID = 8,
+                  DepartmentID = 8,
+                  Name = "Alpha",
+                  Description = "",
+                  PhotoID = 8,
+                  WorkDays = new List<WeekDays> { WeekDays.Monday, WeekDays.Wednesday, WeekDays.Friday }
+              },
+              new Clinic
+              {
+                  ID = 9,
+                  DepartmentID = 9,
+                  Name = "Mediplus",
+                  Description = "",
+                  PhotoID = 9,
+                  WorkDays = new List<WeekDays> { WeekDays.Tuesday, WeekDays.Thursday, WeekDays.Saturday }
+              },
+              new Clinic
+              {
+                  ID = 10,
+                  DepartmentID = 10,
+                  Name = "Elzahraa",
+                  Description = "",
+                  PhotoID = 10,
+                  WorkDays = new List<WeekDays> { WeekDays.Sunday, WeekDays.Monday, WeekDays.Wednesday, WeekDays.Friday }
+              });
 
             modelBuilder.Entity<PlacePrice>().HasData(
                 new PlacePrice
@@ -275,15 +323,6 @@ namespace MS.Infrastructure.Contexts
                     Name = "X-Alpha",
                     Price = 341.40,
                     PlaceID = 2,
-                    PlaceType=PlaceType.Clinic
-                   
-                },
-                new PlacePrice
-                {
-                    ID = 3,
-                    Name = "X-ray",
-                    Price = 260.40,
-                    PlaceID = 1,
                     PlaceType = PlaceType.Lab
 
                 },
@@ -297,6 +336,15 @@ namespace MS.Infrastructure.Contexts
                 },
                 new PlacePrice
                 {
+                    ID = 3,
+                    Name = "X-ray",
+                    Price = 260.40,
+                    PlaceID = 1,
+                    PlaceType = PlaceType.Lab
+
+                },
+                new PlacePrice
+                {
                     ID = 4,
                     Name = "MRI",
                     PlaceID = 4,
@@ -306,18 +354,18 @@ namespace MS.Infrastructure.Contexts
                 new PlacePrice
                 {
                     ID = 5,
-                    Name = "CT Scan",
+                    Name = "Ultrasound",
                     PlaceID = 5,
-                    PlaceType = PlaceType.Clinic,
-                    Price = 799.99
+                    PlaceType = PlaceType.Lab,
+                    Price = 199.99
                 },
                 new PlacePrice
                 {
                     ID = 6,
-                    Name = "Ultrasound",
+                    Name = "CT Scan",
                     PlaceID = 6,
-                    PlaceType = PlaceType.Clinic,
-                    Price = 499.99
+                    PlaceType = PlaceType.Lab,
+                    Price = 399.99
                 },
                 new PlacePrice
                 {
@@ -332,8 +380,8 @@ namespace MS.Infrastructure.Contexts
                     ID = 8,
                     Name = "Mammography",
                     PlaceID = 8,
-                    PlaceType = PlaceType.Clinic,
-                    Price = 299.99
+                    PlaceType = PlaceType.Lab,
+                    Price = 199.99
                 },
                 new PlacePrice
                 {
@@ -414,67 +462,6 @@ namespace MS.Infrastructure.Contexts
                     Name = "Nephrology"
                 });
 
-            modelBuilder.Entity<Document>().HasData(
-                new Document
-                {
-                    ID = 1,
-                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
-                    ReportID = 1 // Assuming report ID is 1
-                },
-                new Document
-                {
-                    ID = 2,
-                    Content = new byte[] { /* content bytes */ }, // Replace with actual document content
-                    ReportID = 2 // Assuming report ID is 2
-                },
-                new Document
-                {
-                    ID = 3,
-                    Content = new byte[0] { },
-                    ReportID = 3
-                },
-                new Document
-                {
-                    ID = 4,
-                    Content = new byte[0] { },
-                    ReportID = 4
-                },
-                new Document
-                {
-                    ID = 5,
-                    Content = new byte[0] { },
-                    ReportID = 5
-                },
-                new Document
-                {
-                    ID = 6,
-                    Content = new byte[0] { },
-                    ReportID = 6
-                },
-                new Document
-                {
-                    ID = 7,
-                    Content = new byte[0] { },
-                    ReportID = 7
-                },
-                new Document
-                {
-                    ID = 8,
-                    Content = new byte[0] { },
-                    ReportID = 8
-                },
-                new Document
-                {
-                    ID = 9,
-                    Content = new byte[0] { },
-                    ReportID = 9
-                },
-                new Document
-                {
-                    ID = 10,
-                    Content = new byte[0] { },
-                    ReportID = 10
-                });
 
             modelBuilder.Entity<Equipment>().HasData(
                 new Equipment
@@ -1019,7 +1006,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 1,
                     EquipmentID = 1, // Assuming equipment ID, adjust accordingly
                     EntityID = 1, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
-                    PlaceType = PlaceType.Clinic // Assuming place type, adjust accordingly
+                    PlaceType = PlaceType.Lab // Assuming place type, adjust accordingly
                 },
                 new PlaceEquipment
                 {
@@ -1033,7 +1020,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 3,
                     EntityID = 3,
                     EquipmentID = 3,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -1047,7 +1034,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 5,
                     EntityID = 5,
                     EquipmentID = 5,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -1061,7 +1048,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 7,
                     EntityID = 7,
                     EquipmentID = 7,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -1075,7 +1062,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 9,
                     EntityID = 9,
                     EquipmentID = 9,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new PlaceEquipment
                 {
@@ -1090,7 +1077,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 1,
                     EntityID = 1, // Assuming entity ID (clinic, lab, or pharmacy), adjust accordingly
-                    PlaceType = PlaceType.Clinic, // Assuming place type, adjust accordingly
+                    PlaceType = PlaceType.Lab, // Assuming place type, adjust accordingly
                     ShiftID = 1 // Assuming shift ID, adjust accordingly
                 },
                 new PlaceShift
@@ -1118,21 +1105,21 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 5,
                     EntityID = 5,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 2
                 },
                 new PlaceShift
                 {
                     ID = 6,
                     EntityID = 6,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 1
                 },
                 new PlaceShift
                 {
                     ID = 7,
                     EntityID = 7,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 2
                 },
                 new PlaceShift
@@ -1146,7 +1133,7 @@ namespace MS.Infrastructure.Contexts
                 {
                     ID = 9,
                     EntityID = 9,
-                    PlaceType = PlaceType.Clinic,
+                    PlaceType = PlaceType.Lab,
                     ShiftID = 2
                 },
                 new PlaceShift
@@ -1166,6 +1153,7 @@ namespace MS.Infrastructure.Contexts
                     Description = "Description of report 1",
                     UserID = "1", // Assuming user ID, adjust accordingly
                     DoctorID = "11" // Assuming doctor ID, adjust accordingly
+                    
                 },
                 new Report
                 {
@@ -1362,7 +1350,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 7,
                     Time = new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6530),
                     State = ReservationState.Running,
-                    PlacePriceId = 4,
+                    PlacePriceId = 1,
                     UserID = "7",
                     SerialNumber = "70000005"
                 },
@@ -1371,7 +1359,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 8,
                     Time = new DateTime(2024, 3, 9, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6543),
                     State = ReservationState.Running,
-                    PlacePriceId = 4,
+                    PlacePriceId = 1,
                     UserID = "8",
                     SerialNumber = "70000006"
                 },
@@ -1380,7 +1368,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 9,
                     Time = new DateTime(2024, 3, 10, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6556),
                     State = ReservationState.Running,
-                    PlacePriceId = 5,
+                    PlacePriceId = 1,
                     UserID = "9",
                     SerialNumber = "70000007"
                 },
@@ -1389,7 +1377,7 @@ namespace MS.Infrastructure.Contexts
                     ID = 10,
                     Time = new DateTime(2024, 3, 11, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6569),
                     State = ReservationState.Done,
-                    PlacePriceId = 5,
+                    PlacePriceId = 1,
                     UserID = "10",
                     SerialNumber = "70000008"
                 }
@@ -1404,7 +1392,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0), // Example start time, adjust accordingly
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0), // Example end time, adjust accordingly
                     EntityID = 1, // Assuming entity ID, adjust accordingly
-                    PlaceType = PlaceType.Clinic // Assuming place type, adjust accordingly
+                    PlaceType = PlaceType.Lab // Assuming place type, adjust accordingly
                 },
                 new Shift
                 {
@@ -1422,7 +1410,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 3,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.  Lab
                 },
                 new Shift
                 {
@@ -1440,7 +1428,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 5,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new Shift
                 {
@@ -1458,7 +1446,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 7,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new Shift
                 {
@@ -1476,7 +1464,7 @@ namespace MS.Infrastructure.Contexts
                     StartTime = new DateTime(2024, 2, 17, 8, 0, 0),
                     EndTime = new DateTime(2024, 2, 17, 16, 0, 0),
                     EntityID = 9,
-                    PlaceType = PlaceType.Clinic
+                    PlaceType = PlaceType.Lab
                 },
                 new Shift
                 {
@@ -1491,7 +1479,7 @@ namespace MS.Infrastructure.Contexts
                 new TestLab
                 {
                     ID = 1,
-                    TestLabID = 1, // Assuming test lab ID, adjust accordingly
+                    TestID = 1, // Assuming test lab ID, adjust accordingly
                     LabID = 1, // Assuming lab ID, adjust accordingly
                     Price = 100.00, // Assuming price, adjust accordingly
                     Description = "Description of test lab 1"
@@ -1499,7 +1487,7 @@ namespace MS.Infrastructure.Contexts
                 new TestLab
                 {
                     ID = 2,
-                    TestLabID = 2, // Assuming test lab ID, adjust accordingly
+                    TestID = 2, // Assuming test lab ID, adjust accordingly
                     LabID = 2, // Assuming lab ID, adjust accordingly
                     Price = 150.00, // Assuming price, adjust accordingly
                     Description = "Description of test lab 2"
@@ -1510,115 +1498,141 @@ namespace MS.Infrastructure.Contexts
                     Description = "Description of test lab 3",
                     LabID = 3,
                     Price = 200.0,
-                    TestLabID = 3
-                },
-                new TestLab
-                {
-                    ID = 4,
-                    Description = "Description of test lab 4",
-                    LabID = 4,
-                    Price = 250.0,
-                    TestLabID = 4
-                },
-                new TestLab
-                {
-                    ID = 5,
-                    Description = "Description of test lab 5",
-                    LabID = 5,
-                    Price = 300.0,
-                    TestLabID = 5
-                },
-                new TestLab
-                {
-                    ID = 6,
-                    Description = "Description of test lab 6",
-                    LabID = 6,
-                    Price = 350.0,
-                    TestLabID = 6
-                },
-                new TestLab
-                {
-                    ID = 7,
-                    Description = "Description of test lab 7",
-                    LabID = 7,
-                    Price = 400.0,
-                    TestLabID = 7
-                },
-                new TestLab
-                {
-                    ID = 8,
-                    Description = "Description of test lab 8",
-                    LabID = 8,
-                    Price = 450.0,
-                    TestLabID = 8
-                },
-                new TestLab
-                {
-                    ID = 9,
-                    Description = "Description of test lab 9",
-                    LabID = 9,
-                    Price = 500.0,
-                    TestLabID = 9
-                },
-                new TestLab
-                {
-                    ID = 10,
-                    Description = "Description of test lab 10",
-                    LabID = 10,
-                    Price = 550.0,
-                    TestLabID = 10
+                    TestID = 3
                 });
+            modelBuilder.Entity<Attachment>().HasData(
+                    new Attachment
+                    {
+                        ID = 1,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl="lol",
+                        ViewUrl="lol",
+                    },
+                    new Attachment
+                    {
+                        ID = 2,
+                        FileName = "6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\6bb72574-4c96-4d5a-8ff2-d0ebf750631f.jpeg",
+                        FolderName = "Test",
+                        Title = "Sample Attachment 2",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    },
+                    new Attachment
+                    {
+                        ID = 3,
+                        FileName = "edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\edfdf2bd-7ff0-48aa-a4db-8dfc0fa11a2a.jpg",
+                        FolderName = "Test",
+                        Title = "Sample Attachment 3",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    // Add more attachments as needed
+                    ,new Attachment
+                    {
+                        ID = 4,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 5,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 6,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 7,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 8,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 9,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                    , new Attachment
+                    {
+                        ID = 10,
+                        FileName = "33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        Filepath = "D:\\Final Project\\MedicalSystem\\BackEnd\\Medical System\\wwwroot\\Test\\33c1aa8a-c108-42cb-9686-7414da0d0492.jpg",
+                        FolderName = "Test", // Assuming these are test attachments
+                        Title = "Sample Attachment 1",
+                        Type = "Image",
+                        DownloadUrl = "lol",
+                        ViewUrl = "lol",
+                    }
+                );
             modelBuilder.Entity<Test>().HasData(
                 new Test
                 {
                     ID = 1,
-                    Name = "Blood Test"
+                    Name = "Blood Test",
+                    PhotoID=1
                 },
                 new Test
                 {
                     ID = 2,
-                    Name = "Urinalysis"
+                    Name = "Urinalysis",
+                    PhotoID=2
                 },
                 new Test
                 {
                     ID = 3,
-                    Name = "MRI Scan"
-                },
-                new Test
-                {
-                    ID = 4,
-                    Name = "X-ray Imaging"
-                },
-                new Test
-                {
-                    ID = 5,
-                    Name = "Ultrasound Examination"
-                },
-                new Test
-                {
-                    ID = 6,
-                    Name = "CT Scan"
-                },
-                new Test
-                {
-                    ID = 7,
-                    Name = "EKG Test"
-                },
-                new Test
-                {
-                    ID = 8,
-                    Name = "Colonoscopy"
-                },
-                new Test
-                {
-                    ID = 9,
-                    Name = "Endoscopy"
-                },
-                new Test
-                {
-                    ID = 10,
-                    Name = "Biopsy"
-                });
+                    Name = "MRI Scan",
+                    PhotoID=3
+                }
+               );
 
             modelBuilder.Entity<Types>().HasData(
                 new Types
@@ -1671,6 +1685,119 @@ namespace MS.Infrastructure.Contexts
                     ID = 10,
                     Name = "Type 10"
                 });
+            modelBuilder.Entity<Disease>().HasData(
+                new Disease
+                {
+                    ID = 1,
+                    Name = "Diabetes",
+                    Description = "A chronic condition that affects how your body turns food into energy.",
+                    Symptoms = "Increased thirst, frequent urination, extreme hunger, unexplained weight loss, presence of ketones in the urine.",
+                    Causes = "Genetic factors, poor diet, lack of exercise, obesity."
+                },
+                new Disease
+                {
+                    ID = 2,
+                    Name = "Hypertension",
+                    Description = "A condition in which the force of the blood against the artery walls is too high.",
+                    Symptoms = "Often has no symptoms but can include headaches, shortness of breath, or nosebleeds.",
+                    Causes = "Genetic factors, high salt intake, obesity, lack of physical activity, alcohol consumption."
+                },
+                new Disease
+                {
+                    ID = 3,
+                    Name = "Asthma",
+                    Description = "A condition in which your airways narrow and swell and produce extra mucus.",
+                    Symptoms = "Shortness of breath, chest tightness or pain, wheezing, coughing.",
+                    Causes = "Genetic factors, respiratory infections, allergens, air pollutants."
+                },
+                new Disease
+                {
+                    ID = 4,
+                    Name = "Cancer",
+                    Description = "A group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body.",
+                    Symptoms = "Varies by type but can include lumps, abnormal bleeding, prolonged cough, unexplained weight loss.",
+                    Causes = "Genetic factors, lifestyle factors such as smoking and diet, environmental exposures to chemicals and radiation."
+                },
+                new Disease
+                {
+                    ID = 5,
+                    Name = "Alzheimer's Disease",
+                    Description = "A progressive disorder that causes brain cells to waste away (degenerate) and die.",
+                    Symptoms = "Memory loss, confusion, difficulty with language, difficulty in making decisions, personality changes.",
+                    Causes = "Genetic factors, age, family history, certain genetic mutations."
+                });
+            modelBuilder.Entity<ApplicationUserDisease>().HasData(
+                new ApplicationUserDisease
+                {
+                    ID = 1,
+                    Type = "Type 1 Diabetes",
+                    ValueResult = 7.2,
+                    Description = "Managed with insulin injections.",
+                    Height = 1.75,
+                    Weight = 70.0,
+                    ApplicationUserId = "1", // This should match an existing ApplicationUser ID
+                    DiseaseId = 1, // This should match an existing Disease ID
+                    Diagnosis = "Confirmed Type 1 Diabetes",
+                    DiagnosisDate = new DateTime(2020, 1, 15),
+                    Attachments = new List<Attachment>()
+                },
+                new ApplicationUserDisease
+                {
+                    ID = 2,
+                    Type = "Hypertension",
+                    ValueResult = 140,
+                    Description = "High blood pressure managed with medication.",
+                    Height = 1.80,
+                    Weight = 85.0,
+                    ApplicationUserId = "2", // This should match an existing ApplicationUser ID
+                    DiseaseId = 2, // This should match an existing Disease ID
+                    Diagnosis = "Stage 2 Hypertension",
+                    DiagnosisDate = new DateTime(2019, 5, 10),
+                    Attachments = new List<Attachment>()
+                },
+                new ApplicationUserDisease
+                {
+                    ID = 3,
+                    Type = "Asthma",
+                    ValueResult = 1,
+                    Description = "Chronic condition managed with inhalers.",
+                    Height = 1.65,
+                    Weight = 60.0,
+                    ApplicationUserId = "3", // This should match an existing ApplicationUser ID
+                    DiseaseId = 3, // This should match an existing Disease ID
+                    Diagnosis = "Mild Persistent Asthma",
+                    DiagnosisDate = new DateTime(2018, 3, 20),
+                    Attachments = new List<Attachment>()
+                },
+                new ApplicationUserDisease
+                {
+                    ID = 4,
+                    Type = "Cancer",
+                    ValueResult = 3.4,
+                    Description = "Undergoing chemotherapy.",
+                    Height = 1.70,
+                    Weight = 65.0,
+                    ApplicationUserId = "4", // This should match an existing ApplicationUser ID
+                    DiseaseId = 4, // This should match an existing Disease ID
+                    Diagnosis = "Stage 2 Breast Cancer",
+                    DiagnosisDate = new DateTime(2021, 8, 30),
+                    Attachments = new List<Attachment>()
+                },
+                new ApplicationUserDisease
+                {
+                    ID = 5,
+                    Type = "Alzheimer's Disease",
+                    ValueResult = 4.5,
+                    Description = "Progressive memory loss.",
+                    Height = 1.60,
+                    Weight = 55.0,
+                    ApplicationUserId = "5", // This should match an existing ApplicationUser ID
+                    DiseaseId = 5, // This should match an existing Disease ID
+                    Diagnosis = "Early Onset Alzheimer's",
+                    DiagnosisDate = new DateTime(2017, 12, 10),
+                    Attachments = new List<Attachment>()
+                }
+            );
 
             #endregion
 
@@ -1678,7 +1805,7 @@ namespace MS.Infrastructure.Contexts
             new ClinicConfig().Configure(modelBuilder.Entity<Clinic>());
             new PlacePriceConfig().Configure(modelBuilder.Entity<PlacePrice>());
             new DepartmentConfig().Configure(modelBuilder.Entity<Department>());
-            new DocumentConfig().Configure(modelBuilder.Entity<Document>());
+            new AttachmentConfig().Configure(modelBuilder.Entity<Attachment>());
             new EquipmentConfig().Configure(modelBuilder.Entity<Equipment>());
             new HospitalConfig().Configure(modelBuilder.Entity<Hospital>());
             new LabConfig().Configure(modelBuilder.Entity<Lab>());
@@ -1696,16 +1823,19 @@ namespace MS.Infrastructure.Contexts
             new TestLabConfig().Configure(modelBuilder.Entity<TestLab>());
             new TypesConfig().Configure(modelBuilder.Entity<Types>());
             new UserConfig().Configure(modelBuilder.Entity<ApplicationUser>()); 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
             #endregion
 
             base.OnModelCreating(modelBuilder);
         }
         #region DbSets
+        public DbSet<Disease> Diseases { get; set; }
+        public DbSet<ApplicationUserDisease> UserDiseases { get; set; }  
         public DbSet<OTP> OTPs { get; set; }
         public DbSet<Clinic> clinics { get; set; }
         public DbSet<PlacePrice> placePrice { get; set; }
         public DbSet<Department> departments { get; set; }
-        public DbSet<Document> documents { get; set; }
+        public DbSet<Attachment> attachments { get; set; }
         public DbSet<Equipment> equipments { get; set; }
         public DbSet<Hospital> hospitals { get; set; }
         public DbSet<Lab> labs { get; set; }
@@ -1722,7 +1852,7 @@ namespace MS.Infrastructure.Contexts
         public DbSet<Test> tests { get; set; }
         public DbSet<TestLab> testLabs { get; set; }
         public DbSet<Types> types { get; set; }
-        public DbSet<ApplicationUser> users { get; set; } 
+        public DbSet<ApplicationUser> users { get; set; }
         #endregion
     }
 }

@@ -26,20 +26,23 @@ namespace MS.Application
         {
             #region services
 
+            services.AddScoped<IApplicationUserDiseaseService, ApplicationUserDiseaseService>();
+            services.AddScoped<IDiseaseService, DiseaseService>();
             services.AddScoped<ILabService,LabService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITypeService, TypeServices>();
             services.AddScoped<IShiftService, ShiftService>();
-            services.AddScoped< ITestService,  TestService>();
+            services.AddScoped<ITestService,  TestService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IAttachmentService,AttachmentService>();
             services.AddScoped<ITestLabService, TestLabService>();
             services.AddScoped<IPharmacyService,PharmacyService>();
             services.AddScoped<IMedicineService,MedicineService>();
-            services.AddScoped<IDocumentService,DocumentService>();
+          
             services.AddScoped<IHospitalService,HospitalService>();
             services.AddScoped<IEquipmentService,EquipmentService>();
-            services.AddTransient<IMailingService, MailingService>();
+            services.AddScoped<IMailingService, MailingService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IPlaceShiftService, PlaceShiftService>();
             services.AddScoped<IPlacePriceService, PlacePriceService>();
@@ -51,6 +54,7 @@ namespace MS.Application
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             services.AddScoped(typeof(IFilter<>), typeof(FilterServices<>));
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            
             #endregion
 
 

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MS.Application\MS.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Clinic\" />
+  </ItemGroup>
+
 </Project>

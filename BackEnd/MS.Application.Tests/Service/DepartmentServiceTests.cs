@@ -6,6 +6,7 @@ using MS.Application.DTOs.Department;
 using MS.Data.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MS.Application.Interfaces;
 
 namespace MS.Application.Tests.Services
 {
@@ -13,11 +14,13 @@ namespace MS.Application.Tests.Services
     {
         private readonly DepartmentService _departmentService;
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+        private readonly IFilter<Department> _filter;
 
-        public DepartmentServiceTests()
+        public DepartmentServiceTests(Mock<IUnitOfWork> mock , IFilter<Department> filter)
         {
             _unitOfWorkMock = new Mock<IUnitOfWork>();
-//            _departmentService = new DepartmentService(_unitOfWorkMock.Object);
+            _filter = filter;
+            _departmentService = new DepartmentService(_unitOfWorkMock.Object,_filter);
         }
 
         [Fact]

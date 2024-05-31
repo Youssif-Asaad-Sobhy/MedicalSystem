@@ -15,11 +15,6 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(r => r.ID);
 
-            builder.HasMany(r => r.Documents)
-                .WithOne(d => d.Report)
-                .HasForeignKey(d => d.ReportID)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.HasMany(r=>r.ReportMedicines)
                 .WithOne(rm=>rm.Report)
                 .HasForeignKey(rm=>rm.ReportID)

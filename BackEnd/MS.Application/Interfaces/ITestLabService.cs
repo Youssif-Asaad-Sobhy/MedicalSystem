@@ -11,5 +11,6 @@ namespace MS.Application.Interfaces
         Task<Response<TestLab>> DeleteTestLabAsync(int ID);
         Task<Response<TestLab>> UpdateTestLabAsync(UpdateTestLabDto model);
         Task<Response<TestLab>> CreateTestLabAsync(CreateTestLabDto model);
+        Task<Response<List<AllTestDto>>> GetTestListAsync();
     }
 }
