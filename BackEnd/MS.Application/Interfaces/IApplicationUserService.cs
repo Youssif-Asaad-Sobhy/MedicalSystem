@@ -20,5 +20,6 @@ namespace MS.Application.Interfaces
         Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID);
         Task<Response<ApplicationUser>> changePasswordAsync(ChangePasswordDto model);
         Task<Response<ApplicationUser>> ForgotPasswordAsync(ForgotPasswordDto model);
+        Task<Response<List<UserDiseasesDto>>> GetAllUserDiseases(string id);
     }
 }

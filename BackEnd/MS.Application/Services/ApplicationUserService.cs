@@ -143,5 +143,60 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success<ApplicationUser>("Password reset successfully");
         }
+
+        public async Task<Response<List<UserDiseasesDto>>> GetAllUserDiseases(string id)
+        {
+            var user= await _unitOfWork.Users.GetByExpressionSingleAsync(u=>u.Id==id, [u=>u.UserDiseases]);
+            List<UserDiseasesDto> userDisease = new List<UserDiseasesDto>();
+            foreach (var UserDiseases in user.UserDiseases)
+            {
+                var x = await _unitOfWork.ApplicationUserDiseases.
+                    GetByExpressionSingleAsync(ud => ud.ID == UserDiseases.ID, [ud => ud.Disease, ud => ud.Attachments]);
+                #region Mapping
+                UserDiseasesDto dto = new UserDiseasesDto()
+                {
+                    MaritalStatus = user.MaritalStatus,
+                    Gender = user.Gender,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Type = x.Type,
+                    ValueResult = x.ValueResult,
+                    Description = x.Description,
+                    Height = x.Height,
+                    Weight = x.Weight,
+                    DiseaseName = x.Disease?.Name,
+                    DiseaseDescription = x.Disease?.Description,
+                    DiseaseCauses = x.Disease?.Causes,
+                    DiseaseSymptoms = x.Disease?.Symptoms,
+                    Diagnosis = x.Diagnosis,
+                    DiagnosisDate = x.DiagnosisDate,
+                    DocViewUrl = []
+                };
+                var atts = new List<string>();
+                if (x.Attachments == null)
+                {
+                    dto.DocViewUrl = null;
+                }
+                else
+                {
+                    foreach(var attachment in x.Attachments)
+                    {
+                        if (attachment != null)
+                        {
+                            atts.Add(attachment.ViewUrl);
+                        }
+                    }
+                    dto.DocViewUrl = atts;
+                    //dto.DocViewUrl.AddRange(atts);
+                }
+                #endregion
+                userDisease.Add(dto);
+            }
+            if (userDisease.Count == 0)
+            {
+                return ResponseHandler.BadRequest<List<UserDiseasesDto>>();
+            }
+            return ResponseHandler.Success(userDisease);
+        }
     }
 }

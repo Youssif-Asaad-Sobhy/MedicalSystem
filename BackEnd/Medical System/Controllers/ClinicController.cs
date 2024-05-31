@@ -25,7 +25,7 @@ namespace Medical_System.Controllers
         #endregion
 
         #region Methods
-        [HttpGet("/{ClinicID:int}")]
+        [HttpGet("{ClinicID:int}")]
         public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ClinicID)
         {
             var response = await _clinicService.GetClinicAsync(ClinicID);
@@ -35,7 +35,7 @@ namespace Medical_System.Controllers
         }
 
 
-        [HttpDelete("/{ClinicID:int}")]
+        [HttpDelete("{ClinicID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ClinicID)
         {
             var response = await _clinicService.DeleteClinicAsync(ClinicID);
