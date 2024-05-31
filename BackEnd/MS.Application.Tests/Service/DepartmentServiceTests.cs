@@ -14,13 +14,11 @@ namespace MS.Application.Tests.Services
     {
         private readonly DepartmentService _departmentService;
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
-        private readonly IFilter<Department> _filter;
 
-        public DepartmentServiceTests(Mock<IUnitOfWork> mock , IFilter<Department> filter)
+        public DepartmentServiceTests(Mock<IUnitOfWork> mock)
         {
             _unitOfWorkMock = new Mock<IUnitOfWork>();
-            _filter = filter;
-            _departmentService = new DepartmentService(_unitOfWorkMock.Object,_filter);
+            _departmentService = new DepartmentService(_unitOfWorkMock.Object);
         }
 
         [Fact]
@@ -72,7 +70,7 @@ namespace MS.Application.Tests.Services
             _unitOfWorkMock.Setup(u => u.Departments.GetAllAsync()).ReturnsAsync(departments);
 
             // Act
-            var response = await _departmentService.GetAllDepartmentsAsync();
+            var response = await _departmentService.GetAllDepartmentsAsync([]);
 
             // Assert
             Assert.True(response.Succeeded);

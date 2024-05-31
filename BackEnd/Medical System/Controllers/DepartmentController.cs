@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.Department;
-using MS.Application.Helpers.Filters;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Services;
