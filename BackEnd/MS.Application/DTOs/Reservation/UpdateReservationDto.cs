@@ -24,6 +24,8 @@ namespace MS.Application.DTOs.Reservation
 
         [Required(ErrorMessage = "UserID is required")]
         public string UserID { get; set; }
-
+        
+        [Required, StringLength(50)]
+        public string SerialNumber { get; set; }
     }
 }

@@ -159,6 +159,7 @@ namespace MS.Application.Services
             await _unitOfWork.Attachment.AddAsync(file);
             return ResponseHandler.Success(new FileDto
             {
+                ID = file.ID,
                 Title = file.Title,
                 FileName = file.FileName,
                 FolderName = file.FolderName,

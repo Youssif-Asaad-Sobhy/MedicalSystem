@@ -22,5 +22,11 @@ namespace MS.Application.DTOs.ApplicationUser
         public string Gender { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
+        
+        public bool IsRegister { get; set; }
+        
+        public string? BloodType { get; set; }
+        
+        public string? MaritalStatus { get; set; }
     }
 }

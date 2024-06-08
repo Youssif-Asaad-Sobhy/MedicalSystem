@@ -19,13 +19,14 @@ namespace MS.Application.DTOs.MedicineType
         [Required]
         public int TypeID { get; set; }
 
+        [StringLength(500)]
         public string Description { get; set; }
 
+        [StringLength(500)]
         public string SideEffects { get; set; }
-
+        
+        [StringLength(500)]
         public string Warning { get; set; }
-
-        [Required]
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
     }
 }

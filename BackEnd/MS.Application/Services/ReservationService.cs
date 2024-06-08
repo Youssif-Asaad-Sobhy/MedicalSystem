@@ -101,6 +101,7 @@ namespace MS.Application.Services
             Reservation.State = model.State;
             Reservation.UserID = model.UserID;
             Reservation.PlacePriceId = model.PlacePriceId;
+            Reservation.SerialNumber = model.SerialNumber;
 
             await _unitOfWork.Reservations.UpdateAsync(Reservation);
             return ResponseHandler.Updated(Reservation);
