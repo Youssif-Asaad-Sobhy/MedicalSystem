@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.ClinicPrice;
@@ -11,6 +12,7 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlacePriceController : ControllerBase
     {
         #region Constructor/props
@@ -27,6 +29,7 @@ namespace Medical_System.Controllers
             var response = await _pricePriceService.GetPlacePriceAsync(ID);
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync([FromRoute]int ID)
         {
@@ -34,6 +37,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost()]
         public async Task<IActionResult> CreateClinicAsync([FromBody] CreatePlacePriceDto model) 
         {
@@ -45,6 +49,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut()]
         public async Task<IActionResult> PutSingleAsync([FromBody]UpdatePlacePriceDto model)
         {

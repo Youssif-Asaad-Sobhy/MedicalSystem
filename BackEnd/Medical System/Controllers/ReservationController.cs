@@ -22,6 +22,7 @@ namespace Medical_System.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Reservation : ControllerBase
     {
         #region Constructor/props
@@ -50,6 +51,7 @@ namespace Medical_System.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ID)
         {
@@ -70,6 +72,7 @@ namespace Medical_System.Controllers
             var response = await _service.PlaceReservationAsync(model);
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("Put")]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdateReservationDto model)
         {

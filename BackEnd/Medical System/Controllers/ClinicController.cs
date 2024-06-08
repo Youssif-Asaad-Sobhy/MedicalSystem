@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Clinc;
 using MS.Application.Helpers.Response;
@@ -13,6 +14,7 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClinicController : ControllerBase
     {
         #region Constructor/props
@@ -33,7 +35,7 @@ namespace Medical_System.Controllers
        
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{ClinicID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ClinicID)
         {
@@ -41,6 +43,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateClinicAsync([FromQuery] CreateClinicDto model) //same comment as below
         {
@@ -51,6 +54,7 @@ namespace Medical_System.Controllers
             var response = await _clinicService.CreateClinicAsync(model);
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> PutSingleAsync([FromQuery]UpdateClinicDto model)
         {
@@ -61,6 +65,7 @@ namespace Medical_System.Controllers
             var response = await _clinicService.UpdateClinicAsync(model);
             return this.CreateResponse(response);
         }
+        [Authorize]
         [HttpGet("All-Clinics")]
         public async Task<IActionResult> GetAllAsync([FromQuery] string[]?filter)
         {

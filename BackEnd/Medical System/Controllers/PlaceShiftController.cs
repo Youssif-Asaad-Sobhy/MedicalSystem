@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.PlaceShift;
 using MS.Application.Helpers.Response;
@@ -8,6 +9,7 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlaceShift : ControllerBase
     {
         #region Constructor/props
@@ -31,6 +33,7 @@ namespace Medical_System.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ID)
         {
@@ -42,6 +45,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("Post")]
         public async Task<IActionResult> CreateAsync([FromBody] CreatePlaceShiftDto model)
         {
@@ -56,6 +60,7 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("Put")]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdatePlaceShiftDto model)
         {

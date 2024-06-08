@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
@@ -12,6 +13,7 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DepartmentController : ControllerBase
     {
 
@@ -20,12 +22,12 @@ namespace Medical_System.Controllers
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
-        } 
+        }
         #endregion
 
         #region Methods
         [HttpGet("{ID:int}")]
-        public async Task<IActionResult> GetSingleClincAsync([FromRoute] int ID)
+        public async Task<IActionResult> GetSingleAsync([FromRoute] int ID)
         {
             var response = await _departmentService.GetDepartmentByIDAsync(ID);
             if (!response.Succeeded)
@@ -34,8 +36,7 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ID)
         {
@@ -46,9 +47,9 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateClinicAsync([FromBody] CreateDeptDto model)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateDeptDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -61,6 +62,7 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> PutSingleAsync(UpdateDeptDto model)
         {

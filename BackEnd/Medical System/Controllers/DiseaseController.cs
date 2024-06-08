@@ -4,11 +4,13 @@ using MS.Application.DTOs.Hospital;
 using MS.Application.DTOs.Disease;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DiseaseController : ControllerBase
     {
         #region Constructor/props
@@ -28,6 +30,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{ID:int}")]
         public async Task<IActionResult> DeleteSingleAsync(int ID)
         {
@@ -36,6 +39,7 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CreateDiseaseDto model)
         {
@@ -47,6 +51,7 @@ namespace Medical_System.Controllers
             
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdateDiseaseDto model)
         {

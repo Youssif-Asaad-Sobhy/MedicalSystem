@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.Helpers.OTP;
 using MS.Application.Helpers.Response;
@@ -9,6 +10,7 @@ namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MailingController : ControllerBase
     {
         private readonly IMailingService _mailingService;
