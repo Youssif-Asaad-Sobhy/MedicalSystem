@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.ApplicationUser;
 using MS.Application.DTOs.Document;
 using MS.Application.Helpers.Response;
+using MS.Application.Helpers.UserManagerExtensions;
 using MS.Application.Interfaces;
 using MS.Application.Services;
 using MS.Data.Entities;
@@ -19,11 +20,13 @@ namespace Medical_System.Controllers
         #region Constructor/props
         private readonly IApplicationUserService _applicationService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ApplicationUserController(IApplicationUserService applicationService, UserManager<ApplicationUser> userManager)
+        public ApplicationUserController(IApplicationUserService applicationService, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _applicationService = applicationService;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
         #endregion
 
@@ -69,10 +72,15 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [Authorize]
-        [HttpGet("BasicData/{id}")]
-        public async Task<IActionResult> GetBasicData(string id)
+        [HttpGet("BasicData")]
+        public async Task<IActionResult> GetBasicData()
         {
-            var response = await _applicationService.GetUserDataAsync(id);
+            var userId = _userManager.GetCurrentUserId(_httpContextAccessor);
+            if (userId == null)
+            {
+                return BadRequest("User ID not found in token.");
+            }
+            var response = await _applicationService.GetUserDataAsync(userId);
             return this.CreateResponse(response);
         }
         [Authorize]
