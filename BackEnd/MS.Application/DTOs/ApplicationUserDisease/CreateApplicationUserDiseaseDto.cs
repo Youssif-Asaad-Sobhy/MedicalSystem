@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace MS.Application.DTOs.ApplicationUserDisease
@@ -21,7 +22,7 @@ namespace MS.Application.DTOs.ApplicationUserDisease
         public double? Weight { get; set; }
 
         [Required]
-        public required string ApplicationUserId { get; set; }
+        public required string UserId { get; set; }
 
         [Required]
         public required int DiseaseId { get; set; }
@@ -31,5 +32,6 @@ namespace MS.Application.DTOs.ApplicationUserDisease
 
         [Required]
         public DateTime DiagnosisDate { get; set; }
+        public IFormFile Photo { get; set; }
     }
 }

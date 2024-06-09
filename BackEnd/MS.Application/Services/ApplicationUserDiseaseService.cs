@@ -1,4 +1,5 @@
 ﻿using MS.Application.DTOs.ApplicationUserDisease;
+using MS.Application.DTOs.Attachment;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -8,16 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MS.Application.Services
 {
     public class ApplicationUserDiseaseService : IApplicationUserDiseaseService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAttachmentService _attachmentService;
 
-        public ApplicationUserDiseaseService(IUnitOfWork unitOfWork)
+        public ApplicationUserDiseaseService(IUnitOfWork unitOfWork, IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
+            _attachmentService = attachmentService;
         }
         public async Task<Response<ApplicationUserDisease>> CreateApplicationUserDiseaseAsync(CreateApplicationUserDiseaseDto model)
         {
@@ -32,12 +36,28 @@ namespace MS.Application.Services
                 Description = model.Description,
                 Height = model.Height,
                 Weight = model.Weight,
-                ApplicationUserId = model.ApplicationUserId,
+                ApplicationUserId = model.UserId,
                 DiseaseId = model.DiseaseId,
                 Diagnosis = model.Diagnosis,
-                DiagnosisDate = model.DiagnosisDate
+                DiagnosisDate = model.DiagnosisDate,
+                Attachments = []
             };
             await _unitOfWork.ApplicationUserDiseases.AddAsync(Entity);
+            var dto = new UploadFileDTO()
+            {
+                File = model.Photo,
+                FolderName = "UserDisease",
+                ParentId = Entity.ID,
+            };
+            var res = await _attachmentService.UploadFileAsync(dto);
+            int photoId = res.Data.ID;
+            Entity.Attachments.Add(new Attachment()
+            {
+                ID = res.Data.ID,
+                ViewUrl = res.Data.ViewUrl,
+                DownloadUrl = res.Data.DownloadUrl,
+            });
+            await _unitOfWork.ApplicationUserDiseases.UpdateAsync(Entity);
             return ResponseHandler.Created(Entity);
         }
         
