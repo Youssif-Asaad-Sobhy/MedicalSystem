@@ -39,7 +39,10 @@ namespace MS.Application.Services
             var clinic = new Clinic()
             {
                 Name=model.Name,
-                DepartmentID=model.DepartmentID
+                DepartmentID=model.DepartmentID,
+                Description=model.Description,
+                WorkDays=model.WorkDays,
+                PhotoID=model.PhotoID
             };
             await _unitOfWork.Clinics.AddAsync(clinic);
             return ResponseHandler.Created(clinic);
@@ -116,6 +119,10 @@ namespace MS.Application.Services
             }
             clinic.Name = model.Name;
             clinic.DepartmentID = model.DepartmentID;
+            clinic.Description = model.Description;
+            clinic.WorkDays = model.WorkDays;
+            clinic.PhotoID = model.PhotoID;
+
             await _unitOfWork.Clinics.UpdateAsync(clinic);
             return ResponseHandler.Updated(clinic);
         }

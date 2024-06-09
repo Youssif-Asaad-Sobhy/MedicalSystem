@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MS.Data.Enums;
 
 namespace MS.Application.DTOs.Clinc
 {
@@ -14,5 +15,12 @@ namespace MS.Application.DTOs.Clinc
 
         [Required]
         public int DepartmentID { get; set; }
+        public string Description { get; set; }
+
+        public List<WeekDays> WorkDays { get; set; }
+
+        [Required]
+        public int PhotoID { get; set; }
+
     }
 }

@@ -41,7 +41,9 @@ namespace MS.Application.Services
                 FolderName="TestPhoto",
                 ParentId=test.ID,
             };
-             await _attachmentService.UploadFileAsync(dto);
+            var res= await _attachmentService.UploadFileAsync(dto);
+            int photoId=res.Data.ID;
+            test.PhotoID=photoId;
             return ResponseHandler.Created(test);
         }
 

@@ -42,6 +42,9 @@ namespace MS.Application.Services
                 Gender=model.Gender,
                 BirthDate=model.BirthDate,
                 IsRegister=true,
+                BloodType=model.BloodType,
+                MaritalStatus=model.MaritalStatus
+                
             };
             await _unitOfWork.Users.AddAsync(user);
             return ResponseHandler.Created(user);
@@ -82,6 +85,9 @@ namespace MS.Application.Services
             user.NID = model.NID;
             user.Gender = model.Gender;
             user.BirthDate = model.BirthDate;
+            user.IsRegister = model.IsRegister;
+            user.BloodType = model.BloodType;
+            user.MaritalStatus = model.MaritalStatus;
             await _userManager.UpdateAsync(user);
             return ResponseHandler.Success(user);
         }
