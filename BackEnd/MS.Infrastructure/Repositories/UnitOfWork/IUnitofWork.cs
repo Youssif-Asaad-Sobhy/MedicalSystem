@@ -35,6 +35,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<OTP> OTPs { get; }
         IBaseRepository<ApplicationUserDisease>ApplicationUserDiseases { get; }
         IBaseRepository<Disease>Diseases { get; }
+        IBaseRepository<TestResult>TestResults { get; }
 
         // TO DO : Add Generic of all Entities
         int complete();
