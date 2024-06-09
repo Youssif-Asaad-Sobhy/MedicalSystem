@@ -111,6 +111,13 @@ namespace Medical_System.Controllers
             var response = await _applicationService.GetAllUserDiseases(ID);
             return this.CreateResponse(response);
         }
+        [Authorize(Roles ="Admin")]
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var response = await _applicationService.GetAllUsers();
+            return this.CreateResponse(response);
+        }
         #endregion
 
     }

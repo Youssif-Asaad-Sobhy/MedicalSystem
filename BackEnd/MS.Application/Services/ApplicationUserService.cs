@@ -205,5 +205,21 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(userDisease);
         }
+        public async Task<Response<List<UserDto>>> GetAllUsers()
+        {
+            var dto = new List<UserDto>();
+            var users = await _unitOfWork.Users.GetAllAsync();
+            foreach (var user in users)
+            {
+                dto.Add(new UserDto{
+                    ID = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    NID = user.NID
+                });
+            }
+            return ResponseHandler.Success(dto);
+        }
     }
 }
