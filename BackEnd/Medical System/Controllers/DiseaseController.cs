@@ -63,6 +63,14 @@ namespace Medical_System.Controllers
             
             return this.CreateResponse(response);
         }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var response = await _service.GetAllDiseasesAsync();
+
+            return this.CreateResponse(response);
+        }
         #endregion
     }
 }
