@@ -23,6 +23,8 @@ namespace MS.Data.Entities
         public Clinic? Clinic { get; set; }
         public int? UserDiseaseId { get; set; }
         public ApplicationUserDisease? UserDisease { get; set; }
+        public int? TestResultID { get; set; }
+        public TestResult? TestResult { get; set; }
 
     }
 }
