@@ -49,15 +49,19 @@ namespace MS.Application.Services
                 FolderName = "UserDisease",
                 ParentId = Entity.ID,
             };
-            var res = await _attachmentService.UploadFileAsync(dto);
-            int photoId = res.Data.ID;
-            Entity.Attachments.Add(new Attachment()
+            if (model.Photo is not null)
             {
-                ID = res.Data.ID,
-                ViewUrl = res.Data.ViewUrl,
-                DownloadUrl = res.Data.DownloadUrl,
-            });
-            await _unitOfWork.ApplicationUserDiseases.UpdateAsync(Entity);
+                var res = await _attachmentService.UploadFileAsync(dto);
+                int photoId = res.Data.ID;
+                Entity.Attachments.Add(new Attachment()
+                {
+                    ID = res.Data.ID,
+                    ViewUrl = res.Data.ViewUrl,
+                    DownloadUrl = res.Data.DownloadUrl,
+                });
+                await _unitOfWork.ApplicationUserDiseases.UpdateAsync(Entity);
+            }
+           
             return ResponseHandler.Created(Entity);
         }
         
