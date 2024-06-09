@@ -1,8 +1,10 @@
-﻿using MS.Application.DTOs.TestResult;
-using MS.Application.Helpers.Response;
+﻿using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
 using MS.Infrastructure.Repositories.UnitOfWork;
+using MS.Application.DTOs.Test;
+using MS.Application.DTOs.Attachment;
+using MS.Application.DTOs.TestResult;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace MS.Application.Services
 {
     public class TestResultService:ITestResultService
     {
-                private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public TestResultService(IUnitOfWork unitOfWork)
         {
@@ -71,5 +73,41 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(Entity);
         }
+        public async Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync()
+        {
+            var testResults = await _unitOfWork.TestResults.GetAllAsync();
+            if (!testResults.Any())
+            {
+                return ResponseHandler.NotFound<List<GetAllTestResultDto>>("No TestResults found");
+            }
+
+            var testResultDtos = testResults.Select(tr => new GetAllTestResultDto
+            {
+                Title = tr.Title,
+                Description = tr.Description,
+                TestId = tr.TestId,
+                
+                Test = new TestDto
+                {
+                    ID = tr.Test.ID,
+                    Name = tr.Test.Name,
+                    Description = tr.Test.Description,
+                    PhotoID = tr.Test.PhotoID,
+                },
+                Files = tr.Attachments.Select(a => new FileDto
+                {
+                    ID = a.ID,
+                    FileName = a.FileName,
+                    FolderName = a.FolderName,
+                    Title = a.Title,
+                    ViewUrl = a.ViewUrl,
+                    DownloadUrl = a.DownloadUrl,
+                    Type = a.Type,
+                    FilePath = a.Filepath,
+                }).ToList()
+            }).ToList();
+            
+            return ResponseHandler.Success(testResultDtos);
+        } 
     }
 }
