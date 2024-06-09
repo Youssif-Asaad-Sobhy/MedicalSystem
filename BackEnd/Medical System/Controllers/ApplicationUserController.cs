@@ -118,6 +118,7 @@ namespace Medical_System.Controllers
             var response = await _applicationService.GetAllUsers();
             return this.CreateResponse(response);
         }
+
         #endregion
 
     }
