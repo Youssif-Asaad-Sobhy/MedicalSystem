@@ -1820,6 +1820,7 @@ namespace MS.Infrastructure.Contexts
             new ShiftConfig().Configure(modelBuilder.Entity<Shift>());
             new TestConfig().Configure(modelBuilder.Entity<Test>());
             new TestLabConfig().Configure(modelBuilder.Entity<TestLab>());
+            new TestResultConfig().Configure(modelBuilder.Entity<TestResult>());
             new TypesConfig().Configure(modelBuilder.Entity<Types>());
             new UserConfig().Configure(modelBuilder.Entity<ApplicationUser>()); 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
@@ -1830,6 +1831,7 @@ namespace MS.Infrastructure.Contexts
         #region DbSets
         public DbSet<Disease> Diseases { get; set; }
         public DbSet<ApplicationUserDisease> UserDiseases { get; set; }  
+        public DbSet<TestResult> TestResults { get; set; }
         public DbSet<OTP> OTPs { get; set; }
         public DbSet<Clinic> clinics { get; set; }
         public DbSet<PlacePrice> placePrice { get; set; }

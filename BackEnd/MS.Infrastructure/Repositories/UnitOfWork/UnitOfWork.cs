@@ -61,6 +61,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         public IBaseRepository<OTP> OTPs {  get; private set; }
         public IBaseRepository<ApplicationUserDisease> ApplicationUserDiseases { get; private set; }
         public IBaseRepository<Disease> Diseases { get; private set; }
+        public IBaseRepository<TestResult> TestResults { get; private set; }
         
         #endregion
         public UnitOfWork(Context context)
@@ -90,6 +91,7 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
             OTPs=new BaseRepository<OTP>(context);
             ApplicationUserDiseases = new BaseRepository<ApplicationUserDisease>(context);
             Diseases = new BaseRepository<Disease>(context);
+            TestResults = new BaseRepository<TestResult>(context);
         }
 
 
