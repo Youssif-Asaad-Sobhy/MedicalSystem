@@ -71,5 +71,24 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(Entity);
         }
+
+        public async Task<Response<List<DiseaseBasicData>>> GetAllDiseasesAsync()
+        {
+            var Diseases =await _unitOfWork.Diseases.GetAllAsync();
+            if(Diseases is null)
+            {
+                return ResponseHandler.NotFound<List<DiseaseBasicData>>("There Are No Diseases");
+            }
+           var basicdata = Diseases.Select(d => new DiseaseBasicData
+           {
+               ID = d.ID,
+               Name = d.Name,
+               Description = d.Description,
+               Symptoms = d.Symptoms,
+               Causes = d.Causes
+           }).ToList();
+           return ResponseHandler.Success(basicdata);
+
+        }
     } 
 }

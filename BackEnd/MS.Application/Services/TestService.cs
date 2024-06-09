@@ -44,6 +44,7 @@ namespace MS.Application.Services
             var res= await _attachmentService.UploadFileAsync(dto);
             int photoId=res.Data.ID;
             test.PhotoID=photoId;
+            await _unitOfWork.Tests.UpdateAsync(test);
             return ResponseHandler.Created(test);
         }
 
