@@ -32,6 +32,6 @@ namespace MS.Application.DTOs.ApplicationUserDisease
 
         [Required]
         public DateTime DiagnosisDate { get; set; }
-        public IFormFile Photo { get; set; }
+        public IFormFile? Photo { get; set; }
     }
 }
