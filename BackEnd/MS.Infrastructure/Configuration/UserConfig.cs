@@ -25,6 +25,11 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(r => r.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(u=>u.TestResults)
+                .WithOne(tr=>tr.ApplicationUser)
+                .HasForeignKey(tr=>tr.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
