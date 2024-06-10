@@ -105,14 +105,19 @@ namespace Medical_System.Controllers
             var response = await _applicationService.ForgotPasswordAsync(model);
             return this.CreateResponse(response);
         }
-        [HttpGet("GetAllDiseaseOfUser/{ID}")]
-        public async Task<IActionResult> GetAllDiseaseOfUser([FromRoute]string ID)
+        [HttpGet("GetAllDiseaseOfUser")]
+        public async Task<IActionResult> GetAllDiseaseOfUser()
         {
-            var response = await _applicationService.GetAllUserDiseases(ID);
+            var userId = _userManager.GetCurrentUserId(_httpContextAccessor);
+            if (userId == null)
+            {
+                return BadRequest("User ID not found in token.");
+            }
+            var response = await _applicationService.GetAllUserDiseases(userId);
             return this.CreateResponse(response);
         }
         [Authorize(Roles ="Admin")]
-        [HttpGet("GetAllUsers")]
+        [HttpGet("Dashboard-GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var response = await _applicationService.GetAllUsers();

@@ -73,12 +73,12 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(Entity);
         }
-        public async Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync()
+        public async Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync(string userId)
         {
-            var testResults = await _unitOfWork.TestResults.GetAllAsync();
+            var testResults = await _unitOfWork.TestResults.GetByExpressionAsync(x => x.ApplicationUserId == userId, [x=>x.Attachments,x=>x.Test]);
             if (!testResults.Any())
             {
-                return ResponseHandler.NotFound<List<GetAllTestResultDto>>("No TestResults found");
+                return ResponseHandler.Success<List<GetAllTestResultDto>>("No Data found");
             }
 
             var testResultDtos = testResults.Select(tr => new GetAllTestResultDto

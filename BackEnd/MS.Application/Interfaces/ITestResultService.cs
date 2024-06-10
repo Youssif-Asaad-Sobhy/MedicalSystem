@@ -12,6 +12,6 @@ namespace MS.Application.Interfaces
         Task<Response<TestResult>> DeleteTestResultAsync(int ID);
         Task<Response<TestResult>> UpdateTestResultAsync(UpdateTestResultDto model);
         Task<Response<TestResult>> CreateTestResultAsync(CreateTestResultDto model);
-        Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync();
+        Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync(string userId);
     }
 }

@@ -5,6 +5,9 @@ using MS.Application.DTOs.TestResult;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using MS.Data.Entities;
+using MS.Application.Helpers.UserManagerExtensions;
 
 namespace Medical_System.Controllers
 {
@@ -15,9 +18,13 @@ namespace Medical_System.Controllers
     {
         #region Constructor/props
         private readonly ITestResultService _service;
-        public TestResultController(ITestResultService service)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public TestResultController(ITestResultService service, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _service = service;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
         #endregion
 
@@ -60,10 +67,15 @@ namespace Medical_System.Controllers
             
             return this.CreateResponse(response);
         }
-        [HttpGet]
+        [HttpGet("All-Test-Results")]
         public async Task<IActionResult> GetAllTestResultsAsync()
         {
-            var response = await _service.GetAllTestResultAsync();
+            var userId = _userManager.GetCurrentUserId(_httpContextAccessor);
+            if (userId == null)
+            {
+                return BadRequest("User ID not found in token.");
+            }
+            var response = await _service.GetAllTestResultAsync(userId);
             return this.CreateResponse(response);
         }
         #endregion

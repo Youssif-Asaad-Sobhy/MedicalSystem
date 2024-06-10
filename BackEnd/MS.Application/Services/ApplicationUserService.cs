@@ -202,7 +202,7 @@ namespace MS.Application.Services
             }
             if (userDisease.Count == 0)
             {
-                return ResponseHandler.BadRequest<List<UserDiseasesDto>>();
+                return ResponseHandler.Success<List<UserDiseasesDto>>("No Data Found");
             }
             return ResponseHandler.Success(userDisease);
         }
