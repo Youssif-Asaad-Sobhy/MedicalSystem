@@ -1,6 +1,7 @@
 ﻿using MS.Application.DTOs.ApplicationUser;
 using MS.Application.DTOs.Department;
 using MS.Application.DTOs.Reservation;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -21,6 +22,6 @@ namespace MS.Application.Interfaces
         Task<Response<ApplicationUser>> changePasswordAsync(ChangePasswordDto model);
         Task<Response<ApplicationUser>> ForgotPasswordAsync(ForgotPasswordDto model);
         Task<Response<List<UserDiseasesDto>>> GetAllUserDiseases(string id);
-        Task<Response<List<UserDto>>> GetAllUsers();
+        Task<PaginatedResult<List<UserDto>>> GetAllUsers( PageFilter filter, string search = null);
     }
 }

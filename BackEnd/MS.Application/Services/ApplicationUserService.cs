@@ -2,6 +2,7 @@
 using MS.Application.DTOs.ApplicationUser;
 using MS.Application.DTOs.Report;
 using MS.Application.DTOs.Reservation;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -206,10 +207,23 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(userDisease);
         }
-        public async Task<Response<List<UserDto>>> GetAllUsers()
+        public async Task<PaginatedResult<List<UserDto>>> GetAllUsers(PageFilter filter,string search=null)
         {
             var dto = new List<UserDto>();
-            var users = await _unitOfWork.Users.GetAllAsync();
+            if (search == null) search = "";
+            var users = await _unitOfWork.Users.GetByExpressionAsync(
+                (filter.PageNumber - 1) * filter.PageSize, filter.PageSize,
+                x =>x.Id.Contains(search) || 
+                x.NID.Contains(search) || 
+                x.FirstName.Contains(search) || 
+                x.LastName.Contains(search) || 
+                x.Email.Contains(search));
+            var countRecord = await _unitOfWork.Users.CountAsync(
+                x => x.Id.Contains(search) ||
+                x.NID.Contains(search) ||
+                x.FirstName.Contains(search) ||
+                x.LastName.Contains(search) ||
+                x.Email.Contains(search));
             foreach (var user in users)
             {
                 dto.Add(new UserDto{
@@ -220,7 +234,7 @@ namespace MS.Application.Services
                     NID = user.NID
                 });
             }
-            return ResponseHandler.Success(dto);
+            return ResponseHandler.Success(dto,filter,countRecord);
         }
     }
 }

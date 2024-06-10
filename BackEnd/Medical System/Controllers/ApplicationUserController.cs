@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.ApplicationUser;
 using MS.Application.DTOs.Document;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Helpers.UserManagerExtensions;
 using MS.Application.Interfaces;
@@ -118,10 +119,10 @@ namespace Medical_System.Controllers
         }
         [Authorize(Roles ="Admin")]
         [HttpGet("Dashboard-GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers([FromQuery]PageFilter? filter,[FromQuery]string search=null)
         {
-            var response = await _applicationService.GetAllUsers();
-            return this.CreateResponse(response);
+            var response = await _applicationService.GetAllUsers(filter,search);
+            return this.SuccessCollection(response);
         }
 
         #endregion
