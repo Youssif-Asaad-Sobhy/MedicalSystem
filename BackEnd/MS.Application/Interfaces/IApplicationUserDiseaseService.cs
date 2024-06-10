@@ -11,6 +11,6 @@ namespace MS.Application.Interfaces
         Task<Response<ApplicationUserDisease>> GetApplicationUserDiseaseAsync(int ID);
         Task<Response<ApplicationUserDisease>> DeleteApplicationUserDiseaseAsync(int ID);
         Task<Response<ApplicationUserDisease>> UpdateApplicationUserDiseaseAsync(UpdateApplicationUserDiseaseDto model);
-        Task<Response<ApplicationUserDisease>> CreateApplicationUserDiseaseAsync(CreateApplicationUserDiseaseDto model);
+        Task<Response<ApplicationUserDiseaseDto>> CreateApplicationUserDiseaseAsync(CreateApplicationUserDiseaseDto model);
     }
 }

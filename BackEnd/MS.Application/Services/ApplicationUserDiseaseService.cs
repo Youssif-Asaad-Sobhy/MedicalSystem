@@ -23,11 +23,11 @@ namespace MS.Application.Services
             _unitOfWork = unitOfWork;
             _attachmentService = attachmentService;
         }
-        public async Task<Response<ApplicationUserDisease>> CreateApplicationUserDiseaseAsync(CreateApplicationUserDiseaseDto model)
+        public async Task<Response<ApplicationUserDiseaseDto>> CreateApplicationUserDiseaseAsync(CreateApplicationUserDiseaseDto model)
         {
             if (model == null)
             {
-                return ResponseHandler.BadRequest<ApplicationUserDisease>($"Model not found.");
+                return ResponseHandler.BadRequest<ApplicationUserDiseaseDto>($"Model not found.");
             }
             var Entity = new ApplicationUserDisease()
             {
@@ -42,6 +42,20 @@ namespace MS.Application.Services
                 DiagnosisDate = model.DiagnosisDate,
                 Attachments = []
             };
+            var ret = new ApplicationUserDiseaseDto()
+            {
+                ID = Entity.ID,
+                Type = Entity.Type,
+                ValueResult = Entity.ValueResult,
+                Description = Entity.Description,
+                Height = Entity.Height,
+                Weight = Entity.Weight,
+                ApplicationUserId = Entity.ApplicationUserId,
+                DiseaseId = Entity.DiseaseId,
+                Diagnosis = Entity.Diagnosis,
+                DiagnosisDate = Entity.DiagnosisDate,
+                Attachments = []
+            };
             await _unitOfWork.ApplicationUserDiseases.AddAsync(Entity);
             var dto = new UploadFileDTO()
             {
@@ -53,16 +67,20 @@ namespace MS.Application.Services
             {
                 var res = await _attachmentService.UploadFileAsync(dto);
                 int photoId = res.Data.ID;
-                Entity.Attachments.Add(new Attachment()
+                ret.Attachments.Add(new FileDto()
                 {
-                    ID = res.Data.ID,
-                    ViewUrl = res.Data.ViewUrl,
                     DownloadUrl = res.Data.DownloadUrl,
+                    FileName = res.Data.FileName,
+                    FilePath = res.Data.FilePath,
+                    FolderName = res.Data.FolderName,
+                    ID = res.Data.ID,
+                    Title = res.Data.Title,
+                    Type = res.Data.Type,
+                    ViewUrl = res.Data.ViewUrl
                 });
-                await _unitOfWork.ApplicationUserDiseases.UpdateAsync(Entity);
             }
            
-            return ResponseHandler.Created(Entity);
+            return ResponseHandler.Created(ret);
         }
         
         public async Task<Response<ApplicationUserDisease>> DeleteApplicationUserDiseaseAsync(int ID)
