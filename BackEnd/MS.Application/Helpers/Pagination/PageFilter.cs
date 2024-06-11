@@ -13,7 +13,7 @@ namespace MS.Application.Helpers.Pagination
         public PageFilter()
         {
             PageNumber = 1;
-            PageSize = 10;
+            PageSize = 5;
         }
         public PageFilter(int pagesize , int pagenumber)
         {

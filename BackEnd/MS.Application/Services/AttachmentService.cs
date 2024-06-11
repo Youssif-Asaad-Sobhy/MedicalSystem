@@ -154,6 +154,7 @@ namespace MS.Application.Services
                 TestId = fileDTO.FolderName == "Test" ? fileDTO.ParentId : 0,
                 ClinicId = fileDTO.FolderName == "Clinic" ? fileDTO.ParentId : 0,
                 UserDiseaseId = fileDTO.FolderName == "UserDisease" ? fileDTO.ParentId : 0,
+                TestResultID = fileDTO.FolderName == "TestResult" ? fileDTO.ParentId : 0,
                 Type = fileDTO.File.ContentType,
             };
             await _unitOfWork.Attachment.AddAsync(file);

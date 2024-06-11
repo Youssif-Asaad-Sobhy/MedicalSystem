@@ -35,6 +35,7 @@ namespace MS.Application
             services.AddScoped<ITestService,  TestService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<ITestResultService,TestResultService>();
             services.AddScoped<IAttachmentService,AttachmentService>();
             services.AddScoped<ITestLabService, TestLabService>();
             services.AddScoped<IPharmacyService,PharmacyService>();

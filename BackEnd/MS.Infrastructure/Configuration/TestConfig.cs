@@ -19,6 +19,10 @@ namespace MS.Infrastructure.Configuration
                 .WithOne(a=>a.Test)
                 .HasForeignKey<Test>(t => t.PhotoID)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(t=>t.TestResults)
+                .WithOne(tr=>tr.Test)
+                .HasForeignKey(tr=>tr.TestId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
