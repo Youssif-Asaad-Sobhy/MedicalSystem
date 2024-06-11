@@ -106,6 +106,7 @@ namespace MS.Application.Services
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 NID = user.NID,
+                BloodType= user.BloodType,
                 report = user.Reports.Select(r => new ReportDto()
                 {
                     ID = r.ID,
