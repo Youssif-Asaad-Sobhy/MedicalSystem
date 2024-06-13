@@ -19,11 +19,13 @@ namespace MS.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAttachmentService _attachmentService;
 
-        public ApplicationUserService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
+        public ApplicationUserService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager,IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _attachmentService = attachmentService;
         }
 
         public async Task<Response<ApplicationUser>> CreateUserAsync(CreateUserDto model)
@@ -34,21 +36,34 @@ namespace MS.Application.Services
             }
             var user = new ApplicationUser()
             {
-                Id=model.NID,
+                Id = model.NID,
+                UserName= model.UserName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Email=model.Email,
-                PhoneNumber=model.Phone,
-                NID=model.NID,
-                Gender=model.Gender,
-                BirthDate=model.BirthDate,
+                Email = model.Email,
+                PhoneNumber = model.Phone,
+                NID = model.NID,
+                Gender = model.Gender,
+                BirthDate = new DateTime(model.BirthDate, new TimeOnly()),
                 IsRegister=true,
                 BloodType=model.BloodType,
                 MaritalStatus=model.MaritalStatus
-                
             };
-            await _unitOfWork.Users.AddAsync(user);
-            return ResponseHandler.Created(user);
+            try
+            {
+                var u = await _userManager.CreateAsync(user);
+                if (!u.Succeeded)
+                {
+                    return ResponseHandler.BadRequest<ApplicationUser>(string.Join(", ", u.Errors.Select(error => error.Description)));
+                }
+                await _userManager.AddToRolesAsync(user, model.Roles);
+                return ResponseHandler.Created(user);
+            }
+            catch (Exception e)
+            {
+                string s = e.InnerException.Message;
+                return ResponseHandler.BadRequest<ApplicationUser>(s);
+            }
         }
 
         public async Task<Response<ApplicationUser>> DeleteUserAsync(string ID)
@@ -58,18 +73,35 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<ApplicationUser>("User model is null or not found");
             }
-            await _unitOfWork.Users.DeleteAsync(user);
+            await _userManager.DeleteAsync(user);
             return ResponseHandler.Deleted<ApplicationUser>();
         }
 
-        public async Task<Response<ApplicationUser>> GetUserByIDAsync(string ID)
+        public async Task<Response<ApplicationUserDto>> GetUserByIDAsync(string ID)
         {
             var user = await _userManager.FindByIdAsync(ID);
             if (user is null || ID == null)
             {
-                return ResponseHandler.BadRequest<ApplicationUser>("User model is null or not found");
+                return ResponseHandler.BadRequest<ApplicationUserDto>("User model is null or not found");
             }
-            return ResponseHandler.Success(user);
+            var roles = await _userManager.GetRolesAsync(user);
+            var dto = new ApplicationUserDto()
+            {
+                ID = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                NID = user.NID,
+                BirthDate = user.BirthDate,
+                Gender = user.Gender,
+                IsRegister = user.IsRegister,
+                BloodType = user.BloodType,
+                MaritalStatus = user.MaritalStatus,
+                Roles = roles
+            };
+            return ResponseHandler.Success(dto);
         }
 
         public async Task<Response<ApplicationUser>> UpdateUserAsync(UpdateUserDto model)
@@ -79,22 +111,23 @@ namespace MS.Application.Services
             {
                 return ResponseHandler.BadRequest<ApplicationUser>("User model is null or not found");
             }
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.Phone;
-            user.NID = model.NID;
-            user.Gender = model.Gender;
-            user.BirthDate = model.BirthDate;
-            user.IsRegister = model.IsRegister;
-            user.BloodType = model.BloodType;
-            user.MaritalStatus = model.MaritalStatus;
+            user.FirstName = model.FirstName !="" ? model.FirstName : user.FirstName;
+            user.LastName = model.LastName != "" ? model.LastName: user.LastName;
+            user.Email = model.Email != "" ? model.Email : user.Email;
+            user.PhoneNumber = model.Phone != "" ? model.Phone :user.PhoneNumber ;
+            user.NID = model.NID != "" ? model.NID : user.NID;
+            user.Gender = model.Gender != "" ? model.Gender:user.Gender;
+            user.BirthDate = model.BirthDate != null ?model.BirthDate:user.BirthDate;
+            user.BloodType = model.BloodType != "" ? model.BloodType:user.BloodType;
+            user.MaritalStatus = model.MaritalStatus != "" ? model.MaritalStatus:user.MaritalStatus;
+            await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+            await _userManager.AddToRolesAsync(user, model.Roles);
             await _userManager.UpdateAsync(user);
             return ResponseHandler.Success(user);
         }
         public async Task<Response<UserBasicDataDto>> GetUserDataAsync(string NID)
         {
-            var user = await _unitOfWork.Users.GetByExpressionSingleAsync(u=>u.Id==NID, [u=>u.Reports]);
+            var user = await _unitOfWork.Users.GetByExpressionSingleAsync(u=>u.Id==NID);
             if (user is null)
             {
                 return ResponseHandler.BadRequest<UserBasicDataDto>("user is null");
@@ -106,14 +139,7 @@ namespace MS.Application.Services
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 NID = user.NID,
-                BloodType= user.BloodType,
-                report = user.Reports.Select(r => new ReportDto()
-                {
-                    ID = r.ID,
-                    Time = r.Time,
-                    Description = r.Description
-                }).ToList() 
-
+                BloodType = user.BloodType
             };
             return ResponseHandler.Success(data);
         }

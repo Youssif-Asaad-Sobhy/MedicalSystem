@@ -12,6 +12,9 @@ namespace MS.Application.Helpers.Pagination
         {
             Data = data;
         }
+        public PaginatedResult()
+        {
+        }
         public T Data { get; set; }
 
         internal PaginatedResult(bool succeeded, T data = default, List<string> messages = null, int count = 0, int page = 1, int pageSize = 10)
@@ -22,6 +25,7 @@ namespace MS.Application.Helpers.Pagination
             PageSize = pageSize;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             TotalCount = count;
+            Messages = messages;
         }
 
         public static PaginatedResult<T> Success(T data, int count, int page, int pageSize)

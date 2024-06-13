@@ -30,33 +30,45 @@ namespace MS.Data.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FileType
     {
+        [Description("PDF File")]
         PDF=1,
-        DOCX=2,
-        Photo=3
+        [Description("Word File")]
+        DOCX =2,
+        [Description("Photo")]
+        Photo =3
     }   
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ReservationState
     {
+        [Description("Running")]
         Running,
+        [Description("Done")]
         Done
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PlaceType
     {
+        [Description("Clinic")]
         Clinic,
+        [Description("Lab")]
         Lab,
+        [Description("Pharmcy")]
         Pharmacy
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum LabType
     {
+        [Description("Blood")]
         Lab,
+        [Description("X-Ray")]
         XRay
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum HospitalType
     {
+        [Description("Public")]
         Public,
+        [Description("Private")]
         Private
     }
 }

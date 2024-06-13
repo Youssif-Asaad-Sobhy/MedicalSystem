@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Attachment;
 using MS.Application.DTOs.Department;
 using MS.Application.DTOs.Document;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 
@@ -30,10 +31,10 @@ namespace Medical_System.Controllers
             return this.CreateResponse(response);
         }
         [HttpGet("Get-All")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PageFilter? filter, [FromQuery] string search = null)
         {
-            var response = await _attachmentService.GetAllFilesAsync();
-            return this.CreateResponse(response);
+            var response = await _attachmentService.GetAllFilesAsync(filter,search);
+            return this.SuccessCollection(response);
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using MS.Application.DTOs.Clinc;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -15,6 +16,6 @@ namespace MS.Application.Interfaces
         Task<Response<Clinic>> DeleteClinicAsync(int ClinicID);
         Task<Response<Clinic>> UpdateClinicAsync(UpdateClinicDto model);
         Task<Response<Clinic>> CreateClinicAsync(CreateClinicDto model);
-        Task<Response<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter);
+        Task<PaginatedResult<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter,PageFilter? pageFilter,string? search=null);
     }
 }

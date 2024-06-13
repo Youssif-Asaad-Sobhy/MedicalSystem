@@ -48,9 +48,9 @@ namespace Medical_System.Controllers
 
             return this.CreateResponse(response);
         }
-
+        [Authorize(Roles="Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserDto model)
+        public async Task<IActionResult> CreateUserAsync([FromForm] CreateUserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace Medical_System.Controllers
         }
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> PutSingleAsync([FromBody] UpdateUserDto model)
+        public async Task<IActionResult> PutSingleAsync([FromForm] UpdateUserDto model)
         {
             if (!ModelState.IsValid)
             {

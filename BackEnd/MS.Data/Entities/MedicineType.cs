@@ -18,6 +18,5 @@ namespace MS.Data.Entities
         public Medicine Medicine { get; set; }
         public Types Types { get; set; }
         public ICollection<PharmacyMedicine> PharmacyMedicines { get; set; }
-        public ICollection<ReportMedicine> ReportMedicines { get; set; }
     }
 }

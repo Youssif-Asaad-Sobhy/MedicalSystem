@@ -34,7 +34,6 @@ namespace MS.Application
             services.AddScoped<IShiftService, ShiftService>();
             services.AddScoped<ITestService,  TestService>();
             services.AddScoped<IClinicService, ClinicService>();
-            services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ITestResultService,TestResultService>();
             services.AddScoped<IAttachmentService,AttachmentService>();
             services.AddScoped<ITestLabService, TestLabService>();
@@ -51,7 +50,6 @@ namespace MS.Application
             services.AddScoped<IMedicineTypeService,MedicineTypeService>();
             services.AddScoped<IApplicationUserService,ApplicationUserService>();
             services.AddScoped<IPlaceEquipmentService, PlaceEquipmentService>();
-            services.AddScoped<IReportMedicineService, ReportMedicineService>();
             services.AddScoped<IPharmacyMedicineService,PharmacyMedicineService>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             

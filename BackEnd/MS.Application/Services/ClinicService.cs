@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.Shift;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -11,6 +12,7 @@ using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -126,61 +128,74 @@ namespace MS.Application.Services
             await _unitOfWork.Clinics.UpdateAsync(clinic);
             return ResponseHandler.Updated(clinic);
         }
-        public async Task<Response<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter)
+        public async Task<PaginatedResult<List<DetailedClinic>>> GetAllClinicsAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
-            var OutputList=new List<DetailedClinic>();
+            var OutputList = new List<DetailedClinic>();
             var clinics = await _unitOfWork.Clinics.GetAllFilteredAsync(filter);
-            if(clinics is null)
+            if (!search.IsNullOrEmpty())
             {
-               return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");
+                clinics = clinics.Where(c => c.Name.Contains(search) || c.Description.Contains(search));
             }
-            foreach(Clinic clinic in clinics)
+
+
+            if (clinics is null)
             {
-                var Oclinic = await _unitOfWork.Clinics.GetByExpressionSingleAsync(c => c.ID == clinic.ID,
-                     [c => c.PlacePrices,
-                         c => c.Photo,
-                         c => c.PlaceShifts,
-                         c => c.Department,
-                         c => c.Reservations]);
-                if (Oclinic is null)
+                return ResponseHandler.BadRequest<List<DetailedClinic>>(pageFilter, "clinic model is null or not found");
+            }
+
+            foreach (Clinic clinic in clinics)
+            {
+                var detailedClinic = await _unitOfWork.Clinics.GetByExpressionSingleAsync(c => c.ID == clinic.ID,
+                    [c => c.PlacePrices,
+                     c => c.Photo,
+                     c => c.PlaceShifts,
+                     c => c.Department,
+                     c => c.Reservations]);
+
+                if (detailedClinic is null)
                 {
-                    return ResponseHandler.BadRequest<List<DetailedClinic>>("clinic model is null or not found");
+                    return ResponseHandler.BadRequest<List<DetailedClinic>>(pageFilter, "clinic model is null or not found");
                 }
-                var result = await _reservationService.GetUsersByPlace(Oclinic.ID, PlaceType.Clinic);
-                int x = 0;
-                if (result.Succeeded)
-                {
-                    x = result.Data.Count();
-                }
+
+                var result = await _reservationService.GetUsersByPlace(detailedClinic.ID, PlaceType.Clinic);
+                int reservationCount = result.Succeeded ? result.Data.Count() : 0;
+
                 var clinicData = new DetailedClinic()
                 {
-                    ID = Oclinic.ID,
-                    Name = Oclinic.Name,
-                    DepartmentID = Oclinic.DepartmentID,
-                    DepartmentName = Oclinic.Department.Name,
-                    description = Oclinic.Description,
-                    reservationCount = x,
-                    Price = Oclinic.PlacePrices.FirstOrDefault().Price,
-                    PhotoID = Oclinic.PhotoID,
-                    Photo = Oclinic.Photo.ViewUrl,
-                    workdays = Oclinic.WorkDays,
-                    Shifts = []
+                    ID = detailedClinic.ID,
+                    Name = detailedClinic.Name,
+                    DepartmentID = detailedClinic.DepartmentID,
+                    DepartmentName = detailedClinic.Department.Name,
+                    description = detailedClinic.Description,
+                    reservationCount = reservationCount,
+                    Price = detailedClinic.PlacePrices.FirstOrDefault().Price,
+                    PhotoID = detailedClinic.PhotoID,
+                    Photo = detailedClinic.Photo?.ViewUrl,
+                    workdays = detailedClinic.WorkDays,
+                    Shifts = new List<ShiftBasicData>()
                 };
-                foreach (var item in Oclinic.PlaceShifts)
+
+                foreach (var placeShift in detailedClinic.PlaceShifts)
                 {
-                    var Placeshift = await _unitOfWork.PlaceShifts.GetByExpressionSingleAsync(s => s.ID == item.ShiftID, [ps => ps.Shift]);
+                    var shift = await _unitOfWork.PlaceShifts.GetByExpressionSingleAsync(s => s.ID == placeShift.ShiftID, [ps => ps.Shift]);
+
                     var shiftData = new ShiftBasicData()
                     {
-                        ID = Placeshift.Shift.ID,
-                        Name = Placeshift.Shift.Name,
-                        StartTime = Placeshift.Shift.StartTime,
-                        EndTime = Placeshift.Shift.EndTime,
+                        ID = shift.Shift.ID,
+                        Name = shift?.Shift.Name,
+                        StartTime = shift?.Shift.StartTime,
+                        EndTime = shift?.Shift.EndTime,
                     };
+
                     clinicData.Shifts.Add(shiftData);
                 }
+
                 OutputList.Add(clinicData);
             }
-            return ResponseHandler.Success(OutputList);
+            var count = OutputList.Count();
+            var detailedClinics = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                                 .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedClinics,pageFilter,count);
             //تم عمل هذه النقاشة بواسطة زياد عبدالنبي
         }
     }

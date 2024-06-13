@@ -14,7 +14,7 @@ namespace MS.Application.Interfaces
 {
     public interface IApplicationUserService
     {
-        Task<Response<ApplicationUser>> GetUserByIDAsync(string ID);
+        Task<Response<ApplicationUserDto>> GetUserByIDAsync(string ID);
         Task<Response<ApplicationUser>> DeleteUserAsync(string ID);
         Task<Response<ApplicationUser>> UpdateUserAsync(UpdateUserDto model);
         Task<Response<ApplicationUser>> CreateUserAsync(CreateUserDto model);

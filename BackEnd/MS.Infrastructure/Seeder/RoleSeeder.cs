@@ -25,6 +25,34 @@ namespace MS.Infrastructure.Seeder
                     Name = "User"
                 });
             }
+            if(!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole()
+                {
+                    Name = "Admin"
+                });
+            }
+            if (!await _roleManager.RoleExistsAsync("User"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole()
+                {
+                    Name = "User"
+                });
+            }
+            if(!await _roleManager.RoleExistsAsync("Doctor"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole()
+                {
+                    Name = "Doctor"
+                });
+            }
+            if(!await _roleManager.RoleExistsAsync("Cashier"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole()
+                {
+                    Name = "Cashier"
+                });
+            }
 
 
         }

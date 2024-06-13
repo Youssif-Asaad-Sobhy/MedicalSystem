@@ -23,8 +23,6 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
         IBaseRepository<PharmacyMedicine> PharmacyMedicines { get; }
         IBaseRepository<PlaceEquipment> PlaceEquipments { get; }
         IBaseRepository<PlaceShift> PlaceShifts { get; }
-        IBaseRepository<Report> Reports { get; }
-        IBaseRepository<ReportMedicine> ReportMedicines { get; }
         IResrvationRepo Reservations { get; }
         IBaseRepository<Shift> Shifts { get; }
         IBaseRepository<Test> Tests { get; }

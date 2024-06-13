@@ -17,7 +17,6 @@ namespace MS.Data.Entities
         public string? BloodType { get; set; }
         public string? MaritalStatus { get; set; }
         public DateTime BirthDate { get; set; }
-        public ICollection<Report> Reports { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
         public ICollection<ApplicationUserDisease> UserDiseases { get; set; }
         public ICollection<TestResult> TestResults { get; set; }

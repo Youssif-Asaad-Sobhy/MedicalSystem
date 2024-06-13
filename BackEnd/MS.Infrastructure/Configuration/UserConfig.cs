@@ -15,11 +15,6 @@ namespace MS.Infrastructure.Configuration
         {
             builder.HasKey(u=>u.Id);
 
-            builder.HasMany(u => u.Reports)
-                .WithOne(r => r.User)
-                .HasForeignKey(r => r.UserID)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.HasMany(u => u.Reservations)
                 .WithOne(r => r.User)
                 .HasForeignKey(r => r.UserID)

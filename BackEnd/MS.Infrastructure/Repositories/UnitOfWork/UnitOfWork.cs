@@ -41,10 +41,6 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
 
         public IBaseRepository<PlaceShift> PlaceShifts { get; private set; }
 
-        public IBaseRepository<Report> Reports { get; private set; }
-
-        public IBaseRepository<ReportMedicine> ReportMedicines { get; private set; }
-
         public IResrvationRepo Reservations { get; private set; }
 
         public IBaseRepository<Shift> Shifts { get; private set; }
@@ -79,8 +75,6 @@ namespace MS.Infrastructure.Repositories.UnitOfWork
             PharmacyMedicines = new BaseRepository<PharmacyMedicine>(context);
             PlaceEquipments = new BaseRepository<PlaceEquipment>(context);
             PlaceShifts = new BaseRepository<PlaceShift>(context);
-            Reports = new BaseRepository<Report>(context);
-            ReportMedicines = new BaseRepository<ReportMedicine>(context);
             Reservations = new ReservationRepo(context);
             Shifts = new BaseRepository<Shift>(context);
             Tests = new BaseRepository<Test>(context);

@@ -20,11 +20,6 @@ namespace MS.Infrastructure.Configuration
                 .HasForeignKey(pm => pm.MedicineTypeID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(mt => mt.ReportMedicines)
-                .WithOne(rm => rm.MedicineType)
-                .HasForeignKey(rm => rm.MedicineTypeID)
-                .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

@@ -1144,151 +1144,6 @@ namespace MS.Infrastructure.Contexts
                 }
             // Add more place-shift associations as needed
             );
-            modelBuilder.Entity<Report>().HasData(
-                new Report
-                {
-                    ID = 1,
-                    Time = DateTime.Now.AddDays(-1), // Example date and time, adjust accordingly
-                    Description = "Description of report 1",
-                    UserID = "1", // Assuming user ID, adjust accordingly
-                    DoctorID = "11" // Assuming doctor ID, adjust accordingly
-                    
-                },
-                new Report
-                {
-                    ID = 2,
-                    Time = DateTime.Now.AddDays(-2), // Example date and time, adjust accordingly
-                    Description = "Description of report 2",
-                    UserID = "2", // Assuming user ID, adjust accordingly
-                    DoctorID = "22" // Assuming doctor ID, adjust accordingly
-                },
-                new Report
-                {
-                    ID = 3,
-                    Time = new DateTime(2024, 3, 1, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6357),
-                    Description = "Description of report 3",
-                    UserID = "1",
-                    DoctorID = "1"
-                },
-                new Report
-                {
-                    ID = 4,
-                    Time = new DateTime(2024, 3, 2, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6431),
-                    Description = "Description of report 4",
-                    UserID = "2",
-                    DoctorID = "2"
-                },
-                new Report
-                {
-                    ID = 5,
-                    Time = new DateTime(2024, 3, 3, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6505),
-                    Description = "Description of report 5",
-                    UserID = "3",
-                    DoctorID = "3"
-                },
-                new Report
-                {
-                    ID = 6,
-                    Time = new DateTime(2024, 3, 4, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6579),
-                    Description = "Description of report 6",
-                    UserID = "4",
-                    DoctorID = "4"
-                },
-                new Report
-                {
-                    ID = 7,
-                    Time = new DateTime(2024, 3, 5, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6653),
-                    Description = "Description of report 7",
-                    UserID = "5",
-                    DoctorID = "5"
-                },
-                new Report
-                {
-                    ID = 8,
-                    Time = new DateTime(2024, 3, 6, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6727),
-                    Description = "Description of report 8",
-                    UserID = "6",
-                    DoctorID = "6"
-                },
-                new Report
-                {
-                    ID = 9,
-                    Time = new DateTime(2024, 3, 7, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6801),
-                    Description = "Description of report 9",
-                    UserID = "7",
-                    DoctorID = "7"
-                },
-                new Report
-                {
-                    ID = 10,
-                    Time = new DateTime(2024, 3, 8, 1, 41, 32, 513, DateTimeKind.Local).AddTicks(6875),
-                    Description = "Description of report 10",
-                    UserID = "8",
-                    DoctorID = "8"
-                });
-
-            modelBuilder.Entity<ReportMedicine>().HasData(
-                new ReportMedicine
-                {
-                    ID = 1,
-                    ReportID = 1, // Assuming report ID, adjust accordingly
-                    MedicineTypeID = 1 // Assuming medicine type ID, adjust accordingly
-                },
-                new ReportMedicine
-                {
-                    ID = 2,
-                    ReportID = 2, // Assuming report ID, adjust accordingly
-                    MedicineTypeID = 2 // Assuming medicine type ID, adjust accordingly
-                },
-                new ReportMedicine
-                {
-                    ID = 3,
-                    MedicineTypeID = 3,
-                    ReportID = 3
-                },
-                new ReportMedicine
-                {
-                    ID = 4,
-                    MedicineTypeID = 4,
-                    ReportID = 4
-                },
-                new ReportMedicine
-                {
-                    ID = 5,
-                    MedicineTypeID = 5,
-                    ReportID = 5
-                },
-                new ReportMedicine
-                {
-                    ID = 6,
-                    MedicineTypeID = 6,
-                    ReportID = 6
-                },
-                new ReportMedicine
-                {
-                    ID = 7,
-                    MedicineTypeID = 7,
-                    ReportID = 7
-                },
-                new ReportMedicine
-                {
-                    ID = 8,
-                    MedicineTypeID = 8,
-                    ReportID = 8
-                },
-                new ReportMedicine
-                {
-                    ID = 9,
-                    MedicineTypeID = 9,
-                    ReportID = 9
-                },
-                new ReportMedicine
-                {
-                    ID = 10,
-                    MedicineTypeID = 10,
-                    ReportID = 10
-                });
-
             modelBuilder.Entity<Reservation>().HasData(
                 new Reservation
                 {
@@ -1814,8 +1669,6 @@ namespace MS.Infrastructure.Contexts
             new PharmacyMedicineConfig().Configure(modelBuilder.Entity<PharmacyMedicine>());
             new PlaceEquipmentConfig().Configure(modelBuilder.Entity<PlaceEquipment>());
             new PlaceShiftConfig().Configure(modelBuilder.Entity<PlaceShift>());
-            new ReportConfig().Configure(modelBuilder.Entity<Report>());
-            new ReportMedicineConfig().Configure(modelBuilder.Entity<ReportMedicine>());
             new ReservationConfig().Configure(modelBuilder.Entity<Reservation>());
             new ShiftConfig().Configure(modelBuilder.Entity<Shift>());
             new TestConfig().Configure(modelBuilder.Entity<Test>());
@@ -1846,8 +1699,6 @@ namespace MS.Infrastructure.Contexts
         public DbSet<PharmacyMedicine> pharmacyMedicines { get; set; }
         public DbSet<PlaceEquipment> placeEquipments { get; set; }
         public DbSet<PlaceShift> placeShifts { get; set; }
-        public DbSet<Report> reports { get; set; }
-        public DbSet<ReportMedicine> reportsMedicines { get; set; }
         public DbSet<Reservation> reservations { get; set; }
         public DbSet<Shift> shifts { get; set; }
         public DbSet<Test> tests { get; set; }

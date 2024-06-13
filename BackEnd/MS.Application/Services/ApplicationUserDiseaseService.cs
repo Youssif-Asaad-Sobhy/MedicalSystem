@@ -76,7 +76,7 @@ namespace MS.Application.Services
                     ID = res.Data.ID,
                     Title = res.Data.Title,
                     Type = res.Data.Type,
-                    ViewUrl = res.Data.ViewUrl
+                    ViewUrl = res.Data.ViewUrl,
                 });
             }
            

@@ -9,7 +9,7 @@ namespace MS.Application.DTOs.Attachment
 {
     public class FileDto
     {
-        public  int ID { get; set; }
+        public int ID { get; set; }
         public required string Title { get; set; }
         public required string FileName { get; set; }
         public required string FolderName { get; set; }

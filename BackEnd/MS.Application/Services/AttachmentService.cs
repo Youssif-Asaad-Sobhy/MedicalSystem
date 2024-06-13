@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using MimeKit;
 using MS.Application.DTOs.Attachment;
 using MS.Application.DTOs.Document;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
@@ -54,14 +55,25 @@ namespace MS.Application.Services
             return await File.ReadAllBytesAsync(filePath);
         }
 
-        public async Task<Response<List<FileDto>>> GetAllFilesAsync()
+        public async Task<PaginatedResult<List<FileDto>>> GetAllFilesAsync(PageFilter filter, string search = null)
         {
             var files = await _unitOfWork.Attachment.GetAllAsync();
-            if (files == null)
+
+            if (!string.IsNullOrEmpty(search))
             {
-                return ResponseHandler.NotFound<List<FileDto>>("There Are No Files");
+                files = files.Where(f => 
+                f.Title.Contains(search) ||
+                f.FileName.Contains(search) ||
+                f.FolderName.Contains(search) 
+                ).ToList();
             }
-            var fileDTOs = files.Select(f => new FileDto
+            // Apply pagination
+            var paginatedFiles = files
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var fileDTOs = paginatedFiles.Select(f => new FileDto
             {
                 Title = f.Title,
                 FileName = f.FileName,
@@ -70,8 +82,12 @@ namespace MS.Application.Services
                 ViewUrl = f.ViewUrl,
                 Type = f.Type,
                 DownloadUrl = f.DownloadUrl,
+                ID = f.ID,
             }).ToList();
-            return ResponseHandler.Success(fileDTOs);
+
+            var totalCount = files.Count();
+
+            return ResponseHandler.Success(fileDTOs,filter,totalCount);
         }
 
         public async Task<Response<FileDto>> GetByFileNameAsync(string fileName)
@@ -151,10 +167,10 @@ namespace MS.Application.Services
                 Filepath = filePath,
                 ViewUrl = viewUrl,
                 DownloadUrl = downloadUrl,
-                TestId = fileDTO.FolderName == "Test" ? fileDTO.ParentId : 0,
-                ClinicId = fileDTO.FolderName == "Clinic" ? fileDTO.ParentId : 0,
-                UserDiseaseId = fileDTO.FolderName == "UserDisease" ? fileDTO.ParentId : 0,
-                TestResultID = fileDTO.FolderName == "TestResult" ? fileDTO.ParentId : 0,
+                TestId = fileDTO.FolderName == "Test" ? fileDTO.ParentId : null,
+                ClinicId = fileDTO.FolderName == "Clinic" ? fileDTO.ParentId : null,
+                UserDiseaseId = fileDTO.FolderName == "UserDisease" ? fileDTO.ParentId : null,
+                TestResultID = fileDTO.FolderName == "TestResult" ? fileDTO.ParentId : null,
                 Type = fileDTO.File.ContentType,
             };
             await _unitOfWork.Attachment.AddAsync(file);

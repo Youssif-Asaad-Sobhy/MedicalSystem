@@ -16,6 +16,14 @@ namespace MS.Application.Helpers.Response
         {
             return new(true, data, null, TotalRecords, pageFilter.PageNumber, pageFilter.PageSize);
         }
+        public static PaginatedResult<T> BadRequest<T>(PageFilter? filter, string Message = null)
+        {
+            return new PaginatedResult<T>()
+            {
+                Succeeded = false,
+                Messages = Message == null ? ["Bad Request"] : [Message]
+            };
+        }
         public static Response<T> Updated<T>(T entity)
         {
             return new Response<T>()
@@ -73,7 +81,6 @@ namespace MS.Application.Helpers.Response
                 Message = Message == null ? "Bad Request" : Message
             };
         }
-
         public static Response<T> NotFound<T>(string message = null)
         {
             return new Response<T>()

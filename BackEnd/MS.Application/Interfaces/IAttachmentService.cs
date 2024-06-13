@@ -1,6 +1,7 @@
 ﻿using MS.Application.DTOs.Attachment;
 using MS.Application.DTOs.Department;
 using MS.Application.DTOs.Document;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -15,7 +16,7 @@ namespace MS.Application.Interfaces
     {
         Task<Response<FileDto>> GetByIdAsync(int Id);
         Task<Response<FileDto>> GetByFileNameAsync(string fileName);
-        Task<Response<List<FileDto>>> GetAllFilesAsync();
+        Task<PaginatedResult<List<FileDto>>> GetAllFilesAsync(PageFilter filter, string search = null);
         Task<Response<FileDto>> UploadFileAsync(UploadFileDTO fileDTO);
         Task<byte[]> DownloadFileAsync(DownloadFileDTO downloadFileDTO);
         Task<Response<FileDto >> DeleteAsync(int Id);

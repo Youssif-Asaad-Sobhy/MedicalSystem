@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Clinc;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Services;
@@ -67,10 +68,10 @@ namespace Medical_System.Controllers
         }
         [Authorize]
         [HttpGet("All-Clinics")]
-        public async Task<IActionResult> GetAllAsync([FromQuery] string[]?filter)
+        public async Task<IActionResult> GetAllAsync([FromQuery] string[]?filter,[FromQuery]PageFilter? pageFilter,string? search)
         {
-            var response = await _clinicService.GetAllClinicsAsync(filter);
-            return this.CreateResponse(response);
+            var response = await _clinicService.GetAllClinicsAsync(filter,pageFilter,search);
+            return this.SuccessCollection(response);
         }
         #endregion
 
