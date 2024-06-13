@@ -1,4 +1,5 @@
-﻿using MS.Application.DTOs.Reservation;
+﻿using MS.Application.DTOs.Clinc;
+using MS.Application.DTOs.Reservation;
 using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
@@ -20,5 +21,7 @@ namespace MS.Application.Interfaces
         // i want to get the place of user in this clinic
         Task<int> GetUserPlaceInClinic(PlaceUserInClinicDto model);
         Task<Response<List<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType);
+        Task<PaginatedResult<List<DetailedReservation>>> GetAllReservatoinAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+
     }
 }

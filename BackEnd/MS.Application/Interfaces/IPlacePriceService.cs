@@ -1,5 +1,7 @@
 ﻿using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.ClinicPrice;
+using MS.Application.DTOs.PlacePrice;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using MS.Data.Enums;
@@ -18,5 +20,7 @@ namespace MS.Application.Interfaces
         Task<Response<PlacePrice>> UpdatePlacePriceAsync(UpdatePlacePriceDto model);
         Task<Response<PlacePrice>> CreatePlacePriceAsync(CreatePlacePriceDto model);
         Task<Response<IEnumerable<PlacePrice>>> GetAllPlacePricesAsync(PlaceType placeType,int placeId);
+        Task<PaginatedResult<List<DetailedPlacePrice>>> GetAllPlacePriceAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+
     }
 }
