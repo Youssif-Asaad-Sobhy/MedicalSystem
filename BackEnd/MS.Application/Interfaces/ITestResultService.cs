@@ -3,6 +3,8 @@ using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System.Threading.Tasks;
 using MS.Application.DTOs.TestResult;
+using MS.Application.DTOs.Clinc;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Interfaces
 {
@@ -13,5 +15,7 @@ namespace MS.Application.Interfaces
         Task<Response<TestResult>> UpdateTestResultAsync(UpdateTestResultDto model);
         Task<Response<TestResult>> CreateTestResultAsync(CreateTestResultDto model);
         Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync(string userId);
+        Task<PaginatedResult<List<DetailedClinic>>> GetAllTestAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+
     }
 }

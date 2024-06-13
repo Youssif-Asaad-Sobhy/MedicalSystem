@@ -28,8 +28,4 @@
     <ProjectReference Include="..\MS.Infrastructure\MS.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\Pharmacy\" />
-  </ItemGroup>
-
 </Project>
