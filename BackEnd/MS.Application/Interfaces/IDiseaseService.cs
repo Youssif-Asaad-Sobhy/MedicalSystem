@@ -15,7 +15,7 @@ namespace MS.Application.Interfaces
         Task<Response<Disease>> UpdateDiseaseAsync(UpdateDiseaseDto model);
         Task<Response<Disease>> CreateDiseaseAsync(CreateDiseaseDto model);
         Task<Response<List<DiseaseBasicData>>>GetAllDiseasesAsync();
-        Task<PaginatedResult<List<DetailedDisease>>> GetAllDiseasesAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+        Task<PaginatedResult<List<DetailedDisease>>> GetAllDiseaseAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
 
     }
 }

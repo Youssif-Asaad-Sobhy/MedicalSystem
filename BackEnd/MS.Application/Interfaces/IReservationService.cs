@@ -21,7 +21,7 @@ namespace MS.Application.Interfaces
         // i want to get the place of user in this clinic
         Task<int> GetUserPlaceInClinic(PlaceUserInClinicDto model);
         Task<Response<List<GetAllcurrentReservationDto>>> GetUsersByPlace(int placeId, PlaceType placeType);
-        Task<PaginatedResult<List<DetailedReservation>>> GetAllReservatoinAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+        Task<PaginatedResult<List<DetailedReservation>>> GetAllReservationAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
 
     }
 }

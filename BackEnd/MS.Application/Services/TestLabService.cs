@@ -10,6 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Hospital;
+using MS.Application.DTOs.Lab;
+using MS.Application.DTOs.Test;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -109,5 +114,64 @@ namespace MS.Application.Services
             await _unitOfWork.TestLabs.UpdateAsync(testlab);
             return ResponseHandler.Updated(testlab);
         }
+        public async Task<PaginatedResult<List<DetailedTestLab>>> GetAllTestLabAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedTestLab>();
+            var testLabs = await _unitOfWork.TestLabs.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                testLabs = testLabs.Where(t => t.Description.Contains(search));
+            }
+
+            if (testLabs is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedTestLab>>(pageFilter, "TestLab model is null or not found");
+            }
+
+            foreach (TestLab testLab in testLabs)
+            {
+                var detailedTestLab = new DetailedTestLab()
+                {
+                    ID = testLab.ID,
+                    TestID = testLab.TestID,
+                    LabID = testLab.LabID,
+                    Price = testLab.Price,
+                    Description = testLab.Description,
+                    Lab = new DetailedLab
+                    {
+                        ID = testLab.Lab.ID,
+                        Name = testLab.Lab.Name,
+                        Type = testLab.Lab.Type,
+                        HospitalID = testLab.Lab.HospitalID,
+                        Hospital = new DetailedHospital
+                        {
+                            ID = testLab.Lab.Hospital.ID,
+                            Name = testLab.Lab.Hospital.Name,
+                            Phone = testLab.Lab.Hospital.Phone,
+                            Government = testLab.Lab.Hospital.Government,
+                            City = testLab.Lab.Hospital.City,
+                            Country = testLab.Lab.Hospital.Country,
+                            Type = testLab.Lab.Hospital.Type
+                        }
+                    },
+                    Test = new DetailedTest
+                    {
+                        ID = testLab.Test.ID,
+                        Name = testLab.Test.Name,
+                        Description = testLab.Test.Description,
+                        PhotoID = testLab.Test.PhotoID,
+                        Photo = testLab.Test.Photo
+                    }
+                };
+
+                OutputList.Add(detailedTestLab);
+            }
+
+            var count = OutputList.Count();
+            var detailedTestLabs = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedTestLabs, pageFilter, count);
+        }    
     }
 }

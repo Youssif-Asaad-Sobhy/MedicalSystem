@@ -10,6 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Hospital;
+using MS.Application.DTOs.Medicine;
+using MS.Application.DTOs.Pharmacy;
+using MS.Application.DTOs.Type;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -73,6 +79,72 @@ namespace MS.Application.Services
             Entity.PharmacyID = model.PharmacyID;
             await _unitOfWork.PharmacyMedicines.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
+        }
+        public async Task<PaginatedResult<List<DetailedPharmacyMedicine>>> GetAllPharmacyMedicineAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedPharmacyMedicine>();
+            var pharmacyMedicines = await _unitOfWork.PharmacyMedicines.GetAllFilteredAsync(filter);
+            if (!search.IsNullOrEmpty())
+            {
+                pharmacyMedicines = pharmacyMedicines.Where(p => p.MedicineType.Medicine.Name.Contains(search));
+            }
+            if (pharmacyMedicines is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedPharmacyMedicine>>(pageFilter, "PharmacyMedicine model is null or not found");
+            }
+            foreach (PharmacyMedicine pharmacyMedicine in pharmacyMedicines)
+            {
+                var detailedPharmacyMedicine = new DetailedPharmacyMedicine()
+                {
+                    ID = pharmacyMedicine.ID,
+                    PharmacyID = pharmacyMedicine.PharmacyID,
+                    MedicineTypeID = pharmacyMedicine.MedicineTypeID,
+                    Amount = pharmacyMedicine.Amount,
+                    Price = pharmacyMedicine.Price,
+                    Pharmacy = new DetailedPharmacy
+                    {
+                        ID = pharmacyMedicine.Pharmacy.ID,
+                        Name = pharmacyMedicine.Pharmacy.Name,
+                        HospitalID = pharmacyMedicine.Pharmacy.HospitalID,
+                        Hospital = new DetailedHospital
+                        {
+                            ID = pharmacyMedicine.Pharmacy.Hospital.ID,
+                            Name = pharmacyMedicine.Pharmacy.Hospital.Name,
+                            Phone = pharmacyMedicine.Pharmacy.Hospital.Phone,
+                            Government = pharmacyMedicine.Pharmacy.Hospital.Government,
+                            City = pharmacyMedicine.Pharmacy.Hospital.City,
+                            Country = pharmacyMedicine.Pharmacy.Hospital.Country,
+                            Type = pharmacyMedicine.Pharmacy.Hospital.Type
+                        }
+                    },
+                    MedicineType = new DetailedMedicineType
+                    {
+                        ID = pharmacyMedicine.MedicineType.ID,
+                        MedicineID = pharmacyMedicine.MedicineType.MedicineID,
+                        TypeID = pharmacyMedicine.MedicineType.TypeID,
+                        Description = pharmacyMedicine.MedicineType.Description,
+                        SideEffects = pharmacyMedicine.MedicineType.SideEffects,
+                        Warning = pharmacyMedicine.MedicineType.Warning,
+                        ExpirationDate = pharmacyMedicine.MedicineType.ExpirationDate,
+                        Medicine = new DetailedMedicine
+                        {
+                            ID = pharmacyMedicine.MedicineType.Medicine.ID,
+                            Name = pharmacyMedicine.MedicineType.Medicine.Name
+                        },
+                        Types = new DetailedType
+                        {
+                            ID = pharmacyMedicine.MedicineType.Types.ID,
+                            Name = pharmacyMedicine.MedicineType.Types.Name
+                        }
+                    }
+                };
+
+                OutputList.Add(detailedPharmacyMedicine);
+            }
+            var count = OutputList.Count();
+            var detailedPharmacyMedicines = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedPharmacyMedicines, pageFilter, count);
         }
     }
 }

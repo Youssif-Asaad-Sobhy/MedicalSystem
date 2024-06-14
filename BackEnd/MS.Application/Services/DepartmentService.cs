@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Hospital;
+using MS.Application.Helpers.Pagination;
 namespace MS.Application.Services
 {
     public class DepartmentService(IUnitOfWork unitOfWork) : IDepartmentService
@@ -67,6 +69,42 @@ namespace MS.Application.Services
             dept.HospitalID = model.HospitalID;
             await _unitOfWork.Departments.UpdateAsync(dept);
             return ResponseHandler.Success(dept);
+        }
+        public async Task<PaginatedResult<List<DetailedDepartment>>> GetAllDepartmentAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedDepartment>();
+            var departments = await _unitOfWork.Departments.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                departments = departments.Where(d => d.Name.Contains(search));
+            }
+
+            if (departments is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedDepartment>>(pageFilter, "Department model is null or not found");
+            }
+
+            foreach (Department department in departments)
+            {
+                var detailedDepartment = new DetailedDepartment()
+                {
+                    ID = department.ID,
+                    Name = department.Name,
+                    HospitalID = department.HospitalID,
+                    Hospital = new DetailedHospital
+                    {
+                        // Fill in the properties of DetailedHospital based on the properties of department.Hospital
+                    }
+                };
+
+                OutputList.Add(detailedDepartment);
+            }
+
+            var count = OutputList.Count();
+            var detailedDepartments = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedDepartments, pageFilter, count);
         }
     }
 }

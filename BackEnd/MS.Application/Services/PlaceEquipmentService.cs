@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Equipment;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -75,6 +78,45 @@ namespace MS.Application.Services
 
             await _unitOfWork.PlaceEquipments.UpdateAsync(PlaceEquipment);
             return ResponseHandler.Updated(PlaceEquipment);
+        }
+        public async Task<PaginatedResult<List<DetailedPlaceEquipment>>> GetAllPlaceEquipmentAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedPlaceEquipment>();
+            var placeEquipments = await _unitOfWork.PlaceEquipments.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                placeEquipments = placeEquipments.Where(p => p.Equipment.Name.Contains(search));
+            }
+
+            if (placeEquipments is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedPlaceEquipment>>(pageFilter, "PlaceEquipment model is null or not found");
+            }
+
+            foreach (PlaceEquipment placeEquipment in placeEquipments)
+            {
+                var detailedPlaceEquipment = new DetailedPlaceEquipment()
+                {
+                    ID = placeEquipment.ID,
+                    EquipmentID = placeEquipment.EquipmentID,
+                    EntityID = placeEquipment.EntityID,
+                    PlaceType = placeEquipment.PlaceType,
+                    Equipment = new DetailedEquipment
+                    {
+                        ID = placeEquipment.Equipment.ID,
+                        Name = placeEquipment.Equipment.Name,
+                        Description = placeEquipment.Equipment.Description
+                    }
+                };
+
+                OutputList.Add(detailedPlaceEquipment);
+            }
+
+            var count = OutputList.Count();
+            var detailedPlaceEquipments = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedPlaceEquipments, pageFilter, count);
         }
     }
 }

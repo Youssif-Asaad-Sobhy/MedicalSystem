@@ -114,7 +114,12 @@ namespace Medical_System.Controllers
 
 
         }
-
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllReservationAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllReservationAsync(filter, pageFilter, search);
+            return Ok(response);
+        }
         #endregion
     }
 }

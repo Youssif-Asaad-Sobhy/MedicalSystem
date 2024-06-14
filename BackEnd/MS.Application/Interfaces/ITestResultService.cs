@@ -15,7 +15,7 @@ namespace MS.Application.Interfaces
         Task<Response<TestResult>> UpdateTestResultAsync(UpdateTestResultDto model);
         Task<Response<TestResult>> CreateTestResultAsync(CreateTestResultDto model);
         Task<Response<List<GetAllTestResultDto>>> GetAllTestResultAsync(string userId);
-        Task<PaginatedResult<List<DetailedClinic>>> GetAllTestAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+        Task<PaginatedResult<List<DetailedTestResult>>> GetAllTestResultAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
 
     }
 }

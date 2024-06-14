@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -65,6 +67,37 @@ namespace MS.Application.Services
             Entity.Name = model.Name;
             await _unitOfWork.Medicines.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
+        }
+        public async Task<PaginatedResult<List<DetailedMedicine>>> GetAllMedicineAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedMedicine>();
+            var medicines = await _unitOfWork.Medicines.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                medicines = medicines.Where(m => m.Name.Contains(search));
+            }
+
+            if (medicines is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedMedicine>>(pageFilter, "Medicine model is null or not found");
+            }
+
+            foreach (Medicine medicine in medicines)
+            {
+                var detailedMedicine = new DetailedMedicine()
+                {
+                    ID = medicine.ID,
+                    Name = medicine.Name
+                };
+
+                OutputList.Add(detailedMedicine);
+            }
+
+            var count = OutputList.Count();
+            var detailedMedicines = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedMedicines, pageFilter, count);
         }
     }
 }

@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Type;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -75,6 +78,52 @@ namespace MS.Application.Services
             Entity.Warning = model.Warning;
             await _unitOfWork.MedicineTypes.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
+        }
+        public async Task<PaginatedResult<List<DetailedMedicineType>>> GetAllMedicineTypeAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedMedicineType>();
+            var medicineTypes = await _unitOfWork.MedicineTypes.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                medicineTypes = medicineTypes.Where(m => m.Description.Contains(search) || m.SideEffects.Contains(search) || m.Warning.Contains(search));
+            }
+
+            if (medicineTypes is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedMedicineType>>(pageFilter, "MedicineType model is null or not found");
+            }
+
+            foreach (MedicineType medicineType in medicineTypes)
+            {
+                var detailedMedicineType = new DetailedMedicineType()
+                {
+                    ID = medicineType.ID,
+                    MedicineID = medicineType.MedicineID,
+                    TypeID = medicineType.TypeID,
+                    Description = medicineType.Description,
+                    SideEffects = medicineType.SideEffects,
+                    Warning = medicineType.Warning,
+                    ExpirationDate = medicineType.ExpirationDate,
+                    Medicine = new DetailedMedicine
+                    {
+                        ID = medicineType.Medicine.ID,
+                        Name = medicineType.Medicine.Name
+                    },
+                    Types = new DetailedType
+                    {
+                        ID = medicineType.Types.ID,
+                        Name = medicineType.Types.Name
+                    }
+                };
+
+                OutputList.Add(detailedMedicineType);
+            }
+
+            var count = OutputList.Count();
+            var detailedMedicineTypes = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedMedicineTypes, pageFilter, count);
         }
     }
 }

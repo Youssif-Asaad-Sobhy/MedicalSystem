@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using MS.Application.DTOs.MedicineType;
 using MS.Application.DTOs.Pharmacy;
 using MS.Application.DTOs.Type;
 
@@ -17,6 +18,6 @@ namespace MS.Application.DTOs.PharmacyMedicine
         public int Amount { get; set; }
         public double Price { get; set; }
         public DetailedPharmacy Pharmacy { get; set; }
-        public DetailedType MedicineType { get; set; }
+        public DetailedMedicineType MedicineType { get; set; }
     }
 }

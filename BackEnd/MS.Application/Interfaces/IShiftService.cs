@@ -13,7 +13,7 @@ namespace MS.Application.Interfaces
         Task<Response<Shift>> DeleteShiftAsync(int ID);
         Task<Response<Shift>> UpdateShiftAsync(UpdateShiftDto model);
         Task<Response<Shift>> CreateShiftAsync(CreateShiftDto model);
-        Task<PaginatedResult<List<DetailedShift>>> GetAllshiftAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+        Task<PaginatedResult<List<DetailedShift>>> GetAllShiftAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
 
     }
 }

@@ -16,9 +16,10 @@ namespace MS.Application.DTOs.TestResult
         public string Description { get; set; }
         public int TestId { get; set; }
         // TestDto
-        public TestDto Test { get; set; }
+        public DetailedTest Test { get; set; }
         // FileDto  
         public ICollection<FileDto> Files { get; set; }
-
+        public string ApplicationUserId { get; set; }
+        
     }
 }

@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Shift;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -76,6 +79,48 @@ namespace MS.Application.Services
 
             await _unitOfWork.PlaceShifts.UpdateAsync(PlaceShift);
             return ResponseHandler.Updated(PlaceShift);
+        }
+        public async Task<PaginatedResult<List<DetailedPlaceShift>>> GetAllPlaceShiftAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedPlaceShift>();
+            var placeShifts = await _unitOfWork.PlaceShifts.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                placeShifts = placeShifts.Where(p => p.Shift.Name.Contains(search));
+            }
+
+            if (placeShifts is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedPlaceShift>>(pageFilter, "PlaceShift model is null or not found");
+            }
+
+            foreach (PlaceShift placeShift in placeShifts)
+            {
+                var detailedPlaceShift = new DetailedPlaceShift()
+                {
+                    ID = placeShift.ID,
+                    EntityID = placeShift.EntityID,
+                    PlaceType = placeShift.PlaceType,
+                    ShiftID = placeShift.ShiftID,
+                    Shift = new DetailedShift
+                    {
+                        ID = placeShift.Shift.ID,
+                        Name = placeShift.Shift.Name,
+                        StartTime = placeShift.Shift.StartTime,
+                        EndTime = placeShift.Shift.EndTime,
+                        EntityID = placeShift.Shift.EntityID,
+                        PlaceType = placeShift.Shift.PlaceType
+                    }
+                };
+
+                OutputList.Add(detailedPlaceShift);
+            }
+
+            var count = OutputList.Count();
+            var detailedPlaceShifts = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedPlaceShifts, pageFilter, count);
         }
     }
 }
