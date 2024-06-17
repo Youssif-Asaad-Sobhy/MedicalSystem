@@ -2,12 +2,14 @@
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Data.Entities;
+using MS.Infrastructure.Contexts;
 using MS.Infrastructure.Repositories.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Hospital;
 using MS.Application.Helpers.Pagination;
@@ -73,19 +75,19 @@ namespace MS.Application.Services
         public async Task<PaginatedResult<List<DetailedDepartment>>> GetAllDepartmentAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
             var OutputList = new List<DetailedDepartment>();
-            var departments = await _unitOfWork.Departments.GetAllFilteredAsync(filter);
+            var departments = await _unitOfWork.Departments.GetAllFilteredAsync(filter, [d=>d.Hospital]);
 
-            if (!search.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(search))
             {
                 departments = departments.Where(d => d.Name.Contains(search));
             }
 
-            if (departments is null)
+            if (departments is null || !departments.Any())
             {
                 return ResponseHandler.BadRequest<List<DetailedDepartment>>(pageFilter, "Department model is null or not found");
             }
 
-            foreach (Department department in departments)
+            foreach (var department in departments)
             {
                 var detailedDepartment = new DetailedDepartment()
                 {
@@ -94,7 +96,12 @@ namespace MS.Application.Services
                     HospitalID = department.HospitalID,
                     Hospital = new DetailedHospital
                     {
-                        // Fill in the properties of DetailedHospital based on the properties of department.Hospital
+                        ID = department.Hospital.ID,
+                        Name = department.Hospital.Name,
+                        City = department.Hospital.City,
+                        Country = department.Hospital.Country,
+                        Government = department.Hospital.Government,
+                        Phone = department.Hospital.Phone
                     }
                 };
 

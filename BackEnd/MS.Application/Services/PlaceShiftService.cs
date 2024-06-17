@@ -83,7 +83,7 @@ namespace MS.Application.Services
         public async Task<PaginatedResult<List<DetailedPlaceShift>>> GetAllPlaceShiftAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
             var OutputList = new List<DetailedPlaceShift>();
-            var placeShifts = await _unitOfWork.PlaceShifts.GetAllFilteredAsync(filter);
+            var placeShifts = await _unitOfWork.PlaceShifts.GetAllFilteredAsync(filter, [d=>d.Shift]);
 
             if (!search.IsNullOrEmpty())
             {

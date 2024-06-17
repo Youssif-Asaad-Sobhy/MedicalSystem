@@ -82,7 +82,7 @@ namespace MS.Application.Services
         public async Task<PaginatedResult<List<DetailedPlaceEquipment>>> GetAllPlaceEquipmentAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
             var OutputList = new List<DetailedPlaceEquipment>();
-            var placeEquipments = await _unitOfWork.PlaceEquipments.GetAllFilteredAsync(filter);
+            var placeEquipments = await _unitOfWork.PlaceEquipments.GetAllFilteredAsync(filter, [d=>d.Equipment]);
 
             if (!search.IsNullOrEmpty())
             {

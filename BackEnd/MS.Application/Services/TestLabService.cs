@@ -117,7 +117,7 @@ namespace MS.Application.Services
         public async Task<PaginatedResult<List<DetailedTestLab>>> GetAllTestLabAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
             var OutputList = new List<DetailedTestLab>();
-            var testLabs = await _unitOfWork.TestLabs.GetAllFilteredAsync(filter);
+            var testLabs = await _unitOfWork.TestLabs.GetAllFilteredAsync(filter, [d=>d.Lab,d=>d.Lab.Hospital,d=>d.Test]);
 
             if (!search.IsNullOrEmpty())
             {

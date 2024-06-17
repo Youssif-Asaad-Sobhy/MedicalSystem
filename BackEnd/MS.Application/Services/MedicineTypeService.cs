@@ -82,7 +82,7 @@ namespace MS.Application.Services
         public async Task<PaginatedResult<List<DetailedMedicineType>>> GetAllMedicineTypeAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
             var OutputList = new List<DetailedMedicineType>();
-            var medicineTypes = await _unitOfWork.MedicineTypes.GetAllFilteredAsync(filter);
+            var medicineTypes = await _unitOfWork.MedicineTypes.GetAllFilteredAsync(filter, [d=>d.Medicine, d=>d.Types]);
 
             if (!search.IsNullOrEmpty())
             {

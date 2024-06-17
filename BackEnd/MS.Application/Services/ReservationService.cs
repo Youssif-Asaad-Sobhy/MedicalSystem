@@ -206,7 +206,7 @@ namespace MS.Application.Services
         public async Task<PaginatedResult<List<DetailedReservation>>> GetAllReservationAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
         {
             var OutputList = new List<DetailedReservation>();
-            var reservations = await _unitOfWork.Reservations.GetAllFilteredAsync(filter);
+            var reservations = await _unitOfWork.Reservations.GetAllFilteredAsync(filter, [d=>d.PlacePrice,d=>d.User]);
 
             if (!search.IsNullOrEmpty())
             {
@@ -236,7 +236,19 @@ namespace MS.Application.Services
                         PlaceID = reservation.PlacePrice.PlaceID,
                         PlaceType = reservation.PlacePrice.PlaceType
                     },
-                    User = reservation.User
+                    User = new ApplicationUser()
+                    {
+                        Id = reservation.User.Id,
+                        FirstName = reservation.User.FirstName,
+                        LastName = reservation.User.LastName,
+                        NID = reservation.User.NID,
+                        BirthDate = reservation.User.BirthDate,
+                        BloodType = reservation.User.BloodType,
+                        Gender = reservation.User.Gender,
+                        Email = reservation.User.Email,
+                        PhoneNumber = reservation.User.PhoneNumber,
+                        MaritalStatus = reservation.User.MaritalStatus,
+                    }
                 };
 
                 OutputList.Add(detailedReservation);
