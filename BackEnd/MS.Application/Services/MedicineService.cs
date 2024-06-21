@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.MedicineType;
+using MS.Application.DTOs.Type;
 using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
@@ -35,7 +37,6 @@ namespace MS.Application.Services
             await _unitOfWork.Medicines.AddAsync(Entity);
             return ResponseHandler.Created(Entity);
         }
-
         public async Task<Response<Medicine>> DeleteMedicineAsync(int ID)
         {
             var Entity = await _unitOfWork.Medicines.GetByIdAsync(ID);

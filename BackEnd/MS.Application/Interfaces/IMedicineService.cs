@@ -4,6 +4,7 @@ using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System.Threading.Tasks;
+using MS.Application.DTOs.MedicineType;
 
 namespace MS.Application.Interfaces
 {
@@ -14,6 +15,6 @@ namespace MS.Application.Interfaces
         Task<Response<Medicine>> UpdateMedicineAsync(UpdateMedicineDto model);
         Task<Response<Medicine>> CreateMedicineAsync(CreateMedicineDto model);
         Task<PaginatedResult<List<DetailedMedicine>>> GetAllMedicineAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
-
+        
     }
 }
