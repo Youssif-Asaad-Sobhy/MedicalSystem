@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MS.Data.Entities;
 
 namespace MS.Application.Helpers.Response
 {
