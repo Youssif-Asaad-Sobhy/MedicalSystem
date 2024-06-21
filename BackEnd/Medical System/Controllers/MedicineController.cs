@@ -62,22 +62,6 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
-    
-        [HttpPost("AddMedicine")]
-        public async Task<IActionResult> AddMedicine([FromBody] AddMedicineDto medicineDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var response = await _service.AddMedicineAsync(medicineDTO);
-            if (!response.Succeeded)
-            {
-                return this.CreateResponse(response);
-            }
-            return this.CreateResponse(response);
-        }
         [Authorize(Roles = "Admin")]
         [HttpPut("Put")]
         public async Task<IActionResult> PutSingleAsync([FromBody] UpdateMedicineDto model)
@@ -97,12 +81,6 @@ namespace Medical_System.Controllers
         public async Task<IActionResult> GetAllMedicineAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
         {
             var response = await _service.GetAllMedicineAsync(filter, pageFilter, search);
-            return Ok(response);
-        }
-        [HttpGet("GetMedicineData")]
-        public async Task<IActionResult> GetMedicineByIDAsync([FromQuery]int id,[FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
-        {
-            var response = await _service.GetMedicineByIDAsync(id,filter, pageFilter, search);
             return Ok(response);
         }
         #endregion

@@ -11,10 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.Helpers.Pagination;
-using Microsoft.AspNetCore.Mvc;
-using MS.Infrastructure.Contexts;
-using MS.Application.DTOs.MedicineType;
-using MS.Application.DTOs.Type;
 
 namespace MS.Application.Services
 {
@@ -38,80 +34,6 @@ namespace MS.Application.Services
             };
             await _unitOfWork.Medicines.AddAsync(Entity);
             return ResponseHandler.Created(Entity);
-        }
-        public async Task<Response<Medicine>> AddMedicineAsync(AddMedicineDto model)
-        {
-            if (model == null)
-            {
-                return ResponseHandler.BadRequest<Medicine>($"Model not found.");
-            }
-            var medicine = new Medicine
-            {
-                Name = model.MedicineName,
-                MedicineTypes = new List<MedicineType>
-                {
-                    new MedicineType
-                    {
-                        Description = model.Description,
-                        SideEffects = model.SideEffects,
-                        Warning = model.Warning,
-                        ExpirationDate = model.ExpireDate,
-                    }
-                }
-            };
-            await _unitOfWork.Medicines.AddAsync(medicine);
-            return ResponseHandler.Created(medicine);
-        }
-        public async Task<PaginatedResult<List<DetailedMedicineType>>> GetMedicineByIDAsync(int id,string[]? filter, PageFilter? pageFilter, string? search = null)
-        {
-            var OutputList = new List<DetailedMedicineType>();
-            var medicineTypes = await _unitOfWork.MedicineTypes.GetAllFilteredAsync(filter, [d => d.Medicine, d => d.Types]);
-
-            if (!search.IsNullOrEmpty())
-            {
-                medicineTypes = medicineTypes.Where(m => m.Description.Contains(search) || m.SideEffects.Contains(search) || m.Warning.Contains(search));
-            }
-
-            if (medicineTypes is null)
-            {
-                return ResponseHandler.BadRequest<List<DetailedMedicineType>>(pageFilter, "MedicineType model is null or not found");
-            }
-
-            foreach (MedicineType medicineType in medicineTypes)
-            {
-                var detailedMedicineType = new DetailedMedicineType()
-                {
-                    ID = medicineType.ID,
-                    MedicineID = medicineType.MedicineID,
-                    TypeID = medicineType.TypeID,
-                    Description = medicineType.Description,
-                    SideEffects = medicineType.SideEffects,
-                    Warning = medicineType.Warning,
-                    ExpirationDate = medicineType.ExpirationDate,
-                    Medicine = new DetailedMedicine
-                    {
-                        ID = medicineType.Medicine.ID,
-                        Name = medicineType.Medicine.Name
-                    },
-                    Types = new DetailedType
-                    {
-                        ID = medicineType.Types.ID,
-                        Name = medicineType.Types.Name
-                    }
-                };
-                if(detailedMedicineType.ID==id)
-                {
-                    OutputList.Add(detailedMedicineType);
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            var count = OutputList.Count();
-            var detailedMedicineTypes = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
-                .Take(pageFilter.PageSize).ToList();
-            return ResponseHandler.Success(detailedMedicineTypes, pageFilter, count);
         }
 
         public async Task<Response<Medicine>> DeleteMedicineAsync(int ID)
