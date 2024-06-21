@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Hospital;
 using MS.Application.DTOs.Lab;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 
@@ -81,6 +82,12 @@ namespace Medical_System.Controllers
         {
             var response = await _service.GetLabsAsync();
             return this.CreateResponse(response);
+        }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllLabAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllLabAsync(filter, pageFilter, search);
+            return Ok(response);
         }
         #endregion
     }

@@ -5,6 +5,7 @@ using MS.Application.DTOs.Disease;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using MS.Application.Helpers.Pagination;
 
 namespace Medical_System.Controllers
 {
@@ -69,6 +70,12 @@ namespace Medical_System.Controllers
             var response = await _service.GetAllDiseasesAsync();
 
             return this.CreateResponse(response);
+        }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllDiseasesPaginatedAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllDiseaseAsync(filter, pageFilter, search);
+            return Ok(response);
         }
         #endregion
     }

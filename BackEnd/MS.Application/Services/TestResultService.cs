@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -108,6 +110,58 @@ namespace MS.Application.Services
             }).ToList();
             
             return ResponseHandler.Success(testResultDtos);
-        } 
+        }
+        public async Task<PaginatedResult<List<DetailedTestResult>>> GetAllTestResultAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedTestResult>();
+            var testResults = await _unitOfWork.TestResults.GetAllFilteredAsync(filter, [d=>d.Test,d=>d.Attachments]);
+
+            if (!search.IsNullOrEmpty())
+            {
+                testResults = testResults.Where(t => t.Title.Contains(search));
+            }
+
+            if (testResults is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedTestResult>>(pageFilter, "TestResult model is null or not found");
+            }
+
+            foreach (TestResult testResult in testResults)
+            {
+                var detailedTestResult = new DetailedTestResult()
+                {
+                    Title = testResult.Title,
+                    Description = testResult.Description,
+                    TestId = testResult.TestId,
+                    Test = new DetailedTest
+                    {
+                        ID = testResult.Test.ID,
+                        Name = testResult.Test.Name,
+                        Description = testResult.Test.Description,
+                        PhotoID = testResult.Test.PhotoID
+                    },
+                    Files = testResult.Attachments.Select(file => new FileDto
+                    {
+                        ID = file.ID,
+                        FileName = file.FileName,
+                        FolderName = file.FolderName,
+                        Title = file.Title,
+                        ViewUrl = file.ViewUrl,
+                        DownloadUrl = file.DownloadUrl,
+                        Type = file.Type,
+                        FilePath = file.Filepath
+                        
+                    }).ToList(),
+                    ApplicationUserId = testResult.ApplicationUserId
+                };
+
+                OutputList.Add(detailedTestResult);
+            }
+
+            var count = OutputList.Count();
+            var detailedTestResults = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedTestResults, pageFilter, count);
+        }
     }
 }

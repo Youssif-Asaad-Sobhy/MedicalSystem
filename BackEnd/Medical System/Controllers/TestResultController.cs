@@ -6,6 +6,7 @@ using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using MS.Application.Helpers.Pagination;
 using MS.Data.Entities;
 using MS.Application.Helpers.UserManagerExtensions;
 
@@ -77,6 +78,12 @@ namespace Medical_System.Controllers
             }
             var response = await _service.GetAllTestResultAsync(userId);
             return this.CreateResponse(response);
+        }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllTestResultAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllTestResultAsync(filter, pageFilter, search);
+            return Ok(response);
         }
         #endregion
     }

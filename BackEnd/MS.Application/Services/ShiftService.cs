@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -80,6 +82,41 @@ namespace MS.Application.Services
 
             await _unitOfWork.Shifts.UpdateAsync(Shift);
             return ResponseHandler.Updated(Shift);
+        }
+        public async Task<PaginatedResult<List<DetailedShift>>> GetAllShiftAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedShift>();
+            var shifts = await _unitOfWork.Shifts.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                shifts = shifts.Where(s => s.Name.Contains(search));
+            }
+
+            if (shifts is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedShift>>(pageFilter, "Shift model is null or not found");
+            }
+
+            foreach (Shift shift in shifts)
+            {
+                var detailedShift = new DetailedShift()
+                {
+                    ID = shift.ID,
+                    Name = shift.Name,
+                    StartTime = shift.StartTime,
+                    EndTime = shift.EndTime,
+                    EntityID = shift.EntityID,
+                    PlaceType = shift.PlaceType
+                };
+
+                OutputList.Add(detailedShift);
+            }
+
+            var count = OutputList.Count();
+            var detailedShifts = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedShifts, pageFilter, count);
         }
     }
 }
