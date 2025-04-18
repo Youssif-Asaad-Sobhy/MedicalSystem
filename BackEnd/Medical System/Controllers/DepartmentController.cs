@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.Department;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.Services;
@@ -86,6 +87,12 @@ namespace Medical_System.Controllers
                 return this.CreateResponse(response);
             }
             return this.CreateResponse(response);
+        }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllDepartmentAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _departmentService.GetAllDepartmentAsync(filter, pageFilter, search);
+            return Ok(response);
         }
         #endregion
     }

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -90,5 +92,40 @@ namespace MS.Application.Services
            return ResponseHandler.Success(basicdata);
 
         }
+        public async Task<PaginatedResult<List<DetailedDisease>>> GetAllDiseaseAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedDisease>();
+            var diseases = await _unitOfWork.Diseases.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                diseases = diseases.Where(d => d.Name.Contains(search) || d.Description.Contains(search) || d.Symptoms.Contains(search) || d.Causes.Contains(search));
+            }
+
+            if (diseases is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedDisease>>(pageFilter, "Disease model is null or not found");
+            }
+
+            foreach (Disease disease in diseases)
+            {
+                var detailedDisease = new DetailedDisease()
+                {
+                    ID = disease.ID,
+                    Name = disease.Name,
+                    Description = disease.Description,
+                    Symptoms = disease.Symptoms,
+                    Causes = disease.Causes
+                };
+
+                OutputList.Add(detailedDisease);
+            }
+
+            var count = OutputList.Count();
+            var detailedDiseases = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedDiseases, pageFilter, count);
+        }
+        
     } 
 }

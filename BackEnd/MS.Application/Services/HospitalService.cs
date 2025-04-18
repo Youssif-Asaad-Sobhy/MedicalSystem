@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -75,6 +77,42 @@ namespace MS.Application.Services
             Entity.Phone = model.Phone;
             await _unitOfWork.Hospitals.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
+        }
+        public async Task<PaginatedResult<List<DetailedHospital>>> GetAllHospitalAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedHospital>();
+            var hospitals = await _unitOfWork.Hospitals.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                hospitals = hospitals.Where(h => h.Name.Contains(search) || h.City.Contains(search) || h.Country.Contains(search));
+            }
+
+            if (hospitals is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedHospital>>(pageFilter, "Hospital model is null or not found");
+            }
+
+            foreach (Hospital hospital in hospitals)
+            {
+                var detailedHospital = new DetailedHospital()
+                {
+                    ID = hospital.ID,
+                    Name = hospital.Name,
+                    Phone = hospital.Phone,
+                    Government = hospital.Government,
+                    City = hospital.City,
+                    Country = hospital.Country,
+                    Type = hospital.Type
+                };
+
+                OutputList.Add(detailedHospital);
+            }
+
+            var count = OutputList.Count();
+            var detailedHospitals = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedHospitals, pageFilter, count);
         }
     }
 }

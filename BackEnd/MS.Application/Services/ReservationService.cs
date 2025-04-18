@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.PlacePrice;
 
 namespace MS.Application.Services
 {
@@ -201,7 +203,62 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(ret);
         }
+        public async Task<PaginatedResult<List<DetailedReservation>>> GetAllReservationAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedReservation>();
+            var reservations = await _unitOfWork.Reservations.GetAllFilteredAsync(filter, [d=>d.PlacePrice,d=>d.User]);
 
+            if (!search.IsNullOrEmpty())
+            {
+                reservations = reservations.Where(r => r.SerialNumber.Contains(search));
+            }
+
+            if (reservations is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedReservation>>(pageFilter, "Reservation model is null or not found");
+            }
+
+            foreach (Reservation reservation in reservations)
+            {
+                var detailedReservation = new DetailedReservation()
+                {
+                    ID = reservation.ID,
+                    Time = reservation.Time,
+                    SerialNumber = reservation.SerialNumber,
+                    State = reservation.State,
+                    PlacePriceId = reservation.PlacePriceId,
+                    UserID = reservation.UserID,
+                    PlacePrice = new DetailedPlacePrice
+                    {
+                        ID = reservation.PlacePrice.ID,
+                        Name = reservation.PlacePrice.Name,
+                        Price = reservation.PlacePrice.Price,
+                        PlaceID = reservation.PlacePrice.PlaceID,
+                        PlaceType = reservation.PlacePrice.PlaceType
+                    },
+                    User = new ApplicationUser()
+                    {
+                        Id = reservation.User.Id,
+                        FirstName = reservation.User.FirstName,
+                        LastName = reservation.User.LastName,
+                        NID = reservation.User.NID,
+                        BirthDate = reservation.User.BirthDate,
+                        BloodType = reservation.User.BloodType,
+                        Gender = reservation.User.Gender,
+                        Email = reservation.User.Email,
+                        PhoneNumber = reservation.User.PhoneNumber,
+                        MaritalStatus = reservation.User.MaritalStatus,
+                    }
+                };
+
+                OutputList.Add(detailedReservation);
+            }
+
+            var count = OutputList.Count();
+            var detailedReservations = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedReservations, pageFilter, count);
+        }
     }
 }
  

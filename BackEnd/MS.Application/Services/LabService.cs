@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -75,6 +77,49 @@ namespace MS.Application.Services
         {
             var labs = await _unitOfWork.Labs.GetAllAsync();
             return ResponseHandler.Success(labs);
+        } 
+        public async Task<PaginatedResult<List<DetailedLab>>> GetAllLabAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedLab>();
+            var labs = await _unitOfWork.Labs.GetAllFilteredAsync(filter, [d=>d.Hospital]);
+
+            if (!search.IsNullOrEmpty())
+            {
+                labs = labs.Where(l => l.Name.Contains(search));
+            }
+
+            if (labs is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedLab>>(pageFilter, "Lab model is null or not found");
+            }
+
+            foreach (Lab lab in labs)
+            {
+                var detailedLab = new DetailedLab()
+                {
+                    ID = lab.ID,
+                    Name = lab.Name,
+                    Type = lab.Type,
+                    HospitalID = lab.HospitalID,
+                    Hospital = new DetailedHospital
+                    {
+                        ID = lab.Hospital.ID,
+                        Name = lab.Hospital.Name,
+                        Phone = lab.Hospital.Phone,
+                        Government = lab.Hospital.Government,
+                        City = lab.Hospital.City,
+                        Country = lab.Hospital.Country,
+                        Type = lab.Hospital.Type
+                    }
+                };
+
+                OutputList.Add(detailedLab);
+            }
+
+            var count = OutputList.Count();
+            var detailedLabs = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedLabs, pageFilter, count);
         }
     }
 }

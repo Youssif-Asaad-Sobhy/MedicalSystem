@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Equipment;
 using MS.Application.DTOs.Hospital;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 
@@ -75,6 +76,12 @@ namespace Medical_System.Controllers
                 return this.CreateResponse(response);
             }
             return this.CreateResponse(response);
+        }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllHospitalsAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllHospitalAsync(filter, pageFilter, search);
+            return Ok(response);
         }
         #endregion
     }

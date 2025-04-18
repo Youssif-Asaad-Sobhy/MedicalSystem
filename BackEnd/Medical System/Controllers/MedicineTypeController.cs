@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Application.DTOs.Lab;
+using MS.Application.DTOs.Medicine;
 using MS.Application.DTOs.MedicineType;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 
@@ -76,6 +78,35 @@ namespace Medical_System.Controllers
             }
             return this.CreateResponse(response);
         }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllMedicineTypesAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllMedicineTypeAsync(filter, pageFilter, search);
+            return Ok(response);
+        }
+        
+        [HttpPost("AddMedicine")]
+        public async Task<IActionResult> AddMedicine([FromBody] AddMedicineTypeDto medicineDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _service.AddMedicineAsync(medicineDTO);
+            if (!response.Succeeded)
+            {
+                return this.CreateResponse(response);
+            }
+            return this.CreateResponse(response);
+        }
+        [HttpGet("GetMedicineData")]
+        public async Task<IActionResult> GetMedicineByIDAsync([FromQuery]int id,[FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetMedicineByIDAsync(id,filter, pageFilter, search);
+            return Ok(response);
+        }
+
         #endregion
     }
 }

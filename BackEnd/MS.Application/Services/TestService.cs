@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -86,6 +88,39 @@ namespace MS.Application.Services
             await _unitOfWork.Tests.UpdateAsync(test);
             return ResponseHandler.Updated(test);
         }
-       
+        public async Task<PaginatedResult<List<DetailedTest>>> GetAllTestAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedTest>();
+            var tests = await _unitOfWork.Tests.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                tests = tests.Where(t => t.Name.Contains(search));
+            }
+
+            if (tests is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedTest>>(pageFilter, "Test model is null or not found");
+            }
+
+            foreach (Test test in tests)
+            {
+                var detailedTest = new DetailedTest()
+                {
+                    ID = test.ID,
+                    Name = test.Name,
+                    Description = test.Description,
+                    PhotoID = test.PhotoID,
+                    Photo = test.Photo
+                };
+
+                OutputList.Add(detailedTest);
+            }
+
+            var count = OutputList.Count();
+            var detailedTests = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedTests, pageFilter, count);
+        }
     }
 }

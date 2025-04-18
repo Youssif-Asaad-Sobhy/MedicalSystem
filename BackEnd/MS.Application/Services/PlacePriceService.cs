@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.PlacePrice;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -85,6 +88,40 @@ namespace MS.Application.Services
             clinicprice.PlaceID = model.PlaceID;
             await _unitOfWork.PlacePrice.UpdateAsync(clinicprice);
             return ResponseHandler.Updated(clinicprice);
+        }
+        public async Task<PaginatedResult<List<DetailedPlacePrice>>> GetAllPlacePriceAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedPlacePrice>();
+            var placePrices = await _unitOfWork.PlacePrice.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                placePrices = placePrices.Where(p => p.Name.Contains(search));
+            }
+
+            if (placePrices is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedPlacePrice>>(pageFilter, "PlacePrice model is null or not found");
+            }
+
+            foreach (PlacePrice placePrice in placePrices)
+            {
+                var detailedPlacePrice = new DetailedPlacePrice()
+                {
+                    ID = placePrice.ID,
+                    Name = placePrice.Name,
+                    Price = placePrice.Price,
+                    PlaceID = placePrice.PlaceID,
+                    PlaceType = placePrice.PlaceType
+                };
+
+                OutputList.Add(detailedPlacePrice);
+            }
+
+            var count = OutputList.Count();
+            var detailedPlacePrices = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedPlacePrices, pageFilter, count);
         }
     }
 }

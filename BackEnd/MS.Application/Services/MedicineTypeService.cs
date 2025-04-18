@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Type;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -59,7 +62,99 @@ namespace MS.Application.Services
             }
             return ResponseHandler.Success(Entity);
         }
+        public async Task<Response<AddMedicineTypeDto>> AddMedicineAsync(AddMedicineTypeDto model)
+        {
+            if (model == null)
+            {
+                return ResponseHandler.BadRequest<AddMedicineTypeDto>($"Model not found.");
+            }
+            var medicine = new Medicine
+            {
+                Name = model.MedicineName,
+            };
+            medicine = await _unitOfWork.Medicines.AddAsync(medicine);
+            var type = new Types
+            {
+                Name = model.TypeName,
+            };
+            type = await _unitOfWork.Types.AddAsync(type);
+            var medicineType = new MedicineType
+            {
+                MedicineID = medicine.ID,
+                TypeID = type.ID,
+                Description = model.Description,
+                SideEffects = model.SideEffects,
+                Warning = model.Warning,
+                ExpirationDate = model.ExpireDate,
+            };
+            await _unitOfWork.MedicineTypes.AddAsync(medicineType);
 
+            var result = new AddMedicineTypeDto
+            {
+                MedicineID = medicineType.MedicineID,
+                TypeID = medicineType.TypeID,
+                Description = medicineType.Description,
+                SideEffects = medicineType.SideEffects,
+                Warning = medicineType.Warning,
+                ExpireDate = medicineType.ExpirationDate,
+                MedicineName = medicine.Name,
+                TypeName = type.Name
+            };
+
+            return ResponseHandler.Created(result);
+        }
+        public async Task<PaginatedResult<List<DetailedMedicineType>>> GetMedicineByIDAsync(int id,string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedMedicineType>();
+            var medicineTypes = await _unitOfWork.MedicineTypes.GetAllFilteredAsync(filter, [d => d.Medicine, d => d.Types]);
+
+            if (!search.IsNullOrEmpty())
+            {
+                medicineTypes = medicineTypes.Where(m => m.Description.Contains(search) || m.SideEffects.Contains(search) || m.Warning.Contains(search));
+            }
+
+            if (medicineTypes is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedMedicineType>>(pageFilter, "MedicineType model is null or not found");
+            }
+
+            foreach (MedicineType medicineType in medicineTypes)
+            {
+                var detailedMedicineType = new DetailedMedicineType()
+                {
+                    ID = medicineType.ID,
+                    MedicineID = medicineType.MedicineID,
+                    TypeID = medicineType.TypeID,
+                    Description = medicineType.Description,
+                    SideEffects = medicineType.SideEffects,
+                    Warning = medicineType.Warning,
+                    ExpirationDate = medicineType.ExpirationDate,
+                    Medicine = new DetailedMedicine
+                    {
+                        ID = medicineType.Medicine.ID,
+                        Name = medicineType.Medicine.Name
+                    },
+                    Types = new DetailedType
+                    {
+                        ID = medicineType.Types.ID,
+                        Name = medicineType.Types.Name
+                    }
+                };
+                if(detailedMedicineType.ID==id)
+                {
+                    OutputList.Add(detailedMedicineType);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            var count = OutputList.Count();
+            var detailedMedicineTypes = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedMedicineTypes, pageFilter, count);
+        }
+        
         public async Task<Response<MedicineType>> UpdateMedicineTypeAsync(UpdateMedicineTypeDto model)
         {
             var Entity = await _unitOfWork.MedicineTypes.GetByIdAsync(model.ID);
@@ -75,6 +170,52 @@ namespace MS.Application.Services
             Entity.Warning = model.Warning;
             await _unitOfWork.MedicineTypes.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
+        }
+        public async Task<PaginatedResult<List<DetailedMedicineType>>> GetAllMedicineTypeAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedMedicineType>();
+            var medicineTypes = await _unitOfWork.MedicineTypes.GetAllFilteredAsync(filter, [d=>d.Medicine, d=>d.Types]);
+
+            if (!search.IsNullOrEmpty())
+            {
+                medicineTypes = medicineTypes.Where(m => m.Description.Contains(search) || m.SideEffects.Contains(search) || m.Warning.Contains(search));
+            }
+
+            if (medicineTypes is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedMedicineType>>(pageFilter, "MedicineType model is null or not found");
+            }
+
+            foreach (MedicineType medicineType in medicineTypes)
+            {
+                var detailedMedicineType = new DetailedMedicineType()
+                {
+                    ID = medicineType.ID,
+                    MedicineID = medicineType.MedicineID,
+                    TypeID = medicineType.TypeID,
+                    Description = medicineType.Description,
+                    SideEffects = medicineType.SideEffects,
+                    Warning = medicineType.Warning,
+                    ExpirationDate = medicineType.ExpirationDate,
+                    Medicine = new DetailedMedicine
+                    {
+                        ID = medicineType.Medicine.ID,
+                        Name = medicineType.Medicine.Name
+                    },
+                    Types = new DetailedType
+                    {
+                        ID = medicineType.Types.ID,
+                        Name = medicineType.Types.Name
+                    }
+                };
+
+                OutputList.Add(detailedMedicineType);
+            }
+
+            var count = OutputList.Count();
+            var detailedMedicineTypes = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedMedicineTypes, pageFilter, count);
         }
     }
 }

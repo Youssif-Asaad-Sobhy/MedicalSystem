@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.DTOs.Type;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -67,6 +70,37 @@ namespace MS.Application.Services
             type.Name = model.Name;
          //   await _unitOfWork.SaveChangesAsync(); // Save changes to the database
             return ResponseHandler.Success(type);
+        }
+        public async Task<PaginatedResult<List<DetailedType>>> GetAllTypeAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedType>();
+            var types = await _unitOfWork.Types.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                types = types.Where(t => t.Name.Contains(search));
+            }
+
+            if (types is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedType>>(pageFilter, "Type model is null or not found");
+            }
+
+            foreach (Types type in types)
+            {
+                var detailedType = new DetailedType()
+                {
+                    ID = type.ID,
+                    Name = type.Name
+                };
+
+                OutputList.Add(detailedType);
+            }
+
+            var count = OutputList.Count();
+            var detailedTypes = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedTypes, pageFilter, count);
         }
 
     }

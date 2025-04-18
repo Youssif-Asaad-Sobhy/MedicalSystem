@@ -1,5 +1,6 @@
 ﻿using MS.Application.DTOs.Clinc;
 using MS.Application.DTOs.Department;
+using MS.Application.Helpers.Pagination;
 using MS.Application.Helpers.Response;
 using MS.Data.Entities;
 using System;
@@ -17,5 +18,7 @@ namespace MS.Application.Interfaces
         Task<Response<Department>> DeleteDepartmentAsync(int DeptID);
         Task<Response<Department>> UpdateDepartmentAsync(UpdateDeptDto model);
         Task<Response<Department>> CreateDepartmentAsync(CreateDeptDto model);
+        Task<PaginatedResult<List<DetailedDepartment>>> GetAllDepartmentAsync(string[]? filter, PageFilter? pageFilter, string? search = null);
+
     }
 }

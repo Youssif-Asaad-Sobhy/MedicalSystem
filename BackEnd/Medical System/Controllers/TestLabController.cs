@@ -5,6 +5,8 @@ using MS.Application.Helpers.Response;
 using MS.Application.Interfaces;
 using MS.Application.DTOs.TestLab;
 using Microsoft.AspNetCore.Authorization;
+using MS.Application.Helpers.Pagination;
+
 namespace Medical_System.Controllers
 {
     [Route("api/[controller]")]
@@ -80,6 +82,12 @@ namespace Medical_System.Controllers
         {
             var response = await _service.GetTestListAsync();
             return this.CreateResponse(response);
+        }
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllTestLabAsync([FromQuery] string[]? filter, [FromQuery] PageFilter? pageFilter, [FromQuery] string? search = null)
+        {
+            var response = await _service.GetAllTestLabAsync(filter, pageFilter, search);
+            return Ok(response);
         }
         #endregion
     }

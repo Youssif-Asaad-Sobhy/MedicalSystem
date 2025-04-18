@@ -11,7 +11,7 @@ namespace MS.Infrastructure.Repositories.Generics
 {
     public interface IBaseRepository<T> where T:class
     {
-        Task<IEnumerable<T>> GetAllFilteredAsync(string[] filters);
+        Task<IEnumerable<T>> GetAllFilteredAsync(string[] filters,Expression<Func<T, object>>[] includes = null);
         Task DeleteRangeAsync(ICollection<T> entities);
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();

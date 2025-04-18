@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using MS.Application.Helpers.Pagination;
 
 namespace MS.Application.Services
 {
@@ -66,6 +68,38 @@ namespace MS.Application.Services
             Entity.Description = model.Description;
             await _unitOfWork.Equipments.UpdateAsync(Entity);
             return ResponseHandler.Success(Entity);
+        }
+        public async Task<PaginatedResult<List<DetailedEquipment>>> GetAllEquipmentAsync(string[]? filter, PageFilter? pageFilter, string? search = null)
+        {
+            var OutputList = new List<DetailedEquipment>();
+            var equipments = await _unitOfWork.Equipments.GetAllFilteredAsync(filter);
+
+            if (!search.IsNullOrEmpty())
+            {
+                equipments = equipments.Where(e => e.Name.Contains(search) || e.Description.Contains(search));
+            }
+
+            if (equipments is null)
+            {
+                return ResponseHandler.BadRequest<List<DetailedEquipment>>(pageFilter, "Equipment model is null or not found");
+            }
+
+            foreach (Equipment equipment in equipments)
+            {
+                var detailedEquipment = new DetailedEquipment()
+                {
+                    ID = equipment.ID,
+                    Name = equipment.Name,
+                    Description = equipment.Description
+                };
+
+                OutputList.Add(detailedEquipment);
+            }
+
+            var count = OutputList.Count();
+            var detailedEquipments = OutputList.Skip((pageFilter.PageNumber - 1) * pageFilter.PageSize)
+                .Take(pageFilter.PageSize).ToList();
+            return ResponseHandler.Success(detailedEquipments, pageFilter, count);
         }
     }
 }
